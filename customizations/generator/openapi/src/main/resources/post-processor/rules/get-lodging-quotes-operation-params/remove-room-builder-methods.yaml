@@ -1,0 +1,14 @@
+utils:
+  room-builder:
+    kind: 'function_declaration'
+    regex: 'fun room*'
+    inside:
+      kind: 'class_body'
+      inside:
+        pattern: 'class Builder'
+rule:
+  any:
+    - matches: room-builder
+    - kind: 'multiline_comment'
+      precedes:
+        matches: room-builder

@@ -1,0 +1,8 @@
+rule:
+  kind: user_type
+  inside:
+    kind: parameter
+    regex: dateTime
+    stopBy:
+      kind: class_declaration
+      regex: Builder
