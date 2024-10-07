@@ -89,10 +89,3 @@ jobs:
           body: "This PR adds the reference documentation for version ${{ env.NEW_DOCS_VERSION }}."
           title: "chore: reference docs update for version ${{ env.NEW_DOCS_VERSION }}"
           branch: "docs-update-${{ env.NEW_DOCS_VERSION }}"
-
-
-
-
-
-
-
