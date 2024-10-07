@@ -1,0 +1,16 @@
+rule:
+  kind: user_type
+  pattern: $TYPE
+  inside:
+    any:
+      - kind: class_parameter
+        regex: startDateTime
+      - kind: class_parameter
+        regex: endDateTime
+      - kind: nullable_type
+        inside:
+          any:
+            - kind: class_parameter
+              regex: startDateTime
+            - kind: class_parameter
+              regex: endDateTime
