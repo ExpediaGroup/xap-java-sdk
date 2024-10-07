@@ -9,21 +9,10 @@ on:
           E.g., 1.0.0, 1.0.1, 1.0.0-SNAPSHOT, etc.
         required: true
         type: string
-      sdk_repo_ref:
-        description: |
-          Branch or tag to checkout on the `expediagroup-sdk-core` repository.
-          Leave empty to use the default branch.
-        type: string
-        default: ''
-      ref:
-        description: |
-          Branch or tag to checkout on the provided repository.
-          Leave empty to use the default branch.
-        type: string
-        default: ''
+
 jobs:
   generate-and-publish:
-    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-full-workflow.yaml@nanssari/merge_specs
+    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-full-workflow.yaml@main
     secrets: inherit
     with:
       name: xap
