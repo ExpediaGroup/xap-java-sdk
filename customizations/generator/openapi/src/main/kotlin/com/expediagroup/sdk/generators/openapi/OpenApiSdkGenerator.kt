@@ -101,6 +101,7 @@ class OpenApiSdkGenerator {
                     addGlobalProperty(CodegenConstants.MODEL_DOCS, "false")
 
                     supportingFiles.add("${namespace.replaceFirstChar(Char::titlecase)}Client.kt")
+                    supportingFiles.add("Room.kt")
 
                     addGlobalProperty(CodegenConstants.SUPPORTING_FILES, supportingFiles.joinToString(","))
                     // addGlobalProperty("debugSupportingFiles", "")
