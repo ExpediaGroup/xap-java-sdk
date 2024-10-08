@@ -22,7 +22,7 @@ import kotlinx.coroutines.runBlocking
 class {{clientClassname}}Client private constructor(clientConfiguration: XapClientConfiguration) : BaseXapClient("{{namespace}}", clientConfiguration) {
     class Builder : BaseXapClient.Builder<Builder>() {
         override fun build() = {{clientClassname}}Client(
-            XapClientConfiguration(key, secret, endpoint, requestTimeout, connectionTimeout, socketTimeout, maskedLoggingHeaders, maskedLoggingBodyFields {{>partials/authEndpoint}})
+            XapClientConfiguration(key, secret, endpoint, requestTimeout, connectionTimeout, socketTimeout, maskedLoggingHeaders, maskedLoggingBodyFields)
         )
     }
 
