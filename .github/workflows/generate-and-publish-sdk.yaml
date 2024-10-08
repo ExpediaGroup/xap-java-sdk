@@ -15,7 +15,7 @@ jobs:
     uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-full-workflow.yaml@nanssari/merge_specs
     secrets: inherit
     with:
-      name: rapid
+      name: xap
       version: ${{ inputs.version }}
       transformations: "--headers key --operationIdsToTags"
       repository:  'ExpediaGroup/xap-java-sdk'
