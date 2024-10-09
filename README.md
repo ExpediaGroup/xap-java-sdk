@@ -12,6 +12,11 @@ You can read more about the XAP API on [Developer Hub for XAP](https://developer
 The XAP SDK makes integrating simple, saving development time so you can focus more on getting your product to market
 and less on the technical details of the API.
 
+### Code Examples
+
+You can find code examples for multiple use cases in the [examples](examples) directory.
+
+---
 
 ## Support
 
