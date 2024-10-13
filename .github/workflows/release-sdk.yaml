@@ -12,7 +12,7 @@ on:
 
 jobs:
   release-sdk:
-    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-release-sdk.yaml@main
+    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-release-sdk.yaml@v20241013
     secrets: inherit
     with:
       branch: ${{ inputs.branch }}
