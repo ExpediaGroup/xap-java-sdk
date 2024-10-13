@@ -4,6 +4,7 @@ import {RuleFunction} from './shared.types';
 
 export class NonCancellableDateTimeRangeProcessor extends Processor {
   rules: RuleFunction[];
+  id: 'non-cancellable-date-time-range';
 
   constructor() {
     super();
@@ -11,10 +12,6 @@ export class NonCancellableDateTimeRangeProcessor extends Processor {
       this.changeClassParamType,
       this.changeBuilderMethodParamType,
     ].map(rule => rule.bind(this));
-  }
-
-  readRule(ruleName: string): NapiConfig {
-    return super.readRule('non-cancellable-date-time-range', ruleName);
   }
 
   changeClassParamType(root: SgNode): Edit[] {

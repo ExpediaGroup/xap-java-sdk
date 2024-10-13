@@ -4,6 +4,7 @@ import {RuleFunction} from './shared.types';
 
 export class PenaltyRuleProcessor extends Processor {
   rules: RuleFunction[];
+  id: 'penalty-rule';
 
   constructor() {
     super();
@@ -11,10 +12,6 @@ export class PenaltyRuleProcessor extends Processor {
       this.changeClassParamType,
       this.changeBuilderMethodParamType,
     ].map(rule => rule.bind(this));
-  }
-
-  readRule(ruleName: string): NapiConfig {
-    return super.readRule('penalty-rule', ruleName);
   }
 
   changeClassParamType(root: SgNode): Edit[] {

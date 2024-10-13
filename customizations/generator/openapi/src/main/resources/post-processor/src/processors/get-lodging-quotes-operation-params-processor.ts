@@ -5,6 +5,7 @@ import {RuleFunction} from './shared.types';
 
 export class GetLodgingQuotesOperationParamsProcessor extends Processor {
   rules: RuleFunction[];
+  id: 'get-lodging-quotes-operation-params';
 
   constructor() {
     super();
@@ -13,10 +14,6 @@ export class GetLodgingQuotesOperationParamsProcessor extends Processor {
       this.importRoom,
       this.addRoomsBuilderMethod,
     ].map(rule => rule.bind(this));
-  }
-
-  readRule(ruleName: string): NapiConfig {
-    return super.readRule('get-lodging-quotes-operation-params', ruleName);
   }
 
   removeRoomBuilderMethods(root: SgNode): Edit[] {

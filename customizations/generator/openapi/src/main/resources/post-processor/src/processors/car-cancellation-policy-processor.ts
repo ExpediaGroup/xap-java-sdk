@@ -4,6 +4,7 @@ import {RuleFunction} from './shared.types';
 
 export class CarCancellationPolicyProcessor extends Processor {
   rules: RuleFunction[];
+  id: 'car-cancellation-policy';
 
   constructor() {
     super();
@@ -11,10 +12,6 @@ export class CarCancellationPolicyProcessor extends Processor {
       this.changeClassParamType,
       this.changeBuilderMethodParamType,
     ].map(rule => rule.bind(this));
-  }
-
-  readRule(ruleName: string): NapiConfig {
-    return super.readRule('car-cancellation-policy', ruleName);
   }
 
   changeClassParamType(root: SgNode): Edit[] {

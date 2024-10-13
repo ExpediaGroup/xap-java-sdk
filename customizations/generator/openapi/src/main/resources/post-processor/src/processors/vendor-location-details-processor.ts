@@ -4,6 +4,7 @@ import {RuleFunction} from './shared.types';
 
 export class VendorLocationDetailsProcessor extends Processor {
   rules: RuleFunction[];
+  id: 'vendor-location-details';
 
   constructor() {
     super();
@@ -11,10 +12,6 @@ export class VendorLocationDetailsProcessor extends Processor {
       this.changeClassParamType,
       this.changeBuilderMethodParamType,
     ].map(rule => rule.bind(this));
-  }
-
-  readRule(ruleName: string): NapiConfig {
-    return super.readRule('vendor-location-details', ruleName);
   }
 
   changeClassParamType(root: SgNode): Edit[] {
