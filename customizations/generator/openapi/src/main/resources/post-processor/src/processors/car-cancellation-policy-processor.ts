@@ -4,7 +4,7 @@ import {RuleFunction} from './shared.types';
 
 export class CarCancellationPolicyProcessor extends Processor {
   rules: RuleFunction[];
-  id: 'car-cancellation-policy';
+  id: String = 'car-cancellation-policy';
 
   constructor() {
     super();

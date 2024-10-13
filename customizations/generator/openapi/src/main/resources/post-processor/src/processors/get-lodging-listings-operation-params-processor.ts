@@ -5,7 +5,7 @@ import {RuleFunction} from './shared.types';
 
 export class GetLodgingListingsOperationParamsProcessor extends Processor {
   rules: RuleFunction[];
-  id: 'get-lodging-listings-operation-params';
+  id: String = 'get-lodging-listings-operation-params';
 
   constructor() {
     super();

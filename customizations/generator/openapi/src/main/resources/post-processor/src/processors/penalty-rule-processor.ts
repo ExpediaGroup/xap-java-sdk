@@ -4,7 +4,7 @@ import {RuleFunction} from './shared.types';
 
 export class PenaltyRuleProcessor extends Processor {
   rules: RuleFunction[];
-  id: 'penalty-rule';
+  id: String = 'penalty-rule';
 
   constructor() {
     super();

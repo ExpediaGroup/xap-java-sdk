@@ -4,7 +4,7 @@ import {RuleFunction} from './shared.types';
 
 export class NonCancellableDateTimeRangeProcessor extends Processor {
   rules: RuleFunction[];
-  id: 'non-cancellable-date-time-range';
+  id: String = 'non-cancellable-date-time-range';
 
   constructor() {
     super();

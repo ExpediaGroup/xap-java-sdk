@@ -4,7 +4,7 @@ import {RuleFunction} from './shared.types';
 
 export class VendorLocationDetailsProcessor extends Processor {
   rules: RuleFunction[];
-  id: 'vendor-location-details';
+  id: String = 'vendor-location-details';
 
   constructor() {
     super();
