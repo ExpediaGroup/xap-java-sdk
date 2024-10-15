@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.expediagroup.sdk.xap.examples;
+package com.expediagroup.sdk.xap.examples.scenarios;
 
 /**
-  Constants.
- **/
-public class Constants {
-  public static final String PARTNER_TRANSACTION_ID = "XAP-JAVA-SDK-EXAMPLES";
+ * Interface for scenarios.
+ */
+public interface XapScenario {
+  void run();
 }
