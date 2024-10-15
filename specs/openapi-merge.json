@@ -1,0 +1,14 @@
+{
+  "inputs": [
+    {
+      "inputFile": "./xap-hotel.specs.yaml"
+    },
+    {
+      "inputFile": "./xap-lodging.specs.yaml",
+      "dispute": {
+        "prefix": "Lodging"
+      }
+    }
+  ],
+  "output": "./specs.yaml"
+}
