@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-package com.expediagroup.sdk.xap.examples;
+package com.expediagroup.sdk.xap.examples.services;
+
+import com.expediagroup.sdk.xap.client.XapClient;
 
 /**
-  Constants.
- **/
-public class Constants {
-  public static final String PARTNER_TRANSACTION_ID = "XAP-JAVA-SDK-EXAMPLES";
+ * Base class for services to access capabilities.
+ */
+public abstract class XapService {
+
+  protected static final XapClient xapClient = XapClient
+      .builder()
+      .key(System.getProperty("com.expediagroup.xapjavasdk.apikey", "your_api_key"))
+      .secret(System.getProperty("com.expediagroup.xapjavasdk.apisecret", "your_api_secret"))
+      .requestTimeout(10000)
+      .build();
 }
