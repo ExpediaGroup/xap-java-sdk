@@ -21,6 +21,17 @@ Currently, the following scenarios are included:
   This example demonstrates how to search for properties with a location keyword with filters
   applied.
 
+### Car
+
+#### Shopping
+
+##### Listings
+
+- [
+  `QuickStartExample.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/car/shopping/listing/ListingsQuickStartExample.java):
+  This example demonstrates how to search for car properties with an Airport keyword with filters
+  applied.
+
 We are continuously adding more scenarios to demonstrate the usage of other XAP APIs.
 
 ## Requirements
