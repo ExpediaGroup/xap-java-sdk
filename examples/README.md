@@ -26,6 +26,16 @@ Currently, the following scenarios are included:
 
   This example demonstrates how to search for availability calendars with property IDs in Lodging Availability Calendar API.
 
+### Car
+
+- [`CarDetailsQuickStartScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/car/CarListingsQuickStartScenario.java):
+
+  This example demonstrates how to search for cars using an airport keyword with filters applied in the Car Listings API.
+
+- [`CarDetailsQuickStartScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/car/CarDetailsQuickStartScenario.java):
+
+  This example demonstrates how to search for car details using the offerToken obtained from the car listing in the Car Details API.
+
 We are continuously adding more scenarios to demonstrate the usage of other XAP APIs.
 
 ## Requirements
