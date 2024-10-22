@@ -8,6 +8,12 @@
       "dispute": {
         "prefix": "Lodging"
       }
+    },
+    {
+      "inputFile": "./xap-car.specs.yaml",
+      "dispute": {
+        "prefix": "Cars"
+      }
     }
   ],
   "output": "./specs.yaml"

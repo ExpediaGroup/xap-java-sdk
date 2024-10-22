@@ -317,11 +317,11 @@ paths:
                               "Links": {
                                 "WebSearchResult": {
                                   "Method": "GET",
-                                  "Href": "https://www.vrbo.com/search?selected=87704892&startDate=2024-11-29&endDate=2024-12-04&adults=2&tpid=9001&eapid=1&mpa=790.00&mpb=348.48&mpd=USD"
+                                  "Href": "https://www.vrbo.com/search?selected=87704892&startDate=2024-11-29&endDate=2024-12-04&adults=2&tpid=9001&eapid=1&mpa=790.00&mpb=348.48&mpd=USD&mctc=15"
                                 },
                                 "WebDetails": {
                                   "Method": "GET",
-                                  "Href": "https://www.vrbo.com/3032772?adults=2&startDate=2024-11-29&endDate=2024-12-04"
+                                  "Href": "https://www.vrbo.com/3032772?adults=2&startDate=2024-11-29&endDate=2024-12-04&mpa=790.00&mpb=348.48&mpd=USD&mpe=1721730597"
                                 }
                               }
                             }
