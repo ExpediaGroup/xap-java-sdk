@@ -1,0 +1,64 @@
+name: Run Examples
+on:
+  workflow_call:
+    inputs:
+      jdk:
+        description: 'JDK version to use'
+        required: true
+        type: string
+      distribution:
+        description: 'JDK distribution to use'
+        required: false
+        type: string
+        default: 'corretto'
+      branch:
+        description: 'Branch to build SDK and run examples from'
+        required: true
+        type: string
+
+jobs:
+  run-examples:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          repository: 'ExpediaGroup/xap-java-sdk'
+          ref: ${{ inputs.branch }}
+          path: sdk-repo
+
+      - name: Parse SDK version
+        id: parse-sdk-version
+        working-directory: sdk-repo/code
+        shell: python -u {0}
+        run: |
+          import os
+          import xml.etree.ElementTree as ET
+
+          tree = ET.parse("pom.xml")
+          root = tree.getroot()
+          version = root.find("{*}version").text
+
+          with open(os.getenv("GITHUB_OUTPUT"), "a") as GITHUB_OUTPUT:
+            print(f"version={version}", file=GITHUB_OUTPUT)
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ inputs.jdk }}
+          distribution: ${{ inputs.distribution }}
+
+      - name: Install SDK
+        working-directory: sdk-repo/code
+        run: |
+          mvn clean install
+
+      - name: Run Examples
+        working-directory: sdk-repo/examples
+        run: |
+          mvn install exec:java \
+            -Dcom.expediagroup.xapjavasdk.apikey="${{ secrets.API_KEY }}" \
+            -Dcom.expediagroup.xapjavasdk.apisecret="${{ secrets.API_SECRET }}" \
+            -Dcom.expediagroup.xapjavasdk.vrbokey="${{ secrets.VRBO_KEY }}" \
+            -Dcom.expediagroup.xapjavasdk.vrbosecret="${{ secrets.VRBO_SECRET }}" \
+            -Dxap-java-sdk.sdk.version="${{ steps.parse-sdk-version.outputs.version }}"
