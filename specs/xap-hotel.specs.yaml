@@ -1363,9 +1363,20 @@ components:
             The date and time are expressed in ISO 8601 International Date format, and local to the hotel.
           format: date-time
           example: 2022-07-25T15:00:00-08:00
+    WaiverPolicy:
+      type: object
+      properties:
+        WaiverPolicyDescription:
+          type: string
+          description: |
+            The localized waiver policy description, which could be put in front of cancellation policy description.
+          example: |
+            You can cancel for a full refund up to 24 hours after booking (not applicable to bookings made within 72 hours of check-in time). After 24 hours:
     CancellationPolicy:
       type: object
       properties:
+        WaiverPolicy:
+          $ref: '#/components/schemas/WaiverPolicy'
         CancellableOnline:
           type: boolean
           description: "Boolean value to identify if the reservation can be cancelled\
@@ -1894,7 +1905,7 @@ components:
         MemberOnlyDealAvailable:
           type: boolean
           description: Indicates whether the property has member only deal rates available.
-          example: true    
+          example: true
         RoomTypes:
           type: array
           description: Container for all of available room types.
@@ -2503,26 +2514,49 @@ components:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: The standalone price of the rate plan for all occupants, excluding taxes and fees.
+            StrikeOutBaseRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The base rate strikeout in the standalone shopping path.
             TaxesAndFees:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: The total standalone rate of taxes and fees of the rate plan for all occupants.
+            StrikeOutTaxesAndFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The taxes and fees strikeout in the standalone shopping path.
             TotalPrice:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: |
                 The total standalone price of the rate plan, which is equal to the sum of `BaseRate` and `TaxesAndFees`.
                 Hotel mandatory fees are not included as these are paid at the hotel at checkout.
+            TotalStrikeOutPrice:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The total strikeout in the standalone shopping path, which is equal to the sum of `StrikeOutBaseRate` and `StrikeOutTaxesAndFees`.
             AvgNightlyRate:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: |
                 The average standalone nightly base rate per night per room of the rate plan, which is equal to the
                 `BaseRate` divided by `StayDates` and by `room number`.
+            AvgNightlyStrikeOutRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The average strikeout of the base rate in the standalone shopping path, which is per night per room and is equal to
+                `StrikeOutBaseRate` divided by `StayDates` and by `room number`.
             HotelMandatoryFees:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: The total standalone mandatory fees.
+            StrikeOutHotelMandatoryFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The strikeout of the mandatory fees in the standalone shopping path.
         TaxesAndFeesInclusive:
           type: boolean
           description: Indicates whether taxes and fees are included in base rate.
@@ -2852,32 +2886,56 @@ components:
           type: object
           description: |
             The corresponded standalone price to the package rate plan (to show the `strikethrough`).
+
             Only returned when this is a package rate plan.
           properties:
             BaseRate:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: The standalone price of the rate plan for all occupants, excluding taxes and fees.
+            StrikeOutBaseRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The base rate strikeout in the standalone shopping path.
             TaxesAndFees:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: The total standalone rate of taxes and fees of the rate plan for all occupants.
+            StrikeOutTaxesAndFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The taxes and fees strikeout in the standalone shopping path.
             TotalPrice:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: |
-                The total standalone price of the rate plan, which is equal to the sum of `BaseRate` and
-                `TaxesAndFees`. Hotel mandatory fees are not included as these are paid at the hotel at checkout.
+                The total standalone price of the rate plan, which is equal to the sum of `BaseRate` and `TaxesAndFees`.
+                Hotel mandatory fees are not included as these are paid at the hotel at checkout.
+            TotalStrikeOutPrice:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The total strikeout in the standalone shopping path, which is equal to the sum of `StrikeOutBaseRate` and `StrikeOutTaxesAndFees`.
             AvgNightlyRate:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: |
                 The average standalone nightly base rate per night per room of the rate plan, which is equal to the
                 `BaseRate` divided by `StayDates` and by `room number`.
+            AvgNightlyStrikeOutRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The average strikeout of the base rate in the standalone shopping path, which is per night per room and is equal to
+                `StrikeOutBaseRate` divided by `StayDates` and by `room number`.
             HotelMandatoryFees:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: The total standalone mandatory fees.
+            StrikeOutHotelMandatoryFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The strikeout of the mandatory fees in the standalone shopping path.
         Promotions [deprecated]:
           type: array
           description: |
