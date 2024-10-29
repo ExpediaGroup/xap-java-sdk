@@ -1,4 +1,4 @@
-import {CarCancellationPolicyProcessor} from './processors/car-cancellation-policy-processor';
+import {CarsCancellationPolicyProcessor} from './processors/cars-cancellation-policy-processor';
 import {GetLodgingListingsOperationParamsProcessor} from './processors/get-lodging-listings-operation-params-processor';
 import {GetLodgingQuotesOperationParamsProcessor} from './processors/get-lodging-quotes-operation-params-processor';
 import {NonCancellableDateTimeRangeProcessor} from './processors/non-cancellable-date-time-range-processor';
@@ -12,8 +12,8 @@ const filePath = args[0];
 const fileName = path.parse(filePath).name;
 
 switch (fileName) {
-  case 'CarCancellationPolicy':
-    new CarCancellationPolicyProcessor().process(filePath);
+  case 'CarsCancellationPolicy':
+    new CarsCancellationPolicyProcessor().process(filePath);
     break;
   case 'GetLodgingListingsOperationParams':
     new GetLodgingListingsOperationParamsProcessor().process(filePath);
