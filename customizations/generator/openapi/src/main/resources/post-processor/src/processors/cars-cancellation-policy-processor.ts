@@ -2,7 +2,7 @@ import {Edit, NapiConfig, SgNode} from '@ast-grep/napi';
 import {Processor} from './processor';
 import {RuleFunction} from './shared.types';
 
-export class CarCancellationPolicyProcessor extends Processor {
+export class CarsCancellationPolicyProcessor extends Processor {
   rules: RuleFunction[];
   id: String = 'car-cancellation-policy';
 
