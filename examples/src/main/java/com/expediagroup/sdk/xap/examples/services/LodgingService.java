@@ -29,7 +29,9 @@ import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperation;
 import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperationParams;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.UUID;
 
 /**
@@ -47,7 +49,7 @@ public class LodgingService extends XapService {
         GetLodgingAvailabilityCalendarsOperationParams.builder()
             .partnerTransactionId(UUID.randomUUID().toString())
             //Comma-separated list of Expedia Property IDs.
-            .propertyIds("87704892,36238803")
+            .propertyIds(new HashSet<>(Arrays.asList("87704892", "36238803")))
             .build();
 
     String key = System.getProperty("com.expediagroup.xapjavasdk.vrbokey");
@@ -153,7 +155,7 @@ public class LodgingService extends XapService {
             // Check-out 10 days from now
             .checkOut(LocalDate.now().plusDays(10))
             // Comma-separated list of Expedia Property IDs.
-            .propertyIds("87704892,12410858")
+            .propertyIds(new HashSet<>(Arrays.asList("87704892", "36238803")))
             // The links to return, WEB includes WS (Web Search Result Page) and
             // WD (Web Details Page)
             .links(Collections.singletonList(GetLodgingQuotesOperationParams.Links.WEB))

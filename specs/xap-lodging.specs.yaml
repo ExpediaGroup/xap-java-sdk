@@ -61,8 +61,12 @@ paths:
             <u>not</u> supported.*
 
             *For optimal performance, limiting your request to a maximum of 200 properties is recommended.*
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+            uniqueItems: true
         - name: checkIn
           in: query
           description: |
@@ -102,6 +106,7 @@ paths:
             - WD (link to web infosite)
             - WS (link to web search result page)
             - WEB (include all website links)
+          explode: false
           schema:
             type: array
             items:
@@ -150,8 +155,11 @@ paths:
             ***NOTE***: multiple room request is only supported for conventional lodging hotels. Request for Vrbo
             properties should include the ages of all the children in the first room. e.g. 1 child age 10 in room #1
             and 1 child age 11 in room #2, "room1.childAges" is 10,11.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
           example: "8,10"
         - name: room2.adults
           in: query
@@ -163,8 +171,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in second room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: room3.adults
           in: query
           description: Specifies the number of adults staying in third room.
@@ -175,8 +186,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in third room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: room4.adults
           in: query
           description: Specifies the number of adults staying in fourth room.
@@ -187,8 +201,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in fourth room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: room5.adults
           in: query
           description: Specifies the number of adults staying in fifth room.
@@ -199,8 +216,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in fifth room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: room6.adults
           in: query
           description: Specifies the number of adults staying in sixth room.
@@ -211,8 +231,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in sixth room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: room7.adults
           in: query
           description: Specifies the number of adults staying in seventh room.
@@ -223,8 +246,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in seventh room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: room8.adults
           in: query
           description: Specifies the number of adults staying in eighth room.
@@ -235,8 +261,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in eighth room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
       responses:
         "200":
           description: Normal Response
@@ -431,8 +460,12 @@ paths:
             Comma-separated list of Expedia Property IDs.
 
             The API request supports a maximum of 50 Property IDs in a single request.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+            uniqueItems: true
       responses:
         "200":
           description: Normal Response
@@ -669,20 +702,20 @@ components:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: |
-                  The total price of the rate plan, which is equal to the sum of `BaseRate` + `TaxesAndFees`.
-                  Property mandatory fees are <u>not</u> included in this value as these are paid at the property at
-                  checkout.
+                The total price of the rate plan, which is equal to the sum of `BaseRate` + `TaxesAndFees`.
+                Property mandatory fees are <u>not</u> included in this value as these are paid at the property at
+                checkout.
             AvgNightlyRate:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: |
-                  The average nightly base rate per night per room of the rate plan, which is equal to the `BaseRate`
-                  divided by `StayDates` and by `room number`.
+                The average nightly base rate per night per room of the rate plan, which is equal to the `BaseRate`
+                divided by `StayDates` and by `room number`.
             AvgNightlyRateWithFees:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: |
-                  The average nightly rate per night per room of the room type, including all fees except those imposed by the government.
+                The average nightly rate per night per room of the room type, including all fees except those imposed by the government.
             PropertyMandatoryFees:
               allOf:
                 - $ref: '#/components/schemas/Money'
@@ -691,14 +724,14 @@ components:
               allOf:
                 - $ref: '#/components/schemas/Money'
               description: |
-                  The total price of the rate plan include property mandatory fees, which is equal to the sum of 
-                  `BaseRate` + `TaxesAndFees` + `PropertyMandatoryFees`.
-                  **NOTE**: Since UK regulations require that `PropertyMandatoryFees` be included in this price, the 
-                  quoted price will <u>only</u> be accurate for the day of quote. This is due to the fact that 
-                  currency exchange fluctuations will change the exact amount of any `PropertyMandatoryFees` that are to
-                  be collected at the hotel during the guest's stay if the cost is converted into any other currency.
-                  **CMA Compliance Note (UK)**: Websites doing business in the UK should be displaying this value to 
-                  be compliant with CMA requirements.
+                The total price of the rate plan include property mandatory fees, which is equal to the sum of
+                `BaseRate` + `TaxesAndFees` + `PropertyMandatoryFees`.
+                **NOTE**: Since UK regulations require that `PropertyMandatoryFees` be included in this price, the
+                quoted price will <u>only</u> be accurate for the day of quote. This is due to the fact that
+                currency exchange fluctuations will change the exact amount of any `PropertyMandatoryFees` that are to
+                be collected at the hotel during the guest's stay if the cost is converted into any other currency.
+                **CMA Compliance Note (UK)**: Websites doing business in the UK should be displaying this value to
+                be compliant with CMA requirements.
             RefundableDamageDeposit:
               allOf:
                 - $ref: '#/components/schemas/Money'

@@ -242,14 +242,20 @@ paths:
           description: Comma-separated list of Expedia hotel IDs. There can be no spaces
             between parameters.
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+            uniqueItems: true
             example: "28082,11133"
         - name: hcomHotelIds
           in: query
           description: Comma-separated list of Hotels.com hotel IDs. There can be no spaces
             between parameters.
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+            uniqueItems: true
         - name: geoLocation
           in: query
           description: |
@@ -324,7 +330,10 @@ paths:
             This parameter could be used in combination with the `radius` and `unit` parameters above to define
             a circle around the `regionIds`. The default radius value is 0 if not specified.
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+            uniqueItems: true
         - name: checkIn
           in: query
           description: |
@@ -366,7 +375,7 @@ paths:
             the language in which the response will be returned.
 
             You can find a link to the complete list of `locales` along with the Point of Sale List in [Supported Points of Sale](https://developers.expediagroup.com/xap/products/xap/lodging/references/supported-points-of-sale). Note that even though the Listings API supports localization for all `locales` listed in the list, all `locales` are not valid for all Points of Sale. 
-  
+
             For example, Ecom US POS supports `en_US`, `es_MX` and `zh_CN`. For Ecom US POS, the Listings API will respond with content in Spanish for requests with either `locale=es_MX` or `es_US`. However, only the deeplinks for `locale=es_MX` should work properly and switch the website to Spanish, while the ones for locale=es_US will be fallen back to English.
 
             If not specified in the query, the native language for that POS will be returned.
@@ -570,6 +579,7 @@ paths:
 
             **NOTE**: dateless searches will not return Details API links, since the Lodging Details API will only
             return details on a specific room offer for specific dates.
+          explode: false
           schema:
             type: array
             items:
@@ -741,8 +751,12 @@ paths:
             contain **both** of the parameters.
 
             A complete list of supported Expedia Property Types can be found in [Lodging Property Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/property-types).
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+            uniqueItems: true
         - name: excludedPropertyTypeIds
           in: query
           description: |
@@ -757,8 +771,12 @@ paths:
             contain **both** of the parameters.
 
             A complete list of supported Expedia Property Types can be found in [Lodging Property Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/property-types).
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+            uniqueItems: true
         - name: includedInventorySourceIds
           in: query
           description: |
@@ -773,8 +791,12 @@ paths:
             `includedInventorySourceId=83` will return only Vrbo lodging inventory.
 
             `includedInventorySourceId=24,83` will return both Expedia and Vrbo lodging inventory.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+            uniqueItems: true
         - name: freeCancellation
           in: query
           description: |
@@ -881,8 +903,11 @@ paths:
             Example: `room2.childAges=1,3` means two children (1-year old and 3-year old) are staying in room #2.
 
             Children must be accompanied by an adult.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
           example: 8,10
         - name: room2.adults
           in: query
@@ -894,8 +919,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in second room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: room3.adults
           in: query
           description: Specifies the number of adults staying in third room.
@@ -906,8 +934,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in third room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: room4.adults
           in: query
           description: Specifies the number of adults staying in fourth room.
@@ -918,8 +949,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in fourth room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: room5.adults
           in: query
           description: Specifies the number of adults staying in fifth room.
@@ -930,8 +964,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in fifth room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: room6.adults
           in: query
           description: Specifies the number of adults staying in sixth room.
@@ -942,8 +979,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in sixth room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: room7.adults
           in: query
           description: Specifies the number of adults staying in seventh room.
@@ -954,8 +994,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in seventh room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: room8.adults
           in: query
           description: Specifies the number of adults staying in eighth room.
@@ -966,8 +1009,11 @@ paths:
           in: query
           description: Comma-separated list that specifies the age(s) for each of the
             children in eighth room.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
       responses:
         "200":
           description: Normal Response

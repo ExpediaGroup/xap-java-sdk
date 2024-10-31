@@ -42,7 +42,8 @@ class OpenApiSdkGenerator {
             "LinkableOperation.kt",
             "PropertyConstraintViolation.kt",
             "PropertyConstraintsValidator.kt",
-            "PropertyConstraintViolationException.kt"
+            "PropertyConstraintViolationException.kt",
+            "ApiAbstractions.kt"
         )
 
     companion object {

@@ -4,6 +4,7 @@
             package com.expediagroup.sdk.{{namespace}}.operations
 
             import com.expediagroup.sdk.core.model.OperationParams
+            import {{packageName}}.infrastructure.*
             import com.fasterxml.jackson.annotation.JsonProperty
             import com.fasterxml.jackson.databind.annotation.JsonDeserialize
             import io.ktor.http.Headers
@@ -122,7 +123,7 @@
                         {{#queryParams}}
                             {{paramName}}?.let {
                                 {{#isContainer}}
-                                    append("{{baseName}}", it{{#isEnum}}.map { it.value }{{/isEnum}}.joinToString(","))
+                                    appendAll("{{baseName}}", toMultiValue(it{{#isEnum}}.map { item -> item.value }{{/isEnum}}, "{{collectionFormat}}"))
                                 {{/isContainer}}
                                 {{^isContainer}}
                                     append("{{baseName}}", it{{#isEnum}}.value{{/isEnum}}{{^isString}}.toString(){{/isString}})
