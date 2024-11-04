@@ -12,14 +12,19 @@ Currently, the following scenarios are included:
 
 ### Lodging
 
-#### Shopping
-
-##### Listings
-
 - [
-  `QuickStartExample.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/lodging/shopping/listings/QuickStartExample.java):
+  `AvailabilityCalendarsQuickStartScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/lodging/AvailabilityCalendarsQuickStartScenario.java):
+
+  This example demonstrates how to search for availability calendars with property IDs in Lodging Availability Calendar API.
+
+- [`ListingsQuickStartScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/lodging/ListingsQuickStartScenario.java):
+
   This example demonstrates how to search for properties with a location keyword with filters
-  applied.
+  applied in Lodging Listings API.
+
+- [`QuotesQuickStartScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/lodging/QuotesQuickStartScenario.java):
+
+  This example demonstrates how to search for property quotes with property IDs in Lodging Quotes API.
 
 We are continuously adding more scenarios to demonstrate the usage of other XAP APIs.
 
@@ -35,16 +40,44 @@ We are continuously adding more scenarios to demonstrate the usage of other XAP 
 
 1. Clone the repository.
 2. Navigate to the project directory `examples`.
-3. Set your API key and secret in the environment variables `XAP_API_KEY` and `XAP_API_PASSWORD`.
-   > **Note:** You can also replace the value of `xapApiKey` and `xapApiPassword` in the
-   > [`Constants.java`](src/main/java/com/expediagroup/sdk/xap/examples/Constants.java) file, but we
-   > recommend using environment variables out of security concerns.
-4. Run `mvn clean install` to build the project and install the dependencies including the XAP SDK.
+3. Run `mvn clean install` to build the project and install the dependencies including the XAP SDK.
 
 ## Running the Examples
 
-To run the examples, simply navigate to the example class you want to run and execute the `main`
-method.
+### Run with IntelliJ IDEA
+1. Navigate to the example class you want to run
+2. Right-click on the class name and select `More Run/Debug` -> `Modify Run Configuration`
+3. Check the `Modify options` -> `Add VM options` and add the following VM options:
+    ```
+    -Dcom.expediagroup.xapjavasdk.apikey="{API_KEY}"
+    -Dcom.expediagroup.xapjavasdk.apisecret="{API_SECRET}"
+    ```
+    Replace `{API_KEY}` and `{API_SECRET}` with the API key and secret you get from your Expedia Group contact.
+    > **Note:** If you are running the examples for Vrbo, you would need the following VM options instead:
+    > ```
+    > -Dcom.expediagroup.xapjavasdk.vrbokey="{VRBO_KEY}"
+    > -Dcom.expediagroup.xapjavasdk.vrbosecret="{VRBO_SECRET}"
+    > ```
+    > The key you use must be enabled for Vrbo brand. If you are not sure, please reach out to your Expedia Group contact.
+4. Click `OK` and then run the `main` method of the example class.
+
+### Run with Command Line
+Run the following command to run the example class you want to run:
+```
+mvn exec:java -Dexec.mainClass="com.expediagroup.sdk.xap.examples.scenarios.lodging.AvailabilityCalendarsQuickStartScenario" \
+    -Dcom.expediagroup.xapjavasdk.apikey="{API_KEY}" \
+    -Dcom.expediagroup.xapjavasdk.apisecret="{API_SECRET}"
+```
+Replace `path.to.example.ExampleClassName` with the full path to the example class you want to run,
+and `{API_KEY}` and `{API_SECRET}` with the API key and secret you get from your Expedia Group contact.
+
+> **Note:** If you are running the examples for Vrbo, you should use the following command instead:
+> ```
+> mvn exec:java -Dexec.mainClass="path.to.example.ExampleClassName" \
+>     -Dcom.expediagroup.xapjavasdk.vrbokey="{VRBO_KEY}" \
+>     -Dcom.expediagroup.xapjavasdk.vrbosecret="{VRBO_SECRET}"
+> ```
+> The key you use must be enabled for Vrbo brand. If you are not sure, please reach out to your Expedia Group contact.
 
 ## License
 

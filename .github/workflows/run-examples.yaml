@@ -57,6 +57,7 @@ jobs:
         working-directory: sdk-repo/examples
         run: |
           mvn install exec:java \
+            -Dexec.mainClass="com.expediagroup.sdk.xap.examples.XapSdkDemoTestRun" \
             -Dcom.expediagroup.xapjavasdk.apikey="${{ secrets.API_KEY }}" \
             -Dcom.expediagroup.xapjavasdk.apisecret="${{ secrets.API_SECRET }}" \
             -Dcom.expediagroup.xapjavasdk.vrbokey="${{ secrets.VRBO_KEY }}" \
