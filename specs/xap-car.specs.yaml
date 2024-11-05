@@ -1413,11 +1413,11 @@ components:
       type: object
       properties:
         OnlineCheckIn:
-          type: Boolean
+          type: boolean
           description: Indicate whether the supplier supports online checkin
           example: true
         SkipTheCounter:
-          type: Boolean
+          type: boolean
           description: Indicate whether the supplier supports skip the counter
           example: true
         VehicleDetails:
