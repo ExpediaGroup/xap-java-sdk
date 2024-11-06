@@ -142,7 +142,9 @@ paths:
             items:
               type: string
             uniqueItems: true
-          example: 11,12
+          example:
+            - 11
+            - 12
         - name: carClasses
           in: query
           description: A list of car classes to be used to filter search results.Multiple car classes may be separated by comma.Please see Class List in the Related Links Section below for all options.

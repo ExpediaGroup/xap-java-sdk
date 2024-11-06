@@ -160,7 +160,9 @@ paths:
             type: array
             items:
               type: string
-          example: "8,10"
+          example:
+            - 8
+            - 10
         - name: room2.adults
           in: query
           description: Specifies the number of adults staying in second room.
