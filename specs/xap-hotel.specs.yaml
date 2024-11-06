@@ -241,16 +241,20 @@ paths:
           in: query
           description: Comma-separated list of Expedia hotel IDs. There can be no spaces
             between parameters.
+          explode: false
           schema:
             type: array
             items:
               type: string
             uniqueItems: true
-            example: "28082,11133"
+            example:
+              - 28082
+              - 11133
         - name: hcomHotelIds
           in: query
           description: Comma-separated list of Hotels.com hotel IDs. There can be no spaces
             between parameters.
+          explode: false
           schema:
             type: array
             items:
@@ -329,6 +333,7 @@ paths:
             
             This parameter could be used in combination with the `radius` and `unit` parameters above to define
             a circle around the `regionIds`. The default radius value is 0 if not specified.
+          explode: false
           schema:
             type: array
             items:
