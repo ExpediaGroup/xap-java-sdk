@@ -12,11 +12,6 @@ Currently, the following scenarios are included:
 
 ### Lodging
 
-- [
-  `AvailabilityCalendarsQuickStartScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/lodging/AvailabilityCalendarsQuickStartScenario.java):
-
-  This example demonstrates how to search for availability calendars with property IDs in Lodging Availability Calendar API.
-
 - [`ListingsQuickStartScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/lodging/ListingsQuickStartScenario.java):
 
   This example demonstrates how to search for properties with a location keyword with filters
@@ -25,6 +20,11 @@ Currently, the following scenarios are included:
 - [`QuotesQuickStartScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/lodging/QuotesQuickStartScenario.java):
 
   This example demonstrates how to search for property quotes with property IDs in Lodging Quotes API.
+
+- [
+  `AvailabilityCalendarsQuickStartScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/lodging/AvailabilityCalendarsQuickStartScenario.java):
+
+  This example demonstrates how to search for availability calendars with property IDs in Lodging Availability Calendar API.
 
 We are continuously adding more scenarios to demonstrate the usage of other XAP APIs.
 
