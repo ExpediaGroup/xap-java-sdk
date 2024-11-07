@@ -12,7 +12,7 @@ info:
     - EWS
     - XAP
     - Cars
-    - CarSearchs
+    - CarSearch
     - CarDetails
 tags:
   - name: Cars Listings
@@ -131,19 +131,29 @@ paths:
           in: query
           description: The maximum number of search results that will be returned by the query.
           schema:
-            type: string
-          example: '100'
+            type: integer
+          example: 100
         - name: suppliers
           in: query
           description: 'A list of supplier ids or supplier names to be used to filter search results.Multiple supplier names or ids may be separated by comma.Please see a full list of Expedia Vendor Codes & Names in the Related Links Section below.The max count of suppliers requested is limited to 20.Note: while you may filter using either supplier name or supplier ID, it is recommended that you use supplier ID, as this value will remain consistent in the event of a merger or other name change by the supplier.'
+          explode: false
           schema:
-            type: string
-          example: 11,12
+            type: array
+            items:
+              type: string
+            uniqueItems: true
+          example:
+            - 11
+            - 12
         - name: carClasses
           in: query
           description: A list of car classes to be used to filter search results.Multiple car classes may be separated by comma.Please see Class List in the Related Links Section below for all options.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+            uniqueItems: true
           example: 'economy'
         - name: discount1.supplier
           in: query
@@ -168,21 +178,26 @@ paths:
         - name: transmissions
           in: query
           description: A list of car transmission drive codes to be used to filter search results.Multiple car classes may be separated by a comma.Please see a full list of Transmission Drive Codes in the Related Links Section below.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+            uniqueItems: true
         - name: airConditioning
           in: query
           description: Specify whether to filter for cars that include or exclude air conditioning.
           schema:
-            type: string
-            enum:
-              - 'true'
-              - 'false'
+            type: boolean
         - name: carTypes
           in: query
           description: A list of car types to be used to filter search results.Multiple car types may be separated by comma.Please see a full list of Car Type Codes in the Related Links Section below.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+            uniqueItems: true
           example: C,E
         - name: unit
           in: query
@@ -196,11 +211,12 @@ paths:
           in: query
           description: The age of the driver that will be renting the car.This value is required in the UK and optional elsewhere.
           schema:
-            type: string
-          example: '18'
+            type: integer
+          example: 18
         - name: links
           in: query
           description: 'WS = WebSearch, AD = ApiDetails, WD = WebDetails'
+          explode: false
           schema:
             type: array
             items:

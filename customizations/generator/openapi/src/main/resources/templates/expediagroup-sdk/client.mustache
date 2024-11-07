@@ -48,7 +48,6 @@ class {{clientClassname}}Client private constructor(clientConfiguration: XapClie
             }
 
             val extraHeaders = buildMap {
-                put(HeaderKey.TRANSACTION_ID, operation.transactionId.dequeue().toString())
                 put("key", configurationProvider.key ?: "")
             }
 
