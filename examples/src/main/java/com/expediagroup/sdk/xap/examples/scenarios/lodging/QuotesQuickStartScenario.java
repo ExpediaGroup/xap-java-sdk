@@ -25,7 +25,9 @@ import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperation;
 import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperationParams;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,8 +72,8 @@ public class QuotesQuickStartScenario implements VrboScenario {
             .checkIn(LocalDate.now().plusDays(5))
             // Check-out 10 days from now
             .checkOut(LocalDate.now().plusDays(10))
-            // Comma-separated list of Expedia Property IDs.
-            .propertyIds("87704892,12410858")
+            // Set of Expedia Property IDs.
+            .propertyIds(new HashSet<>(Arrays.asList("87704892", "12410858")))
             // The links to return, WEB includes WS (Web Search Result Page) and
             // WD (Web Details Page)
             .links(Collections.singletonList(GetLodgingQuotesOperationParams.Links.WEB))

@@ -22,6 +22,8 @@ import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperat
 import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperationParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * This example demonstrates how to use Availability Calendar api with simple search.
@@ -53,8 +55,8 @@ public class AvailabilityCalendarsQuickStartScenario implements VrboScenario {
     GetLodgingAvailabilityCalendarsOperationParams availabilityCalendarsOperationParams =
         GetLodgingAvailabilityCalendarsOperationParams.builder()
             .partnerTransactionId(PARTNER_TRANSACTION_ID)
-            //Comma-separated list of Expedia Property IDs.
-            .propertyIds("87704892,36238803")
+            // Set of Expedia Property IDs.
+            .propertyIds(new HashSet<>(Arrays.asList("87704892", "12410858")))
             .build();
 
     XapClient xapClient = createClient();
