@@ -52,7 +52,7 @@ We are continuously adding more scenarios to demonstrate the usage of other XAP 
     -Dcom.expediagroup.xapjavasdk.apikey="{API_KEY}"
     -Dcom.expediagroup.xapjavasdk.apisecret="{API_SECRET}"
     ```
-    Replace `{API_KEY}` and `{API_SECRET}` with the API key and secret you get from your Expedia Group contact.
+    Replace `{API_KEY}` and `{API_SECRET}` with your actual API key and secret.
     > **Note:** If you are running the examples for Vrbo, you would need the following VM options instead:
     > ```
     > -Dcom.expediagroup.xapjavasdk.vrbokey="{VRBO_KEY}"
@@ -69,7 +69,7 @@ mvn exec:java -Dexec.mainClass="com.expediagroup.sdk.xap.examples.scenarios.lodg
     -Dcom.expediagroup.xapjavasdk.apisecret="{API_SECRET}"
 ```
 Replace `path.to.example.ExampleClassName` with the full path to the example class you want to run,
-and `{API_KEY}` and `{API_SECRET}` with the API key and secret you get from your Expedia Group contact.
+and `{API_KEY}` and `{API_SECRET}` with your actual API key and secret.
 
 > **Note:** If you are running the examples for Vrbo, you should use the following command instead:
 > ```
