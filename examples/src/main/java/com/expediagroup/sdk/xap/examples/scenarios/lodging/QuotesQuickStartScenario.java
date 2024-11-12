@@ -16,22 +16,33 @@
 
 package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
-import com.expediagroup.sdk.xap.examples.scenarios.XapScenario;
-import com.expediagroup.sdk.xap.examples.services.LodgingService;
+import com.expediagroup.sdk.xap.client.XapClient;
 import com.expediagroup.sdk.xap.models.LodgingQuotesResponse;
 import com.expediagroup.sdk.xap.models.LodgingRoomType;
 import com.expediagroup.sdk.xap.models.Property;
+import com.expediagroup.sdk.xap.models.Room;
+import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperation;
+import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperationParams;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * This example demonstrates how to use quotes api with simple search.
+ * Note: this is a Vrbo scenario. You need a key that is enabled for Vrbo brand to run this.
  */
-public class GetQuotesScenario implements XapScenario {
+public class QuotesQuickStartScenario implements VrboScenario {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(GetQuotesScenario.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(QuotesQuickStartScenario.class);
 
-  public final LodgingService lodgingService = new LodgingService();
+  public static void main(String[] args) {
+    new QuotesQuickStartScenario().run();
+    System.exit(0);
+  }
 
   @Override
   public void run() {
@@ -43,12 +54,47 @@ public class GetQuotesScenario implements XapScenario {
     // 4. Return web links to Expedia website;
 
     LOGGER.info(
-        "=============================== Running GetQuotesScenario =============================");
+        "============================ Running QuotesQuickStartScenario ==========================");
 
     LOGGER.info(
         "========================= Executing GetLodgingQuotesOperation =========================");
 
-    LodgingQuotesResponse quotesResponse = lodgingService.getQuotes();
+    // Build the occupancy
+    ArrayList<Room> rooms = new ArrayList<>();
+    // The first room, with 2 adult
+    rooms.add(Room.builder().adults(2L).childAges(null).build());
+
+    // Build the query parameters with GetLodgingQuotesOperationParams
+    GetLodgingQuotesOperationParams quotesOperationParams =
+        GetLodgingQuotesOperationParams.builder()
+            .partnerTransactionId(PARTNER_TRANSACTION_ID)
+            // Check-in 5 days from now
+            .checkIn(LocalDate.now().plusDays(5))
+            // Check-out 10 days from now
+            .checkOut(LocalDate.now().plusDays(10))
+            // Set of Expedia Property IDs.
+            .propertyIds(new HashSet<>(Arrays.asList("87704892", "12410858")))
+            // The links to return, WEB includes WS (Web Search Result Page) and
+            // WD (Web Details Page)
+            .links(Collections.singletonList(GetLodgingQuotesOperationParams.Links.WEB))
+            .rooms(rooms)
+            .build();
+
+    XapClient xapClient = createClient();
+
+    // Execute the operation and get the QuotesResponse
+    LodgingQuotesResponse quotesResponse =
+        xapClient.execute(new GetLodgingQuotesOperation(quotesOperationParams)).getData();
+
+    // If you want to use the async method, you can use the following code:
+    // ---------------------------------------------------------------
+    // CompletableFuture<Response<LodgingQuotesResponse>> completableFuture =
+    //   xapClient.executeAsync(
+    //     new GetLodgingQuotesOperation(quotesOperationParams));
+    // completableFuture.thenAccept(quotesResponse -> {
+    //   // Your code here
+    // });
+    // ---------------------------------------------------------------
 
     LOGGER.info(
         "========================== GetLodgingQuotesOperation Executed =========================");
@@ -109,6 +155,6 @@ public class GetQuotesScenario implements XapScenario {
     });
 
     LOGGER.info(
-        "================================ End GetQuotesScenario ===============================");
+        "============================= End QuotesQuickStartScenario ============================");
   }
 }
