@@ -2,15 +2,15 @@ package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
 import com.expediagroup.sdk.core.model.Response;
 import com.expediagroup.sdk.xap.client.XapClient;
-import com.expediagroup.sdk.xap.models.LodgingQuotesResponse;
-import com.expediagroup.sdk.xap.models.LodgingRoomType;
+import com.expediagroup.sdk.xap.examples.scenarios.XapScenario;
+import com.expediagroup.sdk.xap.models.Hotel;
+import com.expediagroup.sdk.xap.models.HotelListingsResponse;
 import com.expediagroup.sdk.xap.models.PresignedUrlResponse;
-import com.expediagroup.sdk.xap.models.Property;
-import com.expediagroup.sdk.xap.models.Room;
+import com.expediagroup.sdk.xap.models.RoomType;
 import com.expediagroup.sdk.xap.operations.GetFeedDownloadUrlOperation;
 import com.expediagroup.sdk.xap.operations.GetFeedDownloadUrlOperationParams;
-import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperation;
-import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperationParams;
+import com.expediagroup.sdk.xap.operations.GetLodgingListingsOperation;
+import com.expediagroup.sdk.xap.operations.GetLodgingListingsOperationParams;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
@@ -20,7 +20,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -31,22 +30,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This example demonstrates how to retrieve accessible Vrbo property ids and location content from
- * SDP DownloadURL API and then get the prices of these properties using the Lodging Quotes API.
+ * This example demonstrates how to retrieve accessible property ids and location content from
+ * SDP DownloadURL API and then get the prices of these properties using the Lodging Listings API.
  *
- * <p>This is a common scenario for Vrbo partners. In practice, you can cache the property id
+ * <p>This is a common scenario for meta site partners. In practice, you can cache the property id
  * list along with content that does not change frequently (name, description, address, amenities,
  * etc.) to reduce heavy API calls and get only the prices of these properties in real-time from
- * the Lodging Quotes API.
- *
- * <p>Note: this is a Vrbo scenario. You need a key that is enabled for Vrbo brand to run this.
+ * the Lodging Listings API.
  */
-public class QuotesQuickStartScenario implements VrboScenario {
+public class ListingsHotelIdsSearchScenario implements XapScenario {
 
   private final XapClient client = createClient();
 
   private static final Logger LOGGER =
-      LoggerFactory.getLogger(QuotesQuickStartScenario.class);
+      LoggerFactory.getLogger(ListingsHotelIdsSearchScenario.class);
 
   /**
    * The property count to read from the file.
@@ -62,33 +59,38 @@ public class QuotesQuickStartScenario implements VrboScenario {
   private static final Map<String, String> PROPERTY_ID_AND_LOCATION_CACHE = new HashMap<>();
 
   public static void main(String[] args) {
-    new QuotesQuickStartScenario().run();
+    new ListingsHotelIdsSearchScenario().run();
     System.exit(0);
   }
 
   @Override
   public void run() {
     LOGGER.info(
-        "======================== Running QuotesQuickStartScenario =======================");
+        "======================== Running ListingsHotelIdsSearchScenario =======================");
 
     List<String> propertyIds = getPropertyIdsFromDownloadUrl();
     cachePropertyLocationFromDownloadUrl(propertyIds);
-    LodgingQuotesResponse lodgingQuotesResponse = getPropertyPriceFromLodgingQuotes(propertyIds);
-    displayResult(lodgingQuotesResponse);
+    HotelListingsResponse hotelListingsResponse = getPropertyPriceFromLodgingListings(propertyIds);
+    displayResult(hotelListingsResponse);
 
     LOGGER.info(
-        "========================== End QuotesQuickStartScenario =========================");
+        "========================== End ListingsHotelIdsSearchScenario =========================");
   }
 
+  /**
+   * Retrieve accessible property ids from SDP DownloadURL API.
+   *
+   * @return property ids
+   */
   private List<String> getPropertyIdsFromDownloadUrl() {
     LOGGER.info(
         "====================== Executing getPropertyIdsFromDownloadUrl =====================");
 
     GetFeedDownloadUrlOperationParams getPropertyIdListParams =
         GetFeedDownloadUrlOperationParams.builder()
-            // Use the type VACATION_RENTAL to get the list of accessible Vrbo property ids.
-            .type(GetFeedDownloadUrlOperationParams.Type.VACATION_RENTAL)
-            // Without any filters, this operation will return the information of all Vrbo
+            // Use the type LISTINGS to get the list of accessible property ids.
+            .type(GetFeedDownloadUrlOperationParams.Type.LISTINGS)
+            // Without any filters, this operation will return the information of all lodging
             // properties in en_US by default.
             .build();
 
@@ -97,26 +99,25 @@ public class QuotesQuickStartScenario implements VrboScenario {
 
     if (downloadUrlListingsResponse.getData() == null
         || downloadUrlListingsResponse.getData().getBestMatchedFile() == null) {
-      throw new IllegalStateException("No vacation rental file found");
+      throw new IllegalStateException("No listings file found");
     }
 
     // The download URL points to a zip file containing various jsonl files.
-    // Each line in the jsonl files contains a json object representing a Vrbo property.
+    // Each line in the jsonl files contains a json object representing a property.
     // For demonstration purposes, we will only read a few properties from the file without
     // downloading the entire file.
-    String vacationRentalDownloadUrl = downloadUrlListingsResponse.getData()
+    String listingsDownloadUrl = downloadUrlListingsResponse.getData()
         .getBestMatchedFile()
         .getDownloadUrl();
-    LOGGER.info("Vacation Rental Download URL: {}", vacationRentalDownloadUrl);
+    LOGGER.info("Listings Download URL: {}", listingsDownloadUrl);
 
     // Read property ids from the file.
-    List<String> propertyIds = getPropertyIdsFromVacationRentalFile(vacationRentalDownloadUrl
-    );
+    List<String> propertyIds = getPropertyIdsFromListingsFile(listingsDownloadUrl);
 
     if (propertyIds.isEmpty()) {
-      throw new IllegalStateException("No accessible Vrbo property ids found.");
+      throw new IllegalStateException("No accessible property ids found.");
     }
-    LOGGER.info("Accessible Vrbo Property Ids: {}", propertyIds);
+    LOGGER.info("Accessible Property Ids: {}", propertyIds);
 
     LOGGER.info(
         "======================= getPropertyIdsFromDownloadUrl Executed ======================");
@@ -135,8 +136,8 @@ public class QuotesQuickStartScenario implements VrboScenario {
         GetFeedDownloadUrlOperationParams.builder()
             // Use the type LOCATIONS to get the address of accessible properties.
             .type(GetFeedDownloadUrlOperationParams.Type.LOCATIONS)
-            // Filter the properties by brand.
-            .brand(GetFeedDownloadUrlOperationParams.Brand.VRBO)
+            // Without any filters, this operation will return the information of all lodging
+            // properties in en_US by default.
             .build();
 
     Response<PresignedUrlResponse> downloadUrlLocationsResponse =
@@ -160,43 +161,38 @@ public class QuotesQuickStartScenario implements VrboScenario {
   }
 
   /**
-   * Get prices of the properties using the Lodging Quotes API.
+   * Get prices of the properties using the Lodging Listings API.
    *
    * @param propertyIds The property ids to get the prices.
-   * @return The response of the Lodging Quotes API.
+   * @return The response of the Lodging Listings API.
    */
-  private LodgingQuotesResponse getPropertyPriceFromLodgingQuotes(List<String> propertyIds) {
+  private HotelListingsResponse getPropertyPriceFromLodgingListings(List<String> propertyIds) {
     LOGGER.info(
-        "====================== Executing GetPropertyPriceFromLodgingQuotes =====================");
+        "===================== Executing GetPropertyPriceFromLodgingListings ====================");
 
-    // Build the occupancy
-    ArrayList<Room> rooms = new ArrayList<>();
-    // The first room, with 2 adult
-    rooms.add(Room.builder().adults(2L).childAges(null).build());
-
-    // Build the query parameters with GetLodgingQuotesOperationParams
-    GetLodgingQuotesOperationParams quotesOperationParams =
-        GetLodgingQuotesOperationParams.builder()
+    GetLodgingListingsOperationParams getLodgingListingsOperationParams =
+        GetLodgingListingsOperationParams.builder()
             .partnerTransactionId(PARTNER_TRANSACTION_ID)
+            // Use the property ids read from the file
+            .ecomHotelIds(new HashSet<>(propertyIds))
+            // Use LOWEST to get minimal content details to reduce the response size
+            .contentDetails(GetLodgingListingsOperationParams.ContentDetails.LOWEST)
             // Check-in 5 days from now
             .checkIn(LocalDate.now().plusDays(5))
             // Check-out 10 days from now
             .checkOut(LocalDate.now().plusDays(10))
-            // Set of Expedia Property IDs.
-            .propertyIds(new HashSet<>(propertyIds))
-            // The links to return, WEB includes WS (Web Search Result Page) and
-            // WD (Web Details Page)
-            .links(Collections.singletonList(GetLodgingQuotesOperationParams.Links.WEB))
-            .rooms(rooms)
+            // Filter the properties that are available only
+            .availOnly(true)
+            // Use the default occupancy: 2 adults in one room
             .build();
 
-    LodgingQuotesResponse lodgingQuotesResponse =
-        client.execute(new GetLodgingQuotesOperation(quotesOperationParams))
+    HotelListingsResponse hotelListingsResponse =
+        client.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams))
             .getData();
 
     LOGGER.info(
-        "====================== GetPropertyPriceFromLodgingQuotes Executed =====================");
-    return lodgingQuotesResponse;
+        "===================== GetPropertyPriceFromLodgingListings Executed ====================");
+    return hotelListingsResponse;
   }
 
   /**
@@ -205,7 +201,7 @@ public class QuotesQuickStartScenario implements VrboScenario {
    * @param downloadUrl The download URL of the zip file containing the property information.
    * @return A list of property ids read from the file.
    */
-  private List<String> getPropertyIdsFromVacationRentalFile(String downloadUrl) {
+  private List<String> getPropertyIdsFromListingsFile(String downloadUrl) {
     List<String> propertyIds = new ArrayList<>();
     HttpURLConnection connection = null;
     try {
@@ -233,46 +229,40 @@ public class QuotesQuickStartScenario implements VrboScenario {
                     "hcom": "2402035584",
                     "vrbo": "731.2068610.2244521"
                   },
+                  "bookable": {
+                    "expedia": true,
+                    "hcom": true,
+                    "vrbo": true
+                  },
+                  "propertyType": {
+                    "id": 16,
+                    "name": "Apartment"
+                  },
+                  "lastUpdated": "10-27-2024 13:41:16",
                   "country": "France",
-                  "propertySize": {
-                    "measurement": 441,
-                    "units": "SQUARE_FEET"
+                  "inventorySource": "vrbo",
+                  "referencePrice": {
+                    "value": "89.52",
+                    "currency": "USD"
                   },
-                  "maxOccupancy": 4,
-                  "bathrooms": {
-                    "numberOfBathrooms": 1
-                  },
-                  "bedrooms": {
-                    "numberOfBedrooms": 2
-                  },
-                  "houseRules": {
-                    "partyOrEventRules": {
-                      "partiesOrEventsPermitted": false,
-                      "ownerPartyFreeText": "No events allowed"
-                    },
-                    "smokingRules": {
-                      "smokingPermitted": false,
-                      "ownerSmokingFreeText": "Smoking is not permitted"
-                    },
-                    "petRules": {
-                      "petsPermitted": true,
-                      "ownerPetsFreeText": "Pets allowed"
-                    },
-                    "childRules": {
-                      "childrenPermitted": true,
-                      "ownerChildrenFreeText": "Children allowed: ages 0-17 "
-                    }
-                  },
-                  "propertyManager": {
-                    "name": "Résidences Louis",
-                    "hostType": "Professional"
-                  },
-                  "premierHost": true,
-                  "propertyLiveDate": "2022-05-31"
+                  "vrboPropertyType": {
+                    "instantBook": true
+                  }
                 }
                 */
                 JsonNode jsonNode = objectMapper.readTree(line);
-                propertyIds.add(jsonNode.get("propertyId").get("expedia").asText());
+                // Check if the property is accessible from Lodging Listings API
+                // (Vrbo properties that are not instantBookable are not accessible for now)
+                if (!jsonNode.get("propertyId").get("vrbo").asText().isEmpty()
+                    && jsonNode.has("vrboPropertyType")
+                    && !jsonNode.get("vrboPropertyType").get("instantBook").asBoolean()
+                ) {
+                  // Skip the property if it is a not instant bookable Vrbo property
+                  continue;
+                } else {
+                  // Get the Expedia property id for the Lodging Listings API
+                  propertyIds.add(jsonNode.get("propertyId").get("expedia").asText());
+                }
               }
             }
           }
@@ -320,48 +310,37 @@ public class QuotesQuickStartScenario implements VrboScenario {
                 /*
                 {
                   "propertyId": {
-                    "expedia": "108502000",
-                    "hcom": "3473064000",
-                    "vrbo": "321.4176310.4750480"
+                    "expedia": "75032362",
+                    "hcom": "2402035584",
+                    "vrbo": "731.2068610.2244521"
                   },
                   "propertyType": {
                     "id": 16,
                     "name": "Apartment"
                   },
-                  "propertyName": "Pine Brook 416 I Corporate 1.5Br Apartment ! Pool",
+                  "propertyName": "Pasteur : Charming 2 bedroom flat near the thermal baths",
                   "address1": "",
                   "address2": "",
-                  "city": "Newark",
-                  "province": "Delaware",
-                  "country": "United States",
-                  "postalCode": "19711",
+                  "city": "Bains-les-Bains",
+                  "province": "Grand Est",
+                  "country": "France",
+                  "postalCode": "88240",
                   "geoLocation": {
-                    "latitude": "39.694889",
-                    "longitude": "-75.749393",
+                    "latitude": "48.003323",
+                    "longitude": "6.264765",
                     "obfuscated": false
                   },
                   "locationAttribute": {
-                    "neighborhood": {
-                      "id": "553248635976468695",
-                      "name": "Westmoreland"
-                    },
                     "city": {
-                      "id": "8946",
-                      "name": "Newark"
+                      "id": "553248635975861971",
+                      "name": "Forges-les-Bains"
                     },
                     "region": {
-                      "id": "6055689",
-                      "name": "North Wilmington"
-                    },
-                    "airport": {
-                      "id": "6028579",
-                      "code": "ILG",
-                      "name": "Wilmington, DE (ILG-New Castle)",
-                      "distance": "13.17",
-                      "unit": "km"
+                      "id": "553248634539665703",
+                      "name": "Paroisse Saint-Colomban-en-Vôge"
                     },
                     "distanceFromCityCenter": {
-                      "distance": "1.24",
+                      "distance": "0.21",
                       "unit": "km"
                     }
                   }
@@ -400,37 +379,35 @@ public class QuotesQuickStartScenario implements VrboScenario {
   /**
    * Display the result of the operations.
    *
-   * @param lodgingQuotesResponse The response of the Lodging Quotes API.
+   * @param hotelListingsResponse The response of the Lodging Listings API.
    */
-  private static void displayResult(LodgingQuotesResponse lodgingQuotesResponse) {
-    if (lodgingQuotesResponse == null || lodgingQuotesResponse.getProperties() == null
-        || lodgingQuotesResponse.getProperties().isEmpty()) {
+  private static void displayResult(HotelListingsResponse hotelListingsResponse) {
+    if (hotelListingsResponse == null || hotelListingsResponse.getHotels() == null
+        || hotelListingsResponse.getHotels().isEmpty()) {
       throw new IllegalStateException("No properties found.");
     }
 
     // The HotelListingsResponse contains a transaction ID for troubleshooting
-    LOGGER.info("Transaction ID: {}", lodgingQuotesResponse.getTransactionId());
+    LOGGER.info("Transaction ID: {}", hotelListingsResponse.getTransactionId());
 
     // To access the properties, iterate through the list of hotel properties
-    lodgingQuotesResponse.getProperties().forEach(property -> {
+    hotelListingsResponse.getHotels().forEach(hotel -> {
       // Check if the property is available
-      if (Property.Status.AVAILABLE != property.getStatus()) {
-        LOGGER.info("Property {} is not available.", property.getId());
+      if (Hotel.Status.AVAILABLE != hotel.getStatus()) {
+        LOGGER.info("Property {} is not available.", hotel.getId());
         return;
       }
       LOGGER.info(
           "=================================== Property Start ===================================");
-      String propertyId = property.getId();
+      String hotelId = hotel.getId();
 
       // Get the location content of the property from the cache
-      LOGGER.info("Property Id: {}", propertyId);
-      LOGGER.info("Cached Property Location: {}", PROPERTY_ID_AND_LOCATION_CACHE.get(propertyId));
+      LOGGER.info("Property Id: {}", hotelId);
+      LOGGER.info("Cached Property Location: {}", PROPERTY_ID_AND_LOCATION_CACHE.get(hotelId));
 
       // Get the price of the property from the room type
-      if (property.getRoomTypes() != null && !property.getRoomTypes().isEmpty()) {
-        // To get the first room type information
-        LodgingRoomType roomType = property.getRoomTypes().get(0);
-
+      if (hotel.getRoomTypes() != null && !hotel.getRoomTypes().isEmpty()) {
+        RoomType roomType = hotel.getRoomTypes().get(0);
         if (roomType.getPrice() != null) {
           // To get the total price of the room type
           if (roomType.getPrice().getTotalPrice() != null) {
@@ -443,23 +420,6 @@ public class QuotesQuickStartScenario implements VrboScenario {
             LOGGER.info("Average Nightly Rate: {}, Currency: {}",
                 roomType.getPrice().getAvgNightlyRate().getValue(),
                 roomType.getPrice().getAvgNightlyRate().getCurrency());
-          }
-        }
-        // To get the free cancellation flag of the selected room
-        if (roomType.getRatePlans() != null && !roomType.getRatePlans().isEmpty()
-            && roomType.getRatePlans().get(0).getCancellationPolicy() != null) {
-          LOGGER.info("Free Cancellation: {}",
-              roomType.getRatePlans().get(0).getCancellationPolicy().getFreeCancellation());
-        }
-        if (roomType.getLinks() != null) {
-          // To get the deeplink to the Expedia Web Search Result Page
-          if (roomType.getLinks().getWebSearchResult() != null) {
-            LOGGER.info("WebSearchResult Link: {}",
-                roomType.getLinks().getWebSearchResult().getHref());
-          }
-          // To get the deeplink to the Expedia Web Details Page
-          if (roomType.getLinks().getWebDetails() != null) {
-            LOGGER.info("WebDetails Link: {}", roomType.getLinks().getWebDetails().getHref());
           }
         }
       }
