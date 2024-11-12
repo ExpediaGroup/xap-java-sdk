@@ -17,14 +17,21 @@ Currently, the following scenarios are included:
   This example demonstrates how to search for properties with a location keyword with filters
   applied in Lodging Listings API.
 
+- [`ListingsHotelIdsSearchScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/lodging/ListingsHotelIdsSearchScenario.java):
+
+  This example demonstrates how to retrieve accessible property ids and location content from
+  SDP DownloadURL API and then get the prices of these properties using the Lodging Listings API.
+
 - [`QuotesQuickStartScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/lodging/QuotesQuickStartScenario.java):
 
-  This example demonstrates how to search for property quotes with property IDs in Lodging Quotes API.
+  This example demonstrates how to retrieve accessible Vrbo property ids and location content from
+  SDP DownloadURL API and then get the prices of these properties using the Lodging Quotes API.
 
 - [
   `AvailabilityCalendarsQuickStartScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/lodging/AvailabilityCalendarsQuickStartScenario.java):
 
-  This example demonstrates how to search for availability calendars with property IDs in Lodging Availability Calendar API.
+  This example demonstrates how to use Availability Calendar api with simple search.
+  In terms of how to get property Ids, you can refer to `QuotesQuickStartScenario.java`.
 
 We are continuously adding more scenarios to demonstrate the usage of other XAP APIs.
 
