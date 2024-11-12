@@ -58,13 +58,13 @@ We are continuously adding more scenarios to demonstrate the usage of other XAP 
     > -Dcom.expediagroup.xapjavasdk.vrbokey="{VRBO_KEY}"
     > -Dcom.expediagroup.xapjavasdk.vrbosecret="{VRBO_SECRET}"
     > ```
-    > The key you use must be enabled for Vrbo brand. If you are not sure, please reach out to your Expedia Group contact.
+    > The key you use must be enabled for Vrbo brand. If you are not sure, please reach out to your account manager.
 4. Click `OK` and then run the `main` method of the example class.
 
 ### Run with Command Line
 Run the following command to run the example class you want to run:
 ```
-mvn exec:java -Dexec.mainClass="com.expediagroup.sdk.xap.examples.scenarios.lodging.AvailabilityCalendarsQuickStartScenario" \
+mvn exec:java -Dexec.mainClass="path.to.example.ExampleClassName" \
     -Dcom.expediagroup.xapjavasdk.apikey="{API_KEY}" \
     -Dcom.expediagroup.xapjavasdk.apisecret="{API_SECRET}"
 ```
@@ -77,7 +77,7 @@ and `{API_KEY}` and `{API_SECRET}` with your actual API key and secret.
 >     -Dcom.expediagroup.xapjavasdk.vrbokey="{VRBO_KEY}" \
 >     -Dcom.expediagroup.xapjavasdk.vrbosecret="{VRBO_SECRET}"
 > ```
-> The key you use must be enabled for Vrbo brand. If you are not sure, please reach out to your Expedia Group contact.
+> The key you use must be enabled for Vrbo brand. If you are not sure, please reach out to your account manager.
 
 ## License
 
