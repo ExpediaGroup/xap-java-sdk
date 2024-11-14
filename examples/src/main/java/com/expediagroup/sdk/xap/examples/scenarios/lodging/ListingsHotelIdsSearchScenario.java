@@ -46,11 +46,13 @@ public class ListingsHotelIdsSearchScenario implements XapScenario {
       LoggerFactory.getLogger(ListingsHotelIdsSearchScenario.class);
 
   /**
-   * The property count to read from the file.
-   * If the first 20 properties are not available when you run this example, it may end with
-   * NO_RESULT_FOUND. In that case, you can adjust the property count to get more properties.
+   * This field limits the number of line to read from the SDP DownloadURL API Listings file to
+   * reduce time to run the example.
+   * If the first 20 properties from the file are not accessible OR available when you run this
+   * example, it may end with "No accessible property ids found." OR NO_RESULT_FOUND. In that case,
+   * you can adjust the property count to get more properties.
    */
-  private static final int PROPERTY_COUNT = 20;
+  private static final int SAMPLE_ITEMS_RESTRICTION = 20;
 
   /**
    * A property id to location map. This mocks a cache in this example to store the static content
@@ -84,7 +86,7 @@ public class ListingsHotelIdsSearchScenario implements XapScenario {
    */
   private List<String> getPropertyIdsFromDownloadUrl() {
     LOGGER.info(
-        "====================== Executing getPropertyIdsFromDownloadUrl =====================");
+        "==================== Executing Step I: getPropertyIdsFromDownloadUrl ===================");
 
     GetFeedDownloadUrlOperationParams getPropertyIdListParams =
         GetFeedDownloadUrlOperationParams.builder()
@@ -120,7 +122,7 @@ public class ListingsHotelIdsSearchScenario implements XapScenario {
     LOGGER.info("Accessible Property Ids: {}", propertyIds);
 
     LOGGER.info(
-        "======================= getPropertyIdsFromDownloadUrl Executed ======================");
+        "==================== Step I: getPropertyIdsFromDownloadUrl Executed ====================");
     return propertyIds;
   }
 
@@ -131,7 +133,7 @@ public class ListingsHotelIdsSearchScenario implements XapScenario {
    */
   private void cachePropertyLocationFromDownloadUrl(List<String> propertyIds) {
     LOGGER.info(
-        "====================== Executing CachePropertyLocationFromDownloadUrl ==================");
+        "=============== Executing Step II: CachePropertyLocationFromDownloadUrl ================");
     GetFeedDownloadUrlOperationParams getPropertyLocationParams =
         GetFeedDownloadUrlOperationParams.builder()
             // Use the type LOCATIONS to get the address of accessible properties.
@@ -157,7 +159,7 @@ public class ListingsHotelIdsSearchScenario implements XapScenario {
     cachePropertyLocationFromLocationsFile(locationsDownloadUrl, propertyIds);
 
     LOGGER.info(
-        "===================== CachePropertyLocationFromDownloadUrl Executed ====================");
+        "================ Step II: CachePropertyLocationFromDownloadUrl Executed ================");
   }
 
   /**
@@ -168,7 +170,7 @@ public class ListingsHotelIdsSearchScenario implements XapScenario {
    */
   private HotelListingsResponse getPropertyPriceFromLodgingListings(List<String> propertyIds) {
     LOGGER.info(
-        "===================== Executing GetPropertyPriceFromLodgingListings ====================");
+        "================ Step III: Executing GetPropertyPriceFromLodgingListings ===============");
 
     GetLodgingListingsOperationParams getLodgingListingsOperationParams =
         GetLodgingListingsOperationParams.builder()
@@ -191,7 +193,7 @@ public class ListingsHotelIdsSearchScenario implements XapScenario {
             .getData();
 
     LOGGER.info(
-        "===================== GetPropertyPriceFromLodgingListings Executed ====================");
+        "================ Step III: GetPropertyPriceFromLodgingListings Executed ================");
     return hotelListingsResponse;
   }
 
@@ -219,15 +221,16 @@ public class ListingsHotelIdsSearchScenario implements XapScenario {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(zipStream))) {
               String line;
               ObjectMapper objectMapper = new ObjectMapper();
-              while ((line = reader.readLine()) != null && propertyIds.size() < PROPERTY_COUNT) {
+              while ((line = reader.readLine()) != null
+                  && propertyIds.size() < SAMPLE_ITEMS_RESTRICTION) {
                 // Parse the property id from the json object
                 // An example json line from the jsonl file:
                 /*
                 {
                   "propertyId": {
-                    "expedia": "75032362",
-                    "hcom": "2402035584",
-                    "vrbo": "731.2068610.2244521"
+                    "expedia": "1234567",
+                    "hcom": "123456789",
+                    "vrbo": "123.1234567.7654321"
                   },
                   "bookable": {
                     "expedia": true,
@@ -310,15 +313,15 @@ public class ListingsHotelIdsSearchScenario implements XapScenario {
                 /*
                 {
                   "propertyId": {
-                    "expedia": "75032362",
-                    "hcom": "2402035584",
-                    "vrbo": "731.2068610.2244521"
+                    "expedia": "1234567",
+                    "hcom": "123456789",
+                    "vrbo": "123.1234567.7654321"
                   },
                   "propertyType": {
                     "id": 16,
                     "name": "Apartment"
                   },
-                  "propertyName": "Pasteur : Charming 2 bedroom flat near the thermal baths",
+                  "propertyName": "Expedia Property Name",
                   "address1": "",
                   "address2": "",
                   "city": "Bains-les-Bains",
@@ -326,8 +329,8 @@ public class ListingsHotelIdsSearchScenario implements XapScenario {
                   "country": "France",
                   "postalCode": "88240",
                   "geoLocation": {
-                    "latitude": "48.003323",
-                    "longitude": "6.264765",
+                    "latitude": "10.999999",
+                    "longitude": "-10.999999",
                     "obfuscated": false
                   },
                   "locationAttribute": {
@@ -382,6 +385,7 @@ public class ListingsHotelIdsSearchScenario implements XapScenario {
    * @param hotelListingsResponse The response of the Lodging Listings API.
    */
   private static void displayResult(HotelListingsResponse hotelListingsResponse) {
+    LOGGER.info("======================= Executing Step IV: DisplayResult =======================");
     if (hotelListingsResponse == null || hotelListingsResponse.getHotels() == null
         || hotelListingsResponse.getHotels().isEmpty()) {
       throw new IllegalStateException("No properties found.");
@@ -426,5 +430,6 @@ public class ListingsHotelIdsSearchScenario implements XapScenario {
       LOGGER.info(
           "==================================== Property End ====================================");
     });
+    LOGGER.info("======================= Step IV: DisplayResult Executed ========================");
   }
 }

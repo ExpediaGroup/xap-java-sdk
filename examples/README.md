@@ -31,7 +31,7 @@ Currently, the following scenarios are included:
   `AvailabilityCalendarsQuickStartScenario.java`](src/main/java/com/expediagroup/sdk/xap/examples/scenarios/lodging/AvailabilityCalendarsQuickStartScenario.java):
 
   This example demonstrates how to use Availability Calendar api with simple search.
-  In terms of how to get property Ids, you can refer to `QuotesQuickStartScenario.java`.
+  In terms of how to get property ids, you can refer to `QuotesQuickStartScenario.java`.
 
 We are continuously adding more scenarios to demonstrate the usage of other XAP APIs.
 

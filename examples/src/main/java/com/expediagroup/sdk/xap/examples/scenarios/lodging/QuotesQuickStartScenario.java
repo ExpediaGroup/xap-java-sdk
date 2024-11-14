@@ -49,11 +49,13 @@ public class QuotesQuickStartScenario implements VrboScenario {
       LoggerFactory.getLogger(QuotesQuickStartScenario.class);
 
   /**
-   * The property count to read from the file.
-   * If the first 20 properties are not available when you run this example, it may end with
-   * NO_RESULT_FOUND. In that case, you can adjust the property count to get more properties.
+   * This field limits the number of line to read from the SDP DownloadURL API Listings file to
+   * reduce time to run the example.
+   * If the first 20 properties from the file are not accessible OR available when you run this
+   * example, it may end with "No accessible property ids found." OR NO_RESULT_FOUND. In that case,
+   * you can adjust the property count to get more properties.
    */
-  private static final int PROPERTY_COUNT = 20;
+  private static final int SAMPLE_ITEMS_RESTRICTION = 20;
 
   /**
    * A property id to location map. This mocks a cache in this example to store the static content
@@ -82,7 +84,7 @@ public class QuotesQuickStartScenario implements VrboScenario {
 
   private List<String> getPropertyIdsFromDownloadUrl() {
     LOGGER.info(
-        "====================== Executing getPropertyIdsFromDownloadUrl =====================");
+        "==================== Executing Step I: getPropertyIdsFromDownloadUrl ===================");
 
     GetFeedDownloadUrlOperationParams getPropertyIdListParams =
         GetFeedDownloadUrlOperationParams.builder()
@@ -119,7 +121,7 @@ public class QuotesQuickStartScenario implements VrboScenario {
     LOGGER.info("Accessible Vrbo Property Ids: {}", propertyIds);
 
     LOGGER.info(
-        "======================= getPropertyIdsFromDownloadUrl Executed ======================");
+        "==================== Step I: getPropertyIdsFromDownloadUrl Executed ====================");
     return propertyIds;
   }
 
@@ -130,7 +132,7 @@ public class QuotesQuickStartScenario implements VrboScenario {
    */
   private void cachePropertyLocationFromDownloadUrl(List<String> propertyIds) {
     LOGGER.info(
-        "====================== Executing CachePropertyLocationFromDownloadUrl ==================");
+        "================ Executing Step II: CachePropertyLocationFromDownloadUrl ===============");
     GetFeedDownloadUrlOperationParams getPropertyLocationParams =
         GetFeedDownloadUrlOperationParams.builder()
             // Use the type LOCATIONS to get the address of accessible properties.
@@ -156,7 +158,7 @@ public class QuotesQuickStartScenario implements VrboScenario {
     cachePropertyLocationFromLocationsFile(locationsDownloadUrl, propertyIds);
 
     LOGGER.info(
-        "===================== CachePropertyLocationFromDownloadUrl Executed ====================");
+        "================= Step II: CachePropertyLocationFromDownloadUrl Executed ===============");
   }
 
   /**
@@ -167,7 +169,7 @@ public class QuotesQuickStartScenario implements VrboScenario {
    */
   private LodgingQuotesResponse getPropertyPriceFromLodgingQuotes(List<String> propertyIds) {
     LOGGER.info(
-        "====================== Executing GetPropertyPriceFromLodgingQuotes =====================");
+        "================= Executing Step III: GetPropertyPriceFromLodgingQuotes ================");
 
     // Build the occupancy
     ArrayList<Room> rooms = new ArrayList<>();
@@ -195,7 +197,7 @@ public class QuotesQuickStartScenario implements VrboScenario {
             .getData();
 
     LOGGER.info(
-        "====================== GetPropertyPriceFromLodgingQuotes Executed =====================");
+        "================= Step III: GetPropertyPriceFromLodgingQuotes Executed =================");
     return lodgingQuotesResponse;
   }
 
@@ -223,15 +225,16 @@ public class QuotesQuickStartScenario implements VrboScenario {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(zipStream))) {
               String line;
               ObjectMapper objectMapper = new ObjectMapper();
-              while ((line = reader.readLine()) != null && propertyIds.size() < PROPERTY_COUNT) {
+              while ((line = reader.readLine()) != null
+                  && propertyIds.size() < SAMPLE_ITEMS_RESTRICTION) {
                 // Parse the property id from the json object
                 // An example json line from the jsonl file:
                 /*
                 {
                   "propertyId": {
-                    "expedia": "75032362",
-                    "hcom": "2402035584",
-                    "vrbo": "731.2068610.2244521"
+                    "expedia": "1234567",
+                    "hcom": "987654321",
+                    "vrbo": "123.1234567.7654321"
                   },
                   "country": "France",
                   "propertySize": {
@@ -320,15 +323,15 @@ public class QuotesQuickStartScenario implements VrboScenario {
                 /*
                 {
                   "propertyId": {
-                    "expedia": "108502000",
-                    "hcom": "3473064000",
-                    "vrbo": "321.4176310.4750480"
+                    "expedia": "1234567",
+                    "hcom": "987654321",
+                    "vrbo": "123.1234567.1234567"
                   },
                   "propertyType": {
                     "id": 16,
                     "name": "Apartment"
                   },
-                  "propertyName": "Pine Brook 416 I Corporate 1.5Br Apartment ! Pool",
+                  "propertyName": "Vrbo Property Name",
                   "address1": "",
                   "address2": "",
                   "city": "Newark",
@@ -336,8 +339,8 @@ public class QuotesQuickStartScenario implements VrboScenario {
                   "country": "United States",
                   "postalCode": "19711",
                   "geoLocation": {
-                    "latitude": "39.694889",
-                    "longitude": "-75.749393",
+                    "latitude": "10.999999",
+                    "longitude": "-10.999999",
                     "obfuscated": false
                   },
                   "locationAttribute": {
@@ -403,6 +406,7 @@ public class QuotesQuickStartScenario implements VrboScenario {
    * @param lodgingQuotesResponse The response of the Lodging Quotes API.
    */
   private static void displayResult(LodgingQuotesResponse lodgingQuotesResponse) {
+    LOGGER.info("======================= Executing Step IV: DisplayResult =======================");
     if (lodgingQuotesResponse == null || lodgingQuotesResponse.getProperties() == null
         || lodgingQuotesResponse.getProperties().isEmpty()) {
       throw new IllegalStateException("No properties found.");
@@ -452,12 +456,12 @@ public class QuotesQuickStartScenario implements VrboScenario {
               roomType.getRatePlans().get(0).getCancellationPolicy().getFreeCancellation());
         }
         if (roomType.getLinks() != null) {
-          // To get the deeplink to the Expedia Web Search Result Page
+          // To get the deeplink to the website Search Result Page
           if (roomType.getLinks().getWebSearchResult() != null) {
             LOGGER.info("WebSearchResult Link: {}",
                 roomType.getLinks().getWebSearchResult().getHref());
           }
-          // To get the deeplink to the Expedia Web Details Page
+          // To get the deeplink to the website Details Page
           if (roomType.getLinks().getWebDetails() != null) {
             LOGGER.info("WebDetails Link: {}", roomType.getLinks().getWebDetails().getHref());
           }
@@ -466,5 +470,6 @@ public class QuotesQuickStartScenario implements VrboScenario {
       LOGGER.info(
           "==================================== Property End ====================================");
     });
+    LOGGER.info("======================= Step IV: DisplayResult Executed ========================");
   }
 }

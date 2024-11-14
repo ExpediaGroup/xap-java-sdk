@@ -17,6 +17,7 @@
 package com.expediagroup.sdk.xap.examples;
 
 import com.expediagroup.sdk.xap.examples.scenarios.lodging.AvailabilityCalendarsQuickStartScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.lodging.ListingsHotelIdsSearchScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.lodging.ListingsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.lodging.QuotesQuickStartScenario;
 import org.slf4j.Logger;
@@ -43,6 +44,10 @@ public class XapSdkDemoTestRun {
 
     ListingsQuickStartScenario listingsQuickStartScenario = new ListingsQuickStartScenario();
     listingsQuickStartScenario.run();
+
+    ListingsHotelIdsSearchScenario listingsHotelIdsSearchScenario =
+        new ListingsHotelIdsSearchScenario();
+    listingsHotelIdsSearchScenario.run();
 
     QuotesQuickStartScenario quotesQuickStartScenario = new QuotesQuickStartScenario();
     quotesQuickStartScenario.run();
