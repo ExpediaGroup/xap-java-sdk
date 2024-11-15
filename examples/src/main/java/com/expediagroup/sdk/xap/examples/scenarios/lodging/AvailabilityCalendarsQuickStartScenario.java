@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This example demonstrates how to use Availability Calendar api with simple search.
- * In terms of how to get property ids, you can refer to {@link QuotesQuickStartScenario}.
+ * In terms of how to get property ids, you can refer to {@link VrboPropertySearchEndToEndScenario}.
  *
  * <p>Note: this is a Vrbo scenario. You need a key that is enabled for Vrbo brand to run this.
  */
