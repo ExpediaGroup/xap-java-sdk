@@ -234,7 +234,7 @@ public class HotelIdsSearchEndToEndScenario implements XapScenario {
                     && jsonNode.has("vrboPropertyType")
                     && !jsonNode.get("vrboPropertyType").get("instantBook").asBoolean()
                 ) {
-                  // Skip the property if it is a not instant bookable Vrbo property
+                  // Skip the property if it is not an instant bookable Vrbo property
                   continue;
                 } else {
                   // Get the Expedia property id for the Lodging Listings API
