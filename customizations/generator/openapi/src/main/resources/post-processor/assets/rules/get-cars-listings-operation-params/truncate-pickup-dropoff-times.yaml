@@ -1,0 +1,16 @@
+rule:
+  kind: value_argument
+  nthChild: 2
+  inside:
+    kind: call_suffix
+    stopBy: end
+    has:
+      any:
+        - kind: value_arguments
+          regex: pickupTime
+        - kind: value_arguments
+          regex: dropOffTime
+    inside:
+      kind: function_declaration
+      stopBy: end
+      regex: getQueryParams
