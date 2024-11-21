@@ -21,6 +21,16 @@ jobs:
       branch: ${{ inputs.branch }}
       jdk: ${{ matrix.jdk }}
 
+  integration-test:
+    strategy:
+      matrix:
+        jdk: [ 8, 11, 17, 21 ]
+    uses: ./.github/workflows/integration-test.yaml
+    secrets: inherit
+    with:
+      branch: ${{ inputs.branch }}
+      jdk: ${{ matrix.jdk }}
+
   release-sdk:
     uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-release-sdk.yaml@v20241013
     needs: [ run-examples ]
