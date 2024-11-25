@@ -12,7 +12,7 @@ on:
 
 jobs:
   generate-and-publish-sources:
-    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-full-workflow.yaml@nanssari/validations
+    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-full-workflow.yaml@v20241125
     secrets: inherit
     with:
       name: xap
@@ -20,4 +20,3 @@ jobs:
       transformations: "--headers key --operationIdsToTags"
       repository: 'ExpediaGroup/xap-java-sdk'
       ref: ${{ github.head_ref || github.ref_name }}
-      sdk_repo_ref: 'nanssari/validations'
