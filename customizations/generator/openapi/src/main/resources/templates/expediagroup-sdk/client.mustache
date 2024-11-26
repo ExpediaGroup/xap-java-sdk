@@ -26,8 +26,23 @@ class {{clientClassname}}Client private constructor(clientConfiguration: XapClie
         )
     }
 
+    class BuilderWithHttpClient() : BaseXapClient.BuilderWithHttpClient<BuilderWithHttpClient>() {
+        override fun build() : {{clientClassname}}Client {
+
+        if (okHttpClient == null) {
+            throw ExpediaGroupConfigurationException(getMissingRequiredConfigurationMessage(ConfigurationName.OKHTTP_CLIENT))
+        }
+
+        return {{clientClassname}}Client(
+                XapClientConfiguration(key, secret, endpoint, null, null, null, maskedLoggingHeaders, maskedLoggingBodyFields, okHttpClient)
+            )
+        }
+    }
+
     companion object {
         @JvmStatic fun builder() = Builder()
+
+        @JvmStatic fun builderWithHttpClient() = BuilderWithHttpClient()
     }
 
     override suspend fun throwServiceException(response: HttpResponse, operationId: String) {
