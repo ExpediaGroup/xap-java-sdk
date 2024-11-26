@@ -20,10 +20,10 @@ import com.expediagroup.sdk.xap.client.XapClient;
 import com.expediagroup.sdk.xap.models.AvailabilityCalendarResponse;
 import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperation;
 import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperationParams;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.HashSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This example demonstrates how to use Availability Calendar api with simple search.
