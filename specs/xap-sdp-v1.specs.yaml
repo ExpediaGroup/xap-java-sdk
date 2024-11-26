@@ -54,6 +54,7 @@ paths:
               - ALL_REGIONS
               - BOUNDING_POLYGON
               - HOTEL_TO_REGION_HIERARCHY
+              - ROOM_DETAILS
           example: SUMMARY
         - name: locale
           in: query
