@@ -1,5 +1,11 @@
 fun rooms(rooms: List<Room>) =
     apply {
+        if (rooms.size > 8) {
+            throw PropertyConstraintViolationException(
+                constraintViolations = listOf("rooms: size must be between 0 and 8")
+            )
+        }
+
         rooms.elementAtOrNull(0)?.let {
             this.room1Adults = it.adults
             this.room1ChildAges = it.childAges?.map { item -> item.toString() }
