@@ -20,3 +20,4 @@ jobs:
       transformations: "--headers key --operationIdsToTags"
       repository: 'ExpediaGroup/xap-java-sdk'
       ref: ${{ github.head_ref || github.ref_name }}
+      sdk_repo_ref: 'dtayeh/SDK-1568'
