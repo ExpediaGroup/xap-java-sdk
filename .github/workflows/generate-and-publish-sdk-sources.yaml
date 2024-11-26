@@ -12,7 +12,7 @@ on:
 
 jobs:
   generate-and-publish-sources:
-    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-full-workflow.yaml@v20241013
+    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-full-workflow.yaml@dtayeh/SDK-1568
     secrets: inherit
     with:
       name: xap
@@ -20,3 +20,4 @@ jobs:
       transformations: "--headers key --operationIdsToTags"
       repository: 'ExpediaGroup/xap-java-sdk'
       ref: ${{ github.head_ref || github.ref_name }}
+      sdk_repo_ref: "@dtayeh/SDK-1568" 
