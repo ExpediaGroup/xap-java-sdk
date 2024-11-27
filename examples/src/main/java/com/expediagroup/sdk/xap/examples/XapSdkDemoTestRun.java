@@ -54,7 +54,9 @@ public class XapSdkDemoTestRun {
 
     logger.info(
             "============================== Running Car Scenarios =============================");
-    CarListingsQuickStartScenario carListingsQuickStartScenario = new CarListingsQuickStartScenario();
+    CarListingsQuickStartScenario carListingsQuickStartScenario =
+        new CarListingsQuickStartScenario();
+
     carListingsQuickStartScenario.run();
 
     CarDetailsQuickStartScenario carDetailsQuickStartScenario = new CarDetailsQuickStartScenario();
