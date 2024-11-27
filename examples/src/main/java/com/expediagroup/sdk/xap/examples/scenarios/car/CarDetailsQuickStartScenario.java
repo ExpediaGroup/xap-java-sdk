@@ -19,218 +19,230 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This example demonstrates how to retrieve CarDetails information using the Car Details DeepLink obtained from the car listing.
+ * This example demonstrates how to retrieve CarDetails information using the Car Details DeepLink
+ * obtained from the car listing.
  */
 public class CarDetailsQuickStartScenario implements XapScenario {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CarDetailsQuickStartScenario.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(CarDetailsQuickStartScenario.class);
 
-    /**
-     * Summary: main function.
-     */
-    public static void main(String[] args) {
-        new CarListingsQuickStartScenario().run();
-        new CarDetailsQuickStartScenario().run();
-        System.exit(0);
-    }
+  /**
+   * Summary: main function.
+   */
+  public static void main(String[] args) {
+    new CarListingsQuickStartScenario().run();
+    new CarDetailsQuickStartScenario().run();
+    System.exit(0);
+  }
 
-    @Override
-    public void run() {
-        LOGGER.info("========== Start QuickStartScenario ==========");
+  /**
+   * Summary: split URL into components.
+   */
+  public static String[] splitUrl(String url) {
+    String[] parts = url.split("\\?");
+    String base = parts[0];
+    String query = parts[1];
 
-        LOGGER.info("========== Car Listing Start ==========");
+    String offerToken = base.substring(base.lastIndexOf("/") + 1);
+    String[] queryParams = query.split("&");
+    String price = queryParams[0].split("=")[1];
+    String currency = queryParams[1].split("=")[1];
 
-        // This example demonstrates how to obtain the Car Details Deep Link from the CarListing.
-        // For information on using car search, refer to car/shopping/listings/ListingsQuickStartExample.
-        List<GetCarsListingsOperationParams.Links> linksList = new ArrayList<>();
-        linksList.add(GetCarsListingsOperationParams.Links.AD);
-        linksList.add(GetCarsListingsOperationParams.Links.WS);
-        linksList.add(GetCarsListingsOperationParams.Links.WD);
-        GetCarsListingsOperationParams getCarsListingsOperationParams = GetCarsListingsOperationParams.builder()
-                .partnerTransactionId("EWSCar_Automation")
-                .dropOffAirport("MCO")
-                .pickupAirport("MCO")
-                .pickupTime(LocalDateTime.now().plusDays(5))
-                .dropOffTime(LocalDateTime.now().plusDays(8))
-                .limit(1)
-                .links(linksList)
-                .build();
+    return new String[] {offerToken, price, currency};
+  }
 
-        XapClient xapClient = createClient();
-        GetCarsListingsOperation getCarsListingsOperation = new GetCarsListingsOperation(getCarsListingsOperationParams);
-        Response<CarListingsResponse> carListingsResponse = xapClient.execute(getCarsListingsOperation);
+  @Override
+  public void run() {
+    LOGGER.info("========== Start QuickStartScenario ==========");
 
-        LOGGER.info("========== Car Listing Property End ==========");
+    LOGGER.info("========== Car Listing Start ==========");
 
-        // Iterate through the car listings and retrieve the Car Details Deep Link.
-        LOGGER.info("========== Car Details Start ==========");
-        Objects.requireNonNull(carListingsResponse.getData().getCars()).forEach(car -> {
-            if (!car.getLinks().get("ApiDetails").getHref().isEmpty()) {
-                // Retrieve the Car Details Deep Link from the car listing.
-                LOGGER.info("Car Details Deep Link: " + car.getLinks().get("ApiDetails").getHref());
-                String[] strings = splitUrl(car.getLinks().get("ApiDetails").getHref());
+    // This example demonstrates how to obtain the Car Details Deep Link from the CarListing.
+    // For information on using car search, refer to
+    // car/shopping/listings/ListingsQuickStartExample.
+    List<GetCarsListingsOperationParams.Links> linksList = new ArrayList<>();
+    linksList.add(GetCarsListingsOperationParams.Links.AD);
+    linksList.add(GetCarsListingsOperationParams.Links.WS);
+    linksList.add(GetCarsListingsOperationParams.Links.WD);
+    GetCarsListingsOperationParams getCarsListingsOperationParams =
+        GetCarsListingsOperationParams.builder()
+            .partnerTransactionId("EWSCar_Automation")
+            .dropOffAirport("MCO")
+            .pickupAirport("MCO")
+            .pickupTime(LocalDateTime.now().plusDays(5))
+            .dropOffTime(LocalDateTime.now().plusDays(8))
+            .limit(1)
+            .links(linksList)
+            .build();
 
-                // Retrieve the Car Details information using the Car Details Deep Link,which include(offerToken, price, currency)
-                GetCarDetailsOperationParams getCarDetailsOperationParams = GetCarDetailsOperationParams.builder().partnerTransactionId("EWSCar_Automation")
-                        .offerToken(strings[0]).price(strings[1]).currency(strings[2]).build();
+    XapClient xapClient = createClient();
+    GetCarsListingsOperation getCarsListingsOperation =
+        new GetCarsListingsOperation(getCarsListingsOperationParams);
+    Response<CarListingsResponse> carListingsResponse = xapClient.execute(getCarsListingsOperation);
 
-                // Execute the operation and get the CarDetailsResponse
-                LOGGER.info("========== Executing GetCarDetailsOperation ==========");
-                CarDetailsResponse carDetailsResponse = xapClient.execute(
-                                                    new GetCarDetailsOperation(getCarDetailsOperationParams)).getData();
-                LOGGER.info("========== GetCarDetailsOperation Executed ==========");
+    LOGGER.info("========== Car Listing Property End ==========");
 
-                if (carDetailsResponse == null || carDetailsResponse.getLinks() == null) {
-                    throw new IllegalStateException("No car found.");
-                }
+    // Iterate through the car listings and retrieve the Car Details Deep Link.
+    LOGGER.info("========== Car Details Start ==========");
+    Objects.requireNonNull(carListingsResponse.getData().getCars()).forEach(car -> {
+      if (!car.getLinks().get("ApiDetails").getHref().isEmpty()) {
+        // Retrieve the Car Details Deep Link from the car listing.
+        LOGGER.info("Car Details Deep Link: " + car.getLinks().get("ApiDetails").getHref());
+        String[] strings = splitUrl(car.getLinks().get("ApiDetails").getHref());
 
-                LOGGER.info("========== Car Properties Start ==========");
+        // Retrieve the Car Details information using the Car Details Deep Link, which
+        // includes (offerToken, price, currency)
+        GetCarDetailsOperationParams getCarDetailsOperationParams =
+            GetCarDetailsOperationParams.builder().partnerTransactionId("EWSCar_Automation")
+                .offerToken(strings[0]).price(strings[1]).currency(strings[2]).build();
 
-                // The CarDetailsResponse contains a transaction ID for troubleshooting
-                LOGGER.info("Transaction ID: {}", carDetailsResponse.getTransactionId());
+        // Execute the operation and get the CarDetailsResponse
+        LOGGER.info("========== Executing GetCarDetailsOperation ==========");
+        CarDetailsResponse carDetailsResponse = xapClient.execute(
+            new GetCarDetailsOperation(getCarDetailsOperationParams)).getData();
+        LOGGER.info("========== GetCarDetailsOperation Executed ==========");
 
-                // List Container for warning messages
-                if (carDetailsResponse.getWarnings() != null) {
-                    LOGGER.info("Warnings: {}", carDetailsResponse.getWarnings());
-                }
+        if (carDetailsResponse == null || carDetailsResponse.getLinks() == null) {
+          throw new IllegalStateException("No car found.");
+        }
 
-                // Details of requested car.
-                // Details refer to the CarDetails Section table below.
-                if (carDetailsResponse.getValidFormsOfPayment() != null) {
-                    LOGGER.info("Valid Forms Of Payment: {}", carDetailsResponse.getValidFormsOfPayment());
-                }
+        LOGGER.info("========== Car Properties Start ==========");
 
-                // A map of links to other Car APIs.
-                if (carDetailsResponse.getLinks() != null) {
-                    LOGGER.info("Links: {}", carDetailsResponse.getLinks());
-                }
+        // The CarDetailsResponse contains a transaction ID for troubleshooting
+        LOGGER.info("Transaction ID: {}", carDetailsResponse.getTransactionId());
 
-                // Specific information for a car.
-                CarDetails carDetails = carDetailsResponse.getCarDetails();
-                VehicleDetails vehicleDetails = carDetails.getVehicleDetails();
-                if (vehicleDetails.getMake() != null ) {
-                    //Car manufacturer and model.
-                    LOGGER.info("Make: {}", vehicleDetails.getMake());
-                }
+        // List Container for warning messages
+        if (carDetailsResponse.getWarnings() != null) {
+          LOGGER.info("Warnings: {}", carDetailsResponse.getWarnings());
+        }
 
-                // Car category and type.
-                LOGGER.info("Car Class: {}", vehicleDetails.getCarClass());
+        // Details of requested car.
+        // Details refer to the CarDetails Section table below.
+        if (carDetailsResponse.getValidFormsOfPayment() != null) {
+          LOGGER.info("Valid Forms Of Payment: {}", carDetailsResponse.getValidFormsOfPayment());
+        }
 
-                // Minimal car door count.
-                if (vehicleDetails.getMinDoors() != null) {
-                    LOGGER.info("Min Doors: {}", vehicleDetails.getMinDoors());
-                }
+        // A map of links to other Car APIs.
+        if (carDetailsResponse.getLinks() != null) {
+          LOGGER.info("Links: {}", carDetailsResponse.getLinks());
+        }
 
-                // Maximum car door count.
-                if (vehicleDetails.getMaxDoors() != null) {
-                    LOGGER.info("Max Doors: {}", vehicleDetails.getMaxDoors());
-                }
+        // Specific information for a car.
+        CarDetails carDetails = carDetailsResponse.getCarDetails();
+        VehicleDetails vehicleDetails = carDetails.getVehicleDetails();
+        if (vehicleDetails.getMake() != null) {
+          //Car manufacturer and model.
+          LOGGER.info("Make: {}", vehicleDetails.getMake());
+        }
 
-                // Car fuel information.
-                if (vehicleDetails.getFuelLevel() != null) {
-                    // Fuel level of the car.
-                    LOGGER.info("Fuel Level: {}", vehicleDetails.getFuelLevel());
-                }
+        // Car category and type.
+        LOGGER.info("Car Class: {}", vehicleDetails.getCarClass());
 
-                // Car category.
-                LOGGER.info("Car Category: {}", vehicleDetails.getCarCategory());
+        // Minimal car door count.
+        if (vehicleDetails.getMinDoors() != null) {
+          LOGGER.info("Min Doors: {}", vehicleDetails.getMinDoors());
+        }
 
-                // Car type.
-                LOGGER.info("Car Type: {}", vehicleDetails.getCarType());
+        // Maximum car door count.
+        if (vehicleDetails.getMaxDoors() != null) {
+          LOGGER.info("Max Doors: {}", vehicleDetails.getMaxDoors());
+        }
 
-                // Car transmission and drive.
-                LOGGER.info("Transmission Drive: {}", vehicleDetails.getTransmissionDrive());
+        // Car fuel information.
+        if (vehicleDetails.getFuelLevel() != null) {
+          // Fuel level of the car.
+          LOGGER.info("Fuel Level: {}", vehicleDetails.getFuelLevel());
+        }
 
-                // Car fuel type and whether Air Conditioning is included.
-                LOGGER.info("Fuel AC: {}", vehicleDetails.getFuelAC());
+        // Car category.
+        LOGGER.info("Car Category: {}", vehicleDetails.getCarCategory());
 
-                // Capacity for car's properties, which include AdultCount, ChildCount, SmallLuggageCount and LargeLuggageCount.
-                if (vehicleDetails.getCapacity() != null) {
-                    LOGGER.info("Capacity: {}", vehicleDetails.getCapacity());
-                }
+        // Car type.
+        LOGGER.info("Car Type: {}", vehicleDetails.getCarType());
 
-                // Car rental supplier.
-                LOGGER.info(" : {}", carDetails.getSupplier());
+        // Car transmission and drive.
+        LOGGER.info("Transmission Drive: {}", vehicleDetails.getTransmissionDrive());
 
-                // Pickup information
-                LOGGER.info("Pickup Details: {}", carDetails.getPickupDetails());
+        // Car fuel type and whether Air Conditioning is included.
+        LOGGER.info("Fuel AC: {}", vehicleDetails.getFuelAC());
 
-                // Drop off information, include drop off date time and drop off location information.
-                LOGGER.info("Drop Off Details: {}", carDetails.getDropOffDetails());
+        // Capacity for car's properties, which include AdultCount, ChildCount, SmallLuggageCount
+        // and LargeLuggageCount.
+        if (vehicleDetails.getCapacity() != null) {
+          LOGGER.info("Capacity: {}", vehicleDetails.getCapacity());
+        }
 
-                // The rate information for a car product.
-                LOGGER.info("Rate Details: {}", carDetails.getRateDetails());
+        // Car rental supplier.
+        LOGGER.info(" : {}", carDetails.getSupplier());
 
-                // Base price per rate period.
-                LOGGER.info("Price: {}", carDetails.getPrice());
+        // Pickup information
+        LOGGER.info("Pickup Details: {}", carDetails.getPickupDetails());
 
-                // List of TaxesAndFees Details.
-                if (carDetails.getTaxesAndFeesDetails() != null) {
-                    LOGGER.info("Taxes And Fees Details: {}", carDetails.getTaxesAndFeesDetails());
-                }
+        // Drop off information, include drop off date time and drop off location information.
+        LOGGER.info("Drop Off Details: {}", carDetails.getDropOffDetails());
 
-                // List of ExtraFeesDetails
-                if (carDetails.getExtraFeesDetails() != null) {
-                    LOGGER.info("Extra Fees Details: {}", carDetails.getExtraFeesDetails());
-                }
+        // The rate information for a car product.
+        LOGGER.info("Rate Details: {}", carDetails.getRateDetails());
 
-                //  ReferencePrice is the totalPrice for the comparable standalone car, when there is a discounted car or need to show strike through pricing.
-                if (carDetails.getReferencePrice() != null) {
-                    LOGGER.info("Reference Price: {}", carDetails.getReferencePrice());
-                }
+        // Base price per rate period.
+        LOGGER.info("Price: {}", carDetails.getPrice());
 
-                // List of additional fees including both mandatory and optional fees such as young driver fee/drop off fee /CollisionDamageWaiver.
-                if (carDetails.getAdditionalFees() != null) {
-                    LOGGER.info("Additional Fees: {}", carDetails.getAdditionalFees());
-                }
+        // List of TaxesAndFees Details.
+        if (carDetails.getTaxesAndFeesDetails() != null) {
+          LOGGER.info("Taxes And Fees Details: {}", carDetails.getTaxesAndFeesDetails());
+        }
 
-                // Description and costs of any optional special equipment that may be rented with the car.
-                if (carDetails.getSpecialEquipments() != null) {
-                    LOGGER.info("Special Equipments: {}", carDetails.getSpecialEquipments());
-                }
+        // List of ExtraFeesDetails
+        if (carDetails.getExtraFeesDetails() != null) {
+          LOGGER.info("Extra Fees Details: {}", carDetails.getExtraFeesDetails());
+        }
 
-                // Limitations that are part of this rental agreement.
-                if (carDetails.getRentalLimits() != null) {
-                    LOGGER.info("Rental Limits: {}", carDetails.getRentalLimits());
-                }
+        // ReferencePrice is the totalPrice for the comparable standalone car, when there is
+        // a discounted car or need to show strike through pricing.
+        if (carDetails.getReferencePrice() != null) {
+          LOGGER.info("Reference Price: {}", carDetails.getReferencePrice());
+        }
 
-                // Cancellation Policy Container.
-                LOGGER.info("Cancellation Policy: {}", carDetails.getCancellationPolicy());
+        // List of additional fees including both mandatory and optional fees such as young driver
+        // fee/drop off fee /CollisionDamageWaiver.
+        if (carDetails.getAdditionalFees() != null) {
+          LOGGER.info("Additional Fees: {}", carDetails.getAdditionalFees());
+        }
 
-                // Container for no show penalty
-                if (carDetails.getNoShowPenalty() != null) {
-                    LOGGER.info("No Show Penalty: {}", carDetails.getNoShowPenalty());
-                }
+        // Description and costs of any optional special equipment that may be rented with the car.
+        if (carDetails.getSpecialEquipments() != null) {
+          LOGGER.info("Special Equipments: {}", carDetails.getSpecialEquipments());
+        }
 
-                // A list of policies that apply to this car rental.
-                if (carDetails.getCarPolicies() != null) {
-                    LOGGER.info("Policies: {}", carDetails.getCarPolicies());
-                }
+        // Limitations that are part of this rental agreement.
+        if (carDetails.getRentalLimits() != null) {
+          LOGGER.info("Rental Limits: {}", carDetails.getRentalLimits());
+        }
 
-                // List of image resources of the car product.
-                if (carDetails.getImages() != null) {
-                    LOGGER.info("Images: {}", carDetails.getImages());
-                }
+        // Cancellation Policy Container.
+        LOGGER.info("Cancellation Policy: {}", carDetails.getCancellationPolicy());
 
-                LOGGER.info("========== Property End ==========");
-            }
+        // Container for no show penalty
+        if (carDetails.getNoShowPenalty() != null) {
+          LOGGER.info("No Show Penalty: {}", carDetails.getNoShowPenalty());
+        }
 
-        });
+        // A list of policies that apply to this car rental.
+        if (carDetails.getCarPolicies() != null) {
+          LOGGER.info("Policies: {}", carDetails.getCarPolicies());
+        }
 
-        LOGGER.info("========== End QuickStartExample ==========");
-    }
+        // List of image resources of the car product.
+        if (carDetails.getImages() != null) {
+          LOGGER.info("Images: {}", carDetails.getImages());
+        }
 
-    public static String[] splitUrl(String url) {
-        String[] parts = url.split("\\?");
-        String base = parts[0];
-        String query = parts[1];
+        LOGGER.info("========== Property End ==========");
+      }
 
-        String offerToken = base.substring(base.lastIndexOf("/") + 1);
-        String[] queryParams = query.split("&");
-        String price = queryParams[0].split("=")[1];
-        String currency = queryParams[1].split("=")[1];
+    });
 
-        return new String[]{offerToken, price, currency};
-    }
+    LOGGER.info("========== End QuickStartExample ==========");
+  }
 
 }
