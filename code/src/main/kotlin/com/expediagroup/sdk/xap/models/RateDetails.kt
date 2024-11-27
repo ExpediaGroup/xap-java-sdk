@@ -42,8 +42,8 @@ import javax.validation.constraints.NotNull
 /**
  * The rate detail information for a car offer.
  * @param ratePeriod Rate period. Supported values: Daily,Weekly,Monthly,Trip,Weekend
- * @param rateCode Rate plan identifier.
  * @param prePay Indicates whether this reservation should be paid at the time of booking (true) or at time of rental return (false).
+ * @param rateCode Rate plan identifier.
  * @param creditCardRequired Indicates whether credit card is required for booking.
  * @param discounts List of discount information.
  * @param mileages A list of charges to be levied based on the mileage driven.
@@ -55,16 +55,15 @@ data class RateDetails(
     @field:NotNull
     @field:Valid
     val ratePeriod: kotlin.String,
-    // Rate plan identifier.
-    @JsonProperty("RateCode")
-    @field:NotNull
-    @field:Valid
-    val rateCode: kotlin.String,
     // Indicates whether this reservation should be paid at the time of booking (true) or at time of rental return (false).
     @JsonProperty("PrePay")
     @field:NotNull
     @field:Valid
     val prePay: kotlin.Boolean,
+    // Rate plan identifier.
+    @JsonProperty("RateCode")
+    @field:Valid
+    val rateCode: kotlin.String? = null,
     // Indicates whether credit card is required for booking.
     @JsonProperty("CreditCardRequired")
     @field:Valid
@@ -89,8 +88,8 @@ data class RateDetails(
 
     class Builder(
         private var ratePeriod: kotlin.String? = null,
-        private var rateCode: kotlin.String? = null,
         private var prePay: kotlin.Boolean? = null,
+        private var rateCode: kotlin.String? = null,
         private var creditCardRequired: kotlin.Boolean? = null,
         private var discounts: kotlin.collections.List<Discount>? = null,
         private var mileages: kotlin.collections.List<Mileage>? = null,
@@ -98,9 +97,9 @@ data class RateDetails(
     ) {
         fun ratePeriod(ratePeriod: kotlin.String) = apply { this.ratePeriod = ratePeriod }
 
-        fun rateCode(rateCode: kotlin.String) = apply { this.rateCode = rateCode }
-
         fun prePay(prePay: kotlin.Boolean) = apply { this.prePay = prePay }
+
+        fun rateCode(rateCode: kotlin.String?) = apply { this.rateCode = rateCode }
 
         fun creditCardRequired(creditCardRequired: kotlin.Boolean?) = apply { this.creditCardRequired = creditCardRequired }
 
@@ -114,8 +113,8 @@ data class RateDetails(
             val instance =
                 RateDetails(
                     ratePeriod = ratePeriod!!,
-                    rateCode = rateCode!!,
                     prePay = prePay!!,
+                    rateCode = rateCode,
                     creditCardRequired = creditCardRequired,
                     discounts = discounts,
                     mileages = mileages,
@@ -149,8 +148,8 @@ data class RateDetails(
     fun toBuilder() =
         Builder(
             ratePeriod = ratePeriod!!,
-            rateCode = rateCode!!,
             prePay = prePay!!,
+            rateCode = rateCode,
             creditCardRequired = creditCardRequired,
             discounts = discounts,
             mileages = mileages,

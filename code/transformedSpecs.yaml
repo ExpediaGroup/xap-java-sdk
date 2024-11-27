@@ -6353,7 +6353,6 @@ components:
     RateDetails:
       required:
         - PrePay
-        - RateCode
         - RatePeriod
       type: object
       properties:
