@@ -69,8 +69,8 @@ paths:
           in: query
           description: 'Radius used in conjunction with a point to define the search area when searching by lat/ long, city or address.See '' unit'' parameter below to select miles or kilometers.If no value is specified a default value of 25 will be assumed.'
           schema:
-            type: string
-          example: '10'
+            type: integer
+          example: 10
         - name: dropOff.airport
           in: query
           description: 'Three letter code for the airport at which the customer would like to drop off the car.Supported values: standard 3 letter IATA Airport Code.Please see a full list of Car Vendor Codes and Airport Codes in the Related Links Section below.Cannot coexist with other drop off parameters, only one drop off parameter is allowed per request.If no drop off location is specified, it is assumed that the customer will be dropping the car off at the same location at which they picked it up.'
@@ -98,19 +98,23 @@ paths:
           in: query
           description: 'Radius used in conjunction with a point to define the search area when searching by lat/ long, city or address.See '' unit'' parameter below to select miles or kilometers.If no value is specified a default value of 25 will be assumed.Note: The pickup radius value will be used (instead of the the drop-off radius) when the requested pickup and drop-off city/address are exactly the same.'
           schema:
-            type: string
-          example: '10'
+            type: integer
+          example: 10
         - name: pickupTime
           in: query
           description: 'Requested car pickup date and time.Date should be ISO8601 Date format.The default TIME is 10:30:00.The supported search window is today to 330 days in the future.(Note that each rental counter has different hours of operation. If you select a time in the middle of the night there may be no inventory available as all locations may be closed.)'
+          required: true
           schema:
             type: string
+            format: date-time
           example: '2021-06-05T10:00'
         - name: dropOffTime
           in: query
           description: 'Requested car drop off date and time. Date should be ISO8601 Date format.The supported search window is today to 330 days in the future.Note: The dropOffTime must be at least 2 hours later than the pickupTime for the request to be valid.'
+          required: true
           schema:
             type: string
+            format: date-time
           example: '2021-06-06T10:00'
         - name: sortType
           in: query
@@ -1062,7 +1066,6 @@ components:
     RateDetails:
       required:
         - PrePay
-        - RateCode
         - RatePeriod
       type: object
       properties:
@@ -1477,7 +1480,6 @@ components:
       description: Details of requested car.
     CarDetailsResponse:
       required:
-        - CarDetails
         - TransactionId
       type: object
       properties:

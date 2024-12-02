@@ -16,6 +16,9 @@ and less on the technical details of the API.
 
 You can find code examples for multiple use cases in the [examples](examples) directory.
 
+### Integration Tests
+Integration tests are placed in the [integrations](integrations) directory.
+
 ---
 
 ## Support

@@ -4,6 +4,7 @@ import {GetLodgingQuotesOperationParamsProcessor} from './processors/get-lodging
 import {NonCancellableDateTimeRangeProcessor} from './processors/non-cancellable-date-time-range-processor';
 import {PenaltyRuleProcessor} from './processors/penalty-rule-processor';
 import {VendorLocationDetailsProcessor} from './processors/vendor-location-details-processor';
+import {GetCarsListingsOperationParamsProcessor} from './processors/get-cars-listings-operation-params-processor';
 
 import * as path from 'path';
 
@@ -29,5 +30,8 @@ switch (fileName) {
     break;
   case 'VendorLocationDetails':
     new VendorLocationDetailsProcessor().process(filePath);
+    break;
+  case 'GetCarsListingsOperationParams':
+    new GetCarsListingsOperationParamsProcessor().process(filePath);
     break;
 }
