@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Builder</title>
+    <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../../styles/multimodule.css" rel="Stylesheet">
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../../index.html">
+                            xap-sdk
+                    </a>
+            </div>
+            <div class="library-version">
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;xap-sdk/com.expediagroup.sdk.xap.models/-rate-plan/-builder/index.html&quot;}">1.0.0</dokka-template-command>            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="xap-sdk/JVM">JVM</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="xap-sdk::com.expediagroup.sdk.xap.models/RatePlan.Builder///PointingToDeclaration//699445674">
+  <div class="breadcrumbs"><a href="../../../../index.html">xap-sdk</a><span class="delimiter">/</span><a href="../../index.html">com.expediagroup.sdk.xap.models</a><span class="delimiter">/</span><a href="../index.html">RatePlan</a><span class="delimiter">/</span><span class="current">Builder</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Builder</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="index.html">Builder</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1042186918%2FConstructors%2F699445674" anchor-label="RatePlan.Builder" id="-1042186918%2FConstructors%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rate-plan.-builder.html"><span>RatePlan.</span><wbr></wbr><span>Builder</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1042186918%2FConstructors%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="-rate-plan.-builder.html"><span class="token function">RatePlan.Builder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> roomTypeId<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> ratePlanId<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> rateRuleId<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> inventorySourceId<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> inventorySourceCode<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../-stay-dates/index.html">StayDates</a> stayDates<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> remainingCount<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../-rate-plan-price/index.html">RatePlanPrice</a> price<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> memberOnlyDeal<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-promotion/index.html">Promotion</a><span class="token operator">&gt;</span> promotions<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../-rate-plan-standalone-price/index.html">RatePlanStandalonePrice</a> standalonePrice<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> taxesAndFeesInclusive<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> guaranteeText<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../-payment-method/index.html">RatePlan.PaymentMethod</a> paymentMethod<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../-payment-time/index.html">RatePlan.PaymentTime</a> paymentTime<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> fullDepositUponBooking<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-payment-schedule/index.html">PaymentSchedule</a><span class="token operator">&gt;</span> paymentSchedule<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> reserveWithDeposit<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> freeInternet<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> freeWiFi<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span> freeInternetDetails<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> freeParking<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> freeBreakfast<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span> freeBreakfastDetails<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> hcomRewardsEarn<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> hcomRewardsBurn<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../-cancellation-policy/index.html">CancellationPolicy</a> cancellationPolicy<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-rate-plan-amenities-inner/index.html">RatePlanAmenitiesInner</a><span class="token operator">&gt;</span> amenities</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1340749815%2FFunctions%2F699445674" anchor-label="amenities" id="1340749815%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="amenities.html"><span><span>amenities</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1340749815%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="amenities.html"><span class="token function">amenities</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-rate-plan-amenities-inner/index.html">RatePlanAmenitiesInner</a><span class="token operator">&gt;</span> amenities</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1359516436%2FFunctions%2F699445674" anchor-label="build" id="1359516436%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="build.html"><span><span>build</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1359516436%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="../index.html">RatePlan</a> <a href="build.html"><span class="token function">build</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1546146904%2FFunctions%2F699445674" anchor-label="cancellationPolicy" id="-1546146904%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cancellation-policy.html"><span>cancellation</span><wbr></wbr><span><span>Policy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1546146904%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="cancellation-policy.html"><span class="token function">cancellationPolicy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../-cancellation-policy/index.html">CancellationPolicy</a> cancellationPolicy</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="172986635%2FFunctions%2F699445674" anchor-label="freeBreakfast" id="172986635%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free-breakfast.html"><span>free</span><wbr></wbr><span><span>Breakfast</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="172986635%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="free-breakfast.html"><span class="token function">freeBreakfast</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> freeBreakfast</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="664251572%2FFunctions%2F699445674" anchor-label="freeBreakfastDetails" id="664251572%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free-breakfast-details.html"><span>free</span><wbr></wbr><span>Breakfast</span><wbr></wbr><span><span>Details</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="664251572%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="free-breakfast-details.html"><span class="token function">freeBreakfastDetails</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span> freeBreakfastDetails</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-815062029%2FFunctions%2F699445674" anchor-label="freeInternet" id="-815062029%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free-internet.html"><span>free</span><wbr></wbr><span><span>Internet</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-815062029%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="free-internet.html"><span class="token function">freeInternet</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> freeInternet</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1866710220%2FFunctions%2F699445674" anchor-label="freeInternetDetails" id="1866710220%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free-internet-details.html"><span>free</span><wbr></wbr><span>Internet</span><wbr></wbr><span><span>Details</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1866710220%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="free-internet-details.html"><span class="token function">freeInternetDetails</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span> freeInternetDetails</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="843141544%2FFunctions%2F699445674" anchor-label="freeParking" id="843141544%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free-parking.html"><span>free</span><wbr></wbr><span><span>Parking</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="843141544%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="free-parking.html"><span class="token function">freeParking</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> freeParking</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="174003303%2FFunctions%2F699445674" anchor-label="freeWiFi" id="174003303%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="free-wi-fi.html"><span>free</span><wbr></wbr><span>Wi</span><wbr></wbr><span><span>Fi</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="174003303%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="free-wi-fi.html"><span class="token function">freeWiFi</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> freeWiFi</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-153980522%2FFunctions%2F699445674" anchor-label="fullDepositUponBooking" id="-153980522%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="full-deposit-upon-booking.html"><span>full</span><wbr></wbr><span>Deposit</span><wbr></wbr><span>Upon</span><wbr></wbr><span><span>Booking</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-153980522%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="full-deposit-upon-booking.html"><span class="token function">fullDepositUponBooking</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> fullDepositUponBooking</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="24628780%2FFunctions%2F699445674" anchor-label="guaranteeText" id="24628780%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="guarantee-text.html"><span>guarantee</span><wbr></wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="24628780%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="guarantee-text.html"><span class="token function">guaranteeText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> guaranteeText</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1087697846%2FFunctions%2F699445674" anchor-label="hcomRewardsBurn" id="1087697846%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hcom-rewards-burn.html"><span>hcom</span><wbr></wbr><span>Rewards</span><wbr></wbr><span><span>Burn</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1087697846%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="hcom-rewards-burn.html"><span class="token function">hcomRewardsBurn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> hcomRewardsBurn</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1602385729%2FFunctions%2F699445674" anchor-label="hcomRewardsEarn" id="-1602385729%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hcom-rewards-earn.html"><span>hcom</span><wbr></wbr><span>Rewards</span><wbr></wbr><span><span>Earn</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1602385729%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="hcom-rewards-earn.html"><span class="token function">hcomRewardsEarn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> hcomRewardsEarn</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1261455299%2FFunctions%2F699445674" anchor-label="inventorySourceCode" id="-1261455299%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="inventory-source-code.html"><span>inventory</span><wbr></wbr><span>Source</span><wbr></wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1261455299%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="inventory-source-code.html"><span class="token function">inventorySourceCode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> inventorySourceCode</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1181402319%2FFunctions%2F699445674" anchor-label="inventorySourceId" id="1181402319%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="inventory-source-id.html"><span>inventory</span><wbr></wbr><span>Source</span><wbr></wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1181402319%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="inventory-source-id.html"><span class="token function">inventorySourceId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> inventorySourceId</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-734669096%2FFunctions%2F699445674" anchor-label="memberOnlyDeal" id="-734669096%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="member-only-deal.html"><span>member</span><wbr></wbr><span>Only</span><wbr></wbr><span><span>Deal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-734669096%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="member-only-deal.html"><span class="token function">memberOnlyDeal</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> memberOnlyDeal</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="176179645%2FFunctions%2F699445674" anchor-label="paymentMethod" id="176179645%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="payment-method.html"><span>payment</span><wbr></wbr><span><span>Method</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="176179645%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="payment-method.html"><span class="token function">paymentMethod</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-payment-method/index.html">RatePlan.PaymentMethod</a> paymentMethod</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="218505064%2FFunctions%2F699445674" anchor-label="paymentSchedule" id="218505064%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="payment-schedule.html"><span>payment</span><wbr></wbr><span><span>Schedule</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="218505064%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="payment-schedule.html"><span class="token function">paymentSchedule</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-payment-schedule/index.html">PaymentSchedule</a><span class="token operator">&gt;</span> paymentSchedule</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1004754091%2FFunctions%2F699445674" anchor-label="paymentTime" id="-1004754091%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="payment-time.html"><span>payment</span><wbr></wbr><span><span>Time</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1004754091%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="payment-time.html"><span class="token function">paymentTime</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-payment-time/index.html">RatePlan.PaymentTime</a> paymentTime</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-641702905%2FFunctions%2F699445674" anchor-label="price" id="-641702905%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="price.html"><span><span>price</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-641702905%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="price.html"><span class="token function">price</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../-rate-plan-price/index.html">RatePlanPrice</a> price</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="179232415%2FFunctions%2F699445674" anchor-label="promotions" id="179232415%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="promotions.html"><span><span>promotions</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="179232415%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="promotions.html"><span class="token function">promotions</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-promotion/index.html">Promotion</a><span class="token operator">&gt;</span> promotions</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-407851629%2FFunctions%2F699445674" anchor-label="ratePlanId" id="-407851629%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rate-plan-id.html"><span>rate</span><wbr></wbr><span>Plan</span><wbr></wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-407851629%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="rate-plan-id.html"><span class="token function">ratePlanId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> ratePlanId</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1904030944%2FFunctions%2F699445674" anchor-label="rateRuleId" id="-1904030944%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rate-rule-id.html"><span>rate</span><wbr></wbr><span>Rule</span><wbr></wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1904030944%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="rate-rule-id.html"><span class="token function">rateRuleId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> rateRuleId</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1119994598%2FFunctions%2F699445674" anchor-label="remainingCount" id="1119994598%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remaining-count.html"><span>remaining</span><wbr></wbr><span><span>Count</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1119994598%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="remaining-count.html"><span class="token function">remainingCount</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> remainingCount</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-622851070%2FFunctions%2F699445674" anchor-label="reserveWithDeposit" id="-622851070%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reserve-with-deposit.html"><span>reserve</span><wbr></wbr><span>With</span><wbr></wbr><span><span>Deposit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-622851070%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="reserve-with-deposit.html"><span class="token function">reserveWithDeposit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> reserveWithDeposit</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="233453703%2FFunctions%2F699445674" anchor-label="roomTypeId" id="233453703%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="room-type-id.html"><span>room</span><wbr></wbr><span>Type</span><wbr></wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="233453703%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="room-type-id.html"><span class="token function">roomTypeId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> roomTypeId</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2096457945%2FFunctions%2F699445674" anchor-label="standalonePrice" id="-2096457945%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="standalone-price.html"><span>standalone</span><wbr></wbr><span><span>Price</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2096457945%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="standalone-price.html"><span class="token function">standalonePrice</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../-rate-plan-standalone-price/index.html">RatePlanStandalonePrice</a> standalonePrice</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="793152464%2FFunctions%2F699445674" anchor-label="stayDates" id="793152464%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="stay-dates.html"><span>stay</span><wbr></wbr><span><span>Dates</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="793152464%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="stay-dates.html"><span class="token function">stayDates</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../-stay-dates/index.html">StayDates</a> stayDates</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2135613155%2FFunctions%2F699445674" anchor-label="taxesAndFeesInclusive" id="-2135613155%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="taxes-and-fees-inclusive.html"><span>taxes</span><wbr></wbr><span>And</span><wbr></wbr><span>Fees</span><wbr></wbr><span><span>Inclusive</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2135613155%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">RatePlan.Builder</a> <a href="taxes-and-fees-inclusive.html"><span class="token function">taxesAndFeesInclusive</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> taxesAndFeesInclusive</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>DepositDetail</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/multimodule.css" rel="Stylesheet">
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            xap-sdk
+                    </a>
+            </div>
+            <div class="library-version">
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;xap-sdk/com.expediagroup.sdk.xap.models/-deposit-detail/index.html&quot;}">1.0.0</dokka-template-command>            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="xap-sdk/JVM">JVM</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="xap-sdk::com.expediagroup.sdk.xap.models/DepositDetail///PointingToDeclaration//699445674">
+  <div class="breadcrumbs"><a href="../../../index.html">xap-sdk</a><span class="delimiter">/</span><a href="../index.html">com.expediagroup.sdk.xap.models</a><span class="delimiter">/</span><span class="current">DepositDetail</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Deposit</span><wbr></wbr><span><span>Detail</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="index.html">DepositDetail</a></div><p class="paragraph">Container for deposit policy details</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>type</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Should be one of the following values: PERCENT The deposit amount is calculated as a percentage of the total booking cost. NIGHT The deposit amount is calculated in terms of nights plus tax. AMOUNT The deposit amount in USD. REMAINDER The deposit amount is equal to the booking cost minus any deposits that have been made before this point.</p></div></div></div></div><div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u></u></div></span></div><div><div class="title"><p class="paragraph"><code class="lang-kotlin">when</code></p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1170507806%2FConstructors%2F699445674" anchor-label="DepositDetail" id="-1170507806%2FConstructors%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-deposit-detail.html"><span>Deposit</span><wbr></wbr><span><span>Detail</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1170507806%2FConstructors%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">DepositDetail</a> <a href="-deposit-detail.html"><span class="token function">DepositDetail</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="-type/index.html">DepositDetail.Type</a> type<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> value<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../-when/index.html">When</a> when</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-819520631%2FClasslikes%2F699445674" anchor-label="Builder" id="-819520631%2FClasslikes%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-builder/index.html"><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-819520631%2FClasslikes%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="-builder/index.html">Builder</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1279132540%2FClasslikes%2F699445674" anchor-label="Type" id="-1279132540%2FClasslikes%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-type/index.html"><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1279132540%2FClasslikes%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">enum </span><a href="-type/index.html">Type</a><span class="token keyword"> extends </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-type/index.html">DepositDetail.Type</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Should be one of the following values: PERCENT The deposit amount is calculated as a percentage of the total booking cost. NIGHT The deposit amount is calculated in terms of nights plus tax. AMOUNT The deposit amount in USD. REMAINDER The deposit amount is equal to the booking cost minus any deposits that have been made before this point. Values: PERCENT,NIGHT,AMOUNT,REMAINDER</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="240682447%2FProperties%2F699445674" anchor-label="type" id="240682447%2FProperties%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#240682447%2FProperties%2F699445674"><span><span>type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="240682447%2FProperties%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="-type/index.html">DepositDetail.Type</a> <a href="index.html#240682447%2FProperties%2F699445674">type</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-203839264%2FProperties%2F699445674" anchor-label="value" id="-203839264%2FProperties%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-203839264%2FProperties%2F699445674"><span><span>value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-203839264%2FProperties%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="javax.validation/Valid///PointingToDeclaration/"><span class="token annotation builtin">Valid</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="index.html#-203839264%2FProperties%2F699445674">value</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="646900175%2FProperties%2F699445674" anchor-label="when" id="646900175%2FProperties%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#646900175%2FProperties%2F699445674"><span><span>when</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="646900175%2FProperties%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="javax.validation/Valid///PointingToDeclaration/"><span class="token annotation builtin">Valid</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="../-when/index.html">When</a> <a href="index.html#646900175%2FProperties%2F699445674">when</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1612595192%2FFunctions%2F699445674" anchor-label="builder" id="1612595192%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="builder.html"><span><span>builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1612595192%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="-builder/index.html">DepositDetail.Builder</a> <a href="builder.html"><span class="token function">builder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="618588801%2FFunctions%2F699445674" anchor-label="getType" id="618588801%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-type.html"><span>get</span><wbr></wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="618588801%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="-type/index.html">DepositDetail.Type</a> <a href="get-type.html"><span class="token function">getType</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1373644178%2FFunctions%2F699445674" anchor-label="getValue" id="-1373644178%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-value.html"><span>get</span><wbr></wbr><span><span>Value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1373644178%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="get-value.html"><span class="token function">getValue</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1024806529%2FFunctions%2F699445674" anchor-label="getWhen" id="1024806529%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-when.html"><span>get</span><wbr></wbr><span><span>When</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1024806529%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="../-when/index.html">When</a> <a href="get-when.html"><span class="token function">getWhen</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1823423121%2FFunctions%2F699445674" anchor-label="toBuilder" id="1823423121%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-builder.html"><span>to</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1823423121%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="-builder/index.html">DepositDetail.Builder</a> <a href="to-builder.html"><span class="token function">toBuilder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

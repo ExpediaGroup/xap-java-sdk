@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>AvailabilityCalendar</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/multimodule.css" rel="Stylesheet">
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            xap-sdk
+                    </a>
+            </div>
+            <div class="library-version">
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;xap-sdk/com.expediagroup.sdk.xap.models/-availability-calendar/index.html&quot;}">1.0.0</dokka-template-command>            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="xap-sdk/JVM">JVM</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="xap-sdk::com.expediagroup.sdk.xap.models/AvailabilityCalendar///PointingToDeclaration//699445674">
+  <div class="breadcrumbs"><a href="../../../index.html">xap-sdk</a><span class="delimiter">/</span><a href="../index.html">com.expediagroup.sdk.xap.models</a><span class="delimiter">/</span><span class="current">AvailabilityCalendar</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Availability</span><wbr></wbr><span><span>Calendar</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="index.html">AvailabilityCalendar</a></div><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>property</span><wbr></wbr><span><span>Id</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The unique property identifier that designates a single property.</p></div></div></div></div><div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>date</span><wbr></wbr><span><span>Range</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>availability</span></span></u></div></span></div><div><div class="title"><p class="paragraph">A string of codes that shows property availability, one for every day in the specified date range.  Valid values include Y (available) and N (unavailable).  <i><strong>Note</strong></i><i>: The first code stands for availability on the </i><code class="italic lang-kotlin"><i>StartDate</i></code><i> in the </i><code class="italic lang-kotlin"><i>DateRange</i></code><i> and the last one stands  for the </i><code class="italic lang-kotlin"><i>EndDate</i></code><i>.</i></p></div></div></div></div><div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>change</span><wbr></wbr><span><span>Over</span></span></u></div></span></div><div><div class="title"><p class="paragraph">A string of codes that shows changeover action, one for every day in the specified date range.  Valid values include - X (no action possible) - C (check-in, checkout) - O (checkout only) - I (check-in only) <i><strong>Note</strong></i><i>: The first code stands for possible action on the </i><code class="italic lang-kotlin"><i>StartDate</i></code><i> in the </i><code class="italic lang-kotlin"><i>DateRange</i></code><i> and the last one  stands for the </i><code class="italic lang-kotlin"><i>EndDate</i></code><i>. All actions are possible if not returned.</i></p></div></div></div></div><div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>min</span><wbr></wbr><span>Prior</span><wbr></wbr><span><span>Notify</span></span></u></div></span></div><div><div class="title"><p class="paragraph">A comma-separated list of numbers that shows how many days before a reservation the booking must occur, one for every day in the specified date range. Valid values include 0-999, and 0 indicates no prior notification required for a given day. The unit is always day.  <i><strong>Note</strong></i><i>: The first number stands for the minimum advance booking days on the </i><code class="italic lang-kotlin"><i>StartDate</i></code><i> in the </i><code class="italic lang-kotlin"><i>DateRange</i></code><i> and the last one stands for the </i><code class="italic lang-kotlin"><i>EndDate</i></code><i>. No limitation if not returned.</i></p></div></div></div></div><div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>min</span><wbr></wbr><span><span>Stay</span></span></u></div></span></div><div><div class="title"><p class="paragraph">A comma-separated list of numbers that show the minimum number of days a traveler can stay, one for every day in the specified date range.  Valid values include 0-999, and 0 indicates no minimum for a given day. The unit is always day.  <i><strong>Note</strong></i><i>: The first number stands for the minimum stay on the </i><code class="italic lang-kotlin"><i>StartDate</i></code><i> in the </i><code class="italic lang-kotlin"><i>DateRange</i></code><i> and the last one stands for the </i><code class="italic lang-kotlin"><i>EndDate</i></code><i>. No limitation if not returned.</i></p></div></div></div></div><div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>max</span><wbr></wbr><span><span>Stay</span></span></u></div></span></div><div><div class="title"><p class="paragraph">A comma-separated list of numbers that show the maximum number of days a traveler can stay, one for every day in the specified date range.  Valid values include 0-999, and 0 indicates no maximum for a given day. The unit is always day.  *<strong>Note</strong>: The first number stands for the maximum stay on the <code class="lang-kotlin">StartDate</code> in the <code class="lang-kotlin">DateRange</code> and the  last one stands for the <code class="lang-kotlin">EndDate</code>. No limitation if not returned.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1675132003%2FConstructors%2F699445674" anchor-label="AvailabilityCalendar" id="1675132003%2FConstructors%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-availability-calendar.html"><span>Availability</span><wbr></wbr><span><span>Calendar</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1675132003%2FConstructors%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">AvailabilityCalendar</a> <a href="-availability-calendar.html"><span class="token function">AvailabilityCalendar</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> propertyId<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../-date-range/index.html">DateRange</a> dateRange<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> availability<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> changeOver<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> minPriorNotify<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> minStay<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> maxStay</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="601361207%2FClasslikes%2F699445674" anchor-label="Builder" id="601361207%2FClasslikes%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-builder/index.html"><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="601361207%2FClasslikes%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="-builder/index.html">Builder</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1638508576%2FProperties%2F699445674" anchor-label="availability" id="-1638508576%2FProperties%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1638508576%2FProperties%2F699445674"><span><span>availability</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1638508576%2FProperties%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="javax.validation/Valid///PointingToDeclaration/"><span class="token annotation builtin">Valid</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="index.html#-1638508576%2FProperties%2F699445674">availability</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1523301321%2FProperties%2F699445674" anchor-label="changeOver" id="-1523301321%2FProperties%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1523301321%2FProperties%2F699445674"><span>change</span><wbr></wbr><span><span>Over</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1523301321%2FProperties%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="javax.validation/Valid///PointingToDeclaration/"><span class="token annotation builtin">Valid</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="index.html#-1523301321%2FProperties%2F699445674">changeOver</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-590653424%2FProperties%2F699445674" anchor-label="dateRange" id="-590653424%2FProperties%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-590653424%2FProperties%2F699445674"><span>date</span><wbr></wbr><span><span>Range</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-590653424%2FProperties%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="javax.validation/Valid///PointingToDeclaration/"><span class="token annotation builtin">Valid</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="../-date-range/index.html">DateRange</a> <a href="index.html#-590653424%2FProperties%2F699445674">dateRange</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1167483042%2FProperties%2F699445674" anchor-label="maxStay" id="1167483042%2FProperties%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1167483042%2FProperties%2F699445674"><span>max</span><wbr></wbr><span><span>Stay</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1167483042%2FProperties%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="javax.validation/Valid///PointingToDeclaration/"><span class="token annotation builtin">Valid</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="index.html#1167483042%2FProperties%2F699445674">maxStay</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1394553722%2FProperties%2F699445674" anchor-label="minPriorNotify" id="1394553722%2FProperties%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1394553722%2FProperties%2F699445674"><span>min</span><wbr></wbr><span>Prior</span><wbr></wbr><span><span>Notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1394553722%2FProperties%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="javax.validation/Valid///PointingToDeclaration/"><span class="token annotation builtin">Valid</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="index.html#1394553722%2FProperties%2F699445674">minPriorNotify</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-434246028%2FProperties%2F699445674" anchor-label="minStay" id="-434246028%2FProperties%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-434246028%2FProperties%2F699445674"><span>min</span><wbr></wbr><span><span>Stay</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-434246028%2FProperties%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="javax.validation/Valid///PointingToDeclaration/"><span class="token annotation builtin">Valid</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="index.html#-434246028%2FProperties%2F699445674">minStay</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2127713419%2FProperties%2F699445674" anchor-label="propertyId" id="2127713419%2FProperties%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2127713419%2FProperties%2F699445674"><span>property</span><wbr></wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2127713419%2FProperties%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="javax.validation/Valid///PointingToDeclaration/"><span class="token annotation builtin">Valid</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="index.html#2127713419%2FProperties%2F699445674">propertyId</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1327623718%2FFunctions%2F699445674" anchor-label="builder" id="1327623718%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="builder.html"><span><span>builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1327623718%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="-builder/index.html">AvailabilityCalendar.Builder</a> <a href="builder.html"><span class="token function">builder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-668229842%2FFunctions%2F699445674" anchor-label="getAvailability" id="-668229842%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-availability.html"><span>get</span><wbr></wbr><span><span>Availability</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-668229842%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="get-availability.html"><span class="token function">getAvailability</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1387202309%2FFunctions%2F699445674" anchor-label="getChangeOver" id="1387202309%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-change-over.html"><span>get</span><wbr></wbr><span>Change</span><wbr></wbr><span><span>Over</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1387202309%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="get-change-over.html"><span class="token function">getChangeOver</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-358218878%2FFunctions%2F699445674" anchor-label="getDateRange" id="-358218878%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-date-range.html"><span>get</span><wbr></wbr><span>Date</span><wbr></wbr><span><span>Range</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-358218878%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="../-date-range/index.html">DateRange</a> <a href="get-date-range.html"><span class="token function">getDateRange</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-861323116%2FFunctions%2F699445674" anchor-label="getMaxStay" id="-861323116%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-max-stay.html"><span>get</span><wbr></wbr><span>Max</span><wbr></wbr><span><span>Stay</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-861323116%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="get-max-stay.html"><span class="token function">getMaxStay</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1824513864%2FFunctions%2F699445674" anchor-label="getMinPriorNotify" id="1824513864%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-min-prior-notify.html"><span>get</span><wbr></wbr><span>Min</span><wbr></wbr><span>Prior</span><wbr></wbr><span><span>Notify</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1824513864%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="get-min-prior-notify.html"><span class="token function">getMinPriorNotify</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1831915110%2FFunctions%2F699445674" anchor-label="getMinStay" id="1831915110%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-min-stay.html"><span>get</span><wbr></wbr><span>Min</span><wbr></wbr><span><span>Stay</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1831915110%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="get-min-stay.html"><span class="token function">getMinStay</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="743249753%2FFunctions%2F699445674" anchor-label="getPropertyId" id="743249753%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-property-id.html"><span>get</span><wbr></wbr><span>Property</span><wbr></wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="743249753%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> <a href="get-property-id.html"><span class="token function">getPropertyId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1491269311%2FFunctions%2F699445674" anchor-label="toBuilder" id="1491269311%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-builder.html"><span>to</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1491269311%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="-builder/index.html">AvailabilityCalendar.Builder</a> <a href="to-builder.html"><span class="token function">toBuilder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

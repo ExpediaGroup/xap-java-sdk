@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Builder</title>
+    <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../../styles/multimodule.css" rel="Stylesheet">
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../../index.html">
+                            xap-sdk
+                    </a>
+            </div>
+            <div class="library-version">
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;xap-sdk/com.expediagroup.sdk.xap.models/-hotel/-builder/index.html&quot;}">1.0.0</dokka-template-command>            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="xap-sdk/JVM">JVM</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="xap-sdk::com.expediagroup.sdk.xap.models/Hotel.Builder///PointingToDeclaration//699445674">
+  <div class="breadcrumbs"><a href="../../../../index.html">xap-sdk</a><span class="delimiter">/</span><a href="../../index.html">com.expediagroup.sdk.xap.models</a><span class="delimiter">/</span><a href="../index.html">Hotel</a><span class="delimiter">/</span><span class="current">Builder</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Builder</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="index.html">Builder</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-1611994470%2FConstructors%2F699445674" anchor-label="Hotel.Builder" id="-1611994470%2FConstructors%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hotel.-builder.html"><span>Hotel.</span><wbr></wbr><span>Builder</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1611994470%2FConstructors%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="-hotel.-builder.html"><span class="token function">Hotel.Builder</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> id<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> hcomId<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> name<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../-hotel-property-type/index.html">HotelPropertyType</a> propertyType<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../-property-details/index.html">PropertyDetails</a> propertyDetails<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> localCurrencyCode<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../-hotel-location/index.html">HotelLocation</a> location<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-phone/index.html">Phone</a><span class="token operator">&gt;</span> phoneInfos<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../-distance/index.html">Distance</a> distance<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../-description/index.html">Description</a> description<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../-status/index.html">Hotel.Status</a> status<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span> renovationsAndClosures<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../-chain-and-brand-info/index.html">ChainAndBrandInfo</a> chainAndBrandInfo<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> thumbnailUrl<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../-star-rating/index.html">Hotel.StarRating</a> starRating<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> guestRating<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> guestReviewCount<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> petFriendly<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> lgbtqiaFriendly<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../-hotel-links/index.html">HotelLinks</a> links<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="../../-hotel-policies/index.html">HotelPolicies</a> policies<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> cleanlinessAndSafety<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span> optionalExtras<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span> importantNotices<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-media/index.html">Media</a><span class="token operator">&gt;</span> media<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-hotel-hotel-amenities-inner/index.html">HotelHotelAmenitiesInner</a><span class="token operator">&gt;</span> hotelAmenities<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> hotelDescriptiveAmenities<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-hotel-room-amenities-inner/index.html">HotelRoomAmenitiesInner</a><span class="token operator">&gt;</span> roomAmenities<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> roomDescriptiveAmenities<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span> accessibility<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> memberOnlyDealAvailable<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-room-type/index.html">RoomType</a><span class="token operator">&gt;</span> roomTypes</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1892813688%2FFunctions%2F699445674" anchor-label="accessibility" id="-1892813688%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="accessibility.html"><span><span>accessibility</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1892813688%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="accessibility.html"><span class="token function">accessibility</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span> accessibility</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2136099729%2FFunctions%2F699445674" anchor-label="build" id="2136099729%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="build.html"><span><span>build</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2136099729%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="../index.html">Hotel</a> <a href="build.html"><span class="token function">build</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2045564499%2FFunctions%2F699445674" anchor-label="chainAndBrandInfo" id="-2045564499%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="chain-and-brand-info.html"><span>chain</span><wbr></wbr><span>And</span><wbr></wbr><span>Brand</span><wbr></wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2045564499%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="chain-and-brand-info.html"><span class="token function">chainAndBrandInfo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../-chain-and-brand-info/index.html">ChainAndBrandInfo</a> chainAndBrandInfo</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1388523544%2FFunctions%2F699445674" anchor-label="cleanlinessAndSafety" id="-1388523544%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cleanliness-and-safety.html"><span>cleanliness</span><wbr></wbr><span>And</span><wbr></wbr><span><span>Safety</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1388523544%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="cleanliness-and-safety.html"><span class="token function">cleanlinessAndSafety</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> cleanlinessAndSafety</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1846437043%2FFunctions%2F699445674" anchor-label="description" id="-1846437043%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="description.html"><span><span>description</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1846437043%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="description.html"><span class="token function">description</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../-description/index.html">Description</a> description</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="832654309%2FFunctions%2F699445674" anchor-label="distance" id="832654309%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="distance.html"><span><span>distance</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="832654309%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="distance.html"><span class="token function">distance</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../-distance/index.html">Distance</a> distance</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1400461911%2FFunctions%2F699445674" anchor-label="guestRating" id="-1400461911%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="guest-rating.html"><span>guest</span><wbr></wbr><span><span>Rating</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1400461911%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="guest-rating.html"><span class="token function">guestRating</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> guestRating</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="226569801%2FFunctions%2F699445674" anchor-label="guestReviewCount" id="226569801%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="guest-review-count.html"><span>guest</span><wbr></wbr><span>Review</span><wbr></wbr><span><span>Count</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="226569801%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="guest-review-count.html"><span class="token function">guestReviewCount</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html">Integer</a> guestReviewCount</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-338054394%2FFunctions%2F699445674" anchor-label="hcomId" id="-338054394%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hcom-id.html"><span>hcom</span><wbr></wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-338054394%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="hcom-id.html"><span class="token function">hcomId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> hcomId</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1091768237%2FFunctions%2F699445674" anchor-label="hotelAmenities" id="1091768237%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hotel-amenities.html"><span>hotel</span><wbr></wbr><span><span>Amenities</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1091768237%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="hotel-amenities.html"><span class="token function">hotelAmenities</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-hotel-hotel-amenities-inner/index.html">HotelHotelAmenitiesInner</a><span class="token operator">&gt;</span> hotelAmenities</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="67217975%2FFunctions%2F699445674" anchor-label="hotelDescriptiveAmenities" id="67217975%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hotel-descriptive-amenities.html"><span>hotel</span><wbr></wbr><span>Descriptive</span><wbr></wbr><span><span>Amenities</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="67217975%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="hotel-descriptive-amenities.html"><span class="token function">hotelDescriptiveAmenities</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> hotelDescriptiveAmenities</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="688192031%2FFunctions%2F699445674" anchor-label="id" id="688192031%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="id.html"><span><span>id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="688192031%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="id.html"><span class="token function">id</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> id</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1469113833%2FFunctions%2F699445674" anchor-label="importantNotices" id="-1469113833%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="important-notices.html"><span>important</span><wbr></wbr><span><span>Notices</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1469113833%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="important-notices.html"><span class="token function">importantNotices</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span> importantNotices</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-86198394%2FFunctions%2F699445674" anchor-label="lgbtqiaFriendly" id="-86198394%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="lgbtqia-friendly.html"><span>lgbtqia</span><wbr></wbr><span><span>Friendly</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-86198394%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="lgbtqia-friendly.html"><span class="token function">lgbtqiaFriendly</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> lgbtqiaFriendly</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="104366549%2FFunctions%2F699445674" anchor-label="links" id="104366549%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="links.html"><span><span>links</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="104366549%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="links.html"><span class="token function">links</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../-hotel-links/index.html">HotelLinks</a> links</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1673237867%2FFunctions%2F699445674" anchor-label="localCurrencyCode" id="-1673237867%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="local-currency-code.html"><span>local</span><wbr></wbr><span>Currency</span><wbr></wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1673237867%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="local-currency-code.html"><span class="token function">localCurrencyCode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> localCurrencyCode</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-38830979%2FFunctions%2F699445674" anchor-label="location" id="-38830979%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="location.html"><span><span>location</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-38830979%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="location.html"><span class="token function">location</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../-hotel-location/index.html">HotelLocation</a> location</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1228487019%2FFunctions%2F699445674" anchor-label="media" id="1228487019%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="media.html"><span><span>media</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1228487019%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="media.html"><span class="token function">media</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-media/index.html">Media</a><span class="token operator">&gt;</span> media</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-225997418%2FFunctions%2F699445674" anchor-label="memberOnlyDealAvailable" id="-225997418%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="member-only-deal-available.html"><span>member</span><wbr></wbr><span>Only</span><wbr></wbr><span>Deal</span><wbr></wbr><span><span>Available</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-225997418%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="member-only-deal-available.html"><span class="token function">memberOnlyDealAvailable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> memberOnlyDealAvailable</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1113966801%2FFunctions%2F699445674" anchor-label="name" id="-1113966801%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="name.html"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1113966801%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="name.html"><span class="token function">name</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> name</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="773576289%2FFunctions%2F699445674" anchor-label="optionalExtras" id="773576289%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="optional-extras.html"><span>optional</span><wbr></wbr><span><span>Extras</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="773576289%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="optional-extras.html"><span class="token function">optionalExtras</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span> optionalExtras</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1327574665%2FFunctions%2F699445674" anchor-label="petFriendly" id="1327574665%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pet-friendly.html"><span>pet</span><wbr></wbr><span><span>Friendly</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1327574665%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="pet-friendly.html"><span class="token function">petFriendly</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html">Boolean</a> petFriendly</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2086377272%2FFunctions%2F699445674" anchor-label="phoneInfos" id="2086377272%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="phone-infos.html"><span>phone</span><wbr></wbr><span><span>Infos</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2086377272%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="phone-infos.html"><span class="token function">phoneInfos</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-phone/index.html">Phone</a><span class="token operator">&gt;</span> phoneInfos</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2124513053%2FFunctions%2F699445674" anchor-label="policies" id="2124513053%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="policies.html"><span><span>policies</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2124513053%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="policies.html"><span class="token function">policies</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../-hotel-policies/index.html">HotelPolicies</a> policies</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1479786771%2FFunctions%2F699445674" anchor-label="propertyDetails" id="-1479786771%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="property-details.html"><span>property</span><wbr></wbr><span><span>Details</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1479786771%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="property-details.html"><span class="token function">propertyDetails</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../-property-details/index.html">PropertyDetails</a> propertyDetails</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-910994371%2FFunctions%2F699445674" anchor-label="propertyType" id="-910994371%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="property-type.html"><span>property</span><wbr></wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-910994371%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="property-type.html"><span class="token function">propertyType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../-hotel-property-type/index.html">HotelPropertyType</a> propertyType</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="171352205%2FFunctions%2F699445674" anchor-label="renovationsAndClosures" id="171352205%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="renovations-and-closures.html"><span>renovations</span><wbr></wbr><span>And</span><wbr></wbr><span><span>Closures</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="171352205%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="renovations-and-closures.html"><span class="token function">renovationsAndClosures</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span> renovationsAndClosures</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1129304345%2FFunctions%2F699445674" anchor-label="roomAmenities" id="1129304345%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="room-amenities.html"><span>room</span><wbr></wbr><span><span>Amenities</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1129304345%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="room-amenities.html"><span class="token function">roomAmenities</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-hotel-room-amenities-inner/index.html">HotelRoomAmenitiesInner</a><span class="token operator">&gt;</span> roomAmenities</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="206638946%2FFunctions%2F699445674" anchor-label="roomDescriptiveAmenities" id="206638946%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="room-descriptive-amenities.html"><span>room</span><wbr></wbr><span>Descriptive</span><wbr></wbr><span><span>Amenities</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="206638946%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="room-descriptive-amenities.html"><span class="token function">roomDescriptiveAmenities</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> roomDescriptiveAmenities</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1033667840%2FFunctions%2F699445674" anchor-label="roomTypes" id="1033667840%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="room-types.html"><span>room</span><wbr></wbr><span><span>Types</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1033667840%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="room-types.html"><span class="token function">roomTypes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-room-type/index.html">RoomType</a><span class="token operator">&gt;</span> roomTypes</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1668085427%2FFunctions%2F699445674" anchor-label="starRating" id="1668085427%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="star-rating.html"><span>star</span><wbr></wbr><span><span>Rating</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1668085427%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="star-rating.html"><span class="token function">starRating</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-star-rating/index.html">Hotel.StarRating</a> starRating</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-620368839%2FFunctions%2F699445674" anchor-label="status" id="-620368839%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="status.html"><span><span>status</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-620368839%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="status.html"><span class="token function">status</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../-status/index.html">Hotel.Status</a> status</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1807000617%2FFunctions%2F699445674" anchor-label="thumbnailUrl" id="-1807000617%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="thumbnail-url.html"><span>thumbnail</span><wbr></wbr><span><span>Url</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1807000617%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">Hotel.Builder</a> <a href="thumbnail-url.html"><span class="token function">thumbnailUrl</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a> thumbnailUrl</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
