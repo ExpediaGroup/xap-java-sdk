@@ -128,13 +128,13 @@ public class ListingsQuickStartScenario implements XapScenario {
 
     // To access the properties, iterate through the list of hotel properties
     hotelListingsResponse.getHotels().forEach(hotel -> {
-      LOGGER.info(
-          "=================================== Property Start ===================================");
       // Check if the property is available
       if (Hotel.Status.AVAILABLE != hotel.getStatus()) {
-        LOGGER.info("Property is not available.");
+        LOGGER.info("Property {} is not available.", hotel.getId());
         return;
       }
+      LOGGER.info(
+          "=================================== Property Start ===================================");
       // To get the property name
       if (StringUtils.isNotEmpty(hotel.getName())) {
         LOGGER.info("Property Name: {}", hotel.getName());

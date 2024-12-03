@@ -27,7 +27,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This example demonstrates how to use Availability Calendar api with simple search.
- * Note: this is a Vrbo scenario. You need a key that is enabled for Vrbo brand to run this.
+ * In terms of how to get property ids, you can refer to {@link VrboPropertySearchEndToEndScenario}.
+ *
+ * <p>Note: this is a Vrbo scenario. You need a key that is enabled for Vrbo brand to run this.
  */
 public class AvailabilityCalendarsQuickStartScenario implements VrboScenario {
 
@@ -56,7 +58,7 @@ public class AvailabilityCalendarsQuickStartScenario implements VrboScenario {
         GetLodgingAvailabilityCalendarsOperationParams.builder()
             .partnerTransactionId(PARTNER_TRANSACTION_ID)
             // Set of Expedia Property IDs.
-            .propertyIds(new HashSet<>(Arrays.asList("87704892", "12410858")))
+            .propertyIds(new HashSet<>(Arrays.asList("87704892", "36960201")))
             .build();
 
     XapClient xapClient = createClient();

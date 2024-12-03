@@ -19,8 +19,9 @@ package com.expediagroup.sdk.xap.examples;
 import com.expediagroup.sdk.xap.examples.scenarios.car.CarDetailsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.car.CarListingsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.lodging.AvailabilityCalendarsQuickStartScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.lodging.HotelIdsSearchEndToEndScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.lodging.ListingsQuickStartScenario;
-import com.expediagroup.sdk.xap.examples.scenarios.lodging.QuotesQuickStartScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.lodging.VrboPropertySearchEndToEndScenario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,8 +47,13 @@ public class XapSdkDemoTestRun {
     ListingsQuickStartScenario listingsQuickStartScenario = new ListingsQuickStartScenario();
     listingsQuickStartScenario.run();
 
-    QuotesQuickStartScenario quotesQuickStartScenario = new QuotesQuickStartScenario();
-    quotesQuickStartScenario.run();
+    HotelIdsSearchEndToEndScenario hotelIdsSearchEndToEndScenario =
+        new HotelIdsSearchEndToEndScenario();
+    hotelIdsSearchEndToEndScenario.run();
+
+    VrboPropertySearchEndToEndScenario vrboPropertySearchEndToEndScenario =
+        new VrboPropertySearchEndToEndScenario();
+    vrboPropertySearchEndToEndScenario.run();
 
     logger.info(
         "=============================== End of Lodging Scenarios ==============================");

@@ -32,7 +32,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This example demonstrates how to use quotes api with simple search.
+ * This example demonstrates how to search for property quotes with property IDs in
+ * Lodging Quotes API.
  * Note: this is a Vrbo scenario. You need a key that is enabled for Vrbo brand to run this.
  */
 public class QuotesQuickStartScenario implements VrboScenario {
@@ -73,7 +74,7 @@ public class QuotesQuickStartScenario implements VrboScenario {
             // Check-out 10 days from now
             .checkOut(LocalDate.now().plusDays(10))
             // Set of Expedia Property IDs.
-            .propertyIds(new HashSet<>(Arrays.asList("87704892", "12410858")))
+            .propertyIds(new HashSet<>(Arrays.asList("87704892", "36960201")))
             // The links to return, WEB includes WS (Web Search Result Page) and
             // WD (Web Details Page)
             .links(Collections.singletonList(GetLodgingQuotesOperationParams.Links.WEB))
