@@ -20,6 +20,12 @@
       "dispute": {
         "prefix": "Sdp"
       }
+    },
+    {
+      "inputFile": "./xap-activity.specs.yaml",
+      "dispute": {
+        "prefix": "Activities"
+      }
     }
   ],
   "output": "./specs.yaml"
