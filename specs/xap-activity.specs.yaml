@@ -46,17 +46,19 @@ paths:
           description: |-
             Start date for the activity window in YYY-MM-DD format.
             If an endDate value is supplied there must also be a startDate.
+            default: currentDate
           schema:
             type: string
-            default: currentDate
+            format: date
           example: 2021-10-01
         - name: endDate
           in: query
           description: |-
             End date for the activity window in YYY-MM-DD format.
+            default: "startDate+14"
           schema:
             type: string
-            default: "startDate+14"
+            format: date
           example: 2021-10-10
         - name: locale
           in: query
@@ -73,8 +75,14 @@ paths:
             Comma-separated list to specify the types of HATEAOS links returned in the API Response.
             WD (deep link URL to web infosite)
             AD (details API query)
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+              enum:
+                - WD
+                - AD
           example: WD
         - name: Key
           in: header
@@ -86,7 +94,7 @@ paths:
           schema:
             type: string
           example: X99X9X9-99XX-9XX9-X999-99XX99X9X999X
-        - name: Partner-Transaction-ID
+        - name: Partner-Transaction-Id
           in: header
           description: Partner-generated identifier.
           required: true
@@ -311,7 +319,7 @@ paths:
           schema:
             type: string
           example: X99X9X9-99XX-9XX9-X999-99XX99X9X999X
-        - name: Partner-Transaction-ID
+        - name: Partner-Transaction-Id
           in: header
           description: Partner-generated identifier.
           required: true
@@ -516,9 +524,7 @@ components:
     Price:
       required:
         - Category
-        - TotalFees
         - TotalRate
-        - TotalTaxesAndFees
       type: object
       properties:
         Category:
@@ -749,9 +755,6 @@ components:
           type: boolean
       description: Geographic information
     Location:
-      required:
-        - LocationId
-        - Name
       type: object
       properties:
         Type:
@@ -854,7 +857,6 @@ components:
         - FreeCancellation
         - Id
         - Media
-        - Offers
         - Price
         - Supplier
         - Title
@@ -1055,9 +1057,7 @@ components:
       description: Container for the Cancellation Policy information.
     Link:
       required:
-        - Accept
         - Href
-        - Method
       type: object
       properties:
         Accept:
@@ -1176,7 +1176,6 @@ components:
     Supplier:
       required:
         - Name
-        - Phone
       type: object
       properties:
         Name:
