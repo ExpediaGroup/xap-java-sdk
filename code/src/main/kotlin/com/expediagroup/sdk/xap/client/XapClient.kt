@@ -29,11 +29,14 @@ import com.expediagroup.sdk.xap.models.*
 import com.expediagroup.sdk.xap.models.exception.ErrorObjectMapper
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiAPIGatewayErrorException
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiAPIMErrorException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiActivitiesErrorsException
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiCarsErrorsException
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiErrorsException
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiLodgingErrorsException
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiPresignedUrlResponseException
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiSdpAPIMErrorException
+import com.expediagroup.sdk.xap.operations.GetActivityDetailsOperation
+import com.expediagroup.sdk.xap.operations.GetActivityListingsOperation
 import com.expediagroup.sdk.xap.operations.GetCarDetailsOperation
 import com.expediagroup.sdk.xap.operations.GetCarsListingsOperation
 import com.expediagroup.sdk.xap.operations.GetFeedDownloadUrlOperation
@@ -153,6 +156,50 @@ class XapClient private constructor(clientConfiguration: XapClientConfiguration)
                 exception.handle()
             }
         }
+
+    /**
+     *
+     * The Activity Details API provides detailed information about one selected activity.
+     * @param operation [GetActivityDetailsOperation]
+     * @throws ExpediaGroupApiActivitiesErrorsException
+     * @throws ExpediaGroupApiAPIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [Response] object with a body of type ActivityDetailsResponse
+     */
+    fun execute(operation: GetActivityDetailsOperation): Response<ActivityDetailsResponse> = execute<Nothing, ActivityDetailsResponse>(operation)
+
+    /**
+     *
+     * The Activity Details API provides detailed information about one selected activity.
+     * @param operation [GetActivityDetailsOperation]
+     * @throws ExpediaGroupApiActivitiesErrorsException
+     * @throws ExpediaGroupApiAPIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [CompletableFuture<Response>] object with a body of type ActivityDetailsResponse
+     */
+    fun executeAsync(operation: GetActivityDetailsOperation): CompletableFuture<Response<ActivityDetailsResponse>> = executeAsync<Nothing, ActivityDetailsResponse>(operation)
+
+    /**
+     *
+     * The Activities Search API allows partners to search for Expedia Activity inventory.
+     * @param operation [GetActivityListingsOperation]
+     * @throws ExpediaGroupApiActivitiesErrorsException
+     * @throws ExpediaGroupApiAPIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [Response] object with a body of type ActivityListingsResponse
+     */
+    fun execute(operation: GetActivityListingsOperation): Response<ActivityListingsResponse> = execute<Nothing, ActivityListingsResponse>(operation)
+
+    /**
+     *
+     * The Activities Search API allows partners to search for Expedia Activity inventory.
+     * @param operation [GetActivityListingsOperation]
+     * @throws ExpediaGroupApiActivitiesErrorsException
+     * @throws ExpediaGroupApiAPIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [CompletableFuture<Response>] object with a body of type ActivityListingsResponse
+     */
+    fun executeAsync(operation: GetActivityListingsOperation): CompletableFuture<Response<ActivityListingsResponse>> = executeAsync<Nothing, ActivityListingsResponse>(operation)
 
     /**
      * Get Extended information with a single car offer
