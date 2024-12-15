@@ -65,6 +65,40 @@ internal object ErrorObjectMapper {
     private val httpStatusCodeRanges: Map<String, List<HttpStatusCodeRange>> =
         mapOf(
             Pair(
+                "getActivityDetails",
+                listOf(
+                    HttpStatusCodeRange("400") {
+                        ExpediaGroupApiActivitiesErrorsException(it.status.value, fetchErrorObject(it) as ActivitiesErrors, it.headers.getTransactionId())
+                    },
+                    HttpStatusCodeRange("401") { ExpediaGroupApiAPIMErrorException(it.status.value, fetchErrorObject(it) as APIMError, it.headers.getTransactionId()) },
+                    HttpStatusCodeRange("403") { ExpediaGroupApiAPIMErrorException(it.status.value, fetchErrorObject(it) as APIMError, it.headers.getTransactionId()) },
+                    HttpStatusCodeRange("404") { ExpediaGroupApiAPIMErrorException(it.status.value, fetchErrorObject(it) as APIMError, it.headers.getTransactionId()) },
+                    HttpStatusCodeRange("429") { ExpediaGroupApiAPIMErrorException(it.status.value, fetchErrorObject(it) as APIMError, it.headers.getTransactionId()) },
+                    HttpStatusCodeRange("500") {
+                        ExpediaGroupApiActivitiesErrorsException(it.status.value, fetchErrorObject(it) as ActivitiesErrors, it.headers.getTransactionId())
+                    },
+                    HttpStatusCodeRange("503") { ExpediaGroupApiAPIMErrorException(it.status.value, fetchErrorObject(it) as APIMError, it.headers.getTransactionId()) },
+                    DefaultHttpStatusCodeRange
+                )
+            ),
+            Pair(
+                "getActivityListings",
+                listOf(
+                    HttpStatusCodeRange("400") {
+                        ExpediaGroupApiActivitiesErrorsException(it.status.value, fetchErrorObject(it) as ActivitiesErrors, it.headers.getTransactionId())
+                    },
+                    HttpStatusCodeRange("401") { ExpediaGroupApiAPIMErrorException(it.status.value, fetchErrorObject(it) as APIMError, it.headers.getTransactionId()) },
+                    HttpStatusCodeRange("403") { ExpediaGroupApiAPIMErrorException(it.status.value, fetchErrorObject(it) as APIMError, it.headers.getTransactionId()) },
+                    HttpStatusCodeRange("404") { ExpediaGroupApiAPIMErrorException(it.status.value, fetchErrorObject(it) as APIMError, it.headers.getTransactionId()) },
+                    HttpStatusCodeRange("429") { ExpediaGroupApiAPIMErrorException(it.status.value, fetchErrorObject(it) as APIMError, it.headers.getTransactionId()) },
+                    HttpStatusCodeRange("500") {
+                        ExpediaGroupApiActivitiesErrorsException(it.status.value, fetchErrorObject(it) as ActivitiesErrors, it.headers.getTransactionId())
+                    },
+                    HttpStatusCodeRange("503") { ExpediaGroupApiAPIMErrorException(it.status.value, fetchErrorObject(it) as APIMError, it.headers.getTransactionId()) },
+                    DefaultHttpStatusCodeRange
+                )
+            ),
+            Pair(
                 "getCarDetails",
                 listOf(
                     HttpStatusCodeRange("400") { ExpediaGroupApiCarsErrorsException(it.status.value, fetchErrorObject(it) as CarsErrors, it.headers.getTransactionId()) },
@@ -238,9 +272,11 @@ internal object ErrorObjectMapper {
         }
 }
 
-class ExpediaGroupApiCarsErrorsException(code: Int, override val errorObject: CarsErrors, transactionId: String?) : ExpediaGroupApiException(code, errorObject, transactionId)
+class ExpediaGroupApiActivitiesErrorsException(code: Int, override val errorObject: ActivitiesErrors, transactionId: String?) : ExpediaGroupApiException(code, errorObject, transactionId)
 
 class ExpediaGroupApiAPIMErrorException(code: Int, override val errorObject: APIMError, transactionId: String?) : ExpediaGroupApiException(code, errorObject, transactionId)
+
+class ExpediaGroupApiCarsErrorsException(code: Int, override val errorObject: CarsErrors, transactionId: String?) : ExpediaGroupApiException(code, errorObject, transactionId)
 
 class ExpediaGroupApiPresignedUrlResponseException(code: Int, override val errorObject: PresignedUrlResponse, transactionId: String?) : ExpediaGroupApiException(
     code,
