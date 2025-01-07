@@ -523,7 +523,6 @@ components:
       description: Container for the discount amount.
     Price:
       required:
-        - Category
         - TotalRate
       type: object
       properties:
@@ -632,10 +631,6 @@ components:
           $ref: '#/components/schemas/Price'
       description: The list of Ticket information.
     Address:
-      required:
-        - Address1
-        - City
-        - Country
       type: object
       properties:
         Address1:
@@ -1102,7 +1097,6 @@ components:
     Offer:
       required:
         - AvailableTimeSlots
-        - Description
         - Duration
         - Id
         - OfferPrice
