@@ -38,6 +38,8 @@ tags:
   - name: Cars Listings
   - name: Cars Detail
   - name: download-url
+  - name: Activities List
+  - name: Activities Details
 paths:
   "/hotels/details/{offerToken}":
     get:
@@ -2838,6 +2840,503 @@ paths:
                   value:
                     message: name resolution failed
           description: Service unavailable.
+  /activities/listings:
+    get:
+      tags:
+        - get-activity-listings
+      description: The Activities Search API allows partners to search for Expedia
+        Activity inventory.
+      operationId: get-activity-listings
+      parameters:
+        - name: location
+          in: query
+          description: >-
+            Can be a city name, street address, three-letter IATA Airport Code
+            or a landmark name.
+
+            (If the value submitted does not clearly identify a single location the API may returne a disambiguation response that lists possible options)
+          schema:
+            type: string
+          example: shenzhen
+        - name: geoLocation
+          in: query
+          description: >-
+            The latitude and longitude values identifying the center point of a
+            search radius (circle).
+
+            North latitude will be represented by a positive value. South latitude by a negative value.
+
+            East longitude will be represented by a positive value. West longitude by a negative value.
+
+            The latitude and longitude values are joined together with a comma (,) character.
+          schema:
+            type: string
+          example: 25.070062,-121.538306
+        - name: startDate
+          in: query
+          description: |-
+            Start date for the activity window in YYY-MM-DD format.
+            If an endDate value is supplied there must also be a startDate.
+            default: currentDate
+          schema:
+            type: string
+            format: date
+          example: 2021-10-01T00:00:00.000Z
+        - name: endDate
+          in: query
+          description: |-
+            End date for the activity window in YYY-MM-DD format.
+            default: "startDate+14"
+          schema:
+            type: string
+            format: date
+          example: 2021-10-10T00:00:00.000Z
+        - name: locale
+          in: query
+          description: >-
+            locale is composed of language identifier and region identifier,
+            connected by "_" that specifies the language in which the response
+            will be returned.
+
+            example: "fr_FR" refers to French as spoken in France, while "fr_CA" refers to French as spoken in Canada.
+
+            For a full list of supported locales please refer to the link at the bottom of the page.
+          schema:
+            type: string
+          example: en_US
+        - name: links
+          in: query
+          description: >-
+            Comma-separated list to specify the types of HATEAOS links returned
+            in the API Response.
+
+            WD (deep link URL to web infosite)
+
+            AD (details API query)
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - WD
+                - AD
+          example: WD
+        - name: Partner-Transaction-Id
+          in: header
+          description: Partner-generated identifier.
+          required: true
+          schema:
+            type: string
+          example: BestTravel-123456-798101112
+      responses:
+        "200":
+          description: successful
+          content:
+            application/vnd.exp-activity.v3+json:
+              schema:
+                $ref: "#/components/schemas/ActivityListingsResponse"
+              example:
+                TransactionId: f06edfa3-27f4-44e6-838c-b8dd3d0a3210
+                Count: 1
+                Location: shenzhen, gd
+                StartDate: 2021-08-01T00:00:00.000Z
+                EndDate: 2021-08-08T00:00:00.000Z
+                Categories:
+                  - Count: 1
+                    CategoryName: Cruises & Water Tours
+                    CategoryDisplayName: Cruises & Water Tours
+                    GroupName: Tours
+                    GroupDisplayName: Tours
+                Activities:
+                  - Id: 166597
+                    Title: "Faster Than Skip-the-Line: Vatican, Sistine Chapel & St. Peter's Tour"
+                    Description: Enjoy 5 of Seattle's most popular attractions with a multi-ticket
+                      booklet that’s valid for 9 consecutive days. This pass is
+                      perfect if you want to explore the city on your schedule,
+                      craft your own itinerary, and visit the city’s can’t-miss
+                      museums and most iconi..
+                    Media:
+                      - Type: "1"
+                        Size: t
+                        Url: http://a.travel-assets.com/ lxweb/ media-vault/ 166597_m.jpeg? v=104741
+                    Categories:
+                      - Walking & Bike Tours
+                    Duration: PT3H0M
+                    CancellationPolicy:
+                      FreeCancellation: true
+                    Price:
+                      Category: Adult
+                      TotalRate:
+                        Value: 100
+                        Currency: USD
+                    ReferencePrice:
+                      Category: Adult
+                      TotalRate:
+                        Value: 110
+                        Currency: USD
+                    Savings:
+                      percentage: 42
+                      amount:
+                        Value: "9"
+                        Currency: USD
+                    Redemption:
+                      Type: Voucherless
+                      Locations:
+                        - Address:
+                            Address1: 99 Union St
+                            City: Seattle
+                            PostalCode: "431625"
+                            Province: WA
+                            Country: USA
+                          GeoLocation:
+                            Latitude: "47.60772"
+                            Longitude: -122.33936
+                    Locations:
+                      - Address:
+                          Address1: 99 Union St
+                          City: Seattle
+                          PostalCode: "431625"
+                          Province: WA
+                          Country: USA
+                        GeoLocation:
+                          Latitude: "47.60772"
+                          Longitude: -122.33936
+                    Supplier:
+                      Name: City Wonders
+                    RecommendationScore: 90
+                    ReviewCount: 100
+                    Links:
+                      WebDetails:
+                        Href: https://www.expedia.com/things-to-do/space-needle-observation-deck-admission.a193678.activity-details?srp=true&location=sea
+                      ApiDetails:
+                        Accept: application/vnd.exp-activity.v3+json
+                        Method: GET
+                        Href: https://apim.expedia.com/activities/details/CgUyMDIzMBIyCgkyMDEzMDQ1OTYSCTIwOTc3MjcwOBoCMjQqCjIwMTctMTEtMTkyCjIwMTctMTEtMjUqAwoBMg
+        "400":
+          description: >-
+            Client side error while providing the request i.e bad / invalid
+            input parameters. The server responds back with "
+                      + "this Http response code and with the appropriate JSON error response.
+          content:
+            application/vnd.exp-activity.v3+json:
+              schema:
+                $ref: "#/components/schemas/ActivitiesErrors"
+              example:
+                Errors:
+                  - Code: AMBIGUOUS_LOCATION
+                    Description: Multiple search locations found.
+                    LocationKeyword: 99UnionSt
+                    LocationOptions:
+                      - ShortName: Union Grove, Wisconsin, United States of America
+                        Address: Milwaukee (and vicinity), Wisconsin, United States of America
+                        RequestedLocation: United States
+                        Locations:
+                          - Name: Portland (and vicinity)
+                            LocationId: seat001
+                TransactionId: cecf62c8-c103-4181-b09d-53c7190d1c48
+        "401":
+          description: Unauthorized or Invalid authentication credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIMError"
+              examples:
+                unauthorized:
+                  value: |-
+                    {
+                        "message": "Unauthorized"
+                    }
+                Invalid authentication credentials:
+                  value: |-
+                    {
+                        "message": "Invalid authentication credentials"
+                    }
+        "403":
+          description: cannot consume this service
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIMError"
+              examples:
+                cannot consume this service:
+                  value: |-
+                    {
+                        "message": "You cannot consume this service"
+                    }
+        "404":
+          description: No Route matched
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIMError"
+              examples:
+                no Route matched:
+                  value: |-
+                    {
+                        "message": "no Route matched with those values"
+                    }
+        "429":
+          description: API rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIMError"
+              examples:
+                API rate limit exceeded:
+                  value: |-
+                    {
+                        "message": "API rate limit exceeded"
+                    }
+        "500":
+          description: >-
+            Server side error i.e connection timeout while talking to downstream
+            services, downstream returned error. The server responds back with
+            this Http "
+                      + "response code and with the appropriate JSON error response.
+          content:
+            application/vnd.exp-activity.v3+json:
+              schema:
+                $ref: "#/components/schemas/ActivitiesErrors"
+        "503":
+          description: name resolution failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIMError"
+              examples:
+                name resolution failed:
+                  value: |-
+                    {
+                        "message": "name resolution failed"
+                    }
+        "504":
+          description: upstream server is timing out
+          content:
+            text/plain:
+              examples:
+                upstream server is timing out:
+                  value: The upstream server is timing out
+      security:
+        - basicSchema: []
+  "/activities/details/{offerToken}":
+    get:
+      tags:
+        - get-activity-details
+      description: The Activity Details API provides detailed information about one
+        selected activity.
+      operationId: get-activity-details
+      parameters:
+        - name: offerToken
+          in: path
+          description: the offerToken of a activity
+          required: true
+          schema:
+            type: string
+          example: CgY0NzY2NzgSCjIwMjEtMDUtMDIaCjIwMjEtMDUtMDc
+        - name: locale
+          in: query
+          description: >-
+            locale is composed of language identifier and region identifier,
+            connected by "_" that specifies the language
+
+            in which the response will be returned.
+
+            example: "fr_FR" refers to French as spoken in France, while "fr_CA" refers to French as spoken in Canada.
+
+            For a full list of supported locales please refer to the link at the bottom of the page.
+          schema:
+            type: string
+          example: en_US
+        - name: Partner-Transaction-Id
+          in: header
+          description: Partner-generated identifier.
+          required: true
+          schema:
+            type: string
+          example: BestTravel-123456-798101112
+      responses:
+        "200":
+          description: successful
+          content:
+            application/vnd.exp-activity.v3+json:
+              schema:
+                $ref: "#/components/schemas/ActivityDetailsResponse"
+              example:
+                TransactionId: f06edfa3-27f4-44e6-838c-b8dd3d0a3210
+                Count: 1
+                Location: shenzhen, gd
+                StartDate: 2021-08-01T00:00:00.000Z
+                EndDate: 2021-08-08T00:00:00.000Z
+                Categories:
+                  - Count: 1
+                    CategoryName: Cruises & Water Tours
+                    CategoryDisplayName: Cruises & Water Tours
+                    GroupName: Tours
+                    GroupDisplayName: Tours
+                Activities:
+                  - Id: 166597
+                    Title: "Faster Than Skip-the-Line: Vatican, Sistine Chapel & St. Peter's Tour"
+                    Description: Enjoy 5 of Seattle's most popular attractions with a multi-ticket
+                      booklet that’s valid for 9 consecutive days. This pass is
+                      perfect if you want to explore the city on your schedule,
+                      craft your own itinerary, and visit the city’s can’t-miss
+                      museums and most iconi..
+                    Media:
+                      - Type: "1"
+                        Size: t
+                        Url: http://a.travel-assets.com/ lxweb/ media-vault/ 166597_m.jpeg? v=104741
+                    Categories:
+                      - Walking & Bike Tours
+                    Duration: PT3H0M
+                    CancellationPolicy:
+                      FreeCancellation: true
+                    Price:
+                      Category: Adult
+                      TotalRate:
+                        Value: 100
+                        Currency: USD
+                    ReferencePrice:
+                      Category: Adult
+                      TotalRate:
+                        Value: 110
+                        Currency: USD
+                    Savings:
+                      percentage: 42
+                      amount:
+                        Value: "9"
+                        Currency: USD
+                    Redemption:
+                      Type: Voucherless
+                      Locations:
+                        - Address:
+                            Address1: 99 Union St
+                            City: Seattle
+                            PostalCode: "431625"
+                            Province: WA
+                            Country: USA
+                          GeoLocation:
+                            Latitude: "47.60772"
+                            Longitude: -122.33936
+                    Locations:
+                      - Address:
+                          Address1: 99 Union St
+                          City: Seattle
+                          PostalCode: "431625"
+                          Province: WA
+                          Country: USA
+                        GeoLocation:
+                          Latitude: "47.60772"
+                          Longitude: -122.33936
+                    Supplier:
+                      Name: City Wonders
+                    RecommendationScore: 90
+                    ReviewCount: 100
+                    Links:
+                      WebDetails:
+                        Href: https://www.expedia.com/things-to-do/space-needle-observation-deck-admission.a193678.activity-details?srp=true&location=sea
+                      ApiDetails:
+                        Accept: application/vnd.exp-activity.v3+json
+                        Method: GET
+                        Href: https://apim.expedia.com/activities/details/CgUyMDIzMBIyCgkyMDEzMDQ1OTYSCTIwOTc3MjcwOBoCMjQqCjIwMTctMTEtMTkyCjIwMTctMTEtMjUqAwoBMg
+        "400":
+          description: >-
+            Client side error while providing the request i.e bad / invalid
+            input parameters. The server responds back with "
+                      + "this Http response code and with the appropriate JSON error response.
+          content:
+            application/vnd.exp-activity.v3+json:
+              schema:
+                $ref: "#/components/schemas/ActivitiesErrors"
+              example:
+                Errors:
+                  - Code: INVALID_LINKS
+                    Description: Invalid links. Allowed value are:[WS, AD, WD].
+                TransactionId: 583b7277-772a-4802-8ac7-bcdf978abbdb
+        "401":
+          description: Unauthorized or Invalid authentication credentials
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIMError"
+              examples:
+                unauthorized:
+                  value: |-
+                    {
+                        "message": "Unauthorized"
+                    }
+                Invalid authentication credentials:
+                  value: |-
+                    {
+                        "message": "Invalid authentication credentials"
+                    }
+        "403":
+          description: cannot consume this service
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIMError"
+              examples:
+                cannot consume this service:
+                  value: |-
+                    {
+                        "message": "You cannot consume this service"
+                    }
+        "404":
+          description: No Route matched
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIMError"
+              examples:
+                no Route matched:
+                  value: |-
+                    {
+                        "message": "no Route matched with those values"
+                    }
+        "429":
+          description: API rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIMError"
+              examples:
+                API rate limit exceeded:
+                  value: |-
+                    {
+                        "message": "API rate limit exceeded"
+                    }
+        "500":
+          description: >-
+            Server side error i.e connection timeout while talking to downstream
+            services, downstream returned error. The server responds back with
+            this Http "
+                      + "response code and with the appropriate JSON error response.
+          content:
+            application/vnd.exp-activity.v3+json:
+              schema:
+                $ref: "#/components/schemas/ActivitiesErrors"
+        "503":
+          description: name resolution failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIMError"
+              examples:
+                name resolution failed:
+                  value: |-
+                    {
+                        "message": "name resolution failed"
+                    }
+        "504":
+          description: upstream server is timing out
+          content:
+            text/plain:
+              examples:
+                upstream server is timing out:
+                  value: The upstream server is timing out
+      security:
+        - basicSchema: []
 components:
   schemas:
     Address:
@@ -7064,6 +7563,875 @@ components:
         message:
           type: string
           description: Error from the APIM.
+    ActivitiesMoney:
+      required:
+        - Currency
+        - Value
+      type: object
+      properties:
+        Value:
+          type: string
+          description: The value of the element being defined.
+          example: "21.9"
+        Currency:
+          type: string
+          description: The ISO 4217 Currency Code that the value is expressed in.
+          example: USD
+        LocalCurrencyPrice:
+          $ref: "#/components/schemas/ActivitiesMoney"
+      description: Container for the discount amount.
+    ActivitiesPrice:
+      required:
+        - TotalRate
+      type: object
+      properties:
+        Category:
+          type: string
+          description: |-
+            Type of passenger.
+            Values supported are:
+            ADULT | SENIOR | CHILD
+          example: ADULT
+        TotalRate:
+          $ref: "#/components/schemas/ActivitiesMoney"
+        TotalFees:
+          $ref: "#/components/schemas/ActivitiesMoney"
+        TotalTaxesAndFees:
+          $ref: "#/components/schemas/ActivitiesMoney"
+        ReferencePrice:
+          $ref: "#/components/schemas/ReferencePrice"
+        Savings:
+          $ref: "#/components/schemas/Savings"
+      description: The price of the offer
+    ReferencePrice:
+      required:
+        - TotalRate
+      type: object
+      properties:
+        TotalRate:
+          $ref: "#/components/schemas/ActivitiesMoney"
+        TotalFees:
+          $ref: "#/components/schemas/ActivitiesMoney"
+        TotalTaxesAndFees:
+          $ref: "#/components/schemas/ActivitiesMoney"
+      description: Container for the reference price used for strike out display.
+    Restrictions:
+      required:
+        - Max
+        - Min
+        - Type
+      type: object
+      properties:
+        Type:
+          type: string
+          description: Type of the Restriction.
+          example: AGE
+        Max:
+          type: string
+          description: Maximum value allowed for the restriction type.
+          example: "255"
+        Min:
+          type: string
+          description: Minimum value allowed for the restriction type.
+          example: "9"
+        Description:
+          type: string
+          description: The text to describe the restriction.
+          example: 9+ years
+      description: Container of the Restrictions associated to this ticket.
+    Savings:
+      required:
+        - Amount
+        - Percentage
+      type: object
+      properties:
+        Percentage:
+          type: integer
+          description: The percentage of the price that has been discounted off the
+            regular price for the current activity.
+          format: int32
+          example: 10
+        Amount:
+          $ref: "#/components/schemas/ActivitiesMoney"
+      description: Container of savings information.
+    Ticket:
+      required:
+        - Code
+        - Count
+        - Id
+        - TicketPrice
+      type: object
+      properties:
+        Id:
+          type: integer
+          description: The numerical identifier for the ticket.
+          format: int32
+          example: 6429
+        Code:
+          type: string
+          description: |-
+            The code for the ticket.
+            Values supported are:
+            Adult
+            Traveler
+            Child
+            Group
+            Senior
+            Infant
+            Student
+          example: Adult
+        Count:
+          type: integer
+          description: The number of each ticket type to be booked.
+          format: int32
+          example: 1
+        Restrictions:
+          $ref: "#/components/schemas/Restrictions"
+        TicketPrice:
+          $ref: "#/components/schemas/ActivitiesPrice"
+      description: The list of Ticket information.
+    ActivitiesAddress:
+      type: object
+      properties:
+        Address1:
+          type: string
+          description: Street Number, Street Name, or PO Box.
+          example: 724 Pine St
+        Address2:
+          type: string
+          description: Apartment, Floor, Suite, Bldg
+          example: Second Floor
+        Suite:
+          type: string
+          description: Suite/apartment number
+          example: "123"
+        City:
+          type: string
+          description: The city
+          example: New York
+        Province:
+          type: string
+          description: The state or province.
+          example: NY
+        Country:
+          type: string
+          description: 3-letter code for the country.
+          example: USA
+        PostalCode:
+          type: string
+          description: Zip/postal code.
+          example: "98004"
+      description: Address information
+    ActivitiesCountry:
+      required:
+        - IsoCode2
+        - IsoCode3
+        - Name
+      type: object
+      properties:
+        Name:
+          type: string
+          description: country name
+          example: Ireland
+        Code:
+          type: string
+          description: 3-letter code for the country
+          example: IRL
+        IsoCode2:
+          type: string
+          description: 2-letter code for the country
+          example: IE
+        IsoCode3:
+          type: string
+          description: 3-letter code for the country
+          example: IRL
+      description: Container for disambiguation country information
+    ActivitiesError:
+      required:
+        - Code
+        - Description
+      type: object
+      properties:
+        Code:
+          type: string
+          description: Error code describing the issue
+          example: AMBIGUOUS_LOCATION
+        DetailCode:
+          type: string
+          description: Detailed error code describing the issue.
+          example: MULTIPLE_AMBIGUOUS_LOCATION
+        Description:
+          type: string
+          description: A simple description of what the error is.
+          example: "Multiple pickup locations found. "
+        LocationKeyword:
+          type: string
+          description: The requested location that caused the error.
+          example: "Portland. "
+        LocationOptions:
+          type: array
+          description: "List for possible locations from which the customer must choose
+            the best one to be re-submitted in the request. "
+          items:
+            $ref: "#/components/schemas/ActivitiesLocationOption"
+      description: Container for error list.
+    ActivitiesErrors:
+      required:
+        - Errors
+        - TransactionId
+      type: object
+      properties:
+        Errors:
+          type: array
+          description: Container for error list.
+          items:
+            $ref: "#/components/schemas/ActivitiesError"
+        TransactionId:
+          type: string
+          description: A unique identifier for the transaction.
+          example: a9e371c4-89d9-4f9c-8df7-df105830e7fe
+      xml:
+        name: ErrorResponse
+    ActivitiesGeoLocation:
+      required:
+        - Latitude
+        - Longitude
+      type: object
+      properties:
+        Latitude:
+          type: string
+          description: Latitude of the location.
+          example: "38.184978"
+        Longitude:
+          type: string
+          description: Longitude of the location.
+          example: "85.7412"
+        Obfuscated:
+          type: boolean
+      description: Geographic information
+    ActivitiesLocation:
+      type: object
+      properties:
+        Type:
+          type: string
+          description: The type of location code (MULTICITY | METROCODE).
+          example: MULTICITY
+        Id:
+          type: string
+          description: Expedia Region ID of the specified airport.
+          example: "6139103"
+        Name:
+          type: string
+          description: Location Name
+          example: Seattle-Tacoma International Airport
+        Code:
+          type: string
+          description: Location Code
+          example: SEA
+        LocationId:
+          type: string
+          description: Location id.
+          example: SEAT001
+        Address:
+          $ref: "#/components/schemas/ActivitiesAddress"
+        PointOfInterest:
+          type: string
+        GeoLocation:
+          $ref: "#/components/schemas/ActivitiesGeoLocation"
+        Neighborhood:
+          $ref: "#/components/schemas/ActivitiesNeighborhood"
+        RegionId:
+          type: integer
+          description: RegionId the location resides in.
+          format: int64
+          example: 6200275
+        Country:
+          $ref: "#/components/schemas/ActivitiesCountry"
+      description: List of location(s) where the activity will happen.
+    ActivitiesLocationOption:
+      required:
+        - Locations
+        - RequestedLocation
+      type: object
+      properties:
+        RequestedLocation:
+          type: string
+          description: Location used in partner request.
+          example: Paris
+        Locations:
+          type: array
+          description: Container for list of possible locations that could be used to
+            disambiguate the query.
+          items:
+            $ref: "#/components/schemas/ActivitiesLocation"
+        Type:
+          type: string
+          description: Type of the location.
+          example: TRAINSTATION
+        RegionId:
+          type: string
+          description: RegionId the location resides in.
+          example: "6200275"
+        ShortName:
+          type: string
+          description: The name of the location which matches the location keyword.
+          example: Dublin Connolly Station
+        AirportCode:
+          type: string
+          description: Indicates the nearest major airport to the location.
+          example: DUB
+        Address:
+          type: string
+          description: The address of the location.
+          example: Dublin Connolly Station, Ireland
+        Country:
+          $ref: "#/components/schemas/ActivitiesCountry"
+        GeoLocation:
+          $ref: "#/components/schemas/ActivitiesGeoLocation"
+      description: "List for possible locations from which the customer must choose
+        the best one to be re-submitted in the request. "
+    ActivitiesNeighborhood:
+      required:
+        - Id
+        - Name
+      type: object
+      properties:
+        Id:
+          type: string
+          description: Neighborhood id.
+          example: "6160232"
+        Name:
+          type: string
+          description: Neighborhood name.
+          example: Le Pharo
+      description: Geography entities which are typically contained within a city.
+        This includes the categories neighborhood and point of interest. Low
+        level regions are not a formally defined concept in the geography model.
+    Activity:
+      required:
+        - Categories
+        - Description
+        - Duration
+        - FreeCancellation
+        - Id
+        - Media
+        - Price
+        - Supplier
+        - Title
+      type: object
+      properties:
+        Id:
+          type: integer
+          description: The numerical identifier for this particular activity
+          format: int32
+          example: 166597
+        Title:
+          type: string
+          description: The display title for this activity.
+          example: "Faster Than Skip-the-Line: Vatican, Sistine Chapel & St. Peter's Tour"
+        Description:
+          type: string
+          description: The description of the Activity.
+          example: Enjoy 5 of Seattle's most popular attractions with a multi-ticket
+            booklet that’s valid for 9 consecutive days. This pass is perfect if
+            you want to explore the city on your schedule, craft your own
+            itinerary, and visit the city’s can’t-miss museums and most iconi...
+        Media:
+          type: array
+          description: List of activity Media.
+          items:
+            $ref: "#/components/schemas/ActivitiesMedia"
+        Categories:
+          type: array
+          description: >-
+            A list of the Activity categories to which this particular activity
+            belongs.
+
+            Possible values are:
+
+            Adventures
+
+            Air, Balloon & Helicopter Tours
+
+            Attractions
+
+            Cruises & Water Tours
+
+            Day Trips & Excursions
+
+            Food & Drink
+
+            Hop-on Hop-off
+
+            Multi-Day & Extended Tours
+
+            Nightlife
+
+            Private Tours
+
+            Private Transfers
+
+            Shared Transfers
+
+            Show & Sport Tickets
+
+            Sightseeing Passes
+
+            Theme Parks
+
+            Tours & Sightseeing
+
+            Walking & Bike Tours
+
+            Water Activities
+
+            Wedding Ceremonies
+
+            Winter Activities
+          example:
+            - Walking & Bike Tours
+          items:
+            type: string
+            description: A list of the Activity categories to which this particular activity
+              belongs.
+            example: Walking & Bike Tours
+            xml:
+              name: Categories
+        Duration:
+          type: string
+          description: |-
+            The anticipated time duration for the activity.
+            Using java jdk Duration parsing.
+          example: PT1H0M
+        FreeCancellation:
+          type: boolean
+          description: A boolean value describing whether or not this activity reservation
+            can be cancelled without incurring a penalty.
+          example: true
+        Price:
+          $ref: "#/components/schemas/ActivitiesPrice"
+        Redemption:
+          $ref: "#/components/schemas/Redemption"
+        ActivityLocations:
+          type: array
+          description: Container of location information where activity happens.
+          items:
+            $ref: "#/components/schemas/ActivitiesLocation"
+        Supplier:
+          $ref: "#/components/schemas/ActivitiesSupplier"
+        ReviewScore:
+          type: integer
+          description: The overall Expedia score for the activity.
+          format: int32
+          example: 72
+        ReviewCount:
+          type: integer
+          description: The number of Expedia reviews that went into the calculation of the
+            ReviewScore.
+          format: int32
+          example: 19
+        Links:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/ActivitiesLink"
+          description: HATEOAS links included in this response.
+          xml:
+            wrapped: true
+        CancellationPolicy:
+          $ref: "#/components/schemas/ActivitiesCancellationPolicy"
+        Highlights:
+          type: array
+          description: Web formatted statement of the Highlight(s) for the activity.
+          items:
+            type: string
+            description: Web formatted statement of the Highlight(s) for the activity.
+            xml:
+              name: Highlights
+        TermsAndConditions:
+          type: array
+          description: Terms and Conditions for the Activity.
+          items:
+            type: string
+            description: Terms and Conditions for the Activity.
+            xml:
+              name: TermsAndConditions
+        Inclusions:
+          type: array
+          description: Web formatted statement of what is included in the activity
+          items:
+            type: string
+            description: Web formatted statement of what is included in the activity
+            xml:
+              name: Inclusions
+        Exclusions:
+          type: array
+          description: Web formatted statement of what is NOT included in the activity
+          items:
+            type: string
+            description: Web formatted statement of what is NOT included in the activity
+            xml:
+              name: Exclusions
+        KnowBeforeYouBook:
+          type: array
+          description: Web formatted statement of things that a purchaser should be aware
+            of BEFORE they book this activity.
+          items:
+            type: string
+            description: Web formatted statement of things that a purchaser should be aware
+              of BEFORE they book this activity.
+            xml:
+              name: KnowBeforeYouBook
+        KnowBeforeYouGo:
+          type: array
+          description: Web formatted statement of things that a purchaser should be aware
+            of BEFORE they go to this activity.
+          items:
+            type: string
+            description: Web formatted statement of things that a purchaser should be aware
+              of BEFORE they go to this activity.
+            xml:
+              name: KnowBeforeYouGo
+        Offers:
+          type: array
+          description: Offers for the activity.
+          items:
+            $ref: "#/components/schemas/Offer"
+      description: Detailed information on the Activity.
+    AvailableTimeSlot:
+      required:
+        - AllDayActivity
+        - CancellationPolicy
+        - DateTime
+        - Tickets
+      type: object
+      properties:
+        DateTime:
+          type: string
+          description: The date and time when the activity happens.
+          format: date-time
+        AllDayActivity:
+          type: boolean
+          description: Indicates whether the activity is an all-day activity.
+          example: true
+        CancellationPolicy:
+          $ref: "#/components/schemas/ActivitiesCancellationPolicy"
+        Tickets:
+          type: array
+          description: Container for ticket information.
+          items:
+            $ref: "#/components/schemas/Ticket"
+      description: The list of available Time Slots for the activity.
+    ActivitiesCancellationPolicy:
+      required:
+        - FreeCancellation
+      type: object
+      properties:
+        FreeCancellation:
+          type: boolean
+          description: Indicates whether the activity can be canceled free of charge
+            within the cancellation window or not.
+          example: true
+        CancelPolicyDescription:
+          type: string
+          description: The description of Cancellation Policy.
+          example: 72 hours
+        FreeCancellationMinHours:
+          type: integer
+          description: The minimum number of hours before activity when the activity can
+            still be cancelled for free.
+          format: int32
+          example: 72
+        FreeCancellationEndDateTime:
+          type: string
+          description: The date and time after which the activity will not be able to be
+            cancelled for free, stated in the local time to where the activity
+            takes place.
+          format: date-time
+      description: Container for the Cancellation Policy information.
+    ActivitiesLink:
+      required:
+        - Href
+      type: object
+      properties:
+        Accept:
+          type: string
+          description: Accept header.
+        Method:
+          type: string
+          description: HTTP method to connect.
+          example: GET
+        Href:
+          type: string
+          description: HATEOAS URL to fetch details.
+      description: Container of HATEOAS URL's
+    ActivitiesMedia:
+      required:
+        - Size
+        - Type
+        - Url
+      type: object
+      properties:
+        Type:
+          type: string
+          description: |-
+            type of the media. So far there is only one option:
+            1: Image
+          example: "1"
+        Title:
+          type: string
+          description: Image title
+          example: Guestroom
+        Size:
+          type: string
+          description: >-
+            Image size
+
+            You can find a link to the complete list of Supported Images Sizes in the Related Links section at the bottom of the page.
+          example: t
+        Url:
+          type: string
+          description: Image URL
+          example: https://images.trvl-media.com/hotels/1000000/30000/20300/20230/20230_159_t.jpg
+      description: List of activity Media.
+    Offer:
+      required:
+        - AvailableTimeSlots
+        - Duration
+        - Id
+        - OfferPrice
+        - Title
+      type: object
+      properties:
+        Id:
+          type: integer
+          description: The numerical identifier for the offer.
+          format: int32
+          example: 166597
+        Title:
+          type: string
+          description: A descriptive title for this offer.
+          example: 8:30 AM, Tour in English
+        Description:
+          type: string
+          description: Description of this offer.
+        Duration:
+          type: string
+          description: The anticipated time duration for the activity, e xpressed using
+            Java JDK duration format.
+        AvailableTimeSlots:
+          type: array
+          description: The list of available Time Slots for the activity.
+          items:
+            $ref: "#/components/schemas/AvailableTimeSlot"
+        OfferPrice:
+          $ref: "#/components/schemas/ActivitiesPrice"
+        Links:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/ActivitiesLink"
+          description: Container of HATEOAS URL's
+          xml:
+            wrapped: true
+      description: Offers for the activity.
+    ActivitiesPhone:
+      required:
+        - CountryCode
+        - Number
+      type: object
+      properties:
+        CountryCode:
+          type: string
+          description: Country code of traveler's phone number; only digits allowed.
+          example: "1"
+        AreaCode:
+          type: string
+          description: Area code of traveler's phone number; only digits allowed.
+          example: "614"
+        Number:
+          type: string
+          description: Traveler's phone number; only digits allowed.
+          example: "9288472"
+        ExtensionNumber:
+          type: string
+      description: The phone of the company providing the activity.
+    Redemption:
+      type: object
+      properties:
+        Type:
+          type: string
+          description: The type of redemption process associated to the activity.
+          example: Voucherless
+        RedemptionLocations:
+          type: array
+          description: List of redemption locations where the activity will take place,
+            please refer to Location Section below.
+          items:
+            $ref: "#/components/schemas/ActivitiesLocation"
+      description: Container of redemption information.
+    ActivitiesSupplier:
+      required:
+        - Name
+      type: object
+      properties:
+        Name:
+          type: string
+          description: The name of the company providing the activity.
+          example: City Wonders
+        Phone:
+          $ref: "#/components/schemas/ActivitiesPhone"
+      description: The details information of company providing the activity.
+    ActivitiesWarning:
+      required:
+        - Code
+        - Description
+      type: object
+      properties:
+        Code:
+          type: string
+          description: Standardized warning code.
+          example: INVALID_CORPORATE_DISCOUNT_CODE
+        Description:
+          type: string
+          description: Standardized warning description message.
+          example: The Corporate DiscountCode '811490' is unavailable, but we found other
+            rates for you.
+        OriginalPrice:
+          $ref: "#/components/schemas/ActivitiesMoney"
+        NewPrice:
+          $ref: "#/components/schemas/ActivitiesMoney"
+        ChangedAmount:
+          $ref: "#/components/schemas/ActivitiesMoney"
+        ChangedPercentage:
+          type: string
+          description: |-
+            The changed percentage.
+            In the sample 2.97 means the changed percentage is 2.97%.
+          example: "2.97"
+        Links:
+          type: object
+          additionalProperties:
+            $ref: "#/components/schemas/ActivitiesLink"
+          xml:
+            wrapped: true
+      description: Container for all warnings generated during the transaction.
+    ActivityListingsResponse:
+      required:
+        - Count
+        - Location
+        - TransactionId
+      type: object
+      properties:
+        Warnings:
+          type: array
+          description: Container for all warnings generated during the transaction.
+          items:
+            $ref: "#/components/schemas/ActivitiesWarning"
+        TransactionId:
+          type: string
+          description: A unique identifier for this transaction.
+          example: f06edfa3-27f4-44e6-838c-b8dd3d0a3210
+        Count:
+          type: integer
+          description: The number of activities returned in the response.
+          format: int64
+          example: 100
+        Location:
+          type: string
+          description: The location that the user searched, expressed in the exact format
+            that the inventory system uses to designate the location.
+          example: shenzhen, dg
+        StartDate:
+          type: string
+          description: The startDate of the returned group of activities in YYYY-MM-DD
+            format.
+          format: date
+          example: 2021-08-01T00:00:00.000Z
+        EndDate:
+          type: string
+          description: The endDate of returned group of activities in YYYY-MM-DD format.
+          format: date
+          example: 2021-08-10T00:00:00.000Z
+        Activities:
+          type: array
+          description: List of activities matching the search criteria.
+          items:
+            $ref: "#/components/schemas/Activity"
+        Categories:
+          type: array
+          description: Container for a breakdown of how many of each type of Activity have
+            been returned in the API response.
+          items:
+            $ref: "#/components/schemas/CategoryGroup"
+    CategoryGroup:
+      required:
+        - CategoryName
+        - Count
+        - GroupDisplayName
+        - GroupName
+      type: object
+      properties:
+        Count:
+          type: integer
+          description: The count of the number of categories the returned set of
+            activities map to.
+          format: int32
+          example: 10
+        GroupName:
+          type: string
+          description: |-
+            The group which the category belongs
+            Possible value is:
+            Recommendations
+            Tours
+            Activities
+            Transportation
+            Promotions
+            Duration
+          example: Tours
+        GroupDisplayName:
+          type: string
+          description: The localized value for category name.
+          example: Wander- und Fahrradtouren
+        CategoryName:
+          type: string
+          description: The name of one of the categories.
+          example: Walking & Bike Tours
+        CategoryDisplayName:
+          type: string
+      description: Container for a breakdown of how many of each type of Activity have
+        been returned in the API response.
+    ActivityDetailsResponse:
+      required:
+        - Location
+        - TransactionId
+      type: object
+      properties:
+        Warnings:
+          type: array
+          description: Container for all warnings generated during the transaction.
+          items:
+            $ref: "#/components/schemas/ActivitiesWarning"
+        TransactionId:
+          type: string
+          description: A unique identifier for this transaction.
+          example: f06edfa3-27f4-44e6-838c-b8dd3d0a3210
+        Location:
+          type: string
+          description: The location user searched, translated into the full, unambiguous
+            format.
+          example: shenzhen, dg
+        StartDate:
+          type: string
+          description: The startDate of activities in YYY-MM-DD format.
+          format: date
+          example: 2021-08-01T00:00:00.000Z
+        EndDate:
+          type: string
+          description: The endDate of activities in YYY-MM-DD format.
+          format: date
+          example: 2021-08-01T00:00:00.000Z
+        ActivityDetails:
+          $ref: "#/components/schemas/Activity"
   securitySchemes:
     Authorization:
       type: http
