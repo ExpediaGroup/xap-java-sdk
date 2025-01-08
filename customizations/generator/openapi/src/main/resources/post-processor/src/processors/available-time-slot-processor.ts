@@ -4,7 +4,7 @@ import {RuleFunction} from './shared.types';
 
 export class AvailableTimeSlotProcessor extends Processor {
   rules: RuleFunction[];
-  id: String = 'available-time-slot-processor';
+  id: String = 'available-time-slot';
 
   constructor() {
     super();
