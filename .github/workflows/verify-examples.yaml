@@ -10,6 +10,7 @@ jobs:
       pull-requests: read
     outputs:
       examples: ${{ steps.filter.outputs.examples }}
+      integration-tests: ${{ steps.filter.outputs.integration-tests }}
     steps:
       - uses: dorny/paths-filter@v3
         id: filter
