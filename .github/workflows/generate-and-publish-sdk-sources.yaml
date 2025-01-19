@@ -16,7 +16,8 @@ jobs:
     secrets: inherit
     with:
       name: xap
-      version: ${{ inputs.version }}
-      transformations: "--headers key --operationIdsToTags"
+      ref: ${{ github.head_ref || github.ref_name }}
       repository: 'ExpediaGroup/xap-java-sdk'
-      ref: ${{ '20241217' }}
+      sdk_repo_ref: 'v20241217'
+      transformations: '--headers key --operationIdsToTags'
+      version: ${{ inputs.version }}
