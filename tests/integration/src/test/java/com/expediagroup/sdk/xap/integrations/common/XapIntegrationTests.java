@@ -15,7 +15,7 @@ import org.junit.jupiter.api.TestInstance;
  * Extension for setting up the required components for testing.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public abstract class XapIT {
+public abstract class XapIntegrationTests {
 
   protected static XapClient xapClient;
   protected static XapClient mockClient;

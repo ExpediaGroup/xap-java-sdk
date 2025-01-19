@@ -62,7 +62,7 @@ import org.junit.jupiter.api.Test;
 /**
  * This class is used to test the integration of the Lodging Listings API.
  */
-public class ListingsIT extends XapIT {
+public class ListingsIntegrationTests extends XapIntegrationTests {
 
   @Test
   public void testRequest() {
