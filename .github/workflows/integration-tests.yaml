@@ -55,7 +55,7 @@ jobs:
           mvn clean install
 
       - name: Run Integration Tests
-        working-directory: sdk-repo/integrations
+        working-directory: sdk-repo/tests/integration
         run: |
           mvn verify \
             -Dcom.expediagroup.xapjavasdk.apikey="${{ secrets.API_KEY }}" \
