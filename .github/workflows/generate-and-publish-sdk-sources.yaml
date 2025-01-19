@@ -19,4 +19,4 @@ jobs:
       version: ${{ inputs.version }}
       transformations: "--headers key --operationIdsToTags"
       repository: 'ExpediaGroup/xap-java-sdk'
-      ref: ${{ github.head_ref || github.ref_name || '20241217' }}
+      ref: ${{ '20241217' }}
