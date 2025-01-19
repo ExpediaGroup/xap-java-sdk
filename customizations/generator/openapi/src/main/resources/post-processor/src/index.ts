@@ -5,6 +5,8 @@ import {NonCancellableDateTimeRangeProcessor} from './processors/non-cancellable
 import {PenaltyRuleProcessor} from './processors/penalty-rule-processor';
 import {VendorLocationDetailsProcessor} from './processors/vendor-location-details-processor';
 import {GetCarsListingsOperationParamsProcessor} from './processors/get-cars-listings-operation-params-processor';
+import {ActivitiesCancellationPolicyProcessor} from './processors/activities-cancellation-policy-processor';
+import {AvailableTimeSlotProcessor} from './processors/available-time-slot-processor';
 
 import * as path from 'path';
 
@@ -33,5 +35,11 @@ switch (fileName) {
     break;
   case 'GetCarsListingsOperationParams':
     new GetCarsListingsOperationParamsProcessor().process(filePath);
+    break;
+  case 'ActivitiesCancellationPolicy':
+    new ActivitiesCancellationPolicyProcessor().process(filePath);
+    break;
+  case 'AvailableTimeSlot':
+    new AvailableTimeSlotProcessor().process(filePath);
     break;
 }
