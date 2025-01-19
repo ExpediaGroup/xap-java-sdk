@@ -1,4 +1,4 @@
-name: Verify Examples
+name: Verify Examples and Integration Tests
 on:
   pull_request:
     branches:
