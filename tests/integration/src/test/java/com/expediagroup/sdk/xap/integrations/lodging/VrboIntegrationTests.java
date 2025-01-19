@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 /**
  * Extension for setting up the required components for testing, specifically for Vrbo.
  */
-public abstract class VrboIT extends XapIT {
+public abstract class VrboIntegrationTests extends XapIntegrationTests {
 
   @BeforeAll
   static void vrboSetup() {

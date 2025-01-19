@@ -17,6 +17,8 @@ jobs:
           filters: |
             examples:
               - 'examples/**'
+            integration-tests:
+              - 'tests/integration/**'
 
   verify-examples:
     needs: detect-changes
@@ -30,4 +32,28 @@ jobs:
           distribution: 'temurin'
       - name: verify examples
         working-directory: examples
-        run: mvn clean install
+        run: |
+          mvn verify \
+            -Dcom.expediagroup.xapjavasdk.apikey="${{ secrets.API_KEY }}" \
+            -Dcom.expediagroup.xapjavasdk.apisecret="${{ secrets.API_SECRET }}" \
+            -Dcom.expediagroup.xapjavasdk.vrbokey="${{ secrets.VRBO_KEY }}" \
+            -Dcom.expediagroup.xapjavasdk.vrbosecret="${{ secrets.VRBO_SECRET }}" \
+
+  verify-integration-tests:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.integration-tests == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - name: verify integration tests
+        working-directory: tests/integration
+        run: |
+          mvn verify \
+            -Dcom.expediagroup.xapjavasdk.apikey="${{ secrets.API_KEY }}" \
+            -Dcom.expediagroup.xapjavasdk.apisecret="${{ secrets.API_SECRET }}" \
+            -Dcom.expediagroup.xapjavasdk.vrbokey="${{ secrets.VRBO_KEY }}" \
+            -Dcom.expediagroup.xapjavasdk.vrbosecret="${{ secrets.VRBO_SECRET }}"
