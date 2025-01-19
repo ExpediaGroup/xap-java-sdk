@@ -6,7 +6,7 @@ import static com.expediagroup.sdk.xap.integrations.common.Constant.MOCK_KEY;
 
 import com.expediagroup.sdk.core.model.Response;
 import com.expediagroup.sdk.xap.integrations.common.Constant;
-import com.expediagroup.sdk.xap.integrations.common.XapIT;
+import com.expediagroup.sdk.xap.integrations.common.XapIntegrationTests;
 import com.expediagroup.sdk.xap.models.AgeClassRestriction;
 import com.expediagroup.sdk.xap.models.BedType;
 import com.expediagroup.sdk.xap.models.CancellationPolicy;
@@ -62,7 +62,7 @@ import org.junit.jupiter.api.Test;
 /**
  * This class is used to test the integration of the Lodging Listings API.
  */
-public class ListingsIT extends XapIT {
+public class ListingsIntegrationTests extends XapIntegrationTests {
 
   @Test
   public void testRequest() {

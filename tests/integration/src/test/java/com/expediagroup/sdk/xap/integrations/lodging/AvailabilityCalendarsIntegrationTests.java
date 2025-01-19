@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 /**
  * This class is used to test the integration of the Lodging Availability Calendars API.
  */
-public class AvailabilityCalendarsIT extends VrboIT {
+public class AvailabilityCalendarsIntegrationTests extends VrboIntegrationTests {
 
   @Test
   public void testRequest() {

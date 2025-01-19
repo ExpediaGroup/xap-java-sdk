@@ -1,14 +1,14 @@
 package com.expediagroup.sdk.xap.integrations.lodging;
 
 import com.expediagroup.sdk.xap.client.XapClient;
-import com.expediagroup.sdk.xap.integrations.common.XapIT;
+import com.expediagroup.sdk.xap.integrations.common.XapIntegrationTests;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeAll;
 
 /**
  * Extension for setting up the required components for testing, specifically for Vrbo.
  */
-public abstract class VrboIT extends XapIT {
+public abstract class VrboIntegrationTests extends XapIntegrationTests {
 
   @BeforeAll
   static void vrboSetup() {

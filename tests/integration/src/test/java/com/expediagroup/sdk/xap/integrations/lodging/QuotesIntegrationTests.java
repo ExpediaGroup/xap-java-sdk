@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * This class is used to test the integration of the Lodging Quotes API.
  */
-public class QuotesIT extends VrboIT {
+public class QuotesIntegrationTests extends VrboIntegrationTests {
 
   @Test
   public void testRequest() {
