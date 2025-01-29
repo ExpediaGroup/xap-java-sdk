@@ -2,6 +2,12 @@ name: Deploy Reference Documentation
 
 on:
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch or tag to deploy reference docs from. Defaults to current branch.'
+        type: string
+        required: false
+        default: ''
 
 permissions:
   id-token: write
@@ -11,5 +17,6 @@ jobs:
     uses: "ExpediaGroup/expediagroup-java-sdk/.github/workflows/generate-ref-docs.yaml@main"
     with:
       buildsystem: 'maven'
+      ref: ${{ inputs.ref != '' && inputs.ref || github.ref }}
     secrets:
       GITHUB_PAT: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
