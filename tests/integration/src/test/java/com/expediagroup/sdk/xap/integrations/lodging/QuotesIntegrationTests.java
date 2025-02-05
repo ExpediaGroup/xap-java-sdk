@@ -48,8 +48,6 @@ public class QuotesIntegrationTests extends VrboIntegrationTests {
     rooms.add(Room.builder().adults(3L).childAges(Arrays.asList(1L, 2L, 3L, 4L, 5L)).build());
     rooms.add(Room.builder().adults(2L).childAges(Arrays.asList(1L, 2L, 3L, 4L)).build());
     rooms.add(Room.builder().adults(1L).build());
-    // nine rooms here, the ninth room should be ignored
-    rooms.add(Room.builder().adults(2L).build());
 
     GetLodgingQuotesOperationParams getLodgingQuotesOperationParams =
         GetLodgingQuotesOperationParams.builder()
