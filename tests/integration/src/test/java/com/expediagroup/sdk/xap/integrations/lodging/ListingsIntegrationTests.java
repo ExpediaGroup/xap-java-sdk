@@ -228,7 +228,6 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
         new MockResponse()
             .setHeader("Content-Type", ACCEPT_HOTEL)
             .setHeader("Partner-Transaction-Id", Constant.PARTNER_TRANSACTION_ID)
-            .setHeader("txnid", UUID.randomUUID().toString())
             .setResponseCode(200)
             .setBody(mockedResponse));
 
@@ -246,7 +245,6 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
     Assertions.assertNotNull(headers);
     Assertions.assertEquals(Constant.PARTNER_TRANSACTION_ID, headers.get("partner-transaction-id")
         .get(0));
-    Assertions.assertTrue(headers.containsKey("txnid"));
     verifyHotelListingsResponse(response.getData());
   }
 

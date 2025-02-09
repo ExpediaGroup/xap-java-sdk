@@ -84,7 +84,6 @@ public class AvailabilityCalendarsIntegrationTests extends XapIntegrationTests {
         new MockResponse()
             .setHeader("Content-Type", ACCEPT_HOTEL)
             .setHeader("partner-transaction-id", PARTNER_TRANSACTION_ID)
-            .setHeader("txnid", UUID.randomUUID().toString())
             .setResponseCode(200)
             .setBody(mockedResponse));
 
@@ -100,7 +99,6 @@ public class AvailabilityCalendarsIntegrationTests extends XapIntegrationTests {
     Assertions.assertNotNull(headers);
     Assertions.assertEquals(PARTNER_TRANSACTION_ID, headers.get("partner-transaction-id")
         .get(0));
-    Assertions.assertTrue(headers.containsKey("txnid"));
     verifyAvailabilityCalendarResponse(response.getData());
   }
 
