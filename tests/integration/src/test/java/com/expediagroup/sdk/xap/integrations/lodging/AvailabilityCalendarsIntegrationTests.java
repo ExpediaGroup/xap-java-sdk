@@ -1,17 +1,20 @@
 package com.expediagroup.sdk.xap.integrations.lodging;
 
+import static com.expediagroup.sdk.xap.integrations.common.Constant.ACCEPT_HOTEL;
 import static com.expediagroup.sdk.xap.integrations.common.Constant.ACCEPT_LODGING;
 import static com.expediagroup.sdk.xap.integrations.common.Constant.AUTHORIZATION;
 import static com.expediagroup.sdk.xap.integrations.common.Constant.MOCK_KEY;
 import static com.expediagroup.sdk.xap.integrations.common.Constant.PARTNER_TRANSACTION_ID;
 
 import com.expediagroup.sdk.core.model.Response;
-import com.expediagroup.sdk.xap.integrations.common.Constant;
+import com.expediagroup.sdk.xap.integrations.common.XapIntegrationTests;
 import com.expediagroup.sdk.xap.models.AvailabilityCalendar;
 import com.expediagroup.sdk.xap.models.AvailabilityCalendarResponse;
 import com.expediagroup.sdk.xap.models.DateRange;
 import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperation;
 import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperationParams;
+import io.hosuaby.inject.resources.junit.jupiter.GivenTextResource;
+import io.hosuaby.inject.resources.junit.jupiter.TestWithResources;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -28,8 +31,8 @@ import org.junit.jupiter.api.Test;
 /**
  * This class is used to test the integration of the Lodging Availability Calendars API.
  */
-public class AvailabilityCalendarsIntegrationTests extends VrboIntegrationTests {
-
+@TestWithResources
+public class AvailabilityCalendarsIntegrationTests extends XapIntegrationTests {
   @Test
   public void testRequest() {
     GetLodgingAvailabilityCalendarsOperationParams availabilityCalendarsOperationParams =
@@ -69,7 +72,7 @@ public class AvailabilityCalendarsIntegrationTests extends VrboIntegrationTests 
   }
 
   @Test
-  public void testResponse() {
+  public void testResponse(@GivenTextResource("GetLodgingAvailabilityCalendars.json") String mockedResponse) {
     GetLodgingAvailabilityCalendarsOperationParams params =
         GetLodgingAvailabilityCalendarsOperationParams.builder()
             .partnerTransactionId(PARTNER_TRANSACTION_ID)
@@ -77,8 +80,16 @@ public class AvailabilityCalendarsIntegrationTests extends VrboIntegrationTests 
                 "75030107", "91799474")))
             .build();
 
+    mockWebServer.enqueue(
+        new MockResponse()
+            .setHeader("Content-Type", ACCEPT_HOTEL)
+            .setHeader("partner-transaction-id", PARTNER_TRANSACTION_ID)
+            .setHeader("txnid", UUID.randomUUID().toString())
+            .setResponseCode(200)
+            .setBody(mockedResponse));
+
     Response<AvailabilityCalendarResponse> response =
-        xapClient.execute(new GetLodgingAvailabilityCalendarsOperation(params));
+        mockClient.execute(new GetLodgingAvailabilityCalendarsOperation(params));
     verifyResponse(response);
   }
 
@@ -87,7 +98,7 @@ public class AvailabilityCalendarsIntegrationTests extends VrboIntegrationTests 
     Assertions.assertEquals(200, response.getStatusCode());
     Map<String, List<String>> headers = response.getHeaders();
     Assertions.assertNotNull(headers);
-    Assertions.assertEquals(Constant.PARTNER_TRANSACTION_ID, headers.get("partner-transaction-id")
+    Assertions.assertEquals(PARTNER_TRANSACTION_ID, headers.get("partner-transaction-id")
         .get(0));
     Assertions.assertTrue(headers.containsKey("txnid"));
     verifyAvailabilityCalendarResponse(response.getData());

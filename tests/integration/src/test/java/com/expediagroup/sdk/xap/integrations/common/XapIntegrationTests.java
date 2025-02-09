@@ -7,7 +7,9 @@ import com.expediagroup.sdk.xap.client.XapClient;
 import okhttp3.mockwebserver.MockWebServer;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 
 
@@ -17,22 +19,11 @@ import org.junit.jupiter.api.TestInstance;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class XapIntegrationTests {
 
-  protected static XapClient xapClient;
   protected static XapClient mockClient;
   protected static MockWebServer mockWebServer;
 
-  @BeforeAll
-  static void setup() {
-    String key = System.getProperty("com.expediagroup.xapjavasdk.apikey");
-    String secret = System.getProperty("com.expediagroup.xapjavasdk.apisecret");
-    if (StringUtils.isBlank(key) || StringUtils.isBlank(secret)) {
-      throw new IllegalStateException("Key and secret must be set");
-    }
-    xapClient = XapClient.builder()
-        .key(key)
-        .secret(secret)
-        .build();
-
+  @BeforeEach
+  void setup() {
     mockWebServer = new MockWebServer();
 
     mockClient = XapClient.builder()
@@ -42,14 +33,13 @@ public abstract class XapIntegrationTests {
         .build();
   }
 
-  @AfterAll
-  static void tearDown() throws Exception {
+  @AfterEach
+  void tearDown() throws Exception {
     // Clean everything after each test to ensure clear state
     if (mockWebServer != null) {
       mockWebServer.shutdown();
       mockWebServer = null;
     }
-    xapClient = null;
     mockClient = null;
   }
 }
