@@ -212,7 +212,7 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
   }
 
   @Test
-  public void testResponse(@GivenTextResource("GetLodgingListings.json") String mockedResponse) {
+  public void testResponse(@GivenTextResource("GetLodgingListingsResponse.json") String mockedResponse) {
     GetLodgingListingsOperationParams operationParams = GetLodgingListingsOperationParams.builder()
         .partnerTransactionId(Constant.PARTNER_TRANSACTION_ID)
         .locationKeyword("Seattle")

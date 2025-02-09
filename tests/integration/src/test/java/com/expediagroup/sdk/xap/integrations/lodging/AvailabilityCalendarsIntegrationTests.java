@@ -72,7 +72,7 @@ public class AvailabilityCalendarsIntegrationTests extends XapIntegrationTests {
   }
 
   @Test
-  public void testResponse(@GivenTextResource("GetLodgingAvailabilityCalendars.json") String mockedResponse) {
+  public void testResponse(@GivenTextResource("GetLodgingAvailabilityCalendarsResponse.json") String mockedResponse) {
     GetLodgingAvailabilityCalendarsOperationParams params =
         GetLodgingAvailabilityCalendarsOperationParams.builder()
             .partnerTransactionId(PARTNER_TRANSACTION_ID)
