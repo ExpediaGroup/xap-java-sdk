@@ -47,7 +47,7 @@ public class AvailabilityCalendarsIntegrationTests extends XapIntegrationTests {
             .setResponseCode(200)
             .setBody("{}"));
 
-    mockClient.execute(
+    xapClient.execute(
         new GetLodgingAvailabilityCalendarsOperation(availabilityCalendarsOperationParams));
     try {
       RecordedRequest recordedRequest = mockWebServer.takeRequest();
@@ -89,7 +89,7 @@ public class AvailabilityCalendarsIntegrationTests extends XapIntegrationTests {
             .setBody(mockedResponse));
 
     Response<AvailabilityCalendarResponse> response =
-        mockClient.execute(new GetLodgingAvailabilityCalendarsOperation(params));
+        xapClient.execute(new GetLodgingAvailabilityCalendarsOperation(params));
     verifyResponse(response);
   }
 

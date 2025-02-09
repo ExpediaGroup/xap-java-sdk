@@ -19,14 +19,14 @@ import org.junit.jupiter.api.TestInstance;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class XapIntegrationTests {
 
-  protected static XapClient mockClient;
-  protected static MockWebServer mockWebServer;
+  protected XapClient xapClient;
+  protected MockWebServer mockWebServer;
 
   @BeforeEach
   void setup() {
     mockWebServer = new MockWebServer();
 
-    mockClient = XapClient.builder()
+    xapClient = XapClient.builder()
         .key(MOCK_KEY)
         .secret(MOCK_SECRET)
         .endpoint(mockWebServer.url("/").toString())
@@ -40,6 +40,6 @@ public abstract class XapIntegrationTests {
       mockWebServer.shutdown();
       mockWebServer = null;
     }
-    mockClient = null;
+    xapClient = null;
   }
 }

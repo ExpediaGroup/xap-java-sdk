@@ -132,7 +132,7 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
             .setResponseCode(200)
             .setBody("{}"));
 
-    mockClient.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams));
+    xapClient.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams));
     try {
       RecordedRequest recordedRequest = mockWebServer.takeRequest();
       // method
@@ -232,7 +232,7 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
             .setResponseCode(200)
             .setBody(mockedResponse));
 
-    Response<HotelListingsResponse> response = mockClient.execute(
+    Response<HotelListingsResponse> response = xapClient.execute(
         new GetLodgingListingsOperation(operationParams)
     );
 

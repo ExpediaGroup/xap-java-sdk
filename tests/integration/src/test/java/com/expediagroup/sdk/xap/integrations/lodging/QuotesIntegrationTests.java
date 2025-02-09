@@ -71,7 +71,7 @@ public class QuotesIntegrationTests extends XapIntegrationTests {
             .setResponseCode(200)
             .setBody("{}"));
 
-    mockClient.execute(new GetLodgingQuotesOperation(getLodgingQuotesOperationParams));
+    xapClient.execute(new GetLodgingQuotesOperation(getLodgingQuotesOperationParams));
     try {
       RecordedRequest recordedRequest = mockWebServer.takeRequest();
       // method
@@ -136,7 +136,7 @@ public class QuotesIntegrationTests extends XapIntegrationTests {
             .setBody(mockedResponse));
 
     Response<LodgingQuotesResponse> response =
-        mockClient.execute(new GetLodgingQuotesOperation(getLodgingQuotesOperationParams));
+        xapClient.execute(new GetLodgingQuotesOperation(getLodgingQuotesOperationParams));
     verifyResponse(response);
   }
 
