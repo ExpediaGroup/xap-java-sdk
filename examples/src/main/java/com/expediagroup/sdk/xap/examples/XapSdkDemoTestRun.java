@@ -16,6 +16,8 @@
 
 package com.expediagroup.sdk.xap.examples;
 
+import com.expediagroup.sdk.xap.examples.scenarios.activity.ActivityDetailsQuickStartScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.activity.ActivityListingsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.car.CarDetailsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.car.CarListingsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.lodging.AvailabilityCalendarsQuickStartScenario;
@@ -69,6 +71,20 @@ public class XapSdkDemoTestRun {
     carDetailsQuickStartScenario.run();
     logger.info(
             "=============================== End of Car Scenarios ==============================");
+
+    logger.info(
+        "============================== Running Activity Scenarios =============================");
+    ActivityListingsQuickStartScenario activityListingsQuickStartScenario =
+        new ActivityListingsQuickStartScenario();
+
+    activityListingsQuickStartScenario.run();
+
+    ActivityDetailsQuickStartScenario activityDetailsQuickStartScenario =
+        new ActivityDetailsQuickStartScenario();
+    activityDetailsQuickStartScenario.run();
+    logger.info(
+        "=============================== End of Activity Scenarios ==============================");
+
 
     System.exit(0);
   }
