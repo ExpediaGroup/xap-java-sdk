@@ -35,19 +35,16 @@
             <artifactId>xap-sdk</artifactId>
             <version>${xap-java-sdk.sdk.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.24.3</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
             <version>2.24.3</version>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -58,6 +55,12 @@
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>mockwebserver</artifactId>
             <version>4.12.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.hosuaby</groupId>
+            <artifactId>inject-resources-junit-jupiter</artifactId>
+            <version>1.0.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -85,7 +88,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>3.5.2</version>
                 <executions>
                     <execution>
                         <id>integration-tests</id>

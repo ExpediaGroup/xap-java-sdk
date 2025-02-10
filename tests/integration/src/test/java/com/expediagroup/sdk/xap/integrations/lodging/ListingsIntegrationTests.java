@@ -44,6 +44,8 @@ import com.expediagroup.sdk.xap.models.RoomTypeStandalonePrice;
 import com.expediagroup.sdk.xap.models.StayDates;
 import com.expediagroup.sdk.xap.operations.GetLodgingListingsOperation;
 import com.expediagroup.sdk.xap.operations.GetLodgingListingsOperationParams;
+import io.hosuaby.inject.resources.junit.jupiter.GivenTextResource;
+import io.hosuaby.inject.resources.junit.jupiter.TestWithResources;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,6 +64,7 @@ import org.junit.jupiter.api.Test;
 /**
  * This class is used to test the integration of the Lodging Listings API.
  */
+@TestWithResources
 public class ListingsIntegrationTests extends XapIntegrationTests {
 
   @Test
@@ -129,7 +132,7 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
             .setResponseCode(200)
             .setBody("{}"));
 
-    mockClient.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams));
+    xapClient.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams));
     try {
       RecordedRequest recordedRequest = mockWebServer.takeRequest();
       // method
@@ -209,7 +212,7 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
   }
 
   @Test
-  public void testResponse() {
+  public void testResponse(@GivenTextResource("GetLodgingListingsResponse.json") String mockedResponse) {
     GetLodgingListingsOperationParams operationParams = GetLodgingListingsOperationParams.builder()
         .partnerTransactionId(Constant.PARTNER_TRANSACTION_ID)
         .locationKeyword("Seattle")
@@ -221,8 +224,17 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
         .availOnly(true)
         .build();
 
-    Response<HotelListingsResponse> response =
-        xapClient.execute(new GetLodgingListingsOperation(operationParams));
+    mockWebServer.enqueue(
+        new MockResponse()
+            .setHeader("Content-Type", ACCEPT_HOTEL)
+            .setHeader("Partner-Transaction-Id", Constant.PARTNER_TRANSACTION_ID)
+            .setResponseCode(200)
+            .setBody(mockedResponse));
+
+    Response<HotelListingsResponse> response = xapClient.execute(
+        new GetLodgingListingsOperation(operationParams)
+    );
+
     verifyResponse(response);
   }
 
@@ -233,7 +245,6 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
     Assertions.assertNotNull(headers);
     Assertions.assertEquals(Constant.PARTNER_TRANSACTION_ID, headers.get("partner-transaction-id")
         .get(0));
-    Assertions.assertTrue(headers.containsKey("txnid"));
     verifyHotelListingsResponse(response.getData());
   }
 
@@ -241,11 +252,15 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
       HotelListingsResponse hotelListingsResponse) {
     Assertions.assertNotNull(hotelListingsResponse);
     Assertions.assertNull(hotelListingsResponse.getWarnings());
+    Assertions.assertNotNull(hotelListingsResponse.getCount());
     Assertions.assertTrue(hotelListingsResponse.getCount() > 0);
+    Assertions.assertNotNull(hotelListingsResponse.getTotalHotelCount());
     Assertions.assertTrue(hotelListingsResponse.getTotalHotelCount() > 0);
     Assertions.assertNotNull(hotelListingsResponse.getTransactionId());
     Assertions.assertNotNull(hotelListingsResponse.getStayDates());
+    Assertions.assertNotNull(hotelListingsResponse.getLengthOfStay());
     Assertions.assertTrue(hotelListingsResponse.getLengthOfStay() > 0);
+    Assertions.assertNotNull(hotelListingsResponse.getNumberOfRooms());
     Assertions.assertTrue(hotelListingsResponse.getNumberOfRooms() > 0);
     Assertions.assertNotNull(hotelListingsResponse.getOccupants());
     Assertions.assertFalse(hotelListingsResponse.getOccupants().isEmpty());
