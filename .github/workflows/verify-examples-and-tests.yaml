@@ -53,8 +53,4 @@ jobs:
       - name: verify integration tests
         working-directory: tests/integration
         run: |
-          mvn verify \
-            -Dcom.expediagroup.xapjavasdk.apikey="${{ secrets.API_KEY }}" \
-            -Dcom.expediagroup.xapjavasdk.apisecret="${{ secrets.API_SECRET }}" \
-            -Dcom.expediagroup.xapjavasdk.vrbokey="${{ secrets.VRBO_KEY }}" \
-            -Dcom.expediagroup.xapjavasdk.vrbosecret="${{ secrets.VRBO_SECRET }}"
+          mvn verify
