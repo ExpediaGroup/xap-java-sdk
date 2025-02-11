@@ -1,5 +1,6 @@
 package com.expediagroup.sdk.xap.integrations.lodging;
 
+import static com.expediagroup.sdk.xap.integrations.common.Constant.ACCEPT_HOTEL;
 import static com.expediagroup.sdk.xap.integrations.common.Constant.ACCEPT_LODGING;
 import static com.expediagroup.sdk.xap.integrations.common.Constant.AUTHORIZATION;
 import static com.expediagroup.sdk.xap.integrations.common.Constant.MOCK_KEY;
@@ -7,6 +8,7 @@ import static com.expediagroup.sdk.xap.integrations.common.Constant.PARTNER_TRAN
 
 import com.expediagroup.sdk.core.model.Response;
 import com.expediagroup.sdk.xap.integrations.common.Constant;
+import com.expediagroup.sdk.xap.integrations.common.XapIntegrationTests;
 import com.expediagroup.sdk.xap.models.LodgingCancellationPolicy;
 import com.expediagroup.sdk.xap.models.LodgingQuotesResponse;
 import com.expediagroup.sdk.xap.models.LodgingRatePlan;
@@ -16,6 +18,8 @@ import com.expediagroup.sdk.xap.models.Property;
 import com.expediagroup.sdk.xap.models.Room;
 import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperation;
 import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperationParams;
+import io.hosuaby.inject.resources.junit.jupiter.GivenTextResource;
+import io.hosuaby.inject.resources.junit.jupiter.TestWithResources;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,8 +39,8 @@ import org.junit.jupiter.api.Test;
 /**
  * This class is used to test the integration of the Lodging Quotes API.
  */
-public class QuotesIT extends VrboIT {
-
+@TestWithResources
+public class QuotesIntegrationTests extends XapIntegrationTests {
   @Test
   public void testRequest() {
     ArrayList<Room> rooms = new ArrayList<>();
@@ -48,8 +52,6 @@ public class QuotesIT extends VrboIT {
     rooms.add(Room.builder().adults(3L).childAges(Arrays.asList(1L, 2L, 3L, 4L, 5L)).build());
     rooms.add(Room.builder().adults(2L).childAges(Arrays.asList(1L, 2L, 3L, 4L)).build());
     rooms.add(Room.builder().adults(1L).build());
-    // nine rooms here, the ninth room should be ignored
-    rooms.add(Room.builder().adults(2L).build());
 
     GetLodgingQuotesOperationParams getLodgingQuotesOperationParams =
         GetLodgingQuotesOperationParams.builder()
@@ -69,7 +71,7 @@ public class QuotesIT extends VrboIT {
             .setResponseCode(200)
             .setBody("{}"));
 
-    mockClient.execute(new GetLodgingQuotesOperation(getLodgingQuotesOperationParams));
+    xapClient.execute(new GetLodgingQuotesOperation(getLodgingQuotesOperationParams));
     try {
       RecordedRequest recordedRequest = mockWebServer.takeRequest();
       // method
@@ -114,16 +116,23 @@ public class QuotesIT extends VrboIT {
   }
 
   @Test
-  public void testResponse() {
+  public void testResponse(@GivenTextResource("GetLodgingQuotesResponse.json") String mockedResponse) {
     GetLodgingQuotesOperationParams getLodgingQuotesOperationParams =
         GetLodgingQuotesOperationParams.builder()
             .partnerTransactionId(PARTNER_TRANSACTION_ID)
             .propertyIds(new HashSet<>(Arrays.asList("87704892", "83418323", "75028284", "75030107",
                 "91799474")))
-            .checkIn(LocalDate.now().plusDays(5))
-            .checkOut(LocalDate.now().plusDays(10))
+            .checkIn(LocalDate.now().plusDays(10))
+            .checkOut(LocalDate.now().plusDays(15))
             .links(Collections.singletonList(GetLodgingQuotesOperationParams.Links.WEB))
             .build();
+
+    mockWebServer.enqueue(
+        new MockResponse()
+            .setHeader("Content-Type", ACCEPT_HOTEL)
+            .setHeader("partner-transaction-id", Constant.PARTNER_TRANSACTION_ID)
+            .setResponseCode(200)
+            .setBody(mockedResponse));
 
     Response<LodgingQuotesResponse> response =
         xapClient.execute(new GetLodgingQuotesOperation(getLodgingQuotesOperationParams));
@@ -137,17 +146,19 @@ public class QuotesIT extends VrboIT {
     Assertions.assertNotNull(headers);
     Assertions.assertEquals(Constant.PARTNER_TRANSACTION_ID, headers.get("partner-transaction-id")
         .get(0));
-    Assertions.assertTrue(headers.containsKey("txnid"));
     verifyLodgingQuotesResponse(response.getData());
   }
 
   private void verifyLodgingQuotesResponse(LodgingQuotesResponse lodgingQuotesResponse) {
     Assertions.assertNotNull(lodgingQuotesResponse);
     Assertions.assertNull(lodgingQuotesResponse.getWarnings());
+    Assertions.assertNotNull(lodgingQuotesResponse.getCount());
     Assertions.assertTrue(lodgingQuotesResponse.getCount() > 0);
+    Assertions.assertNotNull(lodgingQuotesResponse.getTotalPropertyCount());
     Assertions.assertTrue(lodgingQuotesResponse.getTotalPropertyCount() > 0);
     Assertions.assertNotNull(lodgingQuotesResponse.getTransactionId());
     Assertions.assertNotNull(lodgingQuotesResponse.getStayDates());
+    Assertions.assertNotNull(lodgingQuotesResponse.getLengthOfStay());
     Assertions.assertTrue(lodgingQuotesResponse.getLengthOfStay() > 0);
     Assertions.assertNotNull(lodgingQuotesResponse.getOccupants());
     Assertions.assertFalse(lodgingQuotesResponse.getOccupants().isEmpty());

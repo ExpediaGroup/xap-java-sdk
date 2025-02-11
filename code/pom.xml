@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.expediagroup</groupId>
     <artifactId>xap-sdk</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.1</version>
     <name>EG xap-sdk for Java</name>
-    <description>EG xap-sdk v1.1.1-SNAPSHOT</description>
+    <description>EG xap-sdk v1.1.1</description>
     <url>https://github.com/ExpediaGroup/test-sdk</url>
     <inceptionYear>2022</inceptionYear>
     <packaging>jar</packaging>
