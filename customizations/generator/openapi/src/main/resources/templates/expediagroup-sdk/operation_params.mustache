@@ -128,9 +128,11 @@
                             }
                         {{/headerParams}}
                         {{#responses}}
-                            {{#httpAcceptHeader}}
-                                append("Accept", "{{mediaTypes}}")
-                            {{/httpAcceptHeader}}
+                            {{#allowedMediaTypes}}
+                                {{#mediaTypes}}
+                                    append("Accept", "{{.}}")
+                                {{/mediaTypes}}
+                            {{/allowedMediaTypes}}
                         {{/responses}}
                     }
                 }
