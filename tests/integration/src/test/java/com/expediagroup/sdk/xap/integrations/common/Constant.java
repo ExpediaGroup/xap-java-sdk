@@ -14,4 +14,5 @@ public class Constant {
       .encodeToString((MOCK_KEY + ":" + MOCK_SECRET).getBytes());
   public static final String ACCEPT_HOTEL = "application/vnd.exp-hotel.v3+json";
   public static final String ACCEPT_LODGING = "application/vnd.exp-lodging.v3+json";
+  public static final String ACCEPT_ACTIVITY = "application/vnd.exp-activity.v3+json";
 }
