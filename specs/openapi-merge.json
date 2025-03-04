@@ -26,6 +26,24 @@
       "dispute": {
         "prefix": "Activities"
       }
+    },
+    {
+      "inputFile":  "./xap-flight-v1.specs.yaml",
+      "dispute": {
+        "prefix": "FlightsV1"
+      }
+    },
+    {
+      "inputFile":  "./xap-flight-v2.specs.yaml",
+      "dispute": {
+        "prefix": "FlightsV2"
+      }
+    },
+    {
+      "inputFile":  "./xap-flight-v3.specs.yaml",
+      "dispute": {
+        "prefix": "FlightsV3"
+      }
     }
   ],
   "output": "./specs.yaml"
