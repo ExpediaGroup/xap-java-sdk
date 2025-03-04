@@ -18,6 +18,6 @@ jobs:
       name: xap
       ref: ${{ github.head_ref || github.ref_name }}
       repository: 'ExpediaGroup/xap-java-sdk'
-      sdk_repo_ref: 'v20250203'
+      sdk_repo_ref: 'v20250304'
       transformations: '--headers key --operationIdsToTags'
       version: ${{ inputs.version }}
