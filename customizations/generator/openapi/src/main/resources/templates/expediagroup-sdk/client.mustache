@@ -69,6 +69,7 @@ class {{clientClassname}}Client private constructor(clientConfiguration: XapClie
             appendHeaders(extraHeaders)
             contentType(ContentType.Application.Json)
             setBody(operation.requestBody)
+            exclude(ContentType.Application.Json)
         }
     }
 
