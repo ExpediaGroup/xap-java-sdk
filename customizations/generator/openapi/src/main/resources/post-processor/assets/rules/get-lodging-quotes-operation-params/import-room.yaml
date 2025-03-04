@@ -1,4 +1,0 @@
-rule:
-  kind: "import_header"
-  regex: "OperationParams"
-  pattern: "$HEADER"

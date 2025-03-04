@@ -1,0 +1,26 @@
+package com.expediagroup.sdk.xap.models
+
+data class Room(
+    val adults: Long?,
+    val childAges: List<Long>?
+) {
+    companion object {
+        @JvmStatic
+        fun builder() = Builder()
+    }
+
+    class Builder(
+        private var adults: Long? = null,
+        private var childAges: List<Long>? = null
+    ) {
+        fun adults(adults: Long?) = apply { this.adults = adults }
+
+        fun childAges(childAges: List<Long>?) = apply { this.childAges = childAges }
+
+        fun build(): Room =
+            Room(
+                adults = this.adults,
+                childAges = this.childAges
+            )
+    }
+}
