@@ -16,5 +16,38 @@
 package com.expediagroup.sdk.core.constant.provider
 
 internal object LogMaskingRegexProvider {
-    fun getMaskedFieldsRegex(maskedBodyFields: Set<String>) = "(?<=[\"']?(${maskedBodyFields.joinToString("|")})[\"']?:\\s?[\"'])(\\s*[^\"']+\\s*)(?=[\"'])".toRegex()
+    /**
+     * Generates a regex pattern to match specified fields in a JSON string.
+     *
+     * @param maskedBodyFields the set of fields to be masked
+     * @param valueToMatch regex pattern to match the value of the fields. Default: match any sequence of characters except double quotes.
+     * @return the regex pattern to match the specified fields and their values
+     */
+    fun getMaskedFieldsRegex(
+        maskedBodyFields: Set<String>,
+        valueToMatch: String = "[^\\\"]+"
+    ): Regex {
+        val fields = maskedBodyFields.joinToString("|")
+        // The pattern matches:
+        // - The field name (one of the specified fields) captured in group 1.
+        // - Optional backslash, closing double quotes, colon(:), optional whitespace, and opening double quotes.
+        // - The value of the field, matching the specified valueToMatch pattern.
+        // - Optional backslash, followed by a closing double quote
+        return "\"($fields)(\\\\?\"\\s*:\\s*\\\\*\")$valueToMatch(?:\\\\?\")".toRegex()
+    }
+
+    /**
+     * Generates a regex pattern to match a specified field in a JSON string.
+     *
+     * @param maskedBodyField the field to be masked
+     * @param valueToMatch regex pattern to match the value of the field. Default: match any sequence of characters except double quotes.
+     * @return the regex pattern to match the specified field and its value
+     */
+    fun getMaskedFieldsRegex(
+        maskedBodyField: String,
+        valueToMatch: String = "[^\\\"]+"
+    ): Regex {
+        val fields = setOf(maskedBodyField)
+        return getMaskedFieldsRegex(fields, valueToMatch)
+    }
 }
