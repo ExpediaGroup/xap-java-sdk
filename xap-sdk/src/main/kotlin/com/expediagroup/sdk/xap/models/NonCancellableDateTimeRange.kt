@@ -15,74 +15,54 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container for non-cancellable date and time range element
-    * @param startDateTime The time of this non-cancellable window starts
-    * @param endDateTime The time of this non-cancellable window ends
+ * @param startDateTime The time of this non-cancellable window starts
+ * @param endDateTime The time of this non-cancellable window ends
 */
 data class NonCancellableDateTimeRange(
-            /* The time of this non-cancellable window starts */
-@JsonProperty("StartDateTime")
-val startDateTime:
-    java.time.LocalDateTime
-,
-
-            /* The time of this non-cancellable window ends */
-@JsonProperty("EndDateTime")
-val endDateTime:
-    java.time.LocalDateTime
-
+    // The time of this non-cancellable window starts
+    @JsonProperty("StartDateTime")
+    val startDateTime: java.time.LocalDateTime,
+    // The time of this non-cancellable window ends
+    @JsonProperty("EndDateTime")
+    val endDateTime: java.time.LocalDateTime,
 ) {
-    
-
-
     init {
-                require(startDateTime != null) { "startDateTime must not be null" }
-
-
-
-
-
-
+        require(startDateTime != null) { "startDateTime must not be null" }
 
         require(endDateTime != null) { "endDateTime must not be null" }
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var startDateTime: java.time.LocalDateTime? = null,
-                private var endDateTime: java.time.LocalDateTime? = null
-        ) {
-                fun startDateTime(startDateTime: java.time.LocalDateTime) = apply { this.startDateTime = startDateTime }
-                fun endDateTime(endDateTime: java.time.LocalDateTime) = apply { this.endDateTime = endDateTime }
+    class Builder(
+        private var startDateTime: java.time.LocalDateTime? = null,
+        private var endDateTime: java.time.LocalDateTime? = null,
+    ) {
+        fun startDateTime(startDateTime: java.time.LocalDateTime) = apply { this.startDateTime = startDateTime }
 
-    fun build(): NonCancellableDateTimeRange {
-    val instance = NonCancellableDateTimeRange(
+        fun endDateTime(endDateTime: java.time.LocalDateTime) = apply { this.endDateTime = endDateTime }
+
+        fun build(): NonCancellableDateTimeRange {
+            val instance =
+                NonCancellableDateTimeRange(
+                    startDateTime = startDateTime!!,
+                    endDateTime = endDateTime!!,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             startDateTime = startDateTime!!,
-            endDateTime = endDateTime!!
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            startDateTime = startDateTime!!,
-            endDateTime = endDateTime!!
-    )
+            endDateTime = endDateTime!!,
+        )
 }

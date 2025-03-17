@@ -16,70 +16,51 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.ActivitiesPhone
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * The details information of company providing the activity.
-    * @param name The name of the company providing the activity.
-    * @param phone 
+ * @param name The name of the company providing the activity.
+ * @param phone
 */
 data class ActivitiesSupplier(
-            /* The name of the company providing the activity. */
-@JsonProperty("Name")
-val name:
-    kotlin.String
-,
-
-        @JsonProperty("Phone")
-val phone: ActivitiesPhone? = null
+    // The name of the company providing the activity.
+    @JsonProperty("Name")
+    val name: kotlin.String,
+    @JsonProperty("Phone")
+    val phone: ActivitiesPhone? = null,
 ) {
-    
-
-
     init {
-                require(name != null) { "name must not be null" }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        require(name != null) { "name must not be null" }
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var name: kotlin.String? = null,
-                private var phone: ActivitiesPhone? = null
-        ) {
-                fun name(name: kotlin.String) = apply { this.name = name }
-                fun phone(phone: ActivitiesPhone?) = apply { this.phone = phone }
+    class Builder(
+        private var name: kotlin.String? = null,
+        private var phone: ActivitiesPhone? = null,
+    ) {
+        fun name(name: kotlin.String) = apply { this.name = name }
 
-    fun build(): ActivitiesSupplier {
-    val instance = ActivitiesSupplier(
+        fun phone(phone: ActivitiesPhone?) = apply { this.phone = phone }
+
+        fun build(): ActivitiesSupplier {
+            val instance =
+                ActivitiesSupplier(
+                    name = name!!,
+                    phone = phone,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             name = name!!,
-            phone = phone
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            name = name!!,
-            phone = phone
-    )
+            phone = phone,
+        )
 }

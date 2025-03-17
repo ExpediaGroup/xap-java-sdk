@@ -14,7 +14,7 @@ import com.expediagroup.sdk.xap.configuration.XapClientConfiguration
 import com.expediagroup.sdk.xap.core.RequestExecutor
 
 class XapClient private constructor(
-    config: XapClientConfiguration
+    config: XapClientConfiguration,
 ) : RestClient() {
     private val apiEndpoint: ApiEndpoint = EndpointProvider.getXapApiEndpoint(config.environment)
 
@@ -29,9 +29,9 @@ class XapClient private constructor(
                             key = config.key,
                             secret = config.secret,
                             environment = ClientEnvironment.PROD,
-                            transport = config.transport
-                        )
-                )
+                            transport = config.transport,
+                        ),
+                ),
         )
 
     fun execute(operation: OperationNoResponseBodyTrait): Response<Nothing?> = restExecutor.execute(operation)

@@ -16,67 +16,50 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.DepositDetail
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container for deposit policy details
-    * @param description 
-    * @param details Container for deposit policy details
+ * @param description
+ * @param details Container for deposit policy details
 */
 data class DepositPolicy(
-        @JsonProperty("Description")
-val description: kotlin.collections.List<kotlin.String>? = null,
-
-            /* Container for deposit policy details */
-@JsonProperty("Details")
-val details: kotlin.collections.List<DepositDetail>? = null
+    @JsonProperty("Description")
+    val description: kotlin.collections.List<kotlin.String>? = null,
+    // Container for deposit policy details
+    @JsonProperty("Details")
+    val details: kotlin.collections.List<DepositDetail>? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var description: kotlin.collections.List<kotlin.String>? = null,
-                private var details: kotlin.collections.List<DepositDetail>? = null
-        ) {
-                fun description(description: kotlin.collections.List<kotlin.String>?) = apply { this.description = description }
-                fun details(details: kotlin.collections.List<DepositDetail>?) = apply { this.details = details }
+    class Builder(
+        private var description: kotlin.collections.List<kotlin.String>? = null,
+        private var details: kotlin.collections.List<DepositDetail>? = null,
+    ) {
+        fun description(description: kotlin.collections.List<kotlin.String>?) = apply { this.description = description }
 
-    fun build(): DepositPolicy {
-    val instance = DepositPolicy(
+        fun details(details: kotlin.collections.List<DepositDetail>?) = apply { this.details = details }
+
+        fun build(): DepositPolicy {
+            val instance =
+                DepositPolicy(
+                    description = description,
+                    details = details,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             description = description,
-            details = details
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            description = description,
-            details = details
-    )
+            details = details,
+        )
 }

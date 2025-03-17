@@ -15,100 +15,69 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param countryCode The designated country calling code.
-    * @param areaCode The phone's area code.
-    * @param number The phone's local number.
-    * @param extensionNumber Optional extension number, if required to reach the hotel.
+*
+ * @param countryCode The designated country calling code.
+ * @param areaCode The phone's area code.
+ * @param number The phone's local number.
+ * @param extensionNumber Optional extension number, if required to reach the hotel.
 */
 data class Phone(
-            /* The designated country calling code. */
-@JsonProperty("CountryCode")
-val countryCode: kotlin.String? = null,
-
-            /* The phone's area code. */
-@JsonProperty("AreaCode")
-val areaCode: kotlin.String? = null,
-
-            /* The phone's local number. */
-@JsonProperty("Number")
-val number: kotlin.String? = null,
-
-            /* Optional extension number, if required to reach the hotel. */
-@JsonProperty("ExtensionNumber")
-val extensionNumber: kotlin.String? = null
+    // The designated country calling code.
+    @JsonProperty("CountryCode")
+    val countryCode: kotlin.String? = null,
+    // The phone's area code.
+    @JsonProperty("AreaCode")
+    val areaCode: kotlin.String? = null,
+    // The phone's local number.
+    @JsonProperty("Number")
+    val number: kotlin.String? = null,
+    // Optional extension number, if required to reach the hotel.
+    @JsonProperty("ExtensionNumber")
+    val extensionNumber: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var countryCode: kotlin.String? = null,
-                private var areaCode: kotlin.String? = null,
-                private var number: kotlin.String? = null,
-                private var extensionNumber: kotlin.String? = null
-        ) {
-                fun countryCode(countryCode: kotlin.String?) = apply { this.countryCode = countryCode }
-                fun areaCode(areaCode: kotlin.String?) = apply { this.areaCode = areaCode }
-                fun number(number: kotlin.String?) = apply { this.number = number }
-                fun extensionNumber(extensionNumber: kotlin.String?) = apply { this.extensionNumber = extensionNumber }
+    class Builder(
+        private var countryCode: kotlin.String? = null,
+        private var areaCode: kotlin.String? = null,
+        private var number: kotlin.String? = null,
+        private var extensionNumber: kotlin.String? = null,
+    ) {
+        fun countryCode(countryCode: kotlin.String?) = apply { this.countryCode = countryCode }
 
-    fun build(): Phone {
-    val instance = Phone(
+        fun areaCode(areaCode: kotlin.String?) = apply { this.areaCode = areaCode }
+
+        fun number(number: kotlin.String?) = apply { this.number = number }
+
+        fun extensionNumber(extensionNumber: kotlin.String?) = apply { this.extensionNumber = extensionNumber }
+
+        fun build(): Phone {
+            val instance =
+                Phone(
+                    countryCode = countryCode,
+                    areaCode = areaCode,
+                    number = number,
+                    extensionNumber = extensionNumber,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             countryCode = countryCode,
             areaCode = areaCode,
             number = number,
-            extensionNumber = extensionNumber
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            countryCode = countryCode,
-            areaCode = areaCode,
-            number = number,
-            extensionNumber = extensionNumber
-    )
+            extensionNumber = extensionNumber,
+        )
 }

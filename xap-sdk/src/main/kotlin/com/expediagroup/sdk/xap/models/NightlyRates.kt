@@ -16,66 +16,49 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.Money
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param stayDate 
-    * @param baseRate 
+*
+ * @param stayDate
+ * @param baseRate
 */
 data class NightlyRates(
-        @JsonProperty("StayDate")
-val stayDate: java.time.LocalDate? = null,
-
-        @JsonProperty("BaseRate")
-val baseRate: Money? = null
+    @JsonProperty("StayDate")
+    val stayDate: java.time.LocalDate? = null,
+    @JsonProperty("BaseRate")
+    val baseRate: Money? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var stayDate: java.time.LocalDate? = null,
-                private var baseRate: Money? = null
-        ) {
-                fun stayDate(stayDate: java.time.LocalDate?) = apply { this.stayDate = stayDate }
-                fun baseRate(baseRate: Money?) = apply { this.baseRate = baseRate }
+    class Builder(
+        private var stayDate: java.time.LocalDate? = null,
+        private var baseRate: Money? = null,
+    ) {
+        fun stayDate(stayDate: java.time.LocalDate?) = apply { this.stayDate = stayDate }
 
-    fun build(): NightlyRates {
-    val instance = NightlyRates(
+        fun baseRate(baseRate: Money?) = apply { this.baseRate = baseRate }
+
+        fun build(): NightlyRates {
+            val instance =
+                NightlyRates(
+                    stayDate = stayDate,
+                    baseRate = baseRate,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             stayDate = stayDate,
-            baseRate = baseRate
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            stayDate = stayDate,
-            baseRate = baseRate
-    )
+            baseRate = baseRate,
+        )
 }

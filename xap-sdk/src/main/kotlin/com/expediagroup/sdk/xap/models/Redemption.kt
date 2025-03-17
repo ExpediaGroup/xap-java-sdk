@@ -16,68 +16,51 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.ActivitiesLocation
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container of redemption information.
-    * @param type The type of redemption process associated to the activity.
-    * @param redemptionLocations List of redemption locations where the activity will take place, please refer to Location Section below.
+ * @param type The type of redemption process associated to the activity.
+ * @param redemptionLocations List of redemption locations where the activity will take place, please refer to Location Section below.
 */
 data class Redemption(
-            /* The type of redemption process associated to the activity. */
-@JsonProperty("Type")
-val type: kotlin.String? = null,
-
-            /* List of redemption locations where the activity will take place, please refer to Location Section below. */
-@JsonProperty("RedemptionLocations")
-val redemptionLocations: kotlin.collections.List<ActivitiesLocation>? = null
+    // The type of redemption process associated to the activity.
+    @JsonProperty("Type")
+    val type: kotlin.String? = null,
+    // List of redemption locations where the activity will take place, please refer to Location Section below.
+    @JsonProperty("RedemptionLocations")
+    val redemptionLocations: kotlin.collections.List<ActivitiesLocation>? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var type: kotlin.String? = null,
-                private var redemptionLocations: kotlin.collections.List<ActivitiesLocation>? = null
-        ) {
-                fun type(type: kotlin.String?) = apply { this.type = type }
-                fun redemptionLocations(redemptionLocations: kotlin.collections.List<ActivitiesLocation>?) = apply { this.redemptionLocations = redemptionLocations }
+    class Builder(
+        private var type: kotlin.String? = null,
+        private var redemptionLocations: kotlin.collections.List<ActivitiesLocation>? = null,
+    ) {
+        fun type(type: kotlin.String?) = apply { this.type = type }
 
-    fun build(): Redemption {
-    val instance = Redemption(
+        fun redemptionLocations(redemptionLocations: kotlin.collections.List<ActivitiesLocation>?) = apply { this.redemptionLocations = redemptionLocations }
+
+        fun build(): Redemption {
+            val instance =
+                Redemption(
+                    type = type,
+                    redemptionLocations = redemptionLocations,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             type = type,
-            redemptionLocations = redemptionLocations
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            type = type,
-            redemptionLocations = redemptionLocations
-    )
+            redemptionLocations = redemptionLocations,
+        )
 }

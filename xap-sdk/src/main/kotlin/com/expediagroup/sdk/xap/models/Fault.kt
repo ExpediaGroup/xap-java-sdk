@@ -15,68 +15,51 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * API returned information.
-    * @param code Fault code.
-    * @param description Fault description.
+ * @param code Fault code.
+ * @param description Fault description.
 */
 data class Fault(
-            /* Fault code. */
-@JsonProperty("code")
-val code: kotlin.String? = null,
-
-            /* Fault description. */
-@JsonProperty("description")
-val description: kotlin.String? = null
+    // Fault code.
+    @JsonProperty("code")
+    val code: kotlin.String? = null,
+    // Fault description.
+    @JsonProperty("description")
+    val description: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var code: kotlin.String? = null,
-                private var description: kotlin.String? = null
-        ) {
-                fun code(code: kotlin.String?) = apply { this.code = code }
-                fun description(description: kotlin.String?) = apply { this.description = description }
+    class Builder(
+        private var code: kotlin.String? = null,
+        private var description: kotlin.String? = null,
+    ) {
+        fun code(code: kotlin.String?) = apply { this.code = code }
 
-    fun build(): Fault {
-    val instance = Fault(
+        fun description(description: kotlin.String?) = apply { this.description = description }
+
+        fun build(): Fault {
+            val instance =
+                Fault(
+                    code = code,
+                    description = description,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             code = code,
-            description = description
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            code = code,
-            description = description
-    )
+            description = description,
+        )
 }

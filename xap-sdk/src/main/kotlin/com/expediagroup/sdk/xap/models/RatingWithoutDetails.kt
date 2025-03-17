@@ -15,74 +15,54 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * The rating of the car being offered.
-    * @param ratingPercentage The percentage of rating.
-    * @param ratingCount The total count of rating.
+ * @param ratingPercentage The percentage of rating.
+ * @param ratingCount The total count of rating.
 */
 data class RatingWithoutDetails(
-            /* The percentage of rating. */
-@JsonProperty("RatingPercentage")
-val ratingPercentage:
-    kotlin.String
-,
-
-            /* The total count of rating. */
-@JsonProperty("RatingCount")
-val ratingCount:
-    kotlin.String
-
+    // The percentage of rating.
+    @JsonProperty("RatingPercentage")
+    val ratingPercentage: kotlin.String,
+    // The total count of rating.
+    @JsonProperty("RatingCount")
+    val ratingCount: kotlin.String,
 ) {
-    
-
-
     init {
-                require(ratingPercentage != null) { "ratingPercentage must not be null" }
-
-
-
-
-
-
+        require(ratingPercentage != null) { "ratingPercentage must not be null" }
 
         require(ratingCount != null) { "ratingCount must not be null" }
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var ratingPercentage: kotlin.String? = null,
-                private var ratingCount: kotlin.String? = null
-        ) {
-                fun ratingPercentage(ratingPercentage: kotlin.String) = apply { this.ratingPercentage = ratingPercentage }
-                fun ratingCount(ratingCount: kotlin.String) = apply { this.ratingCount = ratingCount }
+    class Builder(
+        private var ratingPercentage: kotlin.String? = null,
+        private var ratingCount: kotlin.String? = null,
+    ) {
+        fun ratingPercentage(ratingPercentage: kotlin.String) = apply { this.ratingPercentage = ratingPercentage }
 
-    fun build(): RatingWithoutDetails {
-    val instance = RatingWithoutDetails(
+        fun ratingCount(ratingCount: kotlin.String) = apply { this.ratingCount = ratingCount }
+
+        fun build(): RatingWithoutDetails {
+            val instance =
+                RatingWithoutDetails(
+                    ratingPercentage = ratingPercentage!!,
+                    ratingCount = ratingCount!!,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             ratingPercentage = ratingPercentage!!,
-            ratingCount = ratingCount!!
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            ratingPercentage = ratingPercentage!!,
-            ratingCount = ratingCount!!
-    )
+            ratingCount = ratingCount!!,
+        )
 }

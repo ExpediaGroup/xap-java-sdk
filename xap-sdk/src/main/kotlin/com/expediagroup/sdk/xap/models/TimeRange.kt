@@ -15,74 +15,54 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * A list of time range to indicate the operation hours of the date range.
-    * @param startTime Start time at pickup location of the date range.
-    * @param endTime End time at pickup location of the date range.
+ * @param startTime Start time at pickup location of the date range.
+ * @param endTime End time at pickup location of the date range.
 */
 data class TimeRange(
-            /* Start time at pickup location of the date range. */
-@JsonProperty("StartTime")
-val startTime:
-    kotlin.String
-,
-
-            /* End time at pickup location of the date range. */
-@JsonProperty("EndTime")
-val endTime:
-    kotlin.String
-
+    // Start time at pickup location of the date range.
+    @JsonProperty("StartTime")
+    val startTime: kotlin.String,
+    // End time at pickup location of the date range.
+    @JsonProperty("EndTime")
+    val endTime: kotlin.String,
 ) {
-    
-
-
     init {
-                require(startTime != null) { "startTime must not be null" }
-
-
-
-
-
-
+        require(startTime != null) { "startTime must not be null" }
 
         require(endTime != null) { "endTime must not be null" }
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var startTime: kotlin.String? = null,
-                private var endTime: kotlin.String? = null
-        ) {
-                fun startTime(startTime: kotlin.String) = apply { this.startTime = startTime }
-                fun endTime(endTime: kotlin.String) = apply { this.endTime = endTime }
+    class Builder(
+        private var startTime: kotlin.String? = null,
+        private var endTime: kotlin.String? = null,
+    ) {
+        fun startTime(startTime: kotlin.String) = apply { this.startTime = startTime }
 
-    fun build(): TimeRange {
-    val instance = TimeRange(
+        fun endTime(endTime: kotlin.String) = apply { this.endTime = endTime }
+
+        fun build(): TimeRange {
+            val instance =
+                TimeRange(
+                    startTime = startTime!!,
+                    endTime = endTime!!,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             startTime = startTime!!,
-            endTime = endTime!!
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            startTime = startTime!!,
-            endTime = endTime!!
-    )
+            endTime = endTime!!,
+        )
 }

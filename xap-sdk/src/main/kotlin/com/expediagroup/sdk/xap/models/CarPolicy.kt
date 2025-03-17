@@ -15,71 +15,52 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * A list of policies that apply to this car rental.
-    * @param categoryCode The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements) 
-    * @param policyText The raw text of the policy.This is generally localized into the requested language, but may be English if no other translations are available.
+ * @param categoryCode The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements)
+ * @param policyText The raw text of the policy.This is generally localized into the requested language, but may be English if no other translations are available.
 */
 data class CarPolicy(
-            /* The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements)  */
-@JsonProperty("CategoryCode")
-val categoryCode:
-    kotlin.String
-,
-
-            /* The raw text of the policy.This is generally localized into the requested language, but may be English if no other translations are available. */
-@JsonProperty("PolicyText")
-val policyText: kotlin.String? = null
+    // The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements)
+    @JsonProperty("CategoryCode")
+    val categoryCode: kotlin.String,
+    // The raw text of the policy.This is generally localized into the requested language, but may be English if no other translations are available.
+    @JsonProperty("PolicyText")
+    val policyText: kotlin.String? = null,
 ) {
-    
-
-
     init {
-                require(categoryCode != null) { "categoryCode must not be null" }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        require(categoryCode != null) { "categoryCode must not be null" }
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var categoryCode: kotlin.String? = null,
-                private var policyText: kotlin.String? = null
-        ) {
-                fun categoryCode(categoryCode: kotlin.String) = apply { this.categoryCode = categoryCode }
-                fun policyText(policyText: kotlin.String?) = apply { this.policyText = policyText }
+    class Builder(
+        private var categoryCode: kotlin.String? = null,
+        private var policyText: kotlin.String? = null,
+    ) {
+        fun categoryCode(categoryCode: kotlin.String) = apply { this.categoryCode = categoryCode }
 
-    fun build(): CarPolicy {
-    val instance = CarPolicy(
+        fun policyText(policyText: kotlin.String?) = apply { this.policyText = policyText }
+
+        fun build(): CarPolicy {
+            val instance =
+                CarPolicy(
+                    categoryCode = categoryCode!!,
+                    policyText = policyText,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             categoryCode = categoryCode!!,
-            policyText = policyText
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            categoryCode = categoryCode!!,
-            policyText = policyText
-    )
+            policyText = policyText,
+        )
 }

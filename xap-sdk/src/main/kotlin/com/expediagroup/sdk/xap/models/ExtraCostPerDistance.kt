@@ -17,72 +17,52 @@ package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.CarsDistance
 import com.expediagroup.sdk.xap.models.CarsMoney
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Extra cost for each increment of distance used.
-    * @param distance 
-    * @param cost 
+ * @param distance
+ * @param cost
 */
 data class ExtraCostPerDistance(
-        @JsonProperty("Distance")
-val distance:
-    CarsDistance
-,
-
-        @JsonProperty("Cost")
-val cost:
-    CarsMoney
-
+    @JsonProperty("Distance")
+    val distance: CarsDistance,
+    @JsonProperty("Cost")
+    val cost: CarsMoney,
 ) {
-    
-
-
     init {
-                require(distance != null) { "distance must not be null" }
-
-
-
-
-
-
+        require(distance != null) { "distance must not be null" }
 
         require(cost != null) { "cost must not be null" }
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var distance: CarsDistance? = null,
-                private var cost: CarsMoney? = null
-        ) {
-                fun distance(distance: CarsDistance) = apply { this.distance = distance }
-                fun cost(cost: CarsMoney) = apply { this.cost = cost }
+    class Builder(
+        private var distance: CarsDistance? = null,
+        private var cost: CarsMoney? = null,
+    ) {
+        fun distance(distance: CarsDistance) = apply { this.distance = distance }
 
-    fun build(): ExtraCostPerDistance {
-    val instance = ExtraCostPerDistance(
+        fun cost(cost: CarsMoney) = apply { this.cost = cost }
+
+        fun build(): ExtraCostPerDistance {
+            val instance =
+                ExtraCostPerDistance(
+                    distance = distance!!,
+                    cost = cost!!,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             distance = distance!!,
-            cost = cost!!
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            distance = distance!!,
-            cost = cost!!
-    )
+            cost = cost!!,
+        )
 }

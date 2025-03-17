@@ -16,116 +16,78 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.AgeClassRestriction
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Room occupancy policy.
-    * @param maxGuestCount The maximum number of guests allowed to stay in a room.
-    * @param minCheckInAge The minimum age required for check-in.
-    * @param includedGuestCount The number of guests included in base rate.
-    * @param minGuestAge The minimum age required for any guest staying in the room.
-    * @param ageClassRestrictions Container for room occupancy rules based on the age of the guests.
+ * @param maxGuestCount The maximum number of guests allowed to stay in a room.
+ * @param minCheckInAge The minimum age required for check-in.
+ * @param includedGuestCount The number of guests included in base rate.
+ * @param minGuestAge The minimum age required for any guest staying in the room.
+ * @param ageClassRestrictions Container for room occupancy rules based on the age of the guests.
 */
 data class RoomOccupancyPolicy(
-            /* The maximum number of guests allowed to stay in a room. */
-@JsonProperty("MaxGuestCount")
-val maxGuestCount: kotlin.Int? = null,
-
-            /* The minimum age required for check-in. */
-@JsonProperty("MinCheckInAge")
-val minCheckInAge: kotlin.Int? = null,
-
-            /* The number of guests included in base rate. */
-@JsonProperty("IncludedGuestCount")
-val includedGuestCount: kotlin.Int? = null,
-
-            /* The minimum age required for any guest staying in the room. */
-@JsonProperty("MinGuestAge")
-val minGuestAge: kotlin.Int? = null,
-
-            /* Container for room occupancy rules based on the age of the guests. */
-@JsonProperty("AgeClassRestrictions")
-val ageClassRestrictions: kotlin.collections.List<AgeClassRestriction>? = null
+    // The maximum number of guests allowed to stay in a room.
+    @JsonProperty("MaxGuestCount")
+    val maxGuestCount: kotlin.Int? = null,
+    // The minimum age required for check-in.
+    @JsonProperty("MinCheckInAge")
+    val minCheckInAge: kotlin.Int? = null,
+    // The number of guests included in base rate.
+    @JsonProperty("IncludedGuestCount")
+    val includedGuestCount: kotlin.Int? = null,
+    // The minimum age required for any guest staying in the room.
+    @JsonProperty("MinGuestAge")
+    val minGuestAge: kotlin.Int? = null,
+    // Container for room occupancy rules based on the age of the guests.
+    @JsonProperty("AgeClassRestrictions")
+    val ageClassRestrictions: kotlin.collections.List<AgeClassRestriction>? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var maxGuestCount: kotlin.Int? = null,
-                private var minCheckInAge: kotlin.Int? = null,
-                private var includedGuestCount: kotlin.Int? = null,
-                private var minGuestAge: kotlin.Int? = null,
-                private var ageClassRestrictions: kotlin.collections.List<AgeClassRestriction>? = null
-        ) {
-                fun maxGuestCount(maxGuestCount: kotlin.Int?) = apply { this.maxGuestCount = maxGuestCount }
-                fun minCheckInAge(minCheckInAge: kotlin.Int?) = apply { this.minCheckInAge = minCheckInAge }
-                fun includedGuestCount(includedGuestCount: kotlin.Int?) = apply { this.includedGuestCount = includedGuestCount }
-                fun minGuestAge(minGuestAge: kotlin.Int?) = apply { this.minGuestAge = minGuestAge }
-                fun ageClassRestrictions(ageClassRestrictions: kotlin.collections.List<AgeClassRestriction>?) = apply { this.ageClassRestrictions = ageClassRestrictions }
+    class Builder(
+        private var maxGuestCount: kotlin.Int? = null,
+        private var minCheckInAge: kotlin.Int? = null,
+        private var includedGuestCount: kotlin.Int? = null,
+        private var minGuestAge: kotlin.Int? = null,
+        private var ageClassRestrictions: kotlin.collections.List<AgeClassRestriction>? = null,
+    ) {
+        fun maxGuestCount(maxGuestCount: kotlin.Int?) = apply { this.maxGuestCount = maxGuestCount }
 
-    fun build(): RoomOccupancyPolicy {
-    val instance = RoomOccupancyPolicy(
+        fun minCheckInAge(minCheckInAge: kotlin.Int?) = apply { this.minCheckInAge = minCheckInAge }
+
+        fun includedGuestCount(includedGuestCount: kotlin.Int?) = apply { this.includedGuestCount = includedGuestCount }
+
+        fun minGuestAge(minGuestAge: kotlin.Int?) = apply { this.minGuestAge = minGuestAge }
+
+        fun ageClassRestrictions(ageClassRestrictions: kotlin.collections.List<AgeClassRestriction>?) = apply { this.ageClassRestrictions = ageClassRestrictions }
+
+        fun build(): RoomOccupancyPolicy {
+            val instance =
+                RoomOccupancyPolicy(
+                    maxGuestCount = maxGuestCount,
+                    minCheckInAge = minCheckInAge,
+                    includedGuestCount = includedGuestCount,
+                    minGuestAge = minGuestAge,
+                    ageClassRestrictions = ageClassRestrictions,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             maxGuestCount = maxGuestCount,
             minCheckInAge = minCheckInAge,
             includedGuestCount = includedGuestCount,
             minGuestAge = minGuestAge,
-            ageClassRestrictions = ageClassRestrictions
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            maxGuestCount = maxGuestCount,
-            minCheckInAge = minCheckInAge,
-            includedGuestCount = includedGuestCount,
-            minGuestAge = minGuestAge,
-            ageClassRestrictions = ageClassRestrictions
-    )
+            ageClassRestrictions = ageClassRestrictions,
+        )
 }

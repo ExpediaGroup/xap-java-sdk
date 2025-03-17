@@ -15,109 +15,74 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container for disambiguation country information
-    * @param name country name
-    * @param isoCode2 2-letter code for the country
-    * @param isoCode3 3-letter code for the country
-    * @param code 3-letter code for the country
+ * @param name country name
+ * @param isoCode2 2-letter code for the country
+ * @param isoCode3 3-letter code for the country
+ * @param code 3-letter code for the country
 */
 data class ActivitiesCountry(
-            /* country name */
-@JsonProperty("Name")
-val name:
-    kotlin.String
-,
-
-            /* 2-letter code for the country */
-@JsonProperty("IsoCode2")
-val isoCode2:
-    kotlin.String
-,
-
-            /* 3-letter code for the country */
-@JsonProperty("IsoCode3")
-val isoCode3:
-    kotlin.String
-,
-
-            /* 3-letter code for the country */
-@JsonProperty("Code")
-val code: kotlin.String? = null
+    // country name
+    @JsonProperty("Name")
+    val name: kotlin.String,
+    // 2-letter code for the country
+    @JsonProperty("IsoCode2")
+    val isoCode2: kotlin.String,
+    // 3-letter code for the country
+    @JsonProperty("IsoCode3")
+    val isoCode3: kotlin.String,
+    // 3-letter code for the country
+    @JsonProperty("Code")
+    val code: kotlin.String? = null,
 ) {
-    
-
-
     init {
-                require(name != null) { "name must not be null" }
-
-
-
-
-
-
+        require(name != null) { "name must not be null" }
 
         require(isoCode2 != null) { "isoCode2 must not be null" }
 
-
-
-
-
-
-
         require(isoCode3 != null) { "isoCode3 must not be null" }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var name: kotlin.String? = null,
-                private var isoCode2: kotlin.String? = null,
-                private var isoCode3: kotlin.String? = null,
-                private var code: kotlin.String? = null
-        ) {
-                fun name(name: kotlin.String) = apply { this.name = name }
-                fun isoCode2(isoCode2: kotlin.String) = apply { this.isoCode2 = isoCode2 }
-                fun isoCode3(isoCode3: kotlin.String) = apply { this.isoCode3 = isoCode3 }
-                fun code(code: kotlin.String?) = apply { this.code = code }
+    class Builder(
+        private var name: kotlin.String? = null,
+        private var isoCode2: kotlin.String? = null,
+        private var isoCode3: kotlin.String? = null,
+        private var code: kotlin.String? = null,
+    ) {
+        fun name(name: kotlin.String) = apply { this.name = name }
 
-    fun build(): ActivitiesCountry {
-    val instance = ActivitiesCountry(
+        fun isoCode2(isoCode2: kotlin.String) = apply { this.isoCode2 = isoCode2 }
+
+        fun isoCode3(isoCode3: kotlin.String) = apply { this.isoCode3 = isoCode3 }
+
+        fun code(code: kotlin.String?) = apply { this.code = code }
+
+        fun build(): ActivitiesCountry {
+            val instance =
+                ActivitiesCountry(
+                    name = name!!,
+                    isoCode2 = isoCode2!!,
+                    isoCode3 = isoCode3!!,
+                    code = code,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             name = name!!,
             isoCode2 = isoCode2!!,
             isoCode3 = isoCode3!!,
-            code = code
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            name = name!!,
-            isoCode2 = isoCode2!!,
-            isoCode3 = isoCode3!!,
-            code = code
-    )
+            code = code,
+        )
 }

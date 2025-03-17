@@ -18,66 +18,49 @@ package com.expediagroup.sdk.xap.models
 import com.expediagroup.sdk.xap.models.HotelLinksApiRateCalendar
 import com.expediagroup.sdk.xap.models.HotelLinksWebSearchResult
 import com.expediagroup.sdk.xap.models.Link
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for list of **HATEOAS** links to Expedia website to complete booking.  This links section will only return a deeplink to the Website Search Results page by default.  If you have selected AD deeplinks they will only <u>appear</u> within the `RoomTypes` section of the  response, as the Lodging Details API returns details at the room offer level, and not at the property level. 
-    * @param webSearchResult 
-    * @param apiRateCalendar 
+* Container for list of **HATEOAS** links to Expedia website to complete booking.  This links section will only return a deeplink to the Website Search Results page by default.  If you have selected AD deeplinks they will only <u>appear</u> within the `RoomTypes` section of the  response, as the Lodging Details API returns details at the room offer level, and not at the property level.
+ * @param webSearchResult
+ * @param apiRateCalendar
 */
 data class HotelLinks(
-        @JsonProperty("WebSearchResult")
-val webSearchResult: HotelLinksWebSearchResult? = null,
-
-        @JsonProperty("ApiRateCalendar")
-val apiRateCalendar: HotelLinksApiRateCalendar? = null
+    @JsonProperty("WebSearchResult")
+    val webSearchResult: HotelLinksWebSearchResult? = null,
+    @JsonProperty("ApiRateCalendar")
+    val apiRateCalendar: HotelLinksApiRateCalendar? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var webSearchResult: HotelLinksWebSearchResult? = null,
-                private var apiRateCalendar: HotelLinksApiRateCalendar? = null
-        ) {
-                fun webSearchResult(webSearchResult: HotelLinksWebSearchResult?) = apply { this.webSearchResult = webSearchResult }
-                fun apiRateCalendar(apiRateCalendar: HotelLinksApiRateCalendar?) = apply { this.apiRateCalendar = apiRateCalendar }
+    class Builder(
+        private var webSearchResult: HotelLinksWebSearchResult? = null,
+        private var apiRateCalendar: HotelLinksApiRateCalendar? = null,
+    ) {
+        fun webSearchResult(webSearchResult: HotelLinksWebSearchResult?) = apply { this.webSearchResult = webSearchResult }
 
-    fun build(): HotelLinks {
-    val instance = HotelLinks(
+        fun apiRateCalendar(apiRateCalendar: HotelLinksApiRateCalendar?) = apply { this.apiRateCalendar = apiRateCalendar }
+
+        fun build(): HotelLinks {
+            val instance =
+                HotelLinks(
+                    webSearchResult = webSearchResult,
+                    apiRateCalendar = apiRateCalendar,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             webSearchResult = webSearchResult,
-            apiRateCalendar = apiRateCalendar
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            webSearchResult = webSearchResult,
-            apiRateCalendar = apiRateCalendar
-    )
+            apiRateCalendar = apiRateCalendar,
+        )
 }

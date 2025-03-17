@@ -15,68 +15,51 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * The actual date range for the shown availability.
-    * @param startDate The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
-    * @param endDate The final day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
+ * @param startDate The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
+ * @param endDate The final day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
 */
 data class DateRange(
-            /* The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD]. */
-@JsonProperty("StartDate")
-val startDate: java.time.LocalDate? = null,
-
-            /* The final day of the date range in an ISO 8601 Date format [YYYY-MM-DD]. */
-@JsonProperty("EndDate")
-val endDate: java.time.LocalDate? = null
+    // The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
+    @JsonProperty("StartDate")
+    val startDate: java.time.LocalDate? = null,
+    // The final day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
+    @JsonProperty("EndDate")
+    val endDate: java.time.LocalDate? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var startDate: java.time.LocalDate? = null,
-                private var endDate: java.time.LocalDate? = null
-        ) {
-                fun startDate(startDate: java.time.LocalDate?) = apply { this.startDate = startDate }
-                fun endDate(endDate: java.time.LocalDate?) = apply { this.endDate = endDate }
+    class Builder(
+        private var startDate: java.time.LocalDate? = null,
+        private var endDate: java.time.LocalDate? = null,
+    ) {
+        fun startDate(startDate: java.time.LocalDate?) = apply { this.startDate = startDate }
 
-    fun build(): DateRange {
-    val instance = DateRange(
+        fun endDate(endDate: java.time.LocalDate?) = apply { this.endDate = endDate }
+
+        fun build(): DateRange {
+            val instance =
+                DateRange(
+                    startDate = startDate,
+                    endDate = endDate,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             startDate = startDate,
-            endDate = endDate
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            startDate = startDate,
-            endDate = endDate
-    )
+            endDate = endDate,
+        )
 }

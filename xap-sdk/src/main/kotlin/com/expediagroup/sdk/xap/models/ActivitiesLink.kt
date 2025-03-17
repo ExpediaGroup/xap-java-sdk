@@ -15,87 +15,61 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container of HATEOAS URL's
-    * @param href HATEOAS URL to fetch details.
-    * @param accept Accept header.
-    * @param method HTTP method to connect.
+ * @param href HATEOAS URL to fetch details.
+ * @param accept Accept header.
+ * @param method HTTP method to connect.
 */
 data class ActivitiesLink(
-            /* HATEOAS URL to fetch details. */
-@JsonProperty("Href")
-val href:
-    kotlin.String
-,
-
-            /* Accept header. */
-@JsonProperty("Accept")
-val accept: kotlin.String? = null,
-
-            /* HTTP method to connect. */
-@JsonProperty("Method")
-val method: kotlin.String? = null
+    // HATEOAS URL to fetch details.
+    @JsonProperty("Href")
+    val href: kotlin.String,
+    // Accept header.
+    @JsonProperty("Accept")
+    val accept: kotlin.String? = null,
+    // HTTP method to connect.
+    @JsonProperty("Method")
+    val method: kotlin.String? = null,
 ) {
-    
-
-
     init {
-                require(href != null) { "href must not be null" }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        require(href != null) { "href must not be null" }
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var href: kotlin.String? = null,
-                private var accept: kotlin.String? = null,
-                private var method: kotlin.String? = null
-        ) {
-                fun href(href: kotlin.String) = apply { this.href = href }
-                fun accept(accept: kotlin.String?) = apply { this.accept = accept }
-                fun method(method: kotlin.String?) = apply { this.method = method }
+    class Builder(
+        private var href: kotlin.String? = null,
+        private var accept: kotlin.String? = null,
+        private var method: kotlin.String? = null,
+    ) {
+        fun href(href: kotlin.String) = apply { this.href = href }
 
-    fun build(): ActivitiesLink {
-    val instance = ActivitiesLink(
+        fun accept(accept: kotlin.String?) = apply { this.accept = accept }
+
+        fun method(method: kotlin.String?) = apply { this.method = method }
+
+        fun build(): ActivitiesLink {
+            val instance =
+                ActivitiesLink(
+                    href = href!!,
+                    accept = accept,
+                    method = method,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             href = href!!,
             accept = accept,
-            method = method
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            href = href!!,
-            accept = accept,
-            method = method
-    )
+            method = method,
+        )
 }

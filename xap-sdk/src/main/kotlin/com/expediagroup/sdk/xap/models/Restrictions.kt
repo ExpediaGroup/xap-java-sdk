@@ -15,109 +15,74 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container of the Restrictions associated to this ticket.
-    * @param type Type of the Restriction.
-    * @param max Maximum value allowed for the restriction type.
-    * @param min Minimum value allowed for the restriction type.
-    * @param description The text to describe the restriction.
+ * @param type Type of the Restriction.
+ * @param max Maximum value allowed for the restriction type.
+ * @param min Minimum value allowed for the restriction type.
+ * @param description The text to describe the restriction.
 */
 data class Restrictions(
-            /* Type of the Restriction. */
-@JsonProperty("Type")
-val type:
-    kotlin.String
-,
-
-            /* Maximum value allowed for the restriction type. */
-@JsonProperty("Max")
-val max:
-    kotlin.String
-,
-
-            /* Minimum value allowed for the restriction type. */
-@JsonProperty("Min")
-val min:
-    kotlin.String
-,
-
-            /* The text to describe the restriction. */
-@JsonProperty("Description")
-val description: kotlin.String? = null
+    // Type of the Restriction.
+    @JsonProperty("Type")
+    val type: kotlin.String,
+    // Maximum value allowed for the restriction type.
+    @JsonProperty("Max")
+    val max: kotlin.String,
+    // Minimum value allowed for the restriction type.
+    @JsonProperty("Min")
+    val min: kotlin.String,
+    // The text to describe the restriction.
+    @JsonProperty("Description")
+    val description: kotlin.String? = null,
 ) {
-    
-
-
     init {
-                require(type != null) { "type must not be null" }
-
-
-
-
-
-
+        require(type != null) { "type must not be null" }
 
         require(max != null) { "max must not be null" }
 
-
-
-
-
-
-
         require(min != null) { "min must not be null" }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var type: kotlin.String? = null,
-                private var max: kotlin.String? = null,
-                private var min: kotlin.String? = null,
-                private var description: kotlin.String? = null
-        ) {
-                fun type(type: kotlin.String) = apply { this.type = type }
-                fun max(max: kotlin.String) = apply { this.max = max }
-                fun min(min: kotlin.String) = apply { this.min = min }
-                fun description(description: kotlin.String?) = apply { this.description = description }
+    class Builder(
+        private var type: kotlin.String? = null,
+        private var max: kotlin.String? = null,
+        private var min: kotlin.String? = null,
+        private var description: kotlin.String? = null,
+    ) {
+        fun type(type: kotlin.String) = apply { this.type = type }
 
-    fun build(): Restrictions {
-    val instance = Restrictions(
+        fun max(max: kotlin.String) = apply { this.max = max }
+
+        fun min(min: kotlin.String) = apply { this.min = min }
+
+        fun description(description: kotlin.String?) = apply { this.description = description }
+
+        fun build(): Restrictions {
+            val instance =
+                Restrictions(
+                    type = type!!,
+                    max = max!!,
+                    min = min!!,
+                    description = description,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             type = type!!,
             max = max!!,
             min = min!!,
-            description = description
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            type = type!!,
-            max = max!!,
-            min = min!!,
-            description = description
-    )
+            description = description,
+        )
 }

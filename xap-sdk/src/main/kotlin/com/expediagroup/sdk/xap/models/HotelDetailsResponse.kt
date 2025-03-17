@@ -20,140 +20,96 @@ import com.expediagroup.sdk.xap.models.HotelDetailsResponseOccupantsInner
 import com.expediagroup.sdk.xap.models.HotelDetailsResponseStayDates
 import com.expediagroup.sdk.xap.models.HotelDetailsResponseWarningsInner
 import com.expediagroup.sdk.xap.models.ValidFormsOfPayment
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param warnings There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings. 
-    * @param transactionId Unique identifier for the transaction.
-    * @param stayDates 
-    * @param lengthOfStay The number of stay nights.
-    * @param numberOfRooms Number of rooms requested.
-    * @param occupants Container for the list of rooms requested by the traveler.  Occupancy for each room is specified in this node. 
-    * @param validFormsOfPayment Container for payment information.
-    * @param hotelDetails 
+*
+ * @param warnings There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
+ * @param transactionId Unique identifier for the transaction.
+ * @param stayDates
+ * @param lengthOfStay The number of stay nights.
+ * @param numberOfRooms Number of rooms requested.
+ * @param occupants Container for the list of rooms requested by the traveler.  Occupancy for each room is specified in this node.
+ * @param validFormsOfPayment Container for payment information.
+ * @param hotelDetails
 */
 data class HotelDetailsResponse(
-            /* There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.  */
-@JsonProperty("Warnings")
-val warnings: kotlin.collections.List<HotelDetailsResponseWarningsInner>? = null,
-
-            /* Unique identifier for the transaction. */
-@JsonProperty("TransactionId")
-val transactionId: kotlin.String? = null,
-
-        @JsonProperty("StayDates")
-val stayDates: HotelDetailsResponseStayDates? = null,
-
-            /* The number of stay nights. */
-@JsonProperty("LengthOfStay")
-val lengthOfStay: kotlin.Int? = null,
-
-            /* Number of rooms requested. */
-@JsonProperty("NumberOfRooms")
-val numberOfRooms: kotlin.Int? = null,
-
-            /* Container for the list of rooms requested by the traveler.  Occupancy for each room is specified in this node.  */
-@JsonProperty("Occupants")
-val occupants: kotlin.collections.List<HotelDetailsResponseOccupantsInner>? = null,
-
-            /* Container for payment information. */
-@JsonProperty("ValidFormsOfPayment")
-val validFormsOfPayment: kotlin.collections.List<ValidFormsOfPayment>? = null,
-
-        @JsonProperty("HotelDetails")
-val hotelDetails: Hotel? = null
+    // There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
+    @JsonProperty("Warnings")
+    val warnings: kotlin.collections.List<HotelDetailsResponseWarningsInner>? = null,
+    // Unique identifier for the transaction.
+    @JsonProperty("TransactionId")
+    val transactionId: kotlin.String? = null,
+    @JsonProperty("StayDates")
+    val stayDates: HotelDetailsResponseStayDates? = null,
+    // The number of stay nights.
+    @JsonProperty("LengthOfStay")
+    val lengthOfStay: kotlin.Int? = null,
+    // Number of rooms requested.
+    @JsonProperty("NumberOfRooms")
+    val numberOfRooms: kotlin.Int? = null,
+    // Container for the list of rooms requested by the traveler.  Occupancy for each room is specified in this node.
+    @JsonProperty("Occupants")
+    val occupants: kotlin.collections.List<HotelDetailsResponseOccupantsInner>? = null,
+    // Container for payment information.
+    @JsonProperty("ValidFormsOfPayment")
+    val validFormsOfPayment: kotlin.collections.List<ValidFormsOfPayment>? = null,
+    @JsonProperty("HotelDetails")
+    val hotelDetails: Hotel? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var warnings: kotlin.collections.List<HotelDetailsResponseWarningsInner>? = null,
-                private var transactionId: kotlin.String? = null,
-                private var stayDates: HotelDetailsResponseStayDates? = null,
-                private var lengthOfStay: kotlin.Int? = null,
-                private var numberOfRooms: kotlin.Int? = null,
-                private var occupants: kotlin.collections.List<HotelDetailsResponseOccupantsInner>? = null,
-                private var validFormsOfPayment: kotlin.collections.List<ValidFormsOfPayment>? = null,
-                private var hotelDetails: Hotel? = null
-        ) {
-                fun warnings(warnings: kotlin.collections.List<HotelDetailsResponseWarningsInner>?) = apply { this.warnings = warnings }
-                fun transactionId(transactionId: kotlin.String?) = apply { this.transactionId = transactionId }
-                fun stayDates(stayDates: HotelDetailsResponseStayDates?) = apply { this.stayDates = stayDates }
-                fun lengthOfStay(lengthOfStay: kotlin.Int?) = apply { this.lengthOfStay = lengthOfStay }
-                fun numberOfRooms(numberOfRooms: kotlin.Int?) = apply { this.numberOfRooms = numberOfRooms }
-                fun occupants(occupants: kotlin.collections.List<HotelDetailsResponseOccupantsInner>?) = apply { this.occupants = occupants }
-                fun validFormsOfPayment(validFormsOfPayment: kotlin.collections.List<ValidFormsOfPayment>?) = apply { this.validFormsOfPayment = validFormsOfPayment }
-                fun hotelDetails(hotelDetails: Hotel?) = apply { this.hotelDetails = hotelDetails }
+    class Builder(
+        private var warnings: kotlin.collections.List<HotelDetailsResponseWarningsInner>? = null,
+        private var transactionId: kotlin.String? = null,
+        private var stayDates: HotelDetailsResponseStayDates? = null,
+        private var lengthOfStay: kotlin.Int? = null,
+        private var numberOfRooms: kotlin.Int? = null,
+        private var occupants: kotlin.collections.List<HotelDetailsResponseOccupantsInner>? = null,
+        private var validFormsOfPayment: kotlin.collections.List<ValidFormsOfPayment>? = null,
+        private var hotelDetails: Hotel? = null,
+    ) {
+        fun warnings(warnings: kotlin.collections.List<HotelDetailsResponseWarningsInner>?) = apply { this.warnings = warnings }
 
-    fun build(): HotelDetailsResponse {
-    val instance = HotelDetailsResponse(
+        fun transactionId(transactionId: kotlin.String?) = apply { this.transactionId = transactionId }
+
+        fun stayDates(stayDates: HotelDetailsResponseStayDates?) = apply { this.stayDates = stayDates }
+
+        fun lengthOfStay(lengthOfStay: kotlin.Int?) = apply { this.lengthOfStay = lengthOfStay }
+
+        fun numberOfRooms(numberOfRooms: kotlin.Int?) = apply { this.numberOfRooms = numberOfRooms }
+
+        fun occupants(occupants: kotlin.collections.List<HotelDetailsResponseOccupantsInner>?) = apply { this.occupants = occupants }
+
+        fun validFormsOfPayment(validFormsOfPayment: kotlin.collections.List<ValidFormsOfPayment>?) = apply { this.validFormsOfPayment = validFormsOfPayment }
+
+        fun hotelDetails(hotelDetails: Hotel?) = apply { this.hotelDetails = hotelDetails }
+
+        fun build(): HotelDetailsResponse {
+            val instance =
+                HotelDetailsResponse(
+                    warnings = warnings,
+                    transactionId = transactionId,
+                    stayDates = stayDates,
+                    lengthOfStay = lengthOfStay,
+                    numberOfRooms = numberOfRooms,
+                    occupants = occupants,
+                    validFormsOfPayment = validFormsOfPayment,
+                    hotelDetails = hotelDetails,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             warnings = warnings,
             transactionId = transactionId,
             stayDates = stayDates,
@@ -161,21 +117,6 @@ val hotelDetails: Hotel? = null
             numberOfRooms = numberOfRooms,
             occupants = occupants,
             validFormsOfPayment = validFormsOfPayment,
-            hotelDetails = hotelDetails
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            warnings = warnings,
-            transactionId = transactionId,
-            stayDates = stayDates,
-            lengthOfStay = lengthOfStay,
-            numberOfRooms = numberOfRooms,
-            occupants = occupants,
-            validFormsOfPayment = validFormsOfPayment,
-            hotelDetails = hotelDetails
-    )
+            hotelDetails = hotelDetails,
+        )
 }

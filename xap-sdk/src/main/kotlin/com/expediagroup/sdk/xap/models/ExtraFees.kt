@@ -16,92 +16,64 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.CarsMoney
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * List of ExtraFeesDetails
-    * @param unit Rate period beyond the base rate. Supported values: ExtraHourly, ExtraDaily
-    * @param unitCount Numbers of period
-    * @param amount 
+ * @param unit Rate period beyond the base rate. Supported values: ExtraHourly, ExtraDaily
+ * @param unitCount Numbers of period
+ * @param amount
 */
 data class ExtraFees(
-            /* Rate period beyond the base rate. Supported values: ExtraHourly, ExtraDaily */
-@JsonProperty("Unit")
-val unit:
-    kotlin.String
-,
-
-            /* Numbers of period */
-@JsonProperty("UnitCount")
-val unitCount:
-    kotlin.Long
-,
-
-        @JsonProperty("Amount")
-val amount:
-    CarsMoney
-
+    // Rate period beyond the base rate. Supported values: ExtraHourly, ExtraDaily
+    @JsonProperty("Unit")
+    val unit: kotlin.String,
+    // Numbers of period
+    @JsonProperty("UnitCount")
+    val unitCount: kotlin.Long,
+    @JsonProperty("Amount")
+    val amount: CarsMoney,
 ) {
-    
-
-
     init {
-                require(unit != null) { "unit must not be null" }
-
-
-
-
-
-
+        require(unit != null) { "unit must not be null" }
 
         require(unitCount != null) { "unitCount must not be null" }
 
-
-
-
-
-
-
         require(amount != null) { "amount must not be null" }
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var unit: kotlin.String? = null,
-                private var unitCount: kotlin.Long? = null,
-                private var amount: CarsMoney? = null
-        ) {
-                fun unit(unit: kotlin.String) = apply { this.unit = unit }
-                fun unitCount(unitCount: kotlin.Long) = apply { this.unitCount = unitCount }
-                fun amount(amount: CarsMoney) = apply { this.amount = amount }
+    class Builder(
+        private var unit: kotlin.String? = null,
+        private var unitCount: kotlin.Long? = null,
+        private var amount: CarsMoney? = null,
+    ) {
+        fun unit(unit: kotlin.String) = apply { this.unit = unit }
 
-    fun build(): ExtraFees {
-    val instance = ExtraFees(
+        fun unitCount(unitCount: kotlin.Long) = apply { this.unitCount = unitCount }
+
+        fun amount(amount: CarsMoney) = apply { this.amount = amount }
+
+        fun build(): ExtraFees {
+            val instance =
+                ExtraFees(
+                    unit = unit!!,
+                    unitCount = unitCount!!,
+                    amount = amount!!,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             unit = unit!!,
             unitCount = unitCount!!,
-            amount = amount!!
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            unit = unit!!,
-            unitCount = unitCount!!,
-            amount = amount!!
-    )
+            amount = amount!!,
+        )
 }

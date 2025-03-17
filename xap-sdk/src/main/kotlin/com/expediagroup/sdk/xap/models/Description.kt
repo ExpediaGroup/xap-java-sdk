@@ -15,84 +15,60 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container for the descriptions of the property.
-    * @param locationTeaser A description of the property's location.
-    * @param hotelTeaser A description of the features and amenities of the property itself.
-    * @param roomTeaser The common description for all of the rooms in the property.
+ * @param locationTeaser A description of the property's location.
+ * @param hotelTeaser A description of the features and amenities of the property itself.
+ * @param roomTeaser The common description for all of the rooms in the property.
 */
 data class Description(
-            /* A description of the property's location. */
-@JsonProperty("LocationTeaser")
-val locationTeaser: kotlin.String? = null,
-
-            /* A description of the features and amenities of the property itself. */
-@JsonProperty("HotelTeaser")
-val hotelTeaser: kotlin.String? = null,
-
-            /* The common description for all of the rooms in the property. */
-@JsonProperty("RoomTeaser")
-val roomTeaser: kotlin.String? = null
+    // A description of the property's location.
+    @JsonProperty("LocationTeaser")
+    val locationTeaser: kotlin.String? = null,
+    // A description of the features and amenities of the property itself.
+    @JsonProperty("HotelTeaser")
+    val hotelTeaser: kotlin.String? = null,
+    // The common description for all of the rooms in the property.
+    @JsonProperty("RoomTeaser")
+    val roomTeaser: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var locationTeaser: kotlin.String? = null,
-                private var hotelTeaser: kotlin.String? = null,
-                private var roomTeaser: kotlin.String? = null
-        ) {
-                fun locationTeaser(locationTeaser: kotlin.String?) = apply { this.locationTeaser = locationTeaser }
-                fun hotelTeaser(hotelTeaser: kotlin.String?) = apply { this.hotelTeaser = hotelTeaser }
-                fun roomTeaser(roomTeaser: kotlin.String?) = apply { this.roomTeaser = roomTeaser }
+    class Builder(
+        private var locationTeaser: kotlin.String? = null,
+        private var hotelTeaser: kotlin.String? = null,
+        private var roomTeaser: kotlin.String? = null,
+    ) {
+        fun locationTeaser(locationTeaser: kotlin.String?) = apply { this.locationTeaser = locationTeaser }
 
-    fun build(): Description {
-    val instance = Description(
+        fun hotelTeaser(hotelTeaser: kotlin.String?) = apply { this.hotelTeaser = hotelTeaser }
+
+        fun roomTeaser(roomTeaser: kotlin.String?) = apply { this.roomTeaser = roomTeaser }
+
+        fun build(): Description {
+            val instance =
+                Description(
+                    locationTeaser = locationTeaser,
+                    hotelTeaser = hotelTeaser,
+                    roomTeaser = roomTeaser,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             locationTeaser = locationTeaser,
             hotelTeaser = hotelTeaser,
-            roomTeaser = roomTeaser
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            locationTeaser = locationTeaser,
-            hotelTeaser = hotelTeaser,
-            roomTeaser = roomTeaser
-    )
+            roomTeaser = roomTeaser,
+        )
 }

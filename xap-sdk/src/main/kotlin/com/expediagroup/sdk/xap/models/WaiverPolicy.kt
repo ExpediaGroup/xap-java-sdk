@@ -15,52 +15,42 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param waiverPolicyDescription The localized waiver policy description, which could be put in front of cancellation policy description. 
+*
+ * @param waiverPolicyDescription The localized waiver policy description, which could be put in front of cancellation policy description.
 */
 data class WaiverPolicy(
-            /* The localized waiver policy description, which could be put in front of cancellation policy description.  */
-@JsonProperty("WaiverPolicyDescription")
-val waiverPolicyDescription: kotlin.String? = null
+    // The localized waiver policy description, which could be put in front of cancellation policy description.
+    @JsonProperty("WaiverPolicyDescription")
+    val waiverPolicyDescription: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var waiverPolicyDescription: kotlin.String? = null
-        ) {
-                fun waiverPolicyDescription(waiverPolicyDescription: kotlin.String?) = apply { this.waiverPolicyDescription = waiverPolicyDescription }
+    class Builder(
+        private var waiverPolicyDescription: kotlin.String? = null,
+    ) {
+        fun waiverPolicyDescription(waiverPolicyDescription: kotlin.String?) = apply { this.waiverPolicyDescription = waiverPolicyDescription }
 
-    fun build(): WaiverPolicy {
-    val instance = WaiverPolicy(
-            waiverPolicyDescription = waiverPolicyDescription
-    )
+        fun build(): WaiverPolicy {
+            val instance =
+                WaiverPolicy(
+                    waiverPolicyDescription = waiverPolicyDescription,
+                )
 
-    return instance
+            return instance
+        }
     }
-    }
 
-    fun toBuilder() = Builder(
-            waiverPolicyDescription = waiverPolicyDescription
-    )
+    fun toBuilder() =
+        Builder(
+            waiverPolicyDescription = waiverPolicyDescription,
+        )
 }

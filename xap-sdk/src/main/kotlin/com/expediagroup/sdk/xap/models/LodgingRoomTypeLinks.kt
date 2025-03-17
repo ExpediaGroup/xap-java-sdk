@@ -18,66 +18,49 @@ package com.expediagroup.sdk.xap.models
 import com.expediagroup.sdk.xap.models.LodgingLink
 import com.expediagroup.sdk.xap.models.LodgingRoomTypeLinksWebDetails
 import com.expediagroup.sdk.xap.models.LodgingRoomTypeLinksWebSearchResult
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for list of HATEOAS links to either Expedia website or additional Expedia APIs to complete booking of the selected offer.  Which links are returned in this section are defined by the links parameter in the Search API query. Available links are: - WebDetails (link to web infosite) - WebSearchResult (link to web search result page) 
-    * @param webSearchResult 
-    * @param webDetails 
+* Container for list of HATEOAS links to either Expedia website or additional Expedia APIs to complete booking of the selected offer.  Which links are returned in this section are defined by the links parameter in the Search API query. Available links are: - WebDetails (link to web infosite) - WebSearchResult (link to web search result page)
+ * @param webSearchResult
+ * @param webDetails
 */
 data class LodgingRoomTypeLinks(
-        @JsonProperty("WebSearchResult")
-val webSearchResult: LodgingRoomTypeLinksWebSearchResult? = null,
-
-        @JsonProperty("WebDetails")
-val webDetails: LodgingRoomTypeLinksWebDetails? = null
+    @JsonProperty("WebSearchResult")
+    val webSearchResult: LodgingRoomTypeLinksWebSearchResult? = null,
+    @JsonProperty("WebDetails")
+    val webDetails: LodgingRoomTypeLinksWebDetails? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var webSearchResult: LodgingRoomTypeLinksWebSearchResult? = null,
-                private var webDetails: LodgingRoomTypeLinksWebDetails? = null
-        ) {
-                fun webSearchResult(webSearchResult: LodgingRoomTypeLinksWebSearchResult?) = apply { this.webSearchResult = webSearchResult }
-                fun webDetails(webDetails: LodgingRoomTypeLinksWebDetails?) = apply { this.webDetails = webDetails }
+    class Builder(
+        private var webSearchResult: LodgingRoomTypeLinksWebSearchResult? = null,
+        private var webDetails: LodgingRoomTypeLinksWebDetails? = null,
+    ) {
+        fun webSearchResult(webSearchResult: LodgingRoomTypeLinksWebSearchResult?) = apply { this.webSearchResult = webSearchResult }
 
-    fun build(): LodgingRoomTypeLinks {
-    val instance = LodgingRoomTypeLinks(
+        fun webDetails(webDetails: LodgingRoomTypeLinksWebDetails?) = apply { this.webDetails = webDetails }
+
+        fun build(): LodgingRoomTypeLinks {
+            val instance =
+                LodgingRoomTypeLinks(
+                    webSearchResult = webSearchResult,
+                    webDetails = webDetails,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             webSearchResult = webSearchResult,
-            webDetails = webDetails
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            webSearchResult = webSearchResult,
-            webDetails = webDetails
-    )
+            webDetails = webDetails,
+        )
 }

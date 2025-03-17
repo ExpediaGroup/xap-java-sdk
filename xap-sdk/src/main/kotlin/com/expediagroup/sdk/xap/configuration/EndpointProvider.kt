@@ -8,14 +8,14 @@ internal object EndpointProvider {
 
         return try {
             ApiEndpoint(
-                XapApiEndpoint.valueOf(env.name).url
+                XapApiEndpoint.valueOf(env.name).url,
             )
         } catch (e: IllegalArgumentException) {
             throw ExpediaGroupConfigurationException(
                 """
                 Unsupported environment [$environment] for Supply API.
                 Supported environments are [${XapApiEndpoint.entries.joinToString(", ")}]
-                """
+                """,
             )
         }
     }

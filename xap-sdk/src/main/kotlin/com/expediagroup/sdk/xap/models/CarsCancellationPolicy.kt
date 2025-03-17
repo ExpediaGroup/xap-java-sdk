@@ -17,115 +17,77 @@ package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.NonCancellableDateTimeRange
 import com.expediagroup.sdk.xap.models.PenaltyRule
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Cancellation Policy Container.
-    * @param cancellable Indicates if this car can be cancelled (free cancel or penalty cancel)
-    * @param freeCancellation Indicates if this car may be cancelled without a penalty.
-    * @param freeCancellationEndDateTime Indicates the latest time that the car can be cancelled for free.
-    * @param penaltyRules Container for penalty rules
-    * @param nonCancellableDateTimeRange 
+ * @param cancellable Indicates if this car can be cancelled (free cancel or penalty cancel)
+ * @param freeCancellation Indicates if this car may be cancelled without a penalty.
+ * @param freeCancellationEndDateTime Indicates the latest time that the car can be cancelled for free.
+ * @param penaltyRules Container for penalty rules
+ * @param nonCancellableDateTimeRange
 */
 data class CarsCancellationPolicy(
-            /* Indicates if this car can be cancelled (free cancel or penalty cancel) */
-@JsonProperty("Cancellable")
-val cancellable: kotlin.Boolean? = null,
-
-            /* Indicates if this car may be cancelled without a penalty. */
-@JsonProperty("FreeCancellation")
-val freeCancellation: kotlin.Boolean? = null,
-
-            /* Indicates the latest time that the car can be cancelled for free. */
-@JsonProperty("FreeCancellationEndDateTime")
-val freeCancellationEndDateTime: java.time.LocalDateTime? = null,
-
-            /* Container for penalty rules */
-@JsonProperty("PenaltyRules")
-val penaltyRules: kotlin.collections.List<PenaltyRule>? = null,
-
-        @JsonProperty("NonCancellableDateTimeRange")
-val nonCancellableDateTimeRange: NonCancellableDateTimeRange? = null
+    // Indicates if this car can be cancelled (free cancel or penalty cancel)
+    @JsonProperty("Cancellable")
+    val cancellable: kotlin.Boolean? = null,
+    // Indicates if this car may be cancelled without a penalty.
+    @JsonProperty("FreeCancellation")
+    val freeCancellation: kotlin.Boolean? = null,
+    // Indicates the latest time that the car can be cancelled for free.
+    @JsonProperty("FreeCancellationEndDateTime")
+    val freeCancellationEndDateTime: java.time.LocalDateTime? = null,
+    // Container for penalty rules
+    @JsonProperty("PenaltyRules")
+    val penaltyRules: kotlin.collections.List<PenaltyRule>? = null,
+    @JsonProperty("NonCancellableDateTimeRange")
+    val nonCancellableDateTimeRange: NonCancellableDateTimeRange? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var cancellable: kotlin.Boolean? = null,
-                private var freeCancellation: kotlin.Boolean? = null,
-                private var freeCancellationEndDateTime: java.time.LocalDateTime? = null,
-                private var penaltyRules: kotlin.collections.List<PenaltyRule>? = null,
-                private var nonCancellableDateTimeRange: NonCancellableDateTimeRange? = null
-        ) {
-                fun cancellable(cancellable: kotlin.Boolean?) = apply { this.cancellable = cancellable }
-                fun freeCancellation(freeCancellation: kotlin.Boolean?) = apply { this.freeCancellation = freeCancellation }
-                fun freeCancellationEndDateTime(freeCancellationEndDateTime: java.time.LocalDateTime?) = apply { this.freeCancellationEndDateTime = freeCancellationEndDateTime }
-                fun penaltyRules(penaltyRules: kotlin.collections.List<PenaltyRule>?) = apply { this.penaltyRules = penaltyRules }
-                fun nonCancellableDateTimeRange(nonCancellableDateTimeRange: NonCancellableDateTimeRange?) = apply { this.nonCancellableDateTimeRange = nonCancellableDateTimeRange }
+    class Builder(
+        private var cancellable: kotlin.Boolean? = null,
+        private var freeCancellation: kotlin.Boolean? = null,
+        private var freeCancellationEndDateTime: java.time.LocalDateTime? = null,
+        private var penaltyRules: kotlin.collections.List<PenaltyRule>? = null,
+        private var nonCancellableDateTimeRange: NonCancellableDateTimeRange? = null,
+    ) {
+        fun cancellable(cancellable: kotlin.Boolean?) = apply { this.cancellable = cancellable }
 
-    fun build(): CarsCancellationPolicy {
-    val instance = CarsCancellationPolicy(
+        fun freeCancellation(freeCancellation: kotlin.Boolean?) = apply { this.freeCancellation = freeCancellation }
+
+        fun freeCancellationEndDateTime(freeCancellationEndDateTime: java.time.LocalDateTime?) = apply { this.freeCancellationEndDateTime = freeCancellationEndDateTime }
+
+        fun penaltyRules(penaltyRules: kotlin.collections.List<PenaltyRule>?) = apply { this.penaltyRules = penaltyRules }
+
+        fun nonCancellableDateTimeRange(nonCancellableDateTimeRange: NonCancellableDateTimeRange?) = apply { this.nonCancellableDateTimeRange = nonCancellableDateTimeRange }
+
+        fun build(): CarsCancellationPolicy {
+            val instance =
+                CarsCancellationPolicy(
+                    cancellable = cancellable,
+                    freeCancellation = freeCancellation,
+                    freeCancellationEndDateTime = freeCancellationEndDateTime,
+                    penaltyRules = penaltyRules,
+                    nonCancellableDateTimeRange = nonCancellableDateTimeRange,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             cancellable = cancellable,
             freeCancellation = freeCancellation,
             freeCancellationEndDateTime = freeCancellationEndDateTime,
             penaltyRules = penaltyRules,
-            nonCancellableDateTimeRange = nonCancellableDateTimeRange
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            cancellable = cancellable,
-            freeCancellation = freeCancellation,
-            freeCancellationEndDateTime = freeCancellationEndDateTime,
-            penaltyRules = penaltyRules,
-            nonCancellableDateTimeRange = nonCancellableDateTimeRange
-    )
+            nonCancellableDateTimeRange = nonCancellableDateTimeRange,
+        )
 }

@@ -9,14 +9,14 @@ data class XapClientConfiguration(
     val key: String,
     val secret: String,
     val environment: ClientEnvironment? = null,
-    val transport: Transport? = null
+    val transport: Transport? = null,
 )
 
 data class AsyncXapClientConfiguration(
     val key: String,
     val secret: String,
     val environment: ClientEnvironment? = null,
-    val asyncTransport: AsyncTransport? = null
+    val asyncTransport: AsyncTransport? = null,
 )
 
 abstract class ClientBuilder<T : RestClient> {
@@ -48,7 +48,7 @@ abstract class ClientBuilder<T : RestClient> {
             key = key!!,
             secret = secret!!,
             environment = environment,
-            transport = transport
+            transport = transport,
         )
     }
 }
@@ -82,7 +82,7 @@ abstract class AsyncClientBuilder<T : AsyncRestClient> {
             key = key!!,
             secret = secret!!,
             environment = environment,
-            asyncTransport = asyncTransport
+            asyncTransport = asyncTransport,
         )
     }
 }

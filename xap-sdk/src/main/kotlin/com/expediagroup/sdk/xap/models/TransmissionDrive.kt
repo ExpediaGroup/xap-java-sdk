@@ -15,74 +15,54 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Car transmission and drive. Please find list of Car Transmission Drive Codes in https://expediaintegration.zendesk.com/hc/en-us/articles/115005380028
-    * @param code Car transmission and drive code.
-    * @param `value` Car transmission and drive value.
+ * @param code Car transmission and drive code.
+ * @param `value` Car transmission and drive value.
 */
 data class TransmissionDrive(
-            /* Car transmission and drive code. */
-@JsonProperty("Code")
-val code:
-    kotlin.String
-,
-
-            /* Car transmission and drive value. */
-@JsonProperty("Value")
-val `value`:
-    kotlin.String
-
+    // Car transmission and drive code.
+    @JsonProperty("Code")
+    val code: kotlin.String,
+    // Car transmission and drive value.
+    @JsonProperty("Value")
+    val `value`: kotlin.String,
 ) {
-    
-
-
     init {
-                require(code != null) { "code must not be null" }
-
-
-
-
-
-
+        require(code != null) { "code must not be null" }
 
         require(`value` != null) { "`value` must not be null" }
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var code: kotlin.String? = null,
-                private var `value`: kotlin.String? = null
-        ) {
-                fun code(code: kotlin.String) = apply { this.code = code }
-                fun `value`(`value`: kotlin.String) = apply { this.`value` = `value` }
+    class Builder(
+        private var code: kotlin.String? = null,
+        private var `value`: kotlin.String? = null,
+    ) {
+        fun code(code: kotlin.String) = apply { this.code = code }
 
-    fun build(): TransmissionDrive {
-    val instance = TransmissionDrive(
+        fun `value`(`value`: kotlin.String) = apply { this.`value` = `value` }
+
+        fun build(): TransmissionDrive {
+            val instance =
+                TransmissionDrive(
+                    code = code!!,
+                    `value` = `value`!!,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             code = code!!,
-            `value` = `value`!!
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            code = code!!,
-            `value` = `value`!!
-    )
+            `value` = `value`!!,
+        )
 }

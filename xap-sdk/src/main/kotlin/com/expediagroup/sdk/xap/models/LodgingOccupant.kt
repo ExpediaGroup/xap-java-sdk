@@ -15,68 +15,51 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param adults The number of adults in a room.
-    * @param childAges The ages of children in a room.
+*
+ * @param adults The number of adults in a room.
+ * @param childAges The ages of children in a room.
 */
 data class LodgingOccupant(
-            /* The number of adults in a room. */
-@JsonProperty("Adults")
-val adults: kotlin.Int? = null,
-
-            /* The ages of children in a room. */
-@JsonProperty("ChildAges")
-val childAges: kotlin.collections.List<kotlin.Int>? = null
+    // The number of adults in a room.
+    @JsonProperty("Adults")
+    val adults: kotlin.Int? = null,
+    // The ages of children in a room.
+    @JsonProperty("ChildAges")
+    val childAges: kotlin.collections.List<kotlin.Int>? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var adults: kotlin.Int? = null,
-                private var childAges: kotlin.collections.List<kotlin.Int>? = null
-        ) {
-                fun adults(adults: kotlin.Int?) = apply { this.adults = adults }
-                fun childAges(childAges: kotlin.collections.List<kotlin.Int>?) = apply { this.childAges = childAges }
+    class Builder(
+        private var adults: kotlin.Int? = null,
+        private var childAges: kotlin.collections.List<kotlin.Int>? = null,
+    ) {
+        fun adults(adults: kotlin.Int?) = apply { this.adults = adults }
 
-    fun build(): LodgingOccupant {
-    val instance = LodgingOccupant(
+        fun childAges(childAges: kotlin.collections.List<kotlin.Int>?) = apply { this.childAges = childAges }
+
+        fun build(): LodgingOccupant {
+            val instance =
+                LodgingOccupant(
+                    adults = adults,
+                    childAges = childAges,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             adults = adults,
-            childAges = childAges
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            adults = adults,
-            childAges = childAges
-    )
+            childAges = childAges,
+        )
 }

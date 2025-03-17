@@ -15,68 +15,51 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param id The identification number for a hotel amenity.
-    * @param name The description of a hotel amenity.
+*
+ * @param id The identification number for a hotel amenity.
+ * @param name The description of a hotel amenity.
 */
 data class HotelHotelAmenitiesInner(
-            /* The identification number for a hotel amenity. */
-@JsonProperty("Id")
-val id: kotlin.Any? = null,
-
-            /* The description of a hotel amenity. */
-@JsonProperty("Name")
-val name: kotlin.Any? = null
+    // The identification number for a hotel amenity.
+    @JsonProperty("Id")
+    val id: kotlin.Any? = null,
+    // The description of a hotel amenity.
+    @JsonProperty("Name")
+    val name: kotlin.Any? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var id: kotlin.Any? = null,
-                private var name: kotlin.Any? = null
-        ) {
-                fun id(id: kotlin.Any?) = apply { this.id = id }
-                fun name(name: kotlin.Any?) = apply { this.name = name }
+    class Builder(
+        private var id: kotlin.Any? = null,
+        private var name: kotlin.Any? = null,
+    ) {
+        fun id(id: kotlin.Any?) = apply { this.id = id }
 
-    fun build(): HotelHotelAmenitiesInner {
-    val instance = HotelHotelAmenitiesInner(
+        fun name(name: kotlin.Any?) = apply { this.name = name }
+
+        fun build(): HotelHotelAmenitiesInner {
+            val instance =
+                HotelHotelAmenitiesInner(
+                    id = id,
+                    name = name,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             id = id,
-            name = name
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            id = id,
-            name = name
-    )
+            name = name,
+        )
 }

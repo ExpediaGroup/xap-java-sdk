@@ -15,66 +15,49 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param id 
-    * @param name 
+*
+ * @param id
+ * @param name
 */
 data class LodgingAmenity(
-        @JsonProperty("Id")
-val id: kotlin.String? = null,
-
-        @JsonProperty("Name")
-val name: kotlin.String? = null
+    @JsonProperty("Id")
+    val id: kotlin.String? = null,
+    @JsonProperty("Name")
+    val name: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var id: kotlin.String? = null,
-                private var name: kotlin.String? = null
-        ) {
-                fun id(id: kotlin.String?) = apply { this.id = id }
-                fun name(name: kotlin.String?) = apply { this.name = name }
+    class Builder(
+        private var id: kotlin.String? = null,
+        private var name: kotlin.String? = null,
+    ) {
+        fun id(id: kotlin.String?) = apply { this.id = id }
 
-    fun build(): LodgingAmenity {
-    val instance = LodgingAmenity(
+        fun name(name: kotlin.String?) = apply { this.name = name }
+
+        fun build(): LodgingAmenity {
+            val instance =
+                LodgingAmenity(
+                    id = id,
+                    name = name,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             id = id,
-            name = name
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            id = id,
-            name = name
-    )
+            name = name,
+        )
 }

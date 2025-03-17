@@ -15,84 +15,60 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container for disambiguation country information
-    * @param name country name
-    * @param isoCode2 2-letter code for the country
-    * @param isoCode3 3-letter code for the country
+ * @param name country name
+ * @param isoCode2 2-letter code for the country
+ * @param isoCode3 3-letter code for the country
 */
 data class Country(
-            /* country name */
-@JsonProperty("Name")
-val name: kotlin.String? = null,
-
-            /* 2-letter code for the country */
-@JsonProperty("IsoCode2")
-val isoCode2: kotlin.String? = null,
-
-            /* 3-letter code for the country */
-@JsonProperty("IsoCode3")
-val isoCode3: kotlin.String? = null
+    // country name
+    @JsonProperty("Name")
+    val name: kotlin.String? = null,
+    // 2-letter code for the country
+    @JsonProperty("IsoCode2")
+    val isoCode2: kotlin.String? = null,
+    // 3-letter code for the country
+    @JsonProperty("IsoCode3")
+    val isoCode3: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var name: kotlin.String? = null,
-                private var isoCode2: kotlin.String? = null,
-                private var isoCode3: kotlin.String? = null
-        ) {
-                fun name(name: kotlin.String?) = apply { this.name = name }
-                fun isoCode2(isoCode2: kotlin.String?) = apply { this.isoCode2 = isoCode2 }
-                fun isoCode3(isoCode3: kotlin.String?) = apply { this.isoCode3 = isoCode3 }
+    class Builder(
+        private var name: kotlin.String? = null,
+        private var isoCode2: kotlin.String? = null,
+        private var isoCode3: kotlin.String? = null,
+    ) {
+        fun name(name: kotlin.String?) = apply { this.name = name }
 
-    fun build(): Country {
-    val instance = Country(
+        fun isoCode2(isoCode2: kotlin.String?) = apply { this.isoCode2 = isoCode2 }
+
+        fun isoCode3(isoCode3: kotlin.String?) = apply { this.isoCode3 = isoCode3 }
+
+        fun build(): Country {
+            val instance =
+                Country(
+                    name = name,
+                    isoCode2 = isoCode2,
+                    isoCode3 = isoCode3,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             name = name,
             isoCode2 = isoCode2,
-            isoCode3 = isoCode3
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            name = name,
-            isoCode2 = isoCode2,
-            isoCode3 = isoCode3
-    )
+            isoCode3 = isoCode3,
+        )
 }

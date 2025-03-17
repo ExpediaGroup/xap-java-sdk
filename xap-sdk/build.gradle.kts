@@ -64,11 +64,12 @@ publishing {
             from(components["java"])
             artifactId = project.property("ARTIFACT_NAME").toString()
             groupId = project.property("GROUP_ID").toString()
-            version = if (project.hasProperty("SNAPSHOT_VERSION")) {
-                project.property("SNAPSHOT_VERSION").toString()
-            } else {
-                project.property("VERSION").toString()
-            }
+            version =
+                if (project.hasProperty("SNAPSHOT_VERSION")) {
+                    project.property("SNAPSHOT_VERSION").toString()
+                } else {
+                    project.property("VERSION").toString()
+                }
             description = project.findProperty("DESCRIPTION")?.toString()
 
             pom {

@@ -16,67 +16,50 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.PromotionAmount
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param description The description of the promotion.
-    * @param amount 
+*
+ * @param description The description of the promotion.
+ * @param amount
 */
 data class Promotion(
-            /* The description of the promotion. */
-@JsonProperty("Description")
-val description: kotlin.String? = null,
-
-        @JsonProperty("Amount")
-val amount: PromotionAmount? = null
+    // The description of the promotion.
+    @JsonProperty("Description")
+    val description: kotlin.String? = null,
+    @JsonProperty("Amount")
+    val amount: PromotionAmount? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var description: kotlin.String? = null,
-                private var amount: PromotionAmount? = null
-        ) {
-                fun description(description: kotlin.String?) = apply { this.description = description }
-                fun amount(amount: PromotionAmount?) = apply { this.amount = amount }
+    class Builder(
+        private var description: kotlin.String? = null,
+        private var amount: PromotionAmount? = null,
+    ) {
+        fun description(description: kotlin.String?) = apply { this.description = description }
 
-    fun build(): Promotion {
-    val instance = Promotion(
+        fun amount(amount: PromotionAmount?) = apply { this.amount = amount }
+
+        fun build(): Promotion {
+            val instance =
+                Promotion(
+                    description = description,
+                    amount = amount,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             description = description,
-            amount = amount
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            description = description,
-            amount = amount
-    )
+            amount = amount,
+        )
 }

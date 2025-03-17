@@ -16,73 +16,53 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.CarsMoney
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * List of TaxesAndFees Details
-    * @param description TaxesAndFees description
-    * @param amount 
+ * @param description TaxesAndFees description
+ * @param amount
 */
 data class TaxesAndFees(
-            /* TaxesAndFees description */
-@JsonProperty("Description")
-val description:
-    kotlin.String
-,
-
-        @JsonProperty("Amount")
-val amount:
-    CarsMoney
-
+    // TaxesAndFees description
+    @JsonProperty("Description")
+    val description: kotlin.String,
+    @JsonProperty("Amount")
+    val amount: CarsMoney,
 ) {
-    
-
-
     init {
-                require(description != null) { "description must not be null" }
-
-
-
-
-
-
+        require(description != null) { "description must not be null" }
 
         require(amount != null) { "amount must not be null" }
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var description: kotlin.String? = null,
-                private var amount: CarsMoney? = null
-        ) {
-                fun description(description: kotlin.String) = apply { this.description = description }
-                fun amount(amount: CarsMoney) = apply { this.amount = amount }
+    class Builder(
+        private var description: kotlin.String? = null,
+        private var amount: CarsMoney? = null,
+    ) {
+        fun description(description: kotlin.String) = apply { this.description = description }
 
-    fun build(): TaxesAndFees {
-    val instance = TaxesAndFees(
+        fun amount(amount: CarsMoney) = apply { this.amount = amount }
+
+        fun build(): TaxesAndFees {
+            val instance =
+                TaxesAndFees(
+                    description = description!!,
+                    amount = amount!!,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             description = description!!,
-            amount = amount!!
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            description = description!!,
-            amount = amount!!
-    )
+            amount = amount!!,
+        )
 }

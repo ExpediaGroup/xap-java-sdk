@@ -17,67 +17,50 @@ package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.LodgingCancellationPolicy
 import com.expediagroup.sdk.xap.models.LodgingPromotion
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container for rate plan information.
-    * @param cancellationPolicy 
-    * @param promotions All promotion information of the ratePlan.
+ * @param cancellationPolicy
+ * @param promotions All promotion information of the ratePlan.
 */
 data class LodgingRatePlan(
-        @JsonProperty("CancellationPolicy")
-val cancellationPolicy: LodgingCancellationPolicy? = null,
-
-            /* All promotion information of the ratePlan. */
-@JsonProperty("Promotions")
-val promotions: kotlin.collections.List<LodgingPromotion>? = null
+    @JsonProperty("CancellationPolicy")
+    val cancellationPolicy: LodgingCancellationPolicy? = null,
+    // All promotion information of the ratePlan.
+    @JsonProperty("Promotions")
+    val promotions: kotlin.collections.List<LodgingPromotion>? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var cancellationPolicy: LodgingCancellationPolicy? = null,
-                private var promotions: kotlin.collections.List<LodgingPromotion>? = null
-        ) {
-                fun cancellationPolicy(cancellationPolicy: LodgingCancellationPolicy?) = apply { this.cancellationPolicy = cancellationPolicy }
-                fun promotions(promotions: kotlin.collections.List<LodgingPromotion>?) = apply { this.promotions = promotions }
+    class Builder(
+        private var cancellationPolicy: LodgingCancellationPolicy? = null,
+        private var promotions: kotlin.collections.List<LodgingPromotion>? = null,
+    ) {
+        fun cancellationPolicy(cancellationPolicy: LodgingCancellationPolicy?) = apply { this.cancellationPolicy = cancellationPolicy }
 
-    fun build(): LodgingRatePlan {
-    val instance = LodgingRatePlan(
+        fun promotions(promotions: kotlin.collections.List<LodgingPromotion>?) = apply { this.promotions = promotions }
+
+        fun build(): LodgingRatePlan {
+            val instance =
+                LodgingRatePlan(
+                    cancellationPolicy = cancellationPolicy,
+                    promotions = promotions,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             cancellationPolicy = cancellationPolicy,
-            promotions = promotions
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            cancellationPolicy = cancellationPolicy,
-            promotions = promotions
-    )
+            promotions = promotions,
+        )
 }

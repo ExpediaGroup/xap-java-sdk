@@ -16,67 +16,50 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.PaymentSchedulePrice
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Contains information on the payment schedule.
-    * @param due Date/Time stamp when this installment/deposit should be paid by.
-    * @param price 
+ * @param due Date/Time stamp when this installment/deposit should be paid by.
+ * @param price
 */
 data class PaymentSchedule(
-            /* Date/Time stamp when this installment/deposit should be paid by. */
-@JsonProperty("Due")
-val due: java.time.LocalDate? = null,
-
-        @JsonProperty("Price")
-val price: PaymentSchedulePrice? = null
+    // Date/Time stamp when this installment/deposit should be paid by.
+    @JsonProperty("Due")
+    val due: java.time.LocalDate? = null,
+    @JsonProperty("Price")
+    val price: PaymentSchedulePrice? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var due: java.time.LocalDate? = null,
-                private var price: PaymentSchedulePrice? = null
-        ) {
-                fun due(due: java.time.LocalDate?) = apply { this.due = due }
-                fun price(price: PaymentSchedulePrice?) = apply { this.price = price }
+    class Builder(
+        private var due: java.time.LocalDate? = null,
+        private var price: PaymentSchedulePrice? = null,
+    ) {
+        fun due(due: java.time.LocalDate?) = apply { this.due = due }
 
-    fun build(): PaymentSchedule {
-    val instance = PaymentSchedule(
+        fun price(price: PaymentSchedulePrice?) = apply { this.price = price }
+
+        fun build(): PaymentSchedule {
+            val instance =
+                PaymentSchedule(
+                    due = due,
+                    price = price,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             due = due,
-            price = price
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            due = due,
-            price = price
-    )
+            price = price,
+        )
 }

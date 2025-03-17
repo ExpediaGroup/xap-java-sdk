@@ -15,68 +15,51 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param categoryCode Tax or fee category code.
-    * @param amount Tax or fee value.
+*
+ * @param categoryCode Tax or fee category code.
+ * @param amount Tax or fee value.
 */
 data class RoomRatesTaxesAndFeesDetailsInner(
-            /* Tax or fee category code. */
-@JsonProperty("CategoryCode")
-val categoryCode: kotlin.Any? = null,
-
-            /* Tax or fee value. */
-@JsonProperty("Amount")
-val amount: kotlin.Any? = null
+    // Tax or fee category code.
+    @JsonProperty("CategoryCode")
+    val categoryCode: kotlin.Any? = null,
+    // Tax or fee value.
+    @JsonProperty("Amount")
+    val amount: kotlin.Any? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var categoryCode: kotlin.Any? = null,
-                private var amount: kotlin.Any? = null
-        ) {
-                fun categoryCode(categoryCode: kotlin.Any?) = apply { this.categoryCode = categoryCode }
-                fun amount(amount: kotlin.Any?) = apply { this.amount = amount }
+    class Builder(
+        private var categoryCode: kotlin.Any? = null,
+        private var amount: kotlin.Any? = null,
+    ) {
+        fun categoryCode(categoryCode: kotlin.Any?) = apply { this.categoryCode = categoryCode }
 
-    fun build(): RoomRatesTaxesAndFeesDetailsInner {
-    val instance = RoomRatesTaxesAndFeesDetailsInner(
+        fun amount(amount: kotlin.Any?) = apply { this.amount = amount }
+
+        fun build(): RoomRatesTaxesAndFeesDetailsInner {
+            val instance =
+                RoomRatesTaxesAndFeesDetailsInner(
+                    categoryCode = categoryCode,
+                    amount = amount,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             categoryCode = categoryCode,
-            amount = amount
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            categoryCode = categoryCode,
-            amount = amount
-    )
+            amount = amount,
+        )
 }

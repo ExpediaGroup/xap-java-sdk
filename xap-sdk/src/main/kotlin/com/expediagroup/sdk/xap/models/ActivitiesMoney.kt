@@ -15,89 +15,62 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container for the discount amount.
-    * @param `value` The value of the element being defined.
-    * @param currency The ISO 4217 Currency Code that the value is expressed in.
-    * @param localCurrencyPrice 
+ * @param `value` The value of the element being defined.
+ * @param currency The ISO 4217 Currency Code that the value is expressed in.
+ * @param localCurrencyPrice
 */
 data class ActivitiesMoney(
-            /* The value of the element being defined. */
-@JsonProperty("Value")
-val `value`:
-    kotlin.String
-,
-
-            /* The ISO 4217 Currency Code that the value is expressed in. */
-@JsonProperty("Currency")
-val currency:
-    kotlin.String
-,
-
-        @JsonProperty("LocalCurrencyPrice")
-val localCurrencyPrice: ActivitiesMoney? = null
+    // The value of the element being defined.
+    @JsonProperty("Value")
+    val `value`: kotlin.String,
+    // The ISO 4217 Currency Code that the value is expressed in.
+    @JsonProperty("Currency")
+    val currency: kotlin.String,
+    @JsonProperty("LocalCurrencyPrice")
+    val localCurrencyPrice: ActivitiesMoney? = null,
 ) {
-    
-
-
     init {
-                require(`value` != null) { "`value` must not be null" }
-
-
-
-
-
-
+        require(`value` != null) { "`value` must not be null" }
 
         require(currency != null) { "currency must not be null" }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var `value`: kotlin.String? = null,
-                private var currency: kotlin.String? = null,
-                private var localCurrencyPrice: ActivitiesMoney? = null
-        ) {
-                fun `value`(`value`: kotlin.String) = apply { this.`value` = `value` }
-                fun currency(currency: kotlin.String) = apply { this.currency = currency }
-                fun localCurrencyPrice(localCurrencyPrice: ActivitiesMoney?) = apply { this.localCurrencyPrice = localCurrencyPrice }
+    class Builder(
+        private var `value`: kotlin.String? = null,
+        private var currency: kotlin.String? = null,
+        private var localCurrencyPrice: ActivitiesMoney? = null,
+    ) {
+        fun `value`(`value`: kotlin.String) = apply { this.`value` = `value` }
 
-    fun build(): ActivitiesMoney {
-    val instance = ActivitiesMoney(
+        fun currency(currency: kotlin.String) = apply { this.currency = currency }
+
+        fun localCurrencyPrice(localCurrencyPrice: ActivitiesMoney?) = apply { this.localCurrencyPrice = localCurrencyPrice }
+
+        fun build(): ActivitiesMoney {
+            val instance =
+                ActivitiesMoney(
+                    `value` = `value`!!,
+                    currency = currency!!,
+                    localCurrencyPrice = localCurrencyPrice,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             `value` = `value`!!,
             currency = currency!!,
-            localCurrencyPrice = localCurrencyPrice
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            `value` = `value`!!,
-            currency = currency!!,
-            localCurrencyPrice = localCurrencyPrice
-    )
+            localCurrencyPrice = localCurrencyPrice,
+        )
 }

@@ -15,68 +15,51 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param stayDate A single night during the requested stay.
-    * @param baseRate Container for nightly base rate.
+*
+ * @param stayDate A single night during the requested stay.
+ * @param baseRate Container for nightly base rate.
 */
 data class RatePlanPriceNightlyRatesInner(
-            /* A single night during the requested stay. */
-@JsonProperty("StayDate")
-val stayDate: kotlin.Any? = null,
-
-            /* Container for nightly base rate. */
-@JsonProperty("BaseRate")
-val baseRate: kotlin.Any? = null
+    // A single night during the requested stay.
+    @JsonProperty("StayDate")
+    val stayDate: kotlin.Any? = null,
+    // Container for nightly base rate.
+    @JsonProperty("BaseRate")
+    val baseRate: kotlin.Any? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var stayDate: kotlin.Any? = null,
-                private var baseRate: kotlin.Any? = null
-        ) {
-                fun stayDate(stayDate: kotlin.Any?) = apply { this.stayDate = stayDate }
-                fun baseRate(baseRate: kotlin.Any?) = apply { this.baseRate = baseRate }
+    class Builder(
+        private var stayDate: kotlin.Any? = null,
+        private var baseRate: kotlin.Any? = null,
+    ) {
+        fun stayDate(stayDate: kotlin.Any?) = apply { this.stayDate = stayDate }
 
-    fun build(): RatePlanPriceNightlyRatesInner {
-    val instance = RatePlanPriceNightlyRatesInner(
+        fun baseRate(baseRate: kotlin.Any?) = apply { this.baseRate = baseRate }
+
+        fun build(): RatePlanPriceNightlyRatesInner {
+            val instance =
+                RatePlanPriceNightlyRatesInner(
+                    stayDate = stayDate,
+                    baseRate = baseRate,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             stayDate = stayDate,
-            baseRate = baseRate
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            stayDate = stayDate,
-            baseRate = baseRate
-    )
+            baseRate = baseRate,
+        )
 }

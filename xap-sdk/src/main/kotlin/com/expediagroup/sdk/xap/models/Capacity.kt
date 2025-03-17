@@ -15,103 +15,70 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Capacity for car's properties.
-    * @param adultCount The typical number of adults that can fit comfortably in the car.
-    * @param childCount The typical number of children that can fit comfortably in the car.
-    * @param smallLuggageCount The typical number of small pieces of luggage that fit in the cargo space.
-    * @param largeLuggageCount The typical number of large pieces of luggage that fit in the cargo space.
+ * @param adultCount The typical number of adults that can fit comfortably in the car.
+ * @param childCount The typical number of children that can fit comfortably in the car.
+ * @param smallLuggageCount The typical number of small pieces of luggage that fit in the cargo space.
+ * @param largeLuggageCount The typical number of large pieces of luggage that fit in the cargo space.
 */
 data class Capacity(
-            /* The typical number of adults that can fit comfortably in the car. */
-@JsonProperty("AdultCount")
-val adultCount:
-    kotlin.Long
-,
-
-            /* The typical number of children that can fit comfortably in the car. */
-@JsonProperty("ChildCount")
-val childCount: kotlin.Long? = null,
-
-            /* The typical number of small pieces of luggage that fit in the cargo space. */
-@JsonProperty("SmallLuggageCount")
-val smallLuggageCount: kotlin.Long? = null,
-
-            /* The typical number of large pieces of luggage that fit in the cargo space. */
-@JsonProperty("LargeLuggageCount")
-val largeLuggageCount: kotlin.Long? = null
+    // The typical number of adults that can fit comfortably in the car.
+    @JsonProperty("AdultCount")
+    val adultCount: kotlin.Long,
+    // The typical number of children that can fit comfortably in the car.
+    @JsonProperty("ChildCount")
+    val childCount: kotlin.Long? = null,
+    // The typical number of small pieces of luggage that fit in the cargo space.
+    @JsonProperty("SmallLuggageCount")
+    val smallLuggageCount: kotlin.Long? = null,
+    // The typical number of large pieces of luggage that fit in the cargo space.
+    @JsonProperty("LargeLuggageCount")
+    val largeLuggageCount: kotlin.Long? = null,
 ) {
-    
-
-
     init {
-                require(adultCount != null) { "adultCount must not be null" }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        require(adultCount != null) { "adultCount must not be null" }
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var adultCount: kotlin.Long? = null,
-                private var childCount: kotlin.Long? = null,
-                private var smallLuggageCount: kotlin.Long? = null,
-                private var largeLuggageCount: kotlin.Long? = null
-        ) {
-                fun adultCount(adultCount: kotlin.Long) = apply { this.adultCount = adultCount }
-                fun childCount(childCount: kotlin.Long?) = apply { this.childCount = childCount }
-                fun smallLuggageCount(smallLuggageCount: kotlin.Long?) = apply { this.smallLuggageCount = smallLuggageCount }
-                fun largeLuggageCount(largeLuggageCount: kotlin.Long?) = apply { this.largeLuggageCount = largeLuggageCount }
+    class Builder(
+        private var adultCount: kotlin.Long? = null,
+        private var childCount: kotlin.Long? = null,
+        private var smallLuggageCount: kotlin.Long? = null,
+        private var largeLuggageCount: kotlin.Long? = null,
+    ) {
+        fun adultCount(adultCount: kotlin.Long) = apply { this.adultCount = adultCount }
 
-    fun build(): Capacity {
-    val instance = Capacity(
+        fun childCount(childCount: kotlin.Long?) = apply { this.childCount = childCount }
+
+        fun smallLuggageCount(smallLuggageCount: kotlin.Long?) = apply { this.smallLuggageCount = smallLuggageCount }
+
+        fun largeLuggageCount(largeLuggageCount: kotlin.Long?) = apply { this.largeLuggageCount = largeLuggageCount }
+
+        fun build(): Capacity {
+            val instance =
+                Capacity(
+                    adultCount = adultCount!!,
+                    childCount = childCount,
+                    smallLuggageCount = smallLuggageCount,
+                    largeLuggageCount = largeLuggageCount,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             adultCount = adultCount!!,
             childCount = childCount,
             smallLuggageCount = smallLuggageCount,
-            largeLuggageCount = largeLuggageCount
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            adultCount = adultCount!!,
-            childCount = childCount,
-            smallLuggageCount = smallLuggageCount,
-            largeLuggageCount = largeLuggageCount
-    )
+            largeLuggageCount = largeLuggageCount,
+        )
 }

@@ -15,68 +15,51 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Contains link information, including link address, request method. Only provided if FileInfo is in OtherFileOptions.
-    * @param href a link address.
-    * @param method Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc...
+ * @param href a link address.
+ * @param method Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc...
 */
 data class SdpLink(
-            /* a link address. */
-@JsonProperty("href")
-val href: kotlin.String? = null,
-
-            /* Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc... */
-@JsonProperty("method")
-val method: kotlin.String? = null
+    // a link address.
+    @JsonProperty("href")
+    val href: kotlin.String? = null,
+    // Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc...
+    @JsonProperty("method")
+    val method: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var href: kotlin.String? = null,
-                private var method: kotlin.String? = null
-        ) {
-                fun href(href: kotlin.String?) = apply { this.href = href }
-                fun method(method: kotlin.String?) = apply { this.method = method }
+    class Builder(
+        private var href: kotlin.String? = null,
+        private var method: kotlin.String? = null,
+    ) {
+        fun href(href: kotlin.String?) = apply { this.href = href }
 
-    fun build(): SdpLink {
-    val instance = SdpLink(
+        fun method(method: kotlin.String?) = apply { this.method = method }
+
+        fun build(): SdpLink {
+            val instance =
+                SdpLink(
+                    href = href,
+                    method = method,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             href = href,
-            method = method
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            href = href,
-            method = method
-    )
+            method = method,
+        )
 }

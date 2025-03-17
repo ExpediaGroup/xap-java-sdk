@@ -16,147 +16,95 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.PropertyManager
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for information about the hotel property detail. It will be shown for Vacation Rental hotel only. 
-    * @param propertyRegistryNumber The registry number of property.
-    * @param hostLanguages The languages the host of property will speak.
-    * @param maxOccupancy The maximum number of guests allowed to stay in the property.
-    * @param numberOfBedrooms The number of bedrooms in the property.
-    * @param numberOfBathrooms The number of bathrooms in the property.
-    * @param squareFeet Property area in square feet.
-    * @param propertyManager 
+* Container for information about the hotel property detail. It will be shown for Vacation Rental hotel only.
+ * @param propertyRegistryNumber The registry number of property.
+ * @param hostLanguages The languages the host of property will speak.
+ * @param maxOccupancy The maximum number of guests allowed to stay in the property.
+ * @param numberOfBedrooms The number of bedrooms in the property.
+ * @param numberOfBathrooms The number of bathrooms in the property.
+ * @param squareFeet Property area in square feet.
+ * @param propertyManager
 */
 data class PropertyDetails(
-            /* The registry number of property. */
-@JsonProperty("PropertyRegistryNumber")
-val propertyRegistryNumber: kotlin.String? = null,
-
-            /* The languages the host of property will speak. */
-@JsonProperty("HostLanguages")
-val hostLanguages: kotlin.collections.List<kotlin.String>? = null,
-
-            /* The maximum number of guests allowed to stay in the property. */
-@JsonProperty("MaxOccupancy")
-val maxOccupancy: kotlin.Int? = null,
-
-            /* The number of bedrooms in the property. */
-@JsonProperty("NumberOfBedrooms")
-val numberOfBedrooms: kotlin.Int? = null,
-
-            /* The number of bathrooms in the property. */
-@JsonProperty("NumberOfBathrooms")
-val numberOfBathrooms: kotlin.Int? = null,
-
-            /* Property area in square feet. */
-@JsonProperty("SquareFeet")
-val squareFeet: kotlin.String? = null,
-
-        @JsonProperty("PropertyManager")
-val propertyManager: PropertyManager? = null
+    // The registry number of property.
+    @JsonProperty("PropertyRegistryNumber")
+    val propertyRegistryNumber: kotlin.String? = null,
+    // The languages the host of property will speak.
+    @JsonProperty("HostLanguages")
+    val hostLanguages: kotlin.collections.List<kotlin.String>? = null,
+    // The maximum number of guests allowed to stay in the property.
+    @JsonProperty("MaxOccupancy")
+    val maxOccupancy: kotlin.Int? = null,
+    // The number of bedrooms in the property.
+    @JsonProperty("NumberOfBedrooms")
+    val numberOfBedrooms: kotlin.Int? = null,
+    // The number of bathrooms in the property.
+    @JsonProperty("NumberOfBathrooms")
+    val numberOfBathrooms: kotlin.Int? = null,
+    // Property area in square feet.
+    @JsonProperty("SquareFeet")
+    val squareFeet: kotlin.String? = null,
+    @JsonProperty("PropertyManager")
+    val propertyManager: PropertyManager? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var propertyRegistryNumber: kotlin.String? = null,
-                private var hostLanguages: kotlin.collections.List<kotlin.String>? = null,
-                private var maxOccupancy: kotlin.Int? = null,
-                private var numberOfBedrooms: kotlin.Int? = null,
-                private var numberOfBathrooms: kotlin.Int? = null,
-                private var squareFeet: kotlin.String? = null,
-                private var propertyManager: PropertyManager? = null
-        ) {
-                fun propertyRegistryNumber(propertyRegistryNumber: kotlin.String?) = apply { this.propertyRegistryNumber = propertyRegistryNumber }
-                fun hostLanguages(hostLanguages: kotlin.collections.List<kotlin.String>?) = apply { this.hostLanguages = hostLanguages }
-                fun maxOccupancy(maxOccupancy: kotlin.Int?) = apply { this.maxOccupancy = maxOccupancy }
-                fun numberOfBedrooms(numberOfBedrooms: kotlin.Int?) = apply { this.numberOfBedrooms = numberOfBedrooms }
-                fun numberOfBathrooms(numberOfBathrooms: kotlin.Int?) = apply { this.numberOfBathrooms = numberOfBathrooms }
-                fun squareFeet(squareFeet: kotlin.String?) = apply { this.squareFeet = squareFeet }
-                fun propertyManager(propertyManager: PropertyManager?) = apply { this.propertyManager = propertyManager }
+    class Builder(
+        private var propertyRegistryNumber: kotlin.String? = null,
+        private var hostLanguages: kotlin.collections.List<kotlin.String>? = null,
+        private var maxOccupancy: kotlin.Int? = null,
+        private var numberOfBedrooms: kotlin.Int? = null,
+        private var numberOfBathrooms: kotlin.Int? = null,
+        private var squareFeet: kotlin.String? = null,
+        private var propertyManager: PropertyManager? = null,
+    ) {
+        fun propertyRegistryNumber(propertyRegistryNumber: kotlin.String?) = apply { this.propertyRegistryNumber = propertyRegistryNumber }
 
-    fun build(): PropertyDetails {
-    val instance = PropertyDetails(
+        fun hostLanguages(hostLanguages: kotlin.collections.List<kotlin.String>?) = apply { this.hostLanguages = hostLanguages }
+
+        fun maxOccupancy(maxOccupancy: kotlin.Int?) = apply { this.maxOccupancy = maxOccupancy }
+
+        fun numberOfBedrooms(numberOfBedrooms: kotlin.Int?) = apply { this.numberOfBedrooms = numberOfBedrooms }
+
+        fun numberOfBathrooms(numberOfBathrooms: kotlin.Int?) = apply { this.numberOfBathrooms = numberOfBathrooms }
+
+        fun squareFeet(squareFeet: kotlin.String?) = apply { this.squareFeet = squareFeet }
+
+        fun propertyManager(propertyManager: PropertyManager?) = apply { this.propertyManager = propertyManager }
+
+        fun build(): PropertyDetails {
+            val instance =
+                PropertyDetails(
+                    propertyRegistryNumber = propertyRegistryNumber,
+                    hostLanguages = hostLanguages,
+                    maxOccupancy = maxOccupancy,
+                    numberOfBedrooms = numberOfBedrooms,
+                    numberOfBathrooms = numberOfBathrooms,
+                    squareFeet = squareFeet,
+                    propertyManager = propertyManager,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             propertyRegistryNumber = propertyRegistryNumber,
             hostLanguages = hostLanguages,
             maxOccupancy = maxOccupancy,
             numberOfBedrooms = numberOfBedrooms,
             numberOfBathrooms = numberOfBathrooms,
             squareFeet = squareFeet,
-            propertyManager = propertyManager
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            propertyRegistryNumber = propertyRegistryNumber,
-            hostLanguages = hostLanguages,
-            maxOccupancy = maxOccupancy,
-            numberOfBedrooms = numberOfBedrooms,
-            numberOfBathrooms = numberOfBathrooms,
-            squareFeet = squareFeet,
-            propertyManager = propertyManager
-    )
+            propertyManager = propertyManager,
+        )
 }

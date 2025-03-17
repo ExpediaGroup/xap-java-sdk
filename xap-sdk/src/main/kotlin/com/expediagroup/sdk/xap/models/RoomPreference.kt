@@ -15,80 +15,65 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container for room preferences.
-    * @param type The type of preference. Options are: SmokingPreference Bed
-    * @param `value` The value of the room preference.  For SmokingPreference, options are  SmokingOrNonSmoking Smoking NonSmoking For supported Bed Types, please refer to the Related Links section at the bottom of the page.
+ * @param type The type of preference. Options are: SmokingPreference Bed
+ * @param `value` The value of the room preference.  For SmokingPreference, options are  SmokingOrNonSmoking Smoking NonSmoking For supported Bed Types, please refer to the Related Links section at the bottom of the page.
 */
 data class RoomPreference(
-            /* The type of preference. Options are: SmokingPreference Bed */
-@JsonProperty("Type")
-val type: RoomPreference.Type? = null,
-
-            /* The value of the room preference.  For SmokingPreference, options are  SmokingOrNonSmoking Smoking NonSmoking For supported Bed Types, please refer to the Related Links section at the bottom of the page. */
-@JsonProperty("Value")
-val `value`: kotlin.String? = null
+    // The type of preference. Options are: SmokingPreference Bed
+    @JsonProperty("Type")
+    val type: RoomPreference.Type? = null,
+    // The value of the room preference.  For SmokingPreference, options are  SmokingOrNonSmoking Smoking NonSmoking For supported Bed Types, please refer to the Related Links section at the bottom of the page.
+    @JsonProperty("Value")
+    val `value`: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var type: RoomPreference.Type? = null,
-                private var `value`: kotlin.String? = null
-        ) {
-                fun type(type: RoomPreference.Type?) = apply { this.type = type }
-                fun `value`(`value`: kotlin.String?) = apply { this.`value` = `value` }
+    class Builder(
+        private var type: RoomPreference.Type? = null,
+        private var `value`: kotlin.String? = null,
+    ) {
+        fun type(type: RoomPreference.Type?) = apply { this.type = type }
 
-    fun build(): RoomPreference {
-    val instance = RoomPreference(
+        fun `value`(`value`: kotlin.String?) = apply { this.`value` = `value` }
+
+        fun build(): RoomPreference {
+            val instance =
+                RoomPreference(
+                    type = type,
+                    `value` = `value`,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             type = type,
-            `value` = `value`
-    )
+            `value` = `value`,
+        )
 
-    return instance
+    /**
+     * The type of preference. Options are: SmokingPreference Bed
+     * Values: SMOKING_PREFERENCE,BED
+     */
+    enum class Type(
+        val value: kotlin.String,
+    ) {
+        @JsonProperty("SmokingPreference")
+        SMOKING_PREFERENCE("SmokingPreference"),
+
+        @JsonProperty("Bed")
+        BED("Bed"),
     }
-    }
-
-    fun toBuilder() = Builder(
-            type = type,
-            `value` = `value`
-    )
-
-            /**
-            * The type of preference. Options are: SmokingPreference Bed
-            * Values: SMOKING_PREFERENCE,BED
-            */
-            enum class Type(val value: kotlin.String) {
-                    @JsonProperty("SmokingPreference")
-                    SMOKING_PREFERENCE("SmokingPreference"),
-                    
-                    @JsonProperty("Bed")
-                    BED("Bed");
-            }
 }

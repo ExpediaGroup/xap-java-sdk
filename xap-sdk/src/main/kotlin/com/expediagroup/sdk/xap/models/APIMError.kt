@@ -15,51 +15,41 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param message 
+*
+ * @param message
 */
 data class APIMError(
-        @JsonProperty("message")
-val message: kotlin.String? = null
+    @JsonProperty("message")
+    val message: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var message: kotlin.String? = null
-        ) {
-                fun message(message: kotlin.String?) = apply { this.message = message }
+    class Builder(
+        private var message: kotlin.String? = null,
+    ) {
+        fun message(message: kotlin.String?) = apply { this.message = message }
 
-    fun build(): APIMError {
-    val instance = APIMError(
-            message = message
-    )
+        fun build(): APIMError {
+            val instance =
+                APIMError(
+                    message = message,
+                )
 
-    return instance
+            return instance
+        }
     }
-    }
 
-    fun toBuilder() = Builder(
-            message = message
-    )
+    fun toBuilder() =
+        Builder(
+            message = message,
+        )
 }

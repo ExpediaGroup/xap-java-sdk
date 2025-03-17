@@ -15,126 +15,106 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for distance information.  Only returned for city/address search or `geoLocation` search or single `regionId` search. 
-    * @param `value` The distance between the center of the search and the hotel.
-    * @param unit The unit of distance.
-    * @param direction The direction to the hotel from the center point of the search.
+* Container for distance information.  Only returned for city/address search or `geoLocation` search or single `regionId` search.
+ * @param `value` The distance between the center of the search and the hotel.
+ * @param unit The unit of distance.
+ * @param direction The direction to the hotel from the center point of the search.
 */
 data class Distance(
-            /* The distance between the center of the search and the hotel. */
-@JsonProperty("Value")
-val `value`: kotlin.String? = null,
-
-            /* The unit of distance. */
-@JsonProperty("Unit")
-val unit: Distance.Unit? = null,
-
-            /* The direction to the hotel from the center point of the search. */
-@JsonProperty("Direction")
-val direction: Distance.Direction? = null
+    // The distance between the center of the search and the hotel.
+    @JsonProperty("Value")
+    val `value`: kotlin.String? = null,
+    // The unit of distance.
+    @JsonProperty("Unit")
+    val unit: Distance.Unit? = null,
+    // The direction to the hotel from the center point of the search.
+    @JsonProperty("Direction")
+    val direction: Distance.Direction? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var `value`: kotlin.String? = null,
-                private var unit: Distance.Unit? = null,
-                private var direction: Distance.Direction? = null
-        ) {
-                fun `value`(`value`: kotlin.String?) = apply { this.`value` = `value` }
-                fun unit(unit: Distance.Unit?) = apply { this.unit = unit }
-                fun direction(direction: Distance.Direction?) = apply { this.direction = direction }
+    class Builder(
+        private var `value`: kotlin.String? = null,
+        private var unit: Distance.Unit? = null,
+        private var direction: Distance.Direction? = null,
+    ) {
+        fun `value`(`value`: kotlin.String?) = apply { this.`value` = `value` }
 
-    fun build(): Distance {
-    val instance = Distance(
+        fun unit(unit: Distance.Unit?) = apply { this.unit = unit }
+
+        fun direction(direction: Distance.Direction?) = apply { this.direction = direction }
+
+        fun build(): Distance {
+            val instance =
+                Distance(
+                    `value` = `value`,
+                    unit = unit,
+                    direction = direction,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             `value` = `value`,
             unit = unit,
-            direction = direction
-    )
+            direction = direction,
+        )
 
-    return instance
+    /**
+     * The unit of distance.
+     * Values: KM,MI
+     */
+    enum class Unit(
+        val value: kotlin.String,
+    ) {
+        @JsonProperty("km")
+        KM("km"),
+
+        @JsonProperty("mi")
+        MI("mi"),
     }
+
+    /**
+     * The direction to the hotel from the center point of the search.
+     * Values: N,S,W,E,NW,NE,SW,SE
+     */
+    enum class Direction(
+        val value: kotlin.String,
+    ) {
+        @JsonProperty("N")
+        N("N"),
+
+        @JsonProperty("S")
+        S("S"),
+
+        @JsonProperty("W")
+        W("W"),
+
+        @JsonProperty("E")
+        E("E"),
+
+        @JsonProperty("NW")
+        NW("NW"),
+
+        @JsonProperty("NE")
+        NE("NE"),
+
+        @JsonProperty("SW")
+        SW("SW"),
+
+        @JsonProperty("SE")
+        SE("SE"),
     }
-
-    fun toBuilder() = Builder(
-            `value` = `value`,
-            unit = unit,
-            direction = direction
-    )
-
-            /**
-            * The unit of distance.
-            * Values: KM,MI
-            */
-            enum class Unit(val value: kotlin.String) {
-                    @JsonProperty("km")
-                    KM("km"),
-                    
-                    @JsonProperty("mi")
-                    MI("mi");
-            }
-
-            /**
-            * The direction to the hotel from the center point of the search.
-            * Values: N,S,W,E,NW,NE,SW,SE
-            */
-            enum class Direction(val value: kotlin.String) {
-                    @JsonProperty("N")
-                    N("N"),
-                    
-                    @JsonProperty("S")
-                    S("S"),
-                    
-                    @JsonProperty("W")
-                    W("W"),
-                    
-                    @JsonProperty("E")
-                    E("E"),
-                    
-                    @JsonProperty("NW")
-                    NW("NW"),
-                    
-                    @JsonProperty("NE")
-                    NE("NE"),
-                    
-                    @JsonProperty("SW")
-                    SW("SW"),
-                    
-                    @JsonProperty("SE")
-                    SE("SE");
-            }
 }

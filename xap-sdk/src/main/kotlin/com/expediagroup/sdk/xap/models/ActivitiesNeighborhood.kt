@@ -15,74 +15,54 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Geography entities which are typically contained within a city. This includes the categories neighborhood and point of interest. Low level regions are not a formally defined concept in the geography model.
-    * @param id Neighborhood id.
-    * @param name Neighborhood name.
+ * @param id Neighborhood id.
+ * @param name Neighborhood name.
 */
 data class ActivitiesNeighborhood(
-            /* Neighborhood id. */
-@JsonProperty("Id")
-val id:
-    kotlin.String
-,
-
-            /* Neighborhood name. */
-@JsonProperty("Name")
-val name:
-    kotlin.String
-
+    // Neighborhood id.
+    @JsonProperty("Id")
+    val id: kotlin.String,
+    // Neighborhood name.
+    @JsonProperty("Name")
+    val name: kotlin.String,
 ) {
-    
-
-
     init {
-                require(id != null) { "id must not be null" }
-
-
-
-
-
-
+        require(id != null) { "id must not be null" }
 
         require(name != null) { "name must not be null" }
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var id: kotlin.String? = null,
-                private var name: kotlin.String? = null
-        ) {
-                fun id(id: kotlin.String) = apply { this.id = id }
-                fun name(name: kotlin.String) = apply { this.name = name }
+    class Builder(
+        private var id: kotlin.String? = null,
+        private var name: kotlin.String? = null,
+    ) {
+        fun id(id: kotlin.String) = apply { this.id = id }
 
-    fun build(): ActivitiesNeighborhood {
-    val instance = ActivitiesNeighborhood(
+        fun name(name: kotlin.String) = apply { this.name = name }
+
+        fun build(): ActivitiesNeighborhood {
+            val instance =
+                ActivitiesNeighborhood(
+                    id = id!!,
+                    name = name!!,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             id = id!!,
-            name = name!!
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            id = id!!,
-            name = name!!
-    )
+            name = name!!,
+        )
 }

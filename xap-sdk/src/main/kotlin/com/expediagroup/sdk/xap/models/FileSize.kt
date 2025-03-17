@@ -15,83 +15,68 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * The information about the file size.
-    * @param unit The unit about the file size.
-    * @param `value` The value about the file size.
+ * @param unit The unit about the file size.
+ * @param `value` The value about the file size.
 */
 data class FileSize(
-            /* The unit about the file size. */
-@JsonProperty("unit")
-val unit: FileSize.Unit? = null,
-
-            /* The value about the file size. */
-@JsonProperty("value")
-val `value`: kotlin.Long? = null
+    // The unit about the file size.
+    @JsonProperty("unit")
+    val unit: FileSize.Unit? = null,
+    // The value about the file size.
+    @JsonProperty("value")
+    val `value`: kotlin.Long? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var unit: FileSize.Unit? = null,
-                private var `value`: kotlin.Long? = null
-        ) {
-                fun unit(unit: FileSize.Unit?) = apply { this.unit = unit }
-                fun `value`(`value`: kotlin.Long?) = apply { this.`value` = `value` }
+    class Builder(
+        private var unit: FileSize.Unit? = null,
+        private var `value`: kotlin.Long? = null,
+    ) {
+        fun unit(unit: FileSize.Unit?) = apply { this.unit = unit }
 
-    fun build(): FileSize {
-    val instance = FileSize(
+        fun `value`(`value`: kotlin.Long?) = apply { this.`value` = `value` }
+
+        fun build(): FileSize {
+            val instance =
+                FileSize(
+                    unit = unit,
+                    `value` = `value`,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             unit = unit,
-            `value` = `value`
-    )
+            `value` = `value`,
+        )
 
-    return instance
+    /**
+     * The unit about the file size.
+     * Values: KB,MB,GB
+     */
+    enum class Unit(
+        val value: kotlin.String,
+    ) {
+        @JsonProperty("KB")
+        KB("KB"),
+
+        @JsonProperty("MB")
+        MB("MB"),
+
+        @JsonProperty("GB")
+        GB("GB"),
     }
-    }
-
-    fun toBuilder() = Builder(
-            unit = unit,
-            `value` = `value`
-    )
-
-            /**
-            * The unit about the file size.
-            * Values: KB,MB,GB
-            */
-            enum class Unit(val value: kotlin.String) {
-                    @JsonProperty("KB")
-                    KB("KB"),
-                    
-                    @JsonProperty("MB")
-                    MB("MB"),
-                    
-                    @JsonProperty("GB")
-                    GB("GB");
-            }
 }

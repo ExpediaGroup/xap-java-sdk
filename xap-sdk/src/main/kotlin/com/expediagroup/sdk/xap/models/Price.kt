@@ -16,114 +16,74 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.CarsMoney
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Pricing information for the rental.
-    * @param totalPrice 
-    * @param ratePeriodUnitPrice 
-    * @param basePrice 
-    * @param taxesAndFees 
-    * @param totalPriceDueAtBooking 
+ * @param totalPrice
+ * @param ratePeriodUnitPrice
+ * @param basePrice
+ * @param taxesAndFees
+ * @param totalPriceDueAtBooking
 */
 data class Price(
-        @JsonProperty("TotalPrice")
-val totalPrice:
-    CarsMoney
-,
-
-        @JsonProperty("RatePeriodUnitPrice")
-val ratePeriodUnitPrice: CarsMoney? = null,
-
-        @JsonProperty("BasePrice")
-val basePrice: CarsMoney? = null,
-
-        @JsonProperty("TaxesAndFees")
-val taxesAndFees: CarsMoney? = null,
-
-        @JsonProperty("TotalPriceDueAtBooking")
-val totalPriceDueAtBooking: CarsMoney? = null
+    @JsonProperty("TotalPrice")
+    val totalPrice: CarsMoney,
+    @JsonProperty("RatePeriodUnitPrice")
+    val ratePeriodUnitPrice: CarsMoney? = null,
+    @JsonProperty("BasePrice")
+    val basePrice: CarsMoney? = null,
+    @JsonProperty("TaxesAndFees")
+    val taxesAndFees: CarsMoney? = null,
+    @JsonProperty("TotalPriceDueAtBooking")
+    val totalPriceDueAtBooking: CarsMoney? = null,
 ) {
-    
-
-
     init {
-                require(totalPrice != null) { "totalPrice must not be null" }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        require(totalPrice != null) { "totalPrice must not be null" }
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var totalPrice: CarsMoney? = null,
-                private var ratePeriodUnitPrice: CarsMoney? = null,
-                private var basePrice: CarsMoney? = null,
-                private var taxesAndFees: CarsMoney? = null,
-                private var totalPriceDueAtBooking: CarsMoney? = null
-        ) {
-                fun totalPrice(totalPrice: CarsMoney) = apply { this.totalPrice = totalPrice }
-                fun ratePeriodUnitPrice(ratePeriodUnitPrice: CarsMoney?) = apply { this.ratePeriodUnitPrice = ratePeriodUnitPrice }
-                fun basePrice(basePrice: CarsMoney?) = apply { this.basePrice = basePrice }
-                fun taxesAndFees(taxesAndFees: CarsMoney?) = apply { this.taxesAndFees = taxesAndFees }
-                fun totalPriceDueAtBooking(totalPriceDueAtBooking: CarsMoney?) = apply { this.totalPriceDueAtBooking = totalPriceDueAtBooking }
+    class Builder(
+        private var totalPrice: CarsMoney? = null,
+        private var ratePeriodUnitPrice: CarsMoney? = null,
+        private var basePrice: CarsMoney? = null,
+        private var taxesAndFees: CarsMoney? = null,
+        private var totalPriceDueAtBooking: CarsMoney? = null,
+    ) {
+        fun totalPrice(totalPrice: CarsMoney) = apply { this.totalPrice = totalPrice }
 
-    fun build(): Price {
-    val instance = Price(
+        fun ratePeriodUnitPrice(ratePeriodUnitPrice: CarsMoney?) = apply { this.ratePeriodUnitPrice = ratePeriodUnitPrice }
+
+        fun basePrice(basePrice: CarsMoney?) = apply { this.basePrice = basePrice }
+
+        fun taxesAndFees(taxesAndFees: CarsMoney?) = apply { this.taxesAndFees = taxesAndFees }
+
+        fun totalPriceDueAtBooking(totalPriceDueAtBooking: CarsMoney?) = apply { this.totalPriceDueAtBooking = totalPriceDueAtBooking }
+
+        fun build(): Price {
+            val instance =
+                Price(
+                    totalPrice = totalPrice!!,
+                    ratePeriodUnitPrice = ratePeriodUnitPrice,
+                    basePrice = basePrice,
+                    taxesAndFees = taxesAndFees,
+                    totalPriceDueAtBooking = totalPriceDueAtBooking,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             totalPrice = totalPrice!!,
             ratePeriodUnitPrice = ratePeriodUnitPrice,
             basePrice = basePrice,
             taxesAndFees = taxesAndFees,
-            totalPriceDueAtBooking = totalPriceDueAtBooking
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            totalPrice = totalPrice!!,
-            ratePeriodUnitPrice = ratePeriodUnitPrice,
-            basePrice = basePrice,
-            taxesAndFees = taxesAndFees,
-            totalPriceDueAtBooking = totalPriceDueAtBooking
-    )
+            totalPriceDueAtBooking = totalPriceDueAtBooking,
+        )
 }

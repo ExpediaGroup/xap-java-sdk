@@ -15,68 +15,51 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param adults Specifies the number of adults staying in each room.
-    * @param childAges Specifies the age(s) of each of the children staying in the room, as well as the number of children in the room.
+*
+ * @param adults Specifies the number of adults staying in each room.
+ * @param childAges Specifies the age(s) of each of the children staying in the room, as well as the number of children in the room.
 */
 data class HotelDetailsResponseOccupantsInner(
-            /* Specifies the number of adults staying in each room. */
-@JsonProperty("Adults")
-val adults: kotlin.Any? = null,
-
-            /* Specifies the age(s) of each of the children staying in the room, as well as the number of children in the room. */
-@JsonProperty("ChildAges")
-val childAges: kotlin.Any? = null
+    // Specifies the number of adults staying in each room.
+    @JsonProperty("Adults")
+    val adults: kotlin.Any? = null,
+    // Specifies the age(s) of each of the children staying in the room, as well as the number of children in the room.
+    @JsonProperty("ChildAges")
+    val childAges: kotlin.Any? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var adults: kotlin.Any? = null,
-                private var childAges: kotlin.Any? = null
-        ) {
-                fun adults(adults: kotlin.Any?) = apply { this.adults = adults }
-                fun childAges(childAges: kotlin.Any?) = apply { this.childAges = childAges }
+    class Builder(
+        private var adults: kotlin.Any? = null,
+        private var childAges: kotlin.Any? = null,
+    ) {
+        fun adults(adults: kotlin.Any?) = apply { this.adults = adults }
 
-    fun build(): HotelDetailsResponseOccupantsInner {
-    val instance = HotelDetailsResponseOccupantsInner(
+        fun childAges(childAges: kotlin.Any?) = apply { this.childAges = childAges }
+
+        fun build(): HotelDetailsResponseOccupantsInner {
+            val instance =
+                HotelDetailsResponseOccupantsInner(
+                    adults = adults,
+                    childAges = childAges,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             adults = adults,
-            childAges = childAges
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            adults = adults,
-            childAges = childAges
-    )
+            childAges = childAges,
+        )
 }

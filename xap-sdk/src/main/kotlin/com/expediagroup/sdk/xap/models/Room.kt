@@ -2,7 +2,7 @@ package com.expediagroup.sdk.xap.models
 
 data class Room(
     val adults: Long?,
-    val childAges: List<Long>?
+    val childAges: List<Long>?,
 ) {
     companion object {
         @JvmStatic
@@ -17,11 +17,10 @@ data class Room(
 
         fun childAges(childAges: List<Long>?) = apply { this.childAges = childAges }
 
-        fun build(): Room {
-            return Room(
+        fun build(): Room =
+            Room(
                 adults = this.adults,
-                childAges = this.childAges
+                childAges = this.childAges,
             )
-        }
     }
 }

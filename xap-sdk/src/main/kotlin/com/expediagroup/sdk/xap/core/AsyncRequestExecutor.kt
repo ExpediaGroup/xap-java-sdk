@@ -13,11 +13,11 @@ import com.expediagroup.sdk.xap.configuration.AsyncXapClientConfiguration
 import org.slf4j.LoggerFactory
 
 class AsyncRequestExecutor(
-    configuration: AsyncXapClientConfiguration
+    configuration: AsyncXapClientConfiguration,
 ) : AbstractAsyncRequestExecutor(configuration.asyncTransport) {
     private val authManager =
         BasicAuthenticationManager(
-            credentials = Credentials(configuration.key, configuration.secret)
+            credentials = Credentials(configuration.key, configuration.secret),
         )
 
     override val executionPipeline =
@@ -26,12 +26,12 @@ class AsyncRequestExecutor(
                 listOf(
                     RequestHeadersStep(),
                     BasicAuthenticationStep(authManager),
-                    RequestLoggingStep(logger)
+                    RequestLoggingStep(logger),
                 ),
             responsePipeline =
                 listOf(
-                    ResponseLoggingStep(logger)
-                )
+                    ResponseLoggingStep(logger),
+                ),
         )
 
     companion object {

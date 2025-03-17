@@ -15,68 +15,51 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for requested dates of stay. 
-    * @param checkInDate The initial day of the property stay in an ISO 8601 Date format [YYYY-MM-DD].
-    * @param checkOutDate The final day of the property stay in an ISO 8601 Date format [YYYY-MM-DD].
+* Container for requested dates of stay.
+ * @param checkInDate The initial day of the property stay in an ISO 8601 Date format [YYYY-MM-DD].
+ * @param checkOutDate The final day of the property stay in an ISO 8601 Date format [YYYY-MM-DD].
 */
 data class LodgingStayDates(
-            /* The initial day of the property stay in an ISO 8601 Date format [YYYY-MM-DD]. */
-@JsonProperty("CheckInDate")
-val checkInDate: java.time.LocalDate? = null,
-
-            /* The final day of the property stay in an ISO 8601 Date format [YYYY-MM-DD]. */
-@JsonProperty("CheckOutDate")
-val checkOutDate: java.time.LocalDate? = null
+    // The initial day of the property stay in an ISO 8601 Date format [YYYY-MM-DD].
+    @JsonProperty("CheckInDate")
+    val checkInDate: java.time.LocalDate? = null,
+    // The final day of the property stay in an ISO 8601 Date format [YYYY-MM-DD].
+    @JsonProperty("CheckOutDate")
+    val checkOutDate: java.time.LocalDate? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var checkInDate: java.time.LocalDate? = null,
-                private var checkOutDate: java.time.LocalDate? = null
-        ) {
-                fun checkInDate(checkInDate: java.time.LocalDate?) = apply { this.checkInDate = checkInDate }
-                fun checkOutDate(checkOutDate: java.time.LocalDate?) = apply { this.checkOutDate = checkOutDate }
+    class Builder(
+        private var checkInDate: java.time.LocalDate? = null,
+        private var checkOutDate: java.time.LocalDate? = null,
+    ) {
+        fun checkInDate(checkInDate: java.time.LocalDate?) = apply { this.checkInDate = checkInDate }
 
-    fun build(): LodgingStayDates {
-    val instance = LodgingStayDates(
+        fun checkOutDate(checkOutDate: java.time.LocalDate?) = apply { this.checkOutDate = checkOutDate }
+
+        fun build(): LodgingStayDates {
+            val instance =
+                LodgingStayDates(
+                    checkInDate = checkInDate,
+                    checkOutDate = checkOutDate,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             checkInDate = checkInDate,
-            checkOutDate = checkOutDate
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            checkInDate = checkInDate,
-            checkOutDate = checkOutDate
-    )
+            checkOutDate = checkOutDate,
+        )
 }

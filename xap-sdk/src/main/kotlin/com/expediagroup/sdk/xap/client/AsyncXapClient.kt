@@ -14,7 +14,7 @@ import com.expediagroup.sdk.xap.core.AsyncRequestExecutor
 import java.util.concurrent.CompletableFuture
 
 class AsyncXapClient private constructor(
-    config: AsyncXapClientConfiguration
+    config: AsyncXapClientConfiguration,
 ) : AsyncRestClient() {
     private val apiEndpoint: ApiEndpoint = EndpointProvider.getXapApiEndpoint(config.environment)
 
@@ -22,7 +22,7 @@ class AsyncXapClient private constructor(
         AsyncRestExecutor(
             mapper = XAP_OBJECT_MAPPER,
             serverUrl = apiEndpoint.endpoint,
-            requestExecutor = AsyncRequestExecutor(configuration = config)
+            requestExecutor = AsyncRequestExecutor(configuration = config),
         )
 
     fun execute(operation: OperationNoResponseBodyTrait): CompletableFuture<Response<Nothing?>> = restExecutor.execute(operation)

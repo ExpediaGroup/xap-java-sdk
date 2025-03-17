@@ -13,11 +13,11 @@ import com.expediagroup.sdk.xap.configuration.XapClientConfiguration
 import org.slf4j.LoggerFactory
 
 class RequestExecutor(
-    configuration: XapClientConfiguration
+    configuration: XapClientConfiguration,
 ) : AbstractRequestExecutor(configuration.transport) {
     private val authManager =
         BasicAuthenticationManager(
-            credentials = Credentials(configuration.key, configuration.secret)
+            credentials = Credentials(configuration.key, configuration.secret),
         )
 
     override val executionPipeline =
@@ -27,12 +27,12 @@ class RequestExecutor(
                     RequestHeadersStep(),
                     ApiKeyHeaderStep(configuration.key),
                     BasicAuthenticationStep(authManager),
-                    RequestLoggingStep(logger)
+                    RequestLoggingStep(logger),
                 ),
             responsePipeline =
                 listOf(
-                    ResponseLoggingStep(logger)
-                )
+                    ResponseLoggingStep(logger),
+                ),
         )
 
     companion object {

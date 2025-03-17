@@ -15,68 +15,51 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container for error list.
-    * @param code Error code describing the issue
-    * @param description A simple description of what the error is.
+ * @param code Error code describing the issue
+ * @param description A simple description of what the error is.
 */
 data class LodgingError(
-            /* Error code describing the issue */
-@JsonProperty("Code")
-val code: kotlin.String? = null,
-
-            /* A simple description of what the error is. */
-@JsonProperty("Description")
-val description: kotlin.String? = null
+    // Error code describing the issue
+    @JsonProperty("Code")
+    val code: kotlin.String? = null,
+    // A simple description of what the error is.
+    @JsonProperty("Description")
+    val description: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var code: kotlin.String? = null,
-                private var description: kotlin.String? = null
-        ) {
-                fun code(code: kotlin.String?) = apply { this.code = code }
-                fun description(description: kotlin.String?) = apply { this.description = description }
+    class Builder(
+        private var code: kotlin.String? = null,
+        private var description: kotlin.String? = null,
+    ) {
+        fun code(code: kotlin.String?) = apply { this.code = code }
 
-    fun build(): LodgingError {
-    val instance = LodgingError(
+        fun description(description: kotlin.String?) = apply { this.description = description }
+
+        fun build(): LodgingError {
+            val instance =
+                LodgingError(
+                    code = code,
+                    description = description,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             code = code,
-            description = description
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            code = code,
-            description = description
-    )
+            description = description,
+        )
 }

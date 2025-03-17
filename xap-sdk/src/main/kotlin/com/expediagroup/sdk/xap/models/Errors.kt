@@ -16,68 +16,51 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.Error
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* 
-    * @param errors Container for error list.
-    * @param transactionId A unique identifier for the transaction.
+*
+ * @param errors Container for error list.
+ * @param transactionId A unique identifier for the transaction.
 */
 data class Errors(
-            /* Container for error list. */
-@JsonProperty("Errors")
-val errors: kotlin.collections.List<Error>? = null,
-
-            /* A unique identifier for the transaction. */
-@JsonProperty("TransactionId")
-val transactionId: kotlin.String? = null
+    // Container for error list.
+    @JsonProperty("Errors")
+    val errors: kotlin.collections.List<Error>? = null,
+    // A unique identifier for the transaction.
+    @JsonProperty("TransactionId")
+    val transactionId: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var errors: kotlin.collections.List<Error>? = null,
-                private var transactionId: kotlin.String? = null
-        ) {
-                fun errors(errors: kotlin.collections.List<Error>?) = apply { this.errors = errors }
-                fun transactionId(transactionId: kotlin.String?) = apply { this.transactionId = transactionId }
+    class Builder(
+        private var errors: kotlin.collections.List<Error>? = null,
+        private var transactionId: kotlin.String? = null,
+    ) {
+        fun errors(errors: kotlin.collections.List<Error>?) = apply { this.errors = errors }
 
-    fun build(): Errors {
-    val instance = Errors(
+        fun transactionId(transactionId: kotlin.String?) = apply { this.transactionId = transactionId }
+
+        fun build(): Errors {
+            val instance =
+                Errors(
+                    errors = errors,
+                    transactionId = transactionId,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             errors = errors,
-            transactionId = transactionId
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            errors = errors,
-            transactionId = transactionId
-    )
+            transactionId = transactionId,
+        )
 }

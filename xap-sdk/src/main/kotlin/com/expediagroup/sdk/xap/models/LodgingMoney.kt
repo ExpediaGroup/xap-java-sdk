@@ -15,68 +15,51 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Pricing information of the stat date
-    * @param `value` The value of the element being defined.
-    * @param currency The ISO 4217 Currency Code that the value is expressed in.
+ * @param `value` The value of the element being defined.
+ * @param currency The ISO 4217 Currency Code that the value is expressed in.
 */
 data class LodgingMoney(
-            /* The value of the element being defined. */
-@JsonProperty("Value")
-val `value`: kotlin.String? = null,
-
-            /* The ISO 4217 Currency Code that the value is expressed in. */
-@JsonProperty("Currency")
-val currency: kotlin.String? = null
+    // The value of the element being defined.
+    @JsonProperty("Value")
+    val `value`: kotlin.String? = null,
+    // The ISO 4217 Currency Code that the value is expressed in.
+    @JsonProperty("Currency")
+    val currency: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var `value`: kotlin.String? = null,
-                private var currency: kotlin.String? = null
-        ) {
-                fun `value`(`value`: kotlin.String?) = apply { this.`value` = `value` }
-                fun currency(currency: kotlin.String?) = apply { this.currency = currency }
+    class Builder(
+        private var `value`: kotlin.String? = null,
+        private var currency: kotlin.String? = null,
+    ) {
+        fun `value`(`value`: kotlin.String?) = apply { this.`value` = `value` }
 
-    fun build(): LodgingMoney {
-    val instance = LodgingMoney(
+        fun currency(currency: kotlin.String?) = apply { this.currency = currency }
+
+        fun build(): LodgingMoney {
+            val instance =
+                LodgingMoney(
+                    `value` = `value`,
+                    currency = currency,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             `value` = `value`,
-            currency = currency
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            `value` = `value`,
-            currency = currency
-    )
+            currency = currency,
+        )
 }

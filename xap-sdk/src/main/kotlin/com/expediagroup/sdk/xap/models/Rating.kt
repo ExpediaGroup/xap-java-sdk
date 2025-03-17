@@ -16,90 +16,63 @@
 package com.expediagroup.sdk.xap.models
 
 import com.expediagroup.sdk.xap.models.RatingDetails
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * The rating of the car being offered.
-    * @param ratingPercentage The percentage of rating.
-    * @param ratingCount The total count of rating.
-    * @param ratingDetails List of all the details of rating.
+ * @param ratingPercentage The percentage of rating.
+ * @param ratingCount The total count of rating.
+ * @param ratingDetails List of all the details of rating.
 */
 data class Rating(
-            /* The percentage of rating. */
-@JsonProperty("RatingPercentage")
-val ratingPercentage:
-    kotlin.String
-,
-
-            /* The total count of rating. */
-@JsonProperty("RatingCount")
-val ratingCount:
-    kotlin.String
-,
-
-            /* List of all the details of rating. */
-@JsonProperty("RatingDetails")
-val ratingDetails: kotlin.collections.List<RatingDetails>? = null
+    // The percentage of rating.
+    @JsonProperty("RatingPercentage")
+    val ratingPercentage: kotlin.String,
+    // The total count of rating.
+    @JsonProperty("RatingCount")
+    val ratingCount: kotlin.String,
+    // List of all the details of rating.
+    @JsonProperty("RatingDetails")
+    val ratingDetails: kotlin.collections.List<RatingDetails>? = null,
 ) {
-    
-
-
     init {
-                require(ratingPercentage != null) { "ratingPercentage must not be null" }
-
-
-
-
-
-
+        require(ratingPercentage != null) { "ratingPercentage must not be null" }
 
         require(ratingCount != null) { "ratingCount must not be null" }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var ratingPercentage: kotlin.String? = null,
-                private var ratingCount: kotlin.String? = null,
-                private var ratingDetails: kotlin.collections.List<RatingDetails>? = null
-        ) {
-                fun ratingPercentage(ratingPercentage: kotlin.String) = apply { this.ratingPercentage = ratingPercentage }
-                fun ratingCount(ratingCount: kotlin.String) = apply { this.ratingCount = ratingCount }
-                fun ratingDetails(ratingDetails: kotlin.collections.List<RatingDetails>?) = apply { this.ratingDetails = ratingDetails }
+    class Builder(
+        private var ratingPercentage: kotlin.String? = null,
+        private var ratingCount: kotlin.String? = null,
+        private var ratingDetails: kotlin.collections.List<RatingDetails>? = null,
+    ) {
+        fun ratingPercentage(ratingPercentage: kotlin.String) = apply { this.ratingPercentage = ratingPercentage }
 
-    fun build(): Rating {
-    val instance = Rating(
+        fun ratingCount(ratingCount: kotlin.String) = apply { this.ratingCount = ratingCount }
+
+        fun ratingDetails(ratingDetails: kotlin.collections.List<RatingDetails>?) = apply { this.ratingDetails = ratingDetails }
+
+        fun build(): Rating {
+            val instance =
+                Rating(
+                    ratingPercentage = ratingPercentage!!,
+                    ratingCount = ratingCount!!,
+                    ratingDetails = ratingDetails,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             ratingPercentage = ratingPercentage!!,
             ratingCount = ratingCount!!,
-            ratingDetails = ratingDetails
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            ratingPercentage = ratingPercentage!!,
-            ratingCount = ratingCount!!,
-            ratingDetails = ratingDetails
-    )
+            ratingDetails = ratingDetails,
+        )
 }

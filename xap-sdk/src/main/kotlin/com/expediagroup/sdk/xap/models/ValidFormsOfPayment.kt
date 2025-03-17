@@ -15,102 +15,71 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * Container for hotel supported payment information.
-    * @param paymentMethod The payment method.
-    * @param name The brand name of the payment sub-method to be displayed to the customer.
-    * @param paymentSubMethod The payment sub-method.
-    * @param brandName The brand name of the payment sub-method to be displayed to the customer.  In many cases it will be the same as the payment sub-method, but \"Visa/Carte Blanche\" and \"Visa/Delta\" are some of the exceptions. 
+ * @param paymentMethod The payment method.
+ * @param name The brand name of the payment sub-method to be displayed to the customer.
+ * @param paymentSubMethod The payment sub-method.
+ * @param brandName The brand name of the payment sub-method to be displayed to the customer.  In many cases it will be the same as the payment sub-method, but \"Visa/Carte Blanche\" and \"Visa/Delta\" are some of the exceptions.
 */
 data class ValidFormsOfPayment(
-            /* The payment method. */
-@JsonProperty("PaymentMethod")
-val paymentMethod: kotlin.String? = null,
-
-            /* The brand name of the payment sub-method to be displayed to the customer. */
-@JsonProperty("Name")
-val name: kotlin.String? = null,
-
-            /* The payment sub-method. */
+    // The payment method.
+    @JsonProperty("PaymentMethod")
+    val paymentMethod: kotlin.String? = null,
+    // The brand name of the payment sub-method to be displayed to the customer.
+    @JsonProperty("Name")
+    val name: kotlin.String? = null,
+    // The payment sub-method.
     @Deprecated(message = "This property is deprecated.")
-@JsonProperty("PaymentSubMethod")
-val paymentSubMethod: kotlin.String? = null,
-
-            /* The brand name of the payment sub-method to be displayed to the customer.  In many cases it will be the same as the payment sub-method, but \"Visa/Carte Blanche\" and \"Visa/Delta\" are some of the exceptions.  */
+    @JsonProperty("PaymentSubMethod")
+    val paymentSubMethod: kotlin.String? = null,
+    // The brand name of the payment sub-method to be displayed to the customer.  In many cases it will be the same as the payment sub-method, but \"Visa/Carte Blanche\" and \"Visa/Delta\" are some of the exceptions.
     @Deprecated(message = "This property is deprecated.")
-@JsonProperty("BrandName")
-val brandName: kotlin.String? = null
+    @JsonProperty("BrandName")
+    val brandName: kotlin.String? = null,
 ) {
-    
-
-
     init {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var paymentMethod: kotlin.String? = null,
-                private var name: kotlin.String? = null,
-                private var paymentSubMethod: kotlin.String? = null,
-                private var brandName: kotlin.String? = null
-        ) {
-                fun paymentMethod(paymentMethod: kotlin.String?) = apply { this.paymentMethod = paymentMethod }
-                fun name(name: kotlin.String?) = apply { this.name = name }
-                fun paymentSubMethod(paymentSubMethod: kotlin.String?) = apply { this.paymentSubMethod = paymentSubMethod }
-                fun brandName(brandName: kotlin.String?) = apply { this.brandName = brandName }
+    class Builder(
+        private var paymentMethod: kotlin.String? = null,
+        private var name: kotlin.String? = null,
+        private var paymentSubMethod: kotlin.String? = null,
+        private var brandName: kotlin.String? = null,
+    ) {
+        fun paymentMethod(paymentMethod: kotlin.String?) = apply { this.paymentMethod = paymentMethod }
 
-    fun build(): ValidFormsOfPayment {
-    val instance = ValidFormsOfPayment(
+        fun name(name: kotlin.String?) = apply { this.name = name }
+
+        fun paymentSubMethod(paymentSubMethod: kotlin.String?) = apply { this.paymentSubMethod = paymentSubMethod }
+
+        fun brandName(brandName: kotlin.String?) = apply { this.brandName = brandName }
+
+        fun build(): ValidFormsOfPayment {
+            val instance =
+                ValidFormsOfPayment(
+                    paymentMethod = paymentMethod,
+                    name = name,
+                    paymentSubMethod = paymentSubMethod,
+                    brandName = brandName,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             paymentMethod = paymentMethod,
             name = name,
             paymentSubMethod = paymentSubMethod,
-            brandName = brandName
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            paymentMethod = paymentMethod,
-            name = name,
-            paymentSubMethod = paymentSubMethod,
-            brandName = brandName
-    )
+            brandName = brandName,
+        )
 }

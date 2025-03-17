@@ -15,74 +15,54 @@
  */
 package com.expediagroup.sdk.xap.models
 
-
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
 * List of discount information.
-    * @param type Discount type. Supported values : CorpDiscount | Coupon.
-    * @param code Discount code.
+ * @param type Discount type. Supported values : CorpDiscount | Coupon.
+ * @param code Discount code.
 */
 data class Discount(
-            /* Discount type. Supported values : CorpDiscount | Coupon. */
-@JsonProperty("Type")
-val type:
-    kotlin.String
-,
-
-            /* Discount code. */
-@JsonProperty("Code")
-val code:
-    kotlin.String
-
+    // Discount type. Supported values : CorpDiscount | Coupon.
+    @JsonProperty("Type")
+    val type: kotlin.String,
+    // Discount code.
+    @JsonProperty("Code")
+    val code: kotlin.String,
 ) {
-    
-
-
     init {
-                require(type != null) { "type must not be null" }
-
-
-
-
-
-
+        require(type != null) { "type must not be null" }
 
         require(code != null) { "code must not be null" }
-
-
-
-
-
-
-
-
     }
 
     companion object {
-    @JvmStatic
-    fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
-        class Builder(
-                private var type: kotlin.String? = null,
-                private var code: kotlin.String? = null
-        ) {
-                fun type(type: kotlin.String) = apply { this.type = type }
-                fun code(code: kotlin.String) = apply { this.code = code }
+    class Builder(
+        private var type: kotlin.String? = null,
+        private var code: kotlin.String? = null,
+    ) {
+        fun type(type: kotlin.String) = apply { this.type = type }
 
-    fun build(): Discount {
-    val instance = Discount(
+        fun code(code: kotlin.String) = apply { this.code = code }
+
+        fun build(): Discount {
+            val instance =
+                Discount(
+                    type = type!!,
+                    code = code!!,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
             type = type!!,
-            code = code!!
-    )
-
-    return instance
-    }
-    }
-
-    fun toBuilder() = Builder(
-            type = type!!,
-            code = code!!
-    )
+            code = code!!,
+        )
 }
