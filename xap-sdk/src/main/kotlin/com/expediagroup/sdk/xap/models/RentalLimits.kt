@@ -15,76 +15,73 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.Duration
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * Limitations that are part of this rental agreement.
- * @param minDuration
- * @param maxDuration
+    * @param minDuration 
+    * @param maxDuration 
 */
 data class RentalLimits(
-    @JsonProperty("MinDuration")
-    @field:NotNull
-    @field:Valid
-    val minDuration: Duration,
-    @JsonProperty("MaxDuration")
-    @field:NotNull
-    @field:Valid
-    val maxDuration: Duration
+        @JsonProperty("MinDuration")
+val minDuration:
+    Duration
+,
+
+        @JsonProperty("MaxDuration")
+val maxDuration:
+    Duration
+
 ) {
+    
+
+
+    init {
+                require(minDuration != null) { "minDuration must not be null" }
+
+
+
+
+
+
+
+        require(maxDuration != null) { "maxDuration must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var minDuration: Duration? = null,
-        private var maxDuration: Duration? = null
-    ) {
-        fun minDuration(minDuration: Duration) = apply { this.minDuration = minDuration }
+        class Builder(
+                private var minDuration: Duration? = null,
+                private var maxDuration: Duration? = null
+        ) {
+                fun minDuration(minDuration: Duration) = apply { this.minDuration = minDuration }
+                fun maxDuration(maxDuration: Duration) = apply { this.maxDuration = maxDuration }
 
-        fun maxDuration(maxDuration: Duration) = apply { this.maxDuration = maxDuration }
-
-        fun build(): RentalLimits {
-            val instance =
-                RentalLimits(
-                    minDuration = minDuration!!,
-                    maxDuration = maxDuration!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: RentalLimits) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): RentalLimits {
+    val instance = RentalLimits(
             minDuration = minDuration!!,
             maxDuration = maxDuration!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            minDuration = minDuration!!,
+            maxDuration = maxDuration!!
+    )
 }

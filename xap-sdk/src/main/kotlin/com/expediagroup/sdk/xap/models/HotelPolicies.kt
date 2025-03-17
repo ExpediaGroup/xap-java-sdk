@@ -15,114 +15,132 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Container for Hotel policy information.
- * @param checkInStartTime Beginning of the standard check-in window on the check in date, and in the local time of the hotel.
- * @param checkInEndTime End of the standard check-in window on the check in date, and in the local time of the hotel.
- * @param specialCheckInInstructions Some special instructions needed care by customer when check in.
- * @param checkOutTime Customers must check out before this time on the check out date, expressed in the local time of the hotel.
- * @param petPolicies The policy of the property toward having pets stay with guests.
- * @param childrenAndExtraBedsPolicies The policy of the hotel for having children stay at the hotel, as well as for including extra beds in the room.
+    * @param checkInStartTime Beginning of the standard check-in window on the check in date, and in the local time of the hotel.
+    * @param checkInEndTime End of the standard check-in window on the check in date, and in the local time of the hotel.
+    * @param specialCheckInInstructions Some special instructions needed care by customer when check in.
+    * @param checkOutTime Customers must check out before this time on the check out date, expressed in the local time of the hotel.
+    * @param petPolicies The policy of the property toward having pets stay with guests.
+    * @param childrenAndExtraBedsPolicies The policy of the hotel for having children stay at the hotel, as well as for including extra beds in the room.
 */
 data class HotelPolicies(
-    // Beginning of the standard check-in window on the check in date, and in the local time of the hotel.
-    @JsonProperty("CheckInStartTime")
-    @field:Valid
-    val checkInStartTime: kotlin.String? = null,
-    // End of the standard check-in window on the check in date, and in the local time of the hotel.
-    @JsonProperty("CheckInEndTime")
-    @field:Valid
-    val checkInEndTime: kotlin.String? = null,
-    // Some special instructions needed care by customer when check in.
-    @JsonProperty("SpecialCheckInInstructions")
-    @field:Valid
-    val specialCheckInInstructions: kotlin.collections.List<kotlin.String>? = null,
-    // Customers must check out before this time on the check out date, expressed in the local time of the hotel.
-    @JsonProperty("CheckOutTime")
-    @field:Valid
-    val checkOutTime: kotlin.String? = null,
-    // The policy of the property toward having pets stay with guests.
-    @JsonProperty("PetPolicies")
-    @field:Valid
-    val petPolicies: kotlin.collections.List<kotlin.String>? = null,
-    // The policy of the hotel for having children stay at the hotel, as well as for including extra beds in the room.
-    @JsonProperty("ChildrenAndExtraBedsPolicies")
-    @field:Valid
-    val childrenAndExtraBedsPolicies: kotlin.collections.List<kotlin.String>? = null
+            /* Beginning of the standard check-in window on the check in date, and in the local time of the hotel. */
+@JsonProperty("CheckInStartTime")
+val checkInStartTime: kotlin.String? = null,
+
+            /* End of the standard check-in window on the check in date, and in the local time of the hotel. */
+@JsonProperty("CheckInEndTime")
+val checkInEndTime: kotlin.String? = null,
+
+            /* Some special instructions needed care by customer when check in. */
+@JsonProperty("SpecialCheckInInstructions")
+val specialCheckInInstructions: kotlin.collections.List<kotlin.String>? = null,
+
+            /* Customers must check out before this time on the check out date, expressed in the local time of the hotel. */
+@JsonProperty("CheckOutTime")
+val checkOutTime: kotlin.String? = null,
+
+            /* The policy of the property toward having pets stay with guests. */
+@JsonProperty("PetPolicies")
+val petPolicies: kotlin.collections.List<kotlin.String>? = null,
+
+            /* The policy of the hotel for having children stay at the hotel, as well as for including extra beds in the room. */
+@JsonProperty("ChildrenAndExtraBedsPolicies")
+val childrenAndExtraBedsPolicies: kotlin.collections.List<kotlin.String>? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var checkInStartTime: kotlin.String? = null,
-        private var checkInEndTime: kotlin.String? = null,
-        private var specialCheckInInstructions: kotlin.collections.List<kotlin.String>? = null,
-        private var checkOutTime: kotlin.String? = null,
-        private var petPolicies: kotlin.collections.List<kotlin.String>? = null,
-        private var childrenAndExtraBedsPolicies: kotlin.collections.List<kotlin.String>? = null
-    ) {
-        fun checkInStartTime(checkInStartTime: kotlin.String?) = apply { this.checkInStartTime = checkInStartTime }
+        class Builder(
+                private var checkInStartTime: kotlin.String? = null,
+                private var checkInEndTime: kotlin.String? = null,
+                private var specialCheckInInstructions: kotlin.collections.List<kotlin.String>? = null,
+                private var checkOutTime: kotlin.String? = null,
+                private var petPolicies: kotlin.collections.List<kotlin.String>? = null,
+                private var childrenAndExtraBedsPolicies: kotlin.collections.List<kotlin.String>? = null
+        ) {
+                fun checkInStartTime(checkInStartTime: kotlin.String?) = apply { this.checkInStartTime = checkInStartTime }
+                fun checkInEndTime(checkInEndTime: kotlin.String?) = apply { this.checkInEndTime = checkInEndTime }
+                fun specialCheckInInstructions(specialCheckInInstructions: kotlin.collections.List<kotlin.String>?) = apply { this.specialCheckInInstructions = specialCheckInInstructions }
+                fun checkOutTime(checkOutTime: kotlin.String?) = apply { this.checkOutTime = checkOutTime }
+                fun petPolicies(petPolicies: kotlin.collections.List<kotlin.String>?) = apply { this.petPolicies = petPolicies }
+                fun childrenAndExtraBedsPolicies(childrenAndExtraBedsPolicies: kotlin.collections.List<kotlin.String>?) = apply { this.childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies }
 
-        fun checkInEndTime(checkInEndTime: kotlin.String?) = apply { this.checkInEndTime = checkInEndTime }
-
-        fun specialCheckInInstructions(specialCheckInInstructions: kotlin.collections.List<kotlin.String>?) = apply { this.specialCheckInInstructions = specialCheckInInstructions }
-
-        fun checkOutTime(checkOutTime: kotlin.String?) = apply { this.checkOutTime = checkOutTime }
-
-        fun petPolicies(petPolicies: kotlin.collections.List<kotlin.String>?) = apply { this.petPolicies = petPolicies }
-
-        fun childrenAndExtraBedsPolicies(childrenAndExtraBedsPolicies: kotlin.collections.List<kotlin.String>?) = apply { this.childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies }
-
-        fun build(): HotelPolicies {
-            val instance =
-                HotelPolicies(
-                    checkInStartTime = checkInStartTime,
-                    checkInEndTime = checkInEndTime,
-                    specialCheckInInstructions = specialCheckInInstructions,
-                    checkOutTime = checkOutTime,
-                    petPolicies = petPolicies,
-                    childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: HotelPolicies) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): HotelPolicies {
+    val instance = HotelPolicies(
             checkInStartTime = checkInStartTime,
             checkInEndTime = checkInEndTime,
             specialCheckInInstructions = specialCheckInInstructions,
             checkOutTime = checkOutTime,
             petPolicies = petPolicies,
             childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            checkInStartTime = checkInStartTime,
+            checkInEndTime = checkInEndTime,
+            specialCheckInInstructions = specialCheckInInstructions,
+            checkOutTime = checkOutTime,
+            petPolicies = petPolicies,
+            childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies
+    )
 }

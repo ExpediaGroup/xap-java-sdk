@@ -15,77 +15,74 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * List of all the details of rating.
- * @param category The category of rating detail.
- * @param percentage The percentage of rating detail category.
+    * @param category The category of rating detail.
+    * @param percentage The percentage of rating detail category.
 */
 data class RatingDetails(
-    // The category of rating detail.
-    @JsonProperty("Category")
-    @field:NotNull
-    @field:Valid
-    val category: kotlin.String,
-    // The percentage of rating detail category.
-    @JsonProperty("Percentage")
-    @field:NotNull
-    @field:Valid
-    val percentage: kotlin.String
+            /* The category of rating detail. */
+@JsonProperty("Category")
+val category:
+    kotlin.String
+,
+
+            /* The percentage of rating detail category. */
+@JsonProperty("Percentage")
+val percentage:
+    kotlin.String
+
 ) {
+    
+
+
+    init {
+                require(category != null) { "category must not be null" }
+
+
+
+
+
+
+
+        require(percentage != null) { "percentage must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var category: kotlin.String? = null,
-        private var percentage: kotlin.String? = null
-    ) {
-        fun category(category: kotlin.String) = apply { this.category = category }
+        class Builder(
+                private var category: kotlin.String? = null,
+                private var percentage: kotlin.String? = null
+        ) {
+                fun category(category: kotlin.String) = apply { this.category = category }
+                fun percentage(percentage: kotlin.String) = apply { this.percentage = percentage }
 
-        fun percentage(percentage: kotlin.String) = apply { this.percentage = percentage }
-
-        fun build(): RatingDetails {
-            val instance =
-                RatingDetails(
-                    category = category!!,
-                    percentage = percentage!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: RatingDetails) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): RatingDetails {
+    val instance = RatingDetails(
             category = category!!,
             percentage = percentage!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            category = category!!,
+            percentage = percentage!!
+    )
 }

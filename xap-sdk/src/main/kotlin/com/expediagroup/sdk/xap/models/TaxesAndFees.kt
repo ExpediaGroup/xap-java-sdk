@@ -15,77 +15,74 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.CarsMoney
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * List of TaxesAndFees Details
- * @param description TaxesAndFees description
- * @param amount
+    * @param description TaxesAndFees description
+    * @param amount 
 */
 data class TaxesAndFees(
-    // TaxesAndFees description
-    @JsonProperty("Description")
-    @field:NotNull
-    @field:Valid
-    val description: kotlin.String,
-    @JsonProperty("Amount")
-    @field:NotNull
-    @field:Valid
-    val amount: CarsMoney
+            /* TaxesAndFees description */
+@JsonProperty("Description")
+val description:
+    kotlin.String
+,
+
+        @JsonProperty("Amount")
+val amount:
+    CarsMoney
+
 ) {
+    
+
+
+    init {
+                require(description != null) { "description must not be null" }
+
+
+
+
+
+
+
+        require(amount != null) { "amount must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var description: kotlin.String? = null,
-        private var amount: CarsMoney? = null
-    ) {
-        fun description(description: kotlin.String) = apply { this.description = description }
+        class Builder(
+                private var description: kotlin.String? = null,
+                private var amount: CarsMoney? = null
+        ) {
+                fun description(description: kotlin.String) = apply { this.description = description }
+                fun amount(amount: CarsMoney) = apply { this.amount = amount }
 
-        fun amount(amount: CarsMoney) = apply { this.amount = amount }
-
-        fun build(): TaxesAndFees {
-            val instance =
-                TaxesAndFees(
-                    description = description!!,
-                    amount = amount!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: TaxesAndFees) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): TaxesAndFees {
+    val instance = TaxesAndFees(
             description = description!!,
             amount = amount!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            description = description!!,
+            amount = amount!!
+    )
 }

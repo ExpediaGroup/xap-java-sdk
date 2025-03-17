@@ -15,74 +15,68 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.LodgingMoney
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
-*
- * @param description The description of the promotion.
- * @param amount
+* 
+    * @param description The description of the promotion.
+    * @param amount 
 */
 data class LodgingPromotion(
-    // The description of the promotion.
-    @JsonProperty("Description")
-    @field:Valid
-    val description: kotlin.String? = null,
-    @JsonProperty("Amount")
-    @field:Valid
-    val amount: LodgingMoney? = null
+            /* The description of the promotion. */
+@JsonProperty("Description")
+val description: kotlin.String? = null,
+
+        @JsonProperty("Amount")
+val amount: LodgingMoney? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var description: kotlin.String? = null,
-        private var amount: LodgingMoney? = null
-    ) {
-        fun description(description: kotlin.String?) = apply { this.description = description }
+        class Builder(
+                private var description: kotlin.String? = null,
+                private var amount: LodgingMoney? = null
+        ) {
+                fun description(description: kotlin.String?) = apply { this.description = description }
+                fun amount(amount: LodgingMoney?) = apply { this.amount = amount }
 
-        fun amount(amount: LodgingMoney?) = apply { this.amount = amount }
-
-        fun build(): LodgingPromotion {
-            val instance =
-                LodgingPromotion(
-                    description = description,
-                    amount = amount
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: LodgingPromotion) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): LodgingPromotion {
+    val instance = LodgingPromotion(
             description = description,
             amount = amount
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            description = description,
+            amount = amount
+    )
 }

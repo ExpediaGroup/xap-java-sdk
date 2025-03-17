@@ -15,75 +15,69 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.ActivitiesLocation
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Container of redemption information.
- * @param type The type of redemption process associated to the activity.
- * @param redemptionLocations List of redemption locations where the activity will take place, please refer to Location Section below.
+    * @param type The type of redemption process associated to the activity.
+    * @param redemptionLocations List of redemption locations where the activity will take place, please refer to Location Section below.
 */
 data class Redemption(
-    // The type of redemption process associated to the activity.
-    @JsonProperty("Type")
-    @field:Valid
-    val type: kotlin.String? = null,
-    // List of redemption locations where the activity will take place, please refer to Location Section below.
-    @JsonProperty("RedemptionLocations")
-    @field:Valid
-    val redemptionLocations: kotlin.collections.List<ActivitiesLocation>? = null
+            /* The type of redemption process associated to the activity. */
+@JsonProperty("Type")
+val type: kotlin.String? = null,
+
+            /* List of redemption locations where the activity will take place, please refer to Location Section below. */
+@JsonProperty("RedemptionLocations")
+val redemptionLocations: kotlin.collections.List<ActivitiesLocation>? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var type: kotlin.String? = null,
-        private var redemptionLocations: kotlin.collections.List<ActivitiesLocation>? = null
-    ) {
-        fun type(type: kotlin.String?) = apply { this.type = type }
+        class Builder(
+                private var type: kotlin.String? = null,
+                private var redemptionLocations: kotlin.collections.List<ActivitiesLocation>? = null
+        ) {
+                fun type(type: kotlin.String?) = apply { this.type = type }
+                fun redemptionLocations(redemptionLocations: kotlin.collections.List<ActivitiesLocation>?) = apply { this.redemptionLocations = redemptionLocations }
 
-        fun redemptionLocations(redemptionLocations: kotlin.collections.List<ActivitiesLocation>?) = apply { this.redemptionLocations = redemptionLocations }
-
-        fun build(): Redemption {
-            val instance =
-                Redemption(
-                    type = type,
-                    redemptionLocations = redemptionLocations
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: Redemption) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): Redemption {
+    val instance = Redemption(
             type = type,
             redemptionLocations = redemptionLocations
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            type = type,
+            redemptionLocations = redemptionLocations
+    )
 }

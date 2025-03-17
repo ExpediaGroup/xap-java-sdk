@@ -15,87 +15,90 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.CarsDistance
 import com.expediagroup.sdk.xap.models.ExtraCostPerDistance
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * A list of charges to be levied based on the mileage driven.
- * @param freeDistance
- * @param freeDistanceRatePeriod Rate period for free distance.
- * @param extraCostPerDistance
+    * @param freeDistance 
+    * @param freeDistanceRatePeriod Rate period for free distance.
+    * @param extraCostPerDistance 
 */
 data class Mileage(
-    @JsonProperty("FreeDistance")
-    @field:NotNull
-    @field:Valid
-    val freeDistance: CarsDistance,
-    // Rate period for free distance.
-    @JsonProperty("FreeDistanceRatePeriod")
-    @field:NotNull
-    @field:Valid
-    val freeDistanceRatePeriod: kotlin.String,
-    @JsonProperty("ExtraCostPerDistance")
-    @field:Valid
-    val extraCostPerDistance: ExtraCostPerDistance? = null
+        @JsonProperty("FreeDistance")
+val freeDistance:
+    CarsDistance
+,
+
+            /* Rate period for free distance. */
+@JsonProperty("FreeDistanceRatePeriod")
+val freeDistanceRatePeriod:
+    kotlin.String
+,
+
+        @JsonProperty("ExtraCostPerDistance")
+val extraCostPerDistance: ExtraCostPerDistance? = null
 ) {
+    
+
+
+    init {
+                require(freeDistance != null) { "freeDistance must not be null" }
+
+
+
+
+
+
+
+        require(freeDistanceRatePeriod != null) { "freeDistanceRatePeriod must not be null" }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var freeDistance: CarsDistance? = null,
-        private var freeDistanceRatePeriod: kotlin.String? = null,
-        private var extraCostPerDistance: ExtraCostPerDistance? = null
-    ) {
-        fun freeDistance(freeDistance: CarsDistance) = apply { this.freeDistance = freeDistance }
+        class Builder(
+                private var freeDistance: CarsDistance? = null,
+                private var freeDistanceRatePeriod: kotlin.String? = null,
+                private var extraCostPerDistance: ExtraCostPerDistance? = null
+        ) {
+                fun freeDistance(freeDistance: CarsDistance) = apply { this.freeDistance = freeDistance }
+                fun freeDistanceRatePeriod(freeDistanceRatePeriod: kotlin.String) = apply { this.freeDistanceRatePeriod = freeDistanceRatePeriod }
+                fun extraCostPerDistance(extraCostPerDistance: ExtraCostPerDistance?) = apply { this.extraCostPerDistance = extraCostPerDistance }
 
-        fun freeDistanceRatePeriod(freeDistanceRatePeriod: kotlin.String) = apply { this.freeDistanceRatePeriod = freeDistanceRatePeriod }
-
-        fun extraCostPerDistance(extraCostPerDistance: ExtraCostPerDistance?) = apply { this.extraCostPerDistance = extraCostPerDistance }
-
-        fun build(): Mileage {
-            val instance =
-                Mileage(
-                    freeDistance = freeDistance!!,
-                    freeDistanceRatePeriod = freeDistanceRatePeriod!!,
-                    extraCostPerDistance = extraCostPerDistance
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: Mileage) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): Mileage {
+    val instance = Mileage(
             freeDistance = freeDistance!!,
             freeDistanceRatePeriod = freeDistanceRatePeriod!!,
             extraCostPerDistance = extraCostPerDistance
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            freeDistance = freeDistance!!,
+            freeDistanceRatePeriod = freeDistanceRatePeriod!!,
+            extraCostPerDistance = extraCostPerDistance
+    )
 }

@@ -15,84 +15,84 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Container filter condition for the filtered file. [Filters](https://confluence.expedia.biz/display/EWS/Filtered+Feed+File+Generation+Schedule+and+Access#FilteredFeedFileGenerationScheduleandAccess-Filters)
- * @param pointOfSupply List of filter condition for PointOfSupplies: `US`, `AT`,`BR`,`CA`,`FR`,`DE`,`GR`,`IT`, `JP`,`KR`,`MX`,`PT`,`ES`,`TR`, `AE`,`GB`.
- * @param brand List of filter condition for Brands: `VRBO`.
- * @param structureType List of filter condition for StructureTypes: `VR`, `CONVENTIONAL`.
+    * @param pointOfSupply List of filter condition for PointOfSupplies: `US`, `AT`,`BR`,`CA`,`FR`,`DE`,`GR`,`IT`, `JP`,`KR`,`MX`,`PT`,`ES`,`TR`, `AE`,`GB`.
+    * @param brand List of filter condition for Brands: `VRBO`.
+    * @param structureType List of filter condition for StructureTypes: `VR`, `CONVENTIONAL`.
 */
 data class FilterConditions(
-    // List of filter condition for PointOfSupplies: `US`, `AT`,`BR`,`CA`,`FR`,`DE`,`GR`,`IT`, `JP`,`KR`,`MX`,`PT`,`ES`,`TR`, `AE`,`GB`.
-    @JsonProperty("pointOfSupply")
-    @field:Valid
-    val pointOfSupply: kotlin.String? = null,
-    // List of filter condition for Brands: `VRBO`.
-    @JsonProperty("brand")
-    @field:Valid
-    val brand: kotlin.String? = null,
-    // List of filter condition for StructureTypes: `VR`, `CONVENTIONAL`.
-    @JsonProperty("structureType")
-    @field:Valid
-    val structureType: kotlin.String? = null
+            /* List of filter condition for PointOfSupplies: `US`, `AT`,`BR`,`CA`,`FR`,`DE`,`GR`,`IT`, `JP`,`KR`,`MX`,`PT`,`ES`,`TR`, `AE`,`GB`. */
+@JsonProperty("pointOfSupply")
+val pointOfSupply: kotlin.String? = null,
+
+            /* List of filter condition for Brands: `VRBO`. */
+@JsonProperty("brand")
+val brand: kotlin.String? = null,
+
+            /* List of filter condition for StructureTypes: `VR`, `CONVENTIONAL`. */
+@JsonProperty("structureType")
+val structureType: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var pointOfSupply: kotlin.String? = null,
-        private var brand: kotlin.String? = null,
-        private var structureType: kotlin.String? = null
-    ) {
-        fun pointOfSupply(pointOfSupply: kotlin.String?) = apply { this.pointOfSupply = pointOfSupply }
+        class Builder(
+                private var pointOfSupply: kotlin.String? = null,
+                private var brand: kotlin.String? = null,
+                private var structureType: kotlin.String? = null
+        ) {
+                fun pointOfSupply(pointOfSupply: kotlin.String?) = apply { this.pointOfSupply = pointOfSupply }
+                fun brand(brand: kotlin.String?) = apply { this.brand = brand }
+                fun structureType(structureType: kotlin.String?) = apply { this.structureType = structureType }
 
-        fun brand(brand: kotlin.String?) = apply { this.brand = brand }
-
-        fun structureType(structureType: kotlin.String?) = apply { this.structureType = structureType }
-
-        fun build(): FilterConditions {
-            val instance =
-                FilterConditions(
-                    pointOfSupply = pointOfSupply,
-                    brand = brand,
-                    structureType = structureType
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: FilterConditions) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): FilterConditions {
+    val instance = FilterConditions(
             pointOfSupply = pointOfSupply,
             brand = brand,
             structureType = structureType
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            pointOfSupply = pointOfSupply,
+            brand = brand,
+            structureType = structureType
+    )
 }

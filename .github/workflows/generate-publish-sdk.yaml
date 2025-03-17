@@ -1,0 +1,33 @@
+on:
+  push:
+
+jobs:
+  generate-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Post Processor
+        working-directory: generator/src/main/resources/post-processor
+        run: npm ci && npm run clean && npm run compile
+
+      - name: Generate SDK
+        working-directory: generator
+        run: |
+          export KOTLIN_POST_PROCESS_FILE="npm run --prefix src/main/resources/post-processor process"
+          
+
+      - name: Publish Snapshots
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
+          GPG_SECRET: ${{ secrets.GPG_PRIVATE_KEY }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        run: ./gradlew publishSnapshots

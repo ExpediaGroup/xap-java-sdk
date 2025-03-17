@@ -15,98 +15,109 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * Container of the Restrictions associated to this ticket.
- * @param type Type of the Restriction.
- * @param max Maximum value allowed for the restriction type.
- * @param min Minimum value allowed for the restriction type.
- * @param description The text to describe the restriction.
+    * @param type Type of the Restriction.
+    * @param max Maximum value allowed for the restriction type.
+    * @param min Minimum value allowed for the restriction type.
+    * @param description The text to describe the restriction.
 */
 data class Restrictions(
-    // Type of the Restriction.
-    @JsonProperty("Type")
-    @field:NotNull
-    @field:Valid
-    val type: kotlin.String,
-    // Maximum value allowed for the restriction type.
-    @JsonProperty("Max")
-    @field:NotNull
-    @field:Valid
-    val max: kotlin.String,
-    // Minimum value allowed for the restriction type.
-    @JsonProperty("Min")
-    @field:NotNull
-    @field:Valid
-    val min: kotlin.String,
-    // The text to describe the restriction.
-    @JsonProperty("Description")
-    @field:Valid
-    val description: kotlin.String? = null
+            /* Type of the Restriction. */
+@JsonProperty("Type")
+val type:
+    kotlin.String
+,
+
+            /* Maximum value allowed for the restriction type. */
+@JsonProperty("Max")
+val max:
+    kotlin.String
+,
+
+            /* Minimum value allowed for the restriction type. */
+@JsonProperty("Min")
+val min:
+    kotlin.String
+,
+
+            /* The text to describe the restriction. */
+@JsonProperty("Description")
+val description: kotlin.String? = null
 ) {
+    
+
+
+    init {
+                require(type != null) { "type must not be null" }
+
+
+
+
+
+
+
+        require(max != null) { "max must not be null" }
+
+
+
+
+
+
+
+        require(min != null) { "min must not be null" }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var type: kotlin.String? = null,
-        private var max: kotlin.String? = null,
-        private var min: kotlin.String? = null,
-        private var description: kotlin.String? = null
-    ) {
-        fun type(type: kotlin.String) = apply { this.type = type }
+        class Builder(
+                private var type: kotlin.String? = null,
+                private var max: kotlin.String? = null,
+                private var min: kotlin.String? = null,
+                private var description: kotlin.String? = null
+        ) {
+                fun type(type: kotlin.String) = apply { this.type = type }
+                fun max(max: kotlin.String) = apply { this.max = max }
+                fun min(min: kotlin.String) = apply { this.min = min }
+                fun description(description: kotlin.String?) = apply { this.description = description }
 
-        fun max(max: kotlin.String) = apply { this.max = max }
-
-        fun min(min: kotlin.String) = apply { this.min = min }
-
-        fun description(description: kotlin.String?) = apply { this.description = description }
-
-        fun build(): Restrictions {
-            val instance =
-                Restrictions(
-                    type = type!!,
-                    max = max!!,
-                    min = min!!,
-                    description = description
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: Restrictions) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): Restrictions {
+    val instance = Restrictions(
             type = type!!,
             max = max!!,
             min = min!!,
             description = description
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            type = type!!,
+            max = max!!,
+            min = min!!,
+            description = description
+    )
 }

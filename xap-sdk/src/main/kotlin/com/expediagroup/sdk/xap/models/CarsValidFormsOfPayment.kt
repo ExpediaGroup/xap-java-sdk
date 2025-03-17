@@ -15,88 +15,93 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * List of all the forms of payment that will be accepted for the booking of this rental transaction.
- * @param paymentMethod Method of payment
- * @param paymentSubMethod Sub method of payment
- * @param brandName The brand name of the payment sub-method to be displayed to the customer. In many cases it will be the same as the payment sub-method, but \"Visa/Carte Bleue\" and \"Visa/Delta are some of the exceptions.
+    * @param paymentMethod Method of payment
+    * @param paymentSubMethod Sub method of payment
+    * @param brandName The brand name of the payment sub-method to be displayed to the customer. In many cases it will be the same as the payment sub-method, but \"Visa/Carte Bleue\" and \"Visa/Delta are some of the exceptions.
 */
 data class CarsValidFormsOfPayment(
-    // Method of payment
-    @JsonProperty("PaymentMethod")
-    @field:NotNull
-    @field:Valid
-    val paymentMethod: kotlin.String,
-    // Sub method of payment
-    @JsonProperty("PaymentSubMethod")
-    @field:NotNull
-    @field:Valid
-    val paymentSubMethod: kotlin.String,
-    // The brand name of the payment sub-method to be displayed to the customer. In many cases it will be the same as the payment sub-method, but \"Visa/Carte Bleue\" and \"Visa/Delta are some of the exceptions.
-    @JsonProperty("BrandName")
-    @field:NotNull
-    @field:Valid
-    val brandName: kotlin.String
+            /* Method of payment */
+@JsonProperty("PaymentMethod")
+val paymentMethod:
+    kotlin.String
+,
+
+            /* Sub method of payment */
+@JsonProperty("PaymentSubMethod")
+val paymentSubMethod:
+    kotlin.String
+,
+
+            /* The brand name of the payment sub-method to be displayed to the customer. In many cases it will be the same as the payment sub-method, but \"Visa/Carte Bleue\" and \"Visa/Delta are some of the exceptions. */
+@JsonProperty("BrandName")
+val brandName:
+    kotlin.String
+
 ) {
+    
+
+
+    init {
+                require(paymentMethod != null) { "paymentMethod must not be null" }
+
+
+
+
+
+
+
+        require(paymentSubMethod != null) { "paymentSubMethod must not be null" }
+
+
+
+
+
+
+
+        require(brandName != null) { "brandName must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var paymentMethod: kotlin.String? = null,
-        private var paymentSubMethod: kotlin.String? = null,
-        private var brandName: kotlin.String? = null
-    ) {
-        fun paymentMethod(paymentMethod: kotlin.String) = apply { this.paymentMethod = paymentMethod }
+        class Builder(
+                private var paymentMethod: kotlin.String? = null,
+                private var paymentSubMethod: kotlin.String? = null,
+                private var brandName: kotlin.String? = null
+        ) {
+                fun paymentMethod(paymentMethod: kotlin.String) = apply { this.paymentMethod = paymentMethod }
+                fun paymentSubMethod(paymentSubMethod: kotlin.String) = apply { this.paymentSubMethod = paymentSubMethod }
+                fun brandName(brandName: kotlin.String) = apply { this.brandName = brandName }
 
-        fun paymentSubMethod(paymentSubMethod: kotlin.String) = apply { this.paymentSubMethod = paymentSubMethod }
-
-        fun brandName(brandName: kotlin.String) = apply { this.brandName = brandName }
-
-        fun build(): CarsValidFormsOfPayment {
-            val instance =
-                CarsValidFormsOfPayment(
-                    paymentMethod = paymentMethod!!,
-                    paymentSubMethod = paymentSubMethod!!,
-                    brandName = brandName!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: CarsValidFormsOfPayment) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): CarsValidFormsOfPayment {
+    val instance = CarsValidFormsOfPayment(
             paymentMethod = paymentMethod!!,
             paymentSubMethod = paymentSubMethod!!,
             brandName = brandName!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            paymentMethod = paymentMethod!!,
+            paymentSubMethod = paymentSubMethod!!,
+            brandName = brandName!!
+    )
 }

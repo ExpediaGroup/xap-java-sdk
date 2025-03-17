@@ -15,77 +15,74 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.CarsDistance
 import com.expediagroup.sdk.xap.models.CarsMoney
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * Extra cost for each increment of distance used.
- * @param distance
- * @param cost
+    * @param distance 
+    * @param cost 
 */
 data class ExtraCostPerDistance(
-    @JsonProperty("Distance")
-    @field:NotNull
-    @field:Valid
-    val distance: CarsDistance,
-    @JsonProperty("Cost")
-    @field:NotNull
-    @field:Valid
-    val cost: CarsMoney
+        @JsonProperty("Distance")
+val distance:
+    CarsDistance
+,
+
+        @JsonProperty("Cost")
+val cost:
+    CarsMoney
+
 ) {
+    
+
+
+    init {
+                require(distance != null) { "distance must not be null" }
+
+
+
+
+
+
+
+        require(cost != null) { "cost must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var distance: CarsDistance? = null,
-        private var cost: CarsMoney? = null
-    ) {
-        fun distance(distance: CarsDistance) = apply { this.distance = distance }
+        class Builder(
+                private var distance: CarsDistance? = null,
+                private var cost: CarsMoney? = null
+        ) {
+                fun distance(distance: CarsDistance) = apply { this.distance = distance }
+                fun cost(cost: CarsMoney) = apply { this.cost = cost }
 
-        fun cost(cost: CarsMoney) = apply { this.cost = cost }
-
-        fun build(): ExtraCostPerDistance {
-            val instance =
-                ExtraCostPerDistance(
-                    distance = distance!!,
-                    cost = cost!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: ExtraCostPerDistance) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): ExtraCostPerDistance {
+    val instance = ExtraCostPerDistance(
             distance = distance!!,
             cost = cost!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            distance = distance!!,
+            cost = cost!!
+    )
 }

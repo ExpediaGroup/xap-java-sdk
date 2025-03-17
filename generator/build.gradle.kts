@@ -1,13 +1,14 @@
 import com.samskivert.mustache.Mustache
 import com.samskivert.mustache.Template
-import java.io.Serializable
-import java.io.Writer
+import org.jlleitschuh.gradle.ktlint.tasks.KtLintFormatTask
 import org.openapitools.codegen.CodegenConstants
 import org.openapitools.codegen.CodegenResponse
+import java.io.Serializable
+import java.io.Writer
 
 plugins {
     kotlin("jvm") version "2.1.10"
-    id("com.expediagroup.sdk.openapigenerator") version "1.0.0-SNAPSHOT"
+    id("com.expediagroup.sdk.openapigenerator") version "0.0.3-beta-SNAPSHOT"
     id("org.jlleitschuh.gradle.ktlint") version "12.1.2"
 }
 
@@ -16,7 +17,9 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    mavenLocal()
+    maven {
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
 }
 
 dependencies {
@@ -33,7 +36,7 @@ kotlin {
 }
 
 openApiGenerate {
-    inputSpec = System.getProperty("inputSpec") ?: "specs.yaml"
+    inputSpec = System.getProperty("inputSpec") ?: "$projectDir/src/main/resources/specs.yaml"
 
     invokerPackage = "com.expediagroup.sdk.xap"
     apiPackage = "com.expediagroup.sdk.xap.operations"
@@ -47,7 +50,7 @@ openApiGenerate {
     enablePostProcessFile = true
 
     templateDir = "$projectDir/src/main/resources/templates"
-    configFile = "$projectDir/src/main/generator-config.yaml"
+    configFile = "$projectDir/src/main/resources/generator-config.yaml"
     outputDir = "$rootDir/xap-sdk/src/main/kotlin"
 
     additionalProperties.put(CodegenConstants.ENUM_PROPERTY_NAMING, "UPPERCASE")
@@ -56,17 +59,21 @@ openApiGenerate {
     configOptions.put("sourceFolder", "")
 
     globalProperties.put("supportingFiles", "Room.kt")
-    globalProperties.put("KOTLIN_POST_PROCESS_FILE", "npm run --prefix post-processor process")
 }
+
 
 class Lambdas {
     class AllowedMediaTypesLambda : Mustache.Lambda, Serializable {
-        override fun execute(fragment: Template.Fragment, writer: Writer) {
+        override fun execute(
+            fragment: Template.Fragment,
+            writer: Writer,
+        ) {
             val response: CodegenResponse = fragment.context() as CodegenResponse
             if (response.is2xx) {
-                val mediaTypes: List<String> = response.content.keys.filter {
-                    !it.contains("xml", ignoreCase = true)
-                }
+                val mediaTypes: List<String> =
+                    response.content.keys.filter {
+                        !it.contains("xml", ignoreCase = true)
+                    }
 
                 val context = mapOf("mediaTypes" to mediaTypes)
                 fragment.execute(context, writer)

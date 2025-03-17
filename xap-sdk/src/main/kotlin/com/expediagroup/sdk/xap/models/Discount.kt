@@ -15,77 +15,74 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * List of discount information.
- * @param type Discount type. Supported values : CorpDiscount | Coupon.
- * @param code Discount code.
+    * @param type Discount type. Supported values : CorpDiscount | Coupon.
+    * @param code Discount code.
 */
 data class Discount(
-    // Discount type. Supported values : CorpDiscount | Coupon.
-    @JsonProperty("Type")
-    @field:NotNull
-    @field:Valid
-    val type: kotlin.String,
-    // Discount code.
-    @JsonProperty("Code")
-    @field:NotNull
-    @field:Valid
-    val code: kotlin.String
+            /* Discount type. Supported values : CorpDiscount | Coupon. */
+@JsonProperty("Type")
+val type:
+    kotlin.String
+,
+
+            /* Discount code. */
+@JsonProperty("Code")
+val code:
+    kotlin.String
+
 ) {
+    
+
+
+    init {
+                require(type != null) { "type must not be null" }
+
+
+
+
+
+
+
+        require(code != null) { "code must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var type: kotlin.String? = null,
-        private var code: kotlin.String? = null
-    ) {
-        fun type(type: kotlin.String) = apply { this.type = type }
+        class Builder(
+                private var type: kotlin.String? = null,
+                private var code: kotlin.String? = null
+        ) {
+                fun type(type: kotlin.String) = apply { this.type = type }
+                fun code(code: kotlin.String) = apply { this.code = code }
 
-        fun code(code: kotlin.String) = apply { this.code = code }
-
-        fun build(): Discount {
-            val instance =
-                Discount(
-                    type = type!!,
-                    code = code!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: Discount) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): Discount {
+    val instance = Discount(
             type = type!!,
             code = code!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            type = type!!,
+            code = code!!
+    )
 }

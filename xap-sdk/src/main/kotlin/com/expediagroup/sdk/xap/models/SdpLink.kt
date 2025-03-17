@@ -15,74 +15,68 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Contains link information, including link address, request method. Only provided if FileInfo is in OtherFileOptions.
- * @param href a link address.
- * @param method Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc...
+    * @param href a link address.
+    * @param method Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc...
 */
 data class SdpLink(
-    // a link address.
-    @JsonProperty("href")
-    @field:Valid
-    val href: kotlin.String? = null,
-    // Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc...
-    @JsonProperty("method")
-    @field:Valid
-    val method: kotlin.String? = null
+            /* a link address. */
+@JsonProperty("href")
+val href: kotlin.String? = null,
+
+            /* Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc... */
+@JsonProperty("method")
+val method: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var href: kotlin.String? = null,
-        private var method: kotlin.String? = null
-    ) {
-        fun href(href: kotlin.String?) = apply { this.href = href }
+        class Builder(
+                private var href: kotlin.String? = null,
+                private var method: kotlin.String? = null
+        ) {
+                fun href(href: kotlin.String?) = apply { this.href = href }
+                fun method(method: kotlin.String?) = apply { this.method = method }
 
-        fun method(method: kotlin.String?) = apply { this.method = method }
-
-        fun build(): SdpLink {
-            val instance =
-                SdpLink(
-                    href = href,
-                    method = method
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: SdpLink) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): SdpLink {
+    val instance = SdpLink(
             href = href,
             method = method
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            href = href,
+            method = method
+    )
 }

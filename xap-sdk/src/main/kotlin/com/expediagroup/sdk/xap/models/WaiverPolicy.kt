@@ -15,64 +15,52 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
-*
- * @param waiverPolicyDescription The localized waiver policy description, which could be put in front of cancellation policy description.
+* 
+    * @param waiverPolicyDescription The localized waiver policy description, which could be put in front of cancellation policy description. 
 */
 data class WaiverPolicy(
-    // The localized waiver policy description, which could be put in front of cancellation policy description.
-    @JsonProperty("WaiverPolicyDescription")
-    @field:Valid
-    val waiverPolicyDescription: kotlin.String? = null
+            /* The localized waiver policy description, which could be put in front of cancellation policy description.  */
+@JsonProperty("WaiverPolicyDescription")
+val waiverPolicyDescription: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var waiverPolicyDescription: kotlin.String? = null
-    ) {
-        fun waiverPolicyDescription(waiverPolicyDescription: kotlin.String?) = apply { this.waiverPolicyDescription = waiverPolicyDescription }
+        class Builder(
+                private var waiverPolicyDescription: kotlin.String? = null
+        ) {
+                fun waiverPolicyDescription(waiverPolicyDescription: kotlin.String?) = apply { this.waiverPolicyDescription = waiverPolicyDescription }
 
-        fun build(): WaiverPolicy {
-            val instance =
-                WaiverPolicy(
-                    waiverPolicyDescription = waiverPolicyDescription
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: WaiverPolicy) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): WaiverPolicy {
+    val instance = WaiverPolicy(
             waiverPolicyDescription = waiverPolicyDescription
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            waiverPolicyDescription = waiverPolicyDescription
+    )
 }

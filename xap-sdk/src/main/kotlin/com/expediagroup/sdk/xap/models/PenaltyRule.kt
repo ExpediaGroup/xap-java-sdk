@@ -15,84 +15,93 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.PenaltyType
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * Container for penalty rules
- * @param penalty
- * @param startDateTime The time when this penalty window starts
- * @param endDateTime The time when this penalty window ends
+    * @param penalty 
+    * @param startDateTime The time when this penalty window starts
+    * @param endDateTime The time when this penalty window ends
 */
 data class PenaltyRule(
-    @JsonProperty("Penalty")
-    @field:NotNull
-    @field:Valid
-    val penalty: PenaltyType,
-    // The time when this penalty window starts
-    @JsonProperty("StartDateTime")
-    val startDateTime: java.time.LocalDateTime,
-    // The time when this penalty window ends
-    @JsonProperty("EndDateTime")
-    val endDateTime: java.time.LocalDateTime
+        @JsonProperty("Penalty")
+val penalty:
+    PenaltyType
+,
+
+            /* The time when this penalty window starts */
+@JsonProperty("StartDateTime")
+val startDateTime:
+    java.time.LocalDateTime
+,
+
+            /* The time when this penalty window ends */
+@JsonProperty("EndDateTime")
+val endDateTime:
+    java.time.LocalDateTime
+
 ) {
+    
+
+
+    init {
+                require(penalty != null) { "penalty must not be null" }
+
+
+
+
+
+
+
+        require(startDateTime != null) { "startDateTime must not be null" }
+
+
+
+
+
+
+
+        require(endDateTime != null) { "endDateTime must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var penalty: PenaltyType? = null,
-        private var startDateTime: java.time.LocalDateTime? = null,
-        private var endDateTime: java.time.LocalDateTime? = null
-    ) {
-        fun penalty(penalty: PenaltyType) = apply { this.penalty = penalty }
+        class Builder(
+                private var penalty: PenaltyType? = null,
+                private var startDateTime: java.time.LocalDateTime? = null,
+                private var endDateTime: java.time.LocalDateTime? = null
+        ) {
+                fun penalty(penalty: PenaltyType) = apply { this.penalty = penalty }
+                fun startDateTime(startDateTime: java.time.LocalDateTime) = apply { this.startDateTime = startDateTime }
+                fun endDateTime(endDateTime: java.time.LocalDateTime) = apply { this.endDateTime = endDateTime }
 
-        fun startDateTime(startDateTime: java.time.LocalDateTime) = apply { this.startDateTime = startDateTime }
-
-        fun endDateTime(endDateTime: java.time.LocalDateTime) = apply { this.endDateTime = endDateTime }
-
-        fun build(): PenaltyRule {
-            val instance =
-                PenaltyRule(
-                    penalty = penalty!!,
-                    startDateTime = startDateTime!!,
-                    endDateTime = endDateTime!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: PenaltyRule) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): PenaltyRule {
+    val instance = PenaltyRule(
             penalty = penalty!!,
             startDateTime = startDateTime!!,
             endDateTime = endDateTime!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            penalty = penalty!!,
+            startDateTime = startDateTime!!,
+            endDateTime = endDateTime!!
+    )
 }

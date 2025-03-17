@@ -15,84 +15,84 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.Address
 import com.expediagroup.sdk.xap.models.LocationGeoLocation
 import com.expediagroup.sdk.xap.models.Neighborhood
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Container for list of possible locations that could be used to disambiguate the query.
- * @param address
- * @param geoLocation
- * @param neighborhood
+    * @param address 
+    * @param geoLocation 
+    * @param neighborhood 
 */
 data class Location(
-    @JsonProperty("Address")
-    @field:Valid
-    val address: Address? = null,
-    @JsonProperty("GeoLocation")
-    @field:Valid
-    val geoLocation: LocationGeoLocation? = null,
-    @JsonProperty("Neighborhood")
-    @field:Valid
-    val neighborhood: Neighborhood? = null
+        @JsonProperty("Address")
+val address: Address? = null,
+
+        @JsonProperty("GeoLocation")
+val geoLocation: LocationGeoLocation? = null,
+
+        @JsonProperty("Neighborhood")
+val neighborhood: Neighborhood? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var address: Address? = null,
-        private var geoLocation: LocationGeoLocation? = null,
-        private var neighborhood: Neighborhood? = null
-    ) {
-        fun address(address: Address?) = apply { this.address = address }
+        class Builder(
+                private var address: Address? = null,
+                private var geoLocation: LocationGeoLocation? = null,
+                private var neighborhood: Neighborhood? = null
+        ) {
+                fun address(address: Address?) = apply { this.address = address }
+                fun geoLocation(geoLocation: LocationGeoLocation?) = apply { this.geoLocation = geoLocation }
+                fun neighborhood(neighborhood: Neighborhood?) = apply { this.neighborhood = neighborhood }
 
-        fun geoLocation(geoLocation: LocationGeoLocation?) = apply { this.geoLocation = geoLocation }
-
-        fun neighborhood(neighborhood: Neighborhood?) = apply { this.neighborhood = neighborhood }
-
-        fun build(): Location {
-            val instance =
-                Location(
-                    address = address,
-                    geoLocation = geoLocation,
-                    neighborhood = neighborhood
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: Location) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): Location {
+    val instance = Location(
             address = address,
             geoLocation = geoLocation,
             neighborhood = neighborhood
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            address = address,
+            geoLocation = geoLocation,
+            neighborhood = neighborhood
+    )
 }

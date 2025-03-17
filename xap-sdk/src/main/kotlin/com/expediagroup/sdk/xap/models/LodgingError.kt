@@ -15,74 +15,68 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Container for error list.
- * @param code Error code describing the issue
- * @param description A simple description of what the error is.
+    * @param code Error code describing the issue
+    * @param description A simple description of what the error is.
 */
 data class LodgingError(
-    // Error code describing the issue
-    @JsonProperty("Code")
-    @field:Valid
-    val code: kotlin.String? = null,
-    // A simple description of what the error is.
-    @JsonProperty("Description")
-    @field:Valid
-    val description: kotlin.String? = null
+            /* Error code describing the issue */
+@JsonProperty("Code")
+val code: kotlin.String? = null,
+
+            /* A simple description of what the error is. */
+@JsonProperty("Description")
+val description: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var code: kotlin.String? = null,
-        private var description: kotlin.String? = null
-    ) {
-        fun code(code: kotlin.String?) = apply { this.code = code }
+        class Builder(
+                private var code: kotlin.String? = null,
+                private var description: kotlin.String? = null
+        ) {
+                fun code(code: kotlin.String?) = apply { this.code = code }
+                fun description(description: kotlin.String?) = apply { this.description = description }
 
-        fun description(description: kotlin.String?) = apply { this.description = description }
-
-        fun build(): LodgingError {
-            val instance =
-                LodgingError(
-                    code = code,
-                    description = description
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: LodgingError) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): LodgingError {
+    val instance = LodgingError(
             code = code,
             description = description
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            code = code,
+            description = description
+    )
 }

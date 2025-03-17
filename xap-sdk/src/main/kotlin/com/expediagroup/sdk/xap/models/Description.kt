@@ -15,84 +15,84 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Container for the descriptions of the property.
- * @param locationTeaser A description of the property's location.
- * @param hotelTeaser A description of the features and amenities of the property itself.
- * @param roomTeaser The common description for all of the rooms in the property.
+    * @param locationTeaser A description of the property's location.
+    * @param hotelTeaser A description of the features and amenities of the property itself.
+    * @param roomTeaser The common description for all of the rooms in the property.
 */
 data class Description(
-    // A description of the property's location.
-    @JsonProperty("LocationTeaser")
-    @field:Valid
-    val locationTeaser: kotlin.String? = null,
-    // A description of the features and amenities of the property itself.
-    @JsonProperty("HotelTeaser")
-    @field:Valid
-    val hotelTeaser: kotlin.String? = null,
-    // The common description for all of the rooms in the property.
-    @JsonProperty("RoomTeaser")
-    @field:Valid
-    val roomTeaser: kotlin.String? = null
+            /* A description of the property's location. */
+@JsonProperty("LocationTeaser")
+val locationTeaser: kotlin.String? = null,
+
+            /* A description of the features and amenities of the property itself. */
+@JsonProperty("HotelTeaser")
+val hotelTeaser: kotlin.String? = null,
+
+            /* The common description for all of the rooms in the property. */
+@JsonProperty("RoomTeaser")
+val roomTeaser: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var locationTeaser: kotlin.String? = null,
-        private var hotelTeaser: kotlin.String? = null,
-        private var roomTeaser: kotlin.String? = null
-    ) {
-        fun locationTeaser(locationTeaser: kotlin.String?) = apply { this.locationTeaser = locationTeaser }
+        class Builder(
+                private var locationTeaser: kotlin.String? = null,
+                private var hotelTeaser: kotlin.String? = null,
+                private var roomTeaser: kotlin.String? = null
+        ) {
+                fun locationTeaser(locationTeaser: kotlin.String?) = apply { this.locationTeaser = locationTeaser }
+                fun hotelTeaser(hotelTeaser: kotlin.String?) = apply { this.hotelTeaser = hotelTeaser }
+                fun roomTeaser(roomTeaser: kotlin.String?) = apply { this.roomTeaser = roomTeaser }
 
-        fun hotelTeaser(hotelTeaser: kotlin.String?) = apply { this.hotelTeaser = hotelTeaser }
-
-        fun roomTeaser(roomTeaser: kotlin.String?) = apply { this.roomTeaser = roomTeaser }
-
-        fun build(): Description {
-            val instance =
-                Description(
-                    locationTeaser = locationTeaser,
-                    hotelTeaser = hotelTeaser,
-                    roomTeaser = roomTeaser
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: Description) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): Description {
+    val instance = Description(
             locationTeaser = locationTeaser,
             hotelTeaser = hotelTeaser,
             roomTeaser = roomTeaser
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            locationTeaser = locationTeaser,
+            hotelTeaser = hotelTeaser,
+            roomTeaser = roomTeaser
+    )
 }

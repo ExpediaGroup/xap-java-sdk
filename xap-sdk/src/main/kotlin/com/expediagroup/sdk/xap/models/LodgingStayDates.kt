@@ -15,71 +15,68 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Validation
 
 /**
-* Container for requested dates of stay.
- * @param checkInDate The initial day of the property stay in an ISO 8601 Date format [YYYY-MM-DD].
- * @param checkOutDate The final day of the property stay in an ISO 8601 Date format [YYYY-MM-DD].
+* Container for requested dates of stay. 
+    * @param checkInDate The initial day of the property stay in an ISO 8601 Date format [YYYY-MM-DD].
+    * @param checkOutDate The final day of the property stay in an ISO 8601 Date format [YYYY-MM-DD].
 */
 data class LodgingStayDates(
-    // The initial day of the property stay in an ISO 8601 Date format [YYYY-MM-DD].
-    @JsonProperty("CheckInDate")
-    val checkInDate: java.time.LocalDate? = null,
-    // The final day of the property stay in an ISO 8601 Date format [YYYY-MM-DD].
-    @JsonProperty("CheckOutDate")
-    val checkOutDate: java.time.LocalDate? = null
+            /* The initial day of the property stay in an ISO 8601 Date format [YYYY-MM-DD]. */
+@JsonProperty("CheckInDate")
+val checkInDate: java.time.LocalDate? = null,
+
+            /* The final day of the property stay in an ISO 8601 Date format [YYYY-MM-DD]. */
+@JsonProperty("CheckOutDate")
+val checkOutDate: java.time.LocalDate? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var checkInDate: java.time.LocalDate? = null,
-        private var checkOutDate: java.time.LocalDate? = null
-    ) {
-        fun checkInDate(checkInDate: java.time.LocalDate?) = apply { this.checkInDate = checkInDate }
+        class Builder(
+                private var checkInDate: java.time.LocalDate? = null,
+                private var checkOutDate: java.time.LocalDate? = null
+        ) {
+                fun checkInDate(checkInDate: java.time.LocalDate?) = apply { this.checkInDate = checkInDate }
+                fun checkOutDate(checkOutDate: java.time.LocalDate?) = apply { this.checkOutDate = checkOutDate }
 
-        fun checkOutDate(checkOutDate: java.time.LocalDate?) = apply { this.checkOutDate = checkOutDate }
-
-        fun build(): LodgingStayDates {
-            val instance =
-                LodgingStayDates(
-                    checkInDate = checkInDate,
-                    checkOutDate = checkOutDate
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: LodgingStayDates) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): LodgingStayDates {
+    val instance = LodgingStayDates(
             checkInDate = checkInDate,
             checkOutDate = checkOutDate
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            checkInDate = checkInDate,
+            checkOutDate = checkOutDate
+    )
 }

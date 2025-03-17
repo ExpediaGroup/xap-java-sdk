@@ -15,98 +15,109 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * The supplier of the car being offered.
- * @param id Supplier ID.
- * @param name Supplier Name.
- * @param code Supplier Code.
- * @param logoImageUrl Supplier Logo Image Url.
+    * @param id Supplier ID.
+    * @param name Supplier Name.
+    * @param code Supplier Code.
+    * @param logoImageUrl Supplier Logo Image Url.
 */
 data class Supplier(
-    // Supplier ID.
-    @JsonProperty("Id")
-    @field:NotNull
-    @field:Valid
-    val id: kotlin.String,
-    // Supplier Name.
-    @JsonProperty("Name")
-    @field:NotNull
-    @field:Valid
-    val name: kotlin.String,
-    // Supplier Code.
-    @JsonProperty("Code")
-    @field:NotNull
-    @field:Valid
-    val code: kotlin.String,
-    // Supplier Logo Image Url.
-    @JsonProperty("LogoImageUrl")
-    @field:Valid
-    val logoImageUrl: kotlin.String? = null
+            /* Supplier ID. */
+@JsonProperty("Id")
+val id:
+    kotlin.String
+,
+
+            /* Supplier Name. */
+@JsonProperty("Name")
+val name:
+    kotlin.String
+,
+
+            /* Supplier Code. */
+@JsonProperty("Code")
+val code:
+    kotlin.String
+,
+
+            /* Supplier Logo Image Url. */
+@JsonProperty("LogoImageUrl")
+val logoImageUrl: kotlin.String? = null
 ) {
+    
+
+
+    init {
+                require(id != null) { "id must not be null" }
+
+
+
+
+
+
+
+        require(name != null) { "name must not be null" }
+
+
+
+
+
+
+
+        require(code != null) { "code must not be null" }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var id: kotlin.String? = null,
-        private var name: kotlin.String? = null,
-        private var code: kotlin.String? = null,
-        private var logoImageUrl: kotlin.String? = null
-    ) {
-        fun id(id: kotlin.String) = apply { this.id = id }
+        class Builder(
+                private var id: kotlin.String? = null,
+                private var name: kotlin.String? = null,
+                private var code: kotlin.String? = null,
+                private var logoImageUrl: kotlin.String? = null
+        ) {
+                fun id(id: kotlin.String) = apply { this.id = id }
+                fun name(name: kotlin.String) = apply { this.name = name }
+                fun code(code: kotlin.String) = apply { this.code = code }
+                fun logoImageUrl(logoImageUrl: kotlin.String?) = apply { this.logoImageUrl = logoImageUrl }
 
-        fun name(name: kotlin.String) = apply { this.name = name }
-
-        fun code(code: kotlin.String) = apply { this.code = code }
-
-        fun logoImageUrl(logoImageUrl: kotlin.String?) = apply { this.logoImageUrl = logoImageUrl }
-
-        fun build(): Supplier {
-            val instance =
-                Supplier(
-                    id = id!!,
-                    name = name!!,
-                    code = code!!,
-                    logoImageUrl = logoImageUrl
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: Supplier) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): Supplier {
+    val instance = Supplier(
             id = id!!,
             name = name!!,
             code = code!!,
             logoImageUrl = logoImageUrl
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            id = id!!,
+            name = name!!,
+            code = code!!,
+            logoImageUrl = logoImageUrl
+    )
 }

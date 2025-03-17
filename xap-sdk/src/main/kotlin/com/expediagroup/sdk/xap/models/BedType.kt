@@ -15,74 +15,68 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
-* Statement of bed types available for this offer. A room may have several bed type options available.  **NOTE**: due to the large number of bed type options available, we no longer publish a list of available bed types. More information is available in [Lodging Bed Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/bed-types).
- * @param id The bed type ID
- * @param description The bed type description.
+* Statement of bed types available for this offer. A room may have several bed type options available.  **NOTE**: due to the large number of bed type options available, we no longer publish a list of available bed types. More information is available in [Lodging Bed Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/bed-types). 
+    * @param id The bed type ID
+    * @param description The bed type description.
 */
 data class BedType(
-    // The bed type ID
-    @JsonProperty("Id")
-    @field:Valid
-    val id: kotlin.String? = null,
-    // The bed type description.
-    @JsonProperty("Description")
-    @field:Valid
-    val description: kotlin.String? = null
+            /* The bed type ID */
+@JsonProperty("Id")
+val id: kotlin.String? = null,
+
+            /* The bed type description. */
+@JsonProperty("Description")
+val description: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var id: kotlin.String? = null,
-        private var description: kotlin.String? = null
-    ) {
-        fun id(id: kotlin.String?) = apply { this.id = id }
+        class Builder(
+                private var id: kotlin.String? = null,
+                private var description: kotlin.String? = null
+        ) {
+                fun id(id: kotlin.String?) = apply { this.id = id }
+                fun description(description: kotlin.String?) = apply { this.description = description }
 
-        fun description(description: kotlin.String?) = apply { this.description = description }
-
-        fun build(): BedType {
-            val instance =
-                BedType(
-                    id = id,
-                    description = description
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: BedType) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): BedType {
+    val instance = BedType(
             id = id,
             description = description
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            id = id,
+            description = description
+    )
 }

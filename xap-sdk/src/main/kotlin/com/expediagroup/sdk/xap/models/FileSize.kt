@@ -15,86 +15,83 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Validation
 
 /**
 * The information about the file size.
- * @param unit The unit about the file size.
- * @param `value` The value about the file size.
+    * @param unit The unit about the file size.
+    * @param `value` The value about the file size.
 */
 data class FileSize(
-    // The unit about the file size.
-    @JsonProperty("unit")
-    val unit: FileSize.Unit? = null,
-    // The value about the file size.
-    @JsonProperty("value")
-    val `value`: kotlin.Long? = null
+            /* The unit about the file size. */
+@JsonProperty("unit")
+val unit: FileSize.Unit? = null,
+
+            /* The value about the file size. */
+@JsonProperty("value")
+val `value`: kotlin.Long? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var unit: FileSize.Unit? = null,
-        private var `value`: kotlin.Long? = null
-    ) {
-        fun unit(unit: FileSize.Unit?) = apply { this.unit = unit }
+        class Builder(
+                private var unit: FileSize.Unit? = null,
+                private var `value`: kotlin.Long? = null
+        ) {
+                fun unit(unit: FileSize.Unit?) = apply { this.unit = unit }
+                fun `value`(`value`: kotlin.Long?) = apply { this.`value` = `value` }
 
-        fun `value`(`value`: kotlin.Long?) = apply { this.`value` = `value` }
-
-        fun build(): FileSize {
-            val instance =
-                FileSize(
-                    unit = unit,
-                    `value` = `value`
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: FileSize) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): FileSize {
+    val instance = FileSize(
             unit = unit,
             `value` = `value`
-        )
+    )
 
-    /**
-     * The unit about the file size.
-     * Values: KB,MB,GB
-     */
-    enum class Unit(val value: kotlin.String) {
-        @JsonProperty("KB")
-        KB("KB"),
-
-        @JsonProperty("MB")
-        MB("MB"),
-
-        @JsonProperty("GB")
-        GB("GB")
+    return instance
     }
+    }
+
+    fun toBuilder() = Builder(
+            unit = unit,
+            `value` = `value`
+    )
+
+            /**
+            * The unit about the file size.
+            * Values: KB,MB,GB
+            */
+            enum class Unit(val value: kotlin.String) {
+                    @JsonProperty("KB")
+                    KB("KB"),
+                    
+                    @JsonProperty("MB")
+                    MB("MB"),
+                    
+                    @JsonProperty("GB")
+                    GB("GB");
+            }
 }

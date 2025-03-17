@@ -15,84 +15,85 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.ActivitiesMoney
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * Container for the reference price used for strike out display.
- * @param totalRate
- * @param totalFees
- * @param totalTaxesAndFees
+    * @param totalRate 
+    * @param totalFees 
+    * @param totalTaxesAndFees 
 */
 data class ReferencePrice(
-    @JsonProperty("TotalRate")
-    @field:NotNull
-    @field:Valid
-    val totalRate: ActivitiesMoney,
-    @JsonProperty("TotalFees")
-    @field:Valid
-    val totalFees: ActivitiesMoney? = null,
-    @JsonProperty("TotalTaxesAndFees")
-    @field:Valid
-    val totalTaxesAndFees: ActivitiesMoney? = null
+        @JsonProperty("TotalRate")
+val totalRate:
+    ActivitiesMoney
+,
+
+        @JsonProperty("TotalFees")
+val totalFees: ActivitiesMoney? = null,
+
+        @JsonProperty("TotalTaxesAndFees")
+val totalTaxesAndFees: ActivitiesMoney? = null
 ) {
+    
+
+
+    init {
+                require(totalRate != null) { "totalRate must not be null" }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var totalRate: ActivitiesMoney? = null,
-        private var totalFees: ActivitiesMoney? = null,
-        private var totalTaxesAndFees: ActivitiesMoney? = null
-    ) {
-        fun totalRate(totalRate: ActivitiesMoney) = apply { this.totalRate = totalRate }
+        class Builder(
+                private var totalRate: ActivitiesMoney? = null,
+                private var totalFees: ActivitiesMoney? = null,
+                private var totalTaxesAndFees: ActivitiesMoney? = null
+        ) {
+                fun totalRate(totalRate: ActivitiesMoney) = apply { this.totalRate = totalRate }
+                fun totalFees(totalFees: ActivitiesMoney?) = apply { this.totalFees = totalFees }
+                fun totalTaxesAndFees(totalTaxesAndFees: ActivitiesMoney?) = apply { this.totalTaxesAndFees = totalTaxesAndFees }
 
-        fun totalFees(totalFees: ActivitiesMoney?) = apply { this.totalFees = totalFees }
-
-        fun totalTaxesAndFees(totalTaxesAndFees: ActivitiesMoney?) = apply { this.totalTaxesAndFees = totalTaxesAndFees }
-
-        fun build(): ReferencePrice {
-            val instance =
-                ReferencePrice(
-                    totalRate = totalRate!!,
-                    totalFees = totalFees,
-                    totalTaxesAndFees = totalTaxesAndFees
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: ReferencePrice) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): ReferencePrice {
+    val instance = ReferencePrice(
             totalRate = totalRate!!,
             totalFees = totalFees,
             totalTaxesAndFees = totalTaxesAndFees
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            totalRate = totalRate!!,
+            totalFees = totalFees,
+            totalTaxesAndFees = totalTaxesAndFees
+    )
 }

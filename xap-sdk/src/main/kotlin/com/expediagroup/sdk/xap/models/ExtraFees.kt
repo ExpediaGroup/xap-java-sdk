@@ -15,86 +15,93 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.CarsMoney
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * List of ExtraFeesDetails
- * @param unit Rate period beyond the base rate. Supported values: ExtraHourly, ExtraDaily
- * @param unitCount Numbers of period
- * @param amount
+    * @param unit Rate period beyond the base rate. Supported values: ExtraHourly, ExtraDaily
+    * @param unitCount Numbers of period
+    * @param amount 
 */
 data class ExtraFees(
-    // Rate period beyond the base rate. Supported values: ExtraHourly, ExtraDaily
-    @JsonProperty("Unit")
-    @field:NotNull
-    @field:Valid
-    val unit: kotlin.String,
-    // Numbers of period
-    @JsonProperty("UnitCount")
-    val unitCount: kotlin.Long,
-    @JsonProperty("Amount")
-    @field:NotNull
-    @field:Valid
-    val amount: CarsMoney
+            /* Rate period beyond the base rate. Supported values: ExtraHourly, ExtraDaily */
+@JsonProperty("Unit")
+val unit:
+    kotlin.String
+,
+
+            /* Numbers of period */
+@JsonProperty("UnitCount")
+val unitCount:
+    kotlin.Long
+,
+
+        @JsonProperty("Amount")
+val amount:
+    CarsMoney
+
 ) {
+    
+
+
+    init {
+                require(unit != null) { "unit must not be null" }
+
+
+
+
+
+
+
+        require(unitCount != null) { "unitCount must not be null" }
+
+
+
+
+
+
+
+        require(amount != null) { "amount must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var unit: kotlin.String? = null,
-        private var unitCount: kotlin.Long? = null,
-        private var amount: CarsMoney? = null
-    ) {
-        fun unit(unit: kotlin.String) = apply { this.unit = unit }
+        class Builder(
+                private var unit: kotlin.String? = null,
+                private var unitCount: kotlin.Long? = null,
+                private var amount: CarsMoney? = null
+        ) {
+                fun unit(unit: kotlin.String) = apply { this.unit = unit }
+                fun unitCount(unitCount: kotlin.Long) = apply { this.unitCount = unitCount }
+                fun amount(amount: CarsMoney) = apply { this.amount = amount }
 
-        fun unitCount(unitCount: kotlin.Long) = apply { this.unitCount = unitCount }
-
-        fun amount(amount: CarsMoney) = apply { this.amount = amount }
-
-        fun build(): ExtraFees {
-            val instance =
-                ExtraFees(
-                    unit = unit!!,
-                    unitCount = unitCount!!,
-                    amount = amount!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: ExtraFees) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): ExtraFees {
+    val instance = ExtraFees(
             unit = unit!!,
             unitCount = unitCount!!,
             amount = amount!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            unit = unit!!,
+            unitCount = unitCount!!,
+            amount = amount!!
+    )
 }

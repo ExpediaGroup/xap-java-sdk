@@ -15,64 +15,52 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Error from the APIM.
- * @param message Error from the APIM.
+    * @param message Error from the APIM.
 */
 data class SdpAPIMError(
-    // Error from the APIM.
-    @JsonProperty("message")
-    @field:Valid
-    val message: kotlin.String? = null
+            /* Error from the APIM. */
+@JsonProperty("message")
+val message: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var message: kotlin.String? = null
-    ) {
-        fun message(message: kotlin.String?) = apply { this.message = message }
+        class Builder(
+                private var message: kotlin.String? = null
+        ) {
+                fun message(message: kotlin.String?) = apply { this.message = message }
 
-        fun build(): SdpAPIMError {
-            val instance =
-                SdpAPIMError(
-                    message = message
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: SdpAPIMError) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): SdpAPIMError {
+    val instance = SdpAPIMError(
             message = message
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            message = message
+    )
 }

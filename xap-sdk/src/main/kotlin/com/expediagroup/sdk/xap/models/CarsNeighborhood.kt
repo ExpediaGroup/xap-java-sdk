@@ -15,77 +15,74 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * Geography entities which are typically contained within a city. This includes the categories neighborhood and point of interest. Low level regions are not a formally defined concept in the geography model.
- * @param id Neighborhood id.
- * @param name Neighborhood name.
+    * @param id Neighborhood id.
+    * @param name Neighborhood name.
 */
 data class CarsNeighborhood(
-    // Neighborhood id.
-    @JsonProperty("Id")
-    @field:NotNull
-    @field:Valid
-    val id: kotlin.String,
-    // Neighborhood name.
-    @JsonProperty("Name")
-    @field:NotNull
-    @field:Valid
-    val name: kotlin.String
+            /* Neighborhood id. */
+@JsonProperty("Id")
+val id:
+    kotlin.String
+,
+
+            /* Neighborhood name. */
+@JsonProperty("Name")
+val name:
+    kotlin.String
+
 ) {
+    
+
+
+    init {
+                require(id != null) { "id must not be null" }
+
+
+
+
+
+
+
+        require(name != null) { "name must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var id: kotlin.String? = null,
-        private var name: kotlin.String? = null
-    ) {
-        fun id(id: kotlin.String) = apply { this.id = id }
+        class Builder(
+                private var id: kotlin.String? = null,
+                private var name: kotlin.String? = null
+        ) {
+                fun id(id: kotlin.String) = apply { this.id = id }
+                fun name(name: kotlin.String) = apply { this.name = name }
 
-        fun name(name: kotlin.String) = apply { this.name = name }
-
-        fun build(): CarsNeighborhood {
-            val instance =
-                CarsNeighborhood(
-                    id = id!!,
-                    name = name!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: CarsNeighborhood) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): CarsNeighborhood {
+    val instance = CarsNeighborhood(
             id = id!!,
             name = name!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            id = id!!,
+            name = name!!
+    )
 }

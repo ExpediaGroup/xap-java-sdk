@@ -15,77 +15,74 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * A list of time range to indicate the operation hours of the date range.
- * @param startTime Start time at pickup location of the date range.
- * @param endTime End time at pickup location of the date range.
+    * @param startTime Start time at pickup location of the date range.
+    * @param endTime End time at pickup location of the date range.
 */
 data class TimeRange(
-    // Start time at pickup location of the date range.
-    @JsonProperty("StartTime")
-    @field:NotNull
-    @field:Valid
-    val startTime: kotlin.String,
-    // End time at pickup location of the date range.
-    @JsonProperty("EndTime")
-    @field:NotNull
-    @field:Valid
-    val endTime: kotlin.String
+            /* Start time at pickup location of the date range. */
+@JsonProperty("StartTime")
+val startTime:
+    kotlin.String
+,
+
+            /* End time at pickup location of the date range. */
+@JsonProperty("EndTime")
+val endTime:
+    kotlin.String
+
 ) {
+    
+
+
+    init {
+                require(startTime != null) { "startTime must not be null" }
+
+
+
+
+
+
+
+        require(endTime != null) { "endTime must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var startTime: kotlin.String? = null,
-        private var endTime: kotlin.String? = null
-    ) {
-        fun startTime(startTime: kotlin.String) = apply { this.startTime = startTime }
+        class Builder(
+                private var startTime: kotlin.String? = null,
+                private var endTime: kotlin.String? = null
+        ) {
+                fun startTime(startTime: kotlin.String) = apply { this.startTime = startTime }
+                fun endTime(endTime: kotlin.String) = apply { this.endTime = endTime }
 
-        fun endTime(endTime: kotlin.String) = apply { this.endTime = endTime }
-
-        fun build(): TimeRange {
-            val instance =
-                TimeRange(
-                    startTime = startTime!!,
-                    endTime = endTime!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: TimeRange) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): TimeRange {
+    val instance = TimeRange(
             startTime = startTime!!,
             endTime = endTime!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            startTime = startTime!!,
+            endTime = endTime!!
+    )
 }

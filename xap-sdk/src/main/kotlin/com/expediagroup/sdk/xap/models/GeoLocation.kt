@@ -15,83 +15,83 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Container for Geo location.
- * @param latitude Latitude of the location.
- * @param longitude Longitude of the location.
- * @param obfuscated
+    * @param latitude Latitude of the location.
+    * @param longitude Longitude of the location.
+    * @param obfuscated 
 */
 data class GeoLocation(
-    // Latitude of the location.
-    @JsonProperty("Latitude")
-    @field:Valid
-    val latitude: kotlin.String? = null,
-    // Longitude of the location.
-    @JsonProperty("Longitude")
-    @field:Valid
-    val longitude: kotlin.String? = null,
-    @JsonProperty("Obfuscated")
-    @field:Valid
-    val obfuscated: kotlin.Boolean? = null
+            /* Latitude of the location. */
+@JsonProperty("Latitude")
+val latitude: kotlin.String? = null,
+
+            /* Longitude of the location. */
+@JsonProperty("Longitude")
+val longitude: kotlin.String? = null,
+
+        @JsonProperty("Obfuscated")
+val obfuscated: kotlin.Boolean? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var latitude: kotlin.String? = null,
-        private var longitude: kotlin.String? = null,
-        private var obfuscated: kotlin.Boolean? = null
-    ) {
-        fun latitude(latitude: kotlin.String?) = apply { this.latitude = latitude }
+        class Builder(
+                private var latitude: kotlin.String? = null,
+                private var longitude: kotlin.String? = null,
+                private var obfuscated: kotlin.Boolean? = null
+        ) {
+                fun latitude(latitude: kotlin.String?) = apply { this.latitude = latitude }
+                fun longitude(longitude: kotlin.String?) = apply { this.longitude = longitude }
+                fun obfuscated(obfuscated: kotlin.Boolean?) = apply { this.obfuscated = obfuscated }
 
-        fun longitude(longitude: kotlin.String?) = apply { this.longitude = longitude }
-
-        fun obfuscated(obfuscated: kotlin.Boolean?) = apply { this.obfuscated = obfuscated }
-
-        fun build(): GeoLocation {
-            val instance =
-                GeoLocation(
-                    latitude = latitude,
-                    longitude = longitude,
-                    obfuscated = obfuscated
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: GeoLocation) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): GeoLocation {
+    val instance = GeoLocation(
             latitude = latitude,
             longitude = longitude,
             obfuscated = obfuscated
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            latitude = latitude,
+            longitude = longitude,
+            obfuscated = obfuscated
+    )
 }

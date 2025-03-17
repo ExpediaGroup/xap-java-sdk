@@ -11,16 +11,17 @@ data class Room(
 
     class Builder(
         private var adults: Long? = null,
-        private var childAges: List<Long>? = null
+        private var childAges: List<Long>? = null,
     ) {
         fun adults(adults: Long?) = apply { this.adults = adults }
 
         fun childAges(childAges: List<Long>?) = apply { this.childAges = childAges }
 
-        fun build(): Room =
-            Room(
+        fun build(): Room {
+            return Room(
                 adults = this.adults,
                 childAges = this.childAges
             )
+        }
     }
 }

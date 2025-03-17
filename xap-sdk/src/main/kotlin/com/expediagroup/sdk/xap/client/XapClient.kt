@@ -1,4 +1,4 @@
-package com.expediagroup.sdk.xap
+package com.expediagroup.sdk.xap.client
 
 import com.expediagroup.sdk.rest.RestClient
 import com.expediagroup.sdk.rest.RestExecutor

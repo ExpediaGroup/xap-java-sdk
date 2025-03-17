@@ -1,183 +1,247 @@
 package com.expediagroup.sdk.xap.operations
 
-import com.expediagroup.sdk.core.http.Headers
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
-import com.expediagroup.sdk.rest.model.UrlQueryParam
-import com.expediagroup.sdk.rest.util.stringifyExplode
-import com.expediagroup.sdk.rest.util.swaggerCollectionFormatStringifier
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
-/**
- * @property offerToken car offer token
- * @property partnerTransactionId [Not consumed by Expedia] Partner-generated identifier.
- * @property price The total price for the product.
- * @property currency Price currency code
- * @property source source mobile  - The value mobile represents that the client is mobile.
- */
-@JsonDeserialize(builder = GetCarDetailsOperationParams.Builder::class)
-data class GetCarDetailsOperationParams(
-    @field:NotNull
-    @field:Valid
-    val offerToken: kotlin.String,
-    @field:NotNull
-    @field:Valid
-    val partnerTransactionId: kotlin.String,
-    @field:NotNull
-    @field:Valid
-    val price: kotlin.String,
-    @field:NotNull
-    @field:Valid
-    val currency: kotlin.String,
-    @field:Valid
-    val source: kotlin.String? =
-        null
-) {
-    companion object {
-        @JvmStatic
-        fun builder() = Builder()
-    }
+        import com.expediagroup.sdk.rest.trait.operation.OperationRequestTrait
+        import com.expediagroup.sdk.rest.trait.operation.UrlPathTrait
+        
+            import com.fasterxml.jackson.core.type.TypeReference
+            import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+            import com.expediagroup.sdk.rest.trait.operation.JacksonModelOperationResponseBodyTrait
+        
+        
+            import com.expediagroup.sdk.rest.trait.operation.UrlQueryParamsTrait
+            import com.expediagroup.sdk.rest.model.UrlQueryParam
+            import com.expediagroup.sdk.rest.util.swaggerCollectionFormatStringifier
+            import com.expediagroup.sdk.rest.util.stringifyExplode
+            import com.expediagroup.sdk.rest.trait.operation.HeadersTrait
+            import com.expediagroup.sdk.core.http.Headers
 
-    class Builder(
-        @JsonProperty("offerToken") private var offerToken: kotlin.String? = null,
-        @JsonProperty("Partner-Transaction-Id") private var partnerTransactionId: kotlin.String? = null,
-        @JsonProperty("price") private var price: kotlin.String? = null,
-        @JsonProperty("currency") private var currency: kotlin.String? = null,
-        @JsonProperty("source") private var source: kotlin.String? = null
-    ) {
-        /**
-         * @param offerToken car offer token
-         */
-        fun offerToken(offerToken: kotlin.String) = apply { this.offerToken = offerToken }
 
-        /**
-         * @param partnerTransactionId [Not consumed by Expedia] Partner-generated identifier.
-         */
-        fun partnerTransactionId(partnerTransactionId: kotlin.String) = apply { this.partnerTransactionId = partnerTransactionId }
+import com.expediagroup.sdk.xap.models.APIMError
+import com.expediagroup.sdk.xap.models.CarDetailsResponse
+import com.expediagroup.sdk.xap.models.CarsErrors
 
-        /**
-         * @param price The total price for the product.
-         */
-        fun price(price: kotlin.String) = apply { this.price = price }
 
-        /**
-         * @param currency Price currency code
-         */
-        fun currency(currency: kotlin.String) = apply { this.currency = currency }
+            import com.fasterxml.jackson.annotation.JsonProperty
+            import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 
-        /**
-         * @param source source mobile  - The value mobile represents that the client is mobile.
-         */
-        fun source(source: kotlin.String) = apply { this.source = source }
+            /**
+                    * @property offerToken car offer token
+                    * @property partnerTransactionId [Not consumed by Expedia] Partner-generated identifier.
+                    * @property price The total price for the product.
+                    * @property currency Price currency code
+                    * @property source source mobile  - The value mobile represents that the client is mobile.
+            */
+            @JsonDeserialize(builder = GetCarDetailsOperationParams.Builder::class)
+            data class GetCarDetailsOperationParams(
+                    val offerToken:     
+    kotlin.String
 
-        fun build(): GetCarDetailsOperationParams {
-            val params =
-                GetCarDetailsOperationParams(
-                    offerToken = offerToken!!,
-                    partnerTransactionId = partnerTransactionId!!,
-                    price = price!!,
-                    currency = currency!!,
-                    source = source
-                )
+    , 
+                    val partnerTransactionId:     
+    kotlin.String
 
-            validate(params)
+    , 
+                    val price:     
+    kotlin.String
 
-            return params
-        }
+    , 
+                    val currency:     
+    kotlin.String
 
-        private fun validate(params: GetCarDetailsOperationParams) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
+    , 
+                    val source:     
+    kotlin.String
 
-            val violations = validator.validate(params)
+?
+    = null
 
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
+            ) {
+
+            init {
+                            require(offerToken != null) { "offerToken must not be null" }
+
+
+
+
+
+
+
+
+            require(partnerTransactionId != null) { "partnerTransactionId must not be null" }
+
+
+
+
+
+
+
+
+            require(price != null) { "price must not be null" }
+
+
+
+
+
+
+
+
+            require(currency != null) { "currency must not be null" }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
-        }
-    }
 
-    fun toBuilder() =
-        Builder(
-            offerToken = offerToken,
-            partnerTransactionId = partnerTransactionId,
-            price = price,
-            currency = currency,
-            source = source
+            companion object {
+            @JvmStatic
+            fun builder() = Builder()
+            }
+
+            
+
+            class Builder(
+        @JsonProperty("offerToken") private var offerToken:     
+    kotlin.String
+? = null
+        ,
+        @JsonProperty("Partner-Transaction-Id") private var partnerTransactionId:     
+    kotlin.String
+? = null
+        ,
+        @JsonProperty("price") private var price:     
+    kotlin.String
+? = null
+        ,
+        @JsonProperty("currency") private var currency:     
+    kotlin.String
+? = null
+        ,
+        @JsonProperty("source") private var source:     
+    kotlin.String
+? = null
+        
+) {
+        /**
+        * @param offerToken car offer token
+        */
+        fun offerToken(offerToken:     
+    kotlin.String
+) = apply { this.offerToken = offerToken }
+        /**
+        * @param partnerTransactionId [Not consumed by Expedia] Partner-generated identifier.
+        */
+        fun partnerTransactionId(partnerTransactionId:     
+    kotlin.String
+) = apply { this.partnerTransactionId = partnerTransactionId }
+        /**
+        * @param price The total price for the product.
+        */
+        fun price(price:     
+    kotlin.String
+) = apply { this.price = price }
+        /**
+        * @param currency Price currency code
+        */
+        fun currency(currency:     
+    kotlin.String
+) = apply { this.currency = currency }
+        /**
+        * @param source source mobile  - The value mobile represents that the client is mobile.
+        */
+        fun source(source:     
+    kotlin.String
+) = apply { this.source = source }
+
+    fun build(): GetCarDetailsOperationParams {
+        val params = GetCarDetailsOperationParams(
+                offerToken = offerToken!!,
+                partnerTransactionId = partnerTransactionId!!,
+                price = price!!,
+                currency = currency!!,
+                source = source
         )
 
-    fun getHeaders(): Headers =
-        Headers.builder().apply {
-            partnerTransactionId?.let {
-                add("Partner-Transaction-Id", it)
-            }
+        return params
+    }
+}
+
+fun toBuilder() = Builder(
+        offerToken = offerToken,
+        partnerTransactionId = partnerTransactionId,
+        price = price,
+        currency = currency,
+        source = source
+)
+
+
+            fun getHeaders(): Headers {
+return Headers.builder().apply {
+    partnerTransactionId?.let {
+    add("Partner-Transaction-Id", it)
+    }
             add("Accept", "application/vnd.exp-car.v3+json")
-        }.build()
+}.build()
+}
 
-    fun getQueryParams(): List<UrlQueryParam> =
-        buildList {
-            price?.let {
-                val key = "price"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
-                    )
-                )
-            }
-            currency?.let {
-                val key = "currency"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
-                    )
-                )
-            }
-            source?.let {
-                val key = "source"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
-                    )
-                )
-            }
+            fun getQueryParams(): List<UrlQueryParam> =
+    buildList {
+        price?.let {
+        val key = "price"
+        val value = buildList {
+            add(it)
         }
 
-    fun getPathParams(): Map<String, String> =
-        buildMap {
-            offerToken?.also {
-                put("offerToken", offerToken)
-            }
+        add(UrlQueryParam(
+        key = key,
+        value = value,
+        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
+        ))
+        }
+        currency?.let {
+        val key = "currency"
+        val value = buildList {
+            add(it)
+        }
+
+        add(UrlQueryParam(
+        key = key,
+        value = value,
+        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
+        ))
+        }
+        source?.let {
+        val key = "source"
+        val value = buildList {
+            add(it)
+        }
+
+        add(UrlQueryParam(
+        key = key,
+        value = value,
+        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
+        ))
         }
 }
+
+            fun getPathParams() : Map<String, String> {
+return buildMap {
+        offerToken?.also {
+        put("offerToken", offerToken)
+        }
+    }
+}
+            }

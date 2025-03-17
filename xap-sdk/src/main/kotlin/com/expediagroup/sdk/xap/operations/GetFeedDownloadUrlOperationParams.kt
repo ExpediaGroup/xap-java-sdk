@@ -1,247 +1,350 @@
 package com.expediagroup.sdk.xap.operations
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
-import com.expediagroup.sdk.rest.model.UrlQueryParam
-import com.expediagroup.sdk.rest.util.stringifyExplode
-import com.expediagroup.sdk.rest.util.swaggerCollectionFormatStringifier
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
-/**
- * @property type The type of file, used to get files by type.
- * @property locale Follow ISO-3166 Country Codes and ISO-639 Language Codes, format: \"{LanguageCode}-{CountryCode}\".Support multiple values, for the feed files that support localization, Use this parameter to help filter out the localization files you want to download. If not using this parameter, then this API will return all locales files for specified type. If the specified type of file is not  supported localization, there is no file will be returned.
- * @property pointOfSupply The point of supply means a country generally. The downloadable files provided after specifying will only contain properties' information for that country.
- * @property lodgingType The lodging type also means structure type, it only can be `CL`(Conventional Lodging) and `VR`(Vacation Rental). The downloadable files provided after specifying will only contain property information for that lodging type.
- * @property brand The downloadable files provided after specifying will only contain property information for that brand.
- */
-@JsonDeserialize(builder = GetFeedDownloadUrlOperationParams.Builder::class)
-data class GetFeedDownloadUrlOperationParams(
-    @field:NotNull
-    val type: GetFeedDownloadUrlOperationParams.Type,
-    @field:Valid
-    val locale: kotlin.String? =
-        null,
-    val pointOfSupply: GetFeedDownloadUrlOperationParams.PointOfSupply? =
-        null,
-    val lodgingType: GetFeedDownloadUrlOperationParams.LodgingType? =
-        null,
-    val brand: GetFeedDownloadUrlOperationParams.Brand? =
-        null
-) {
-    companion object {
-        @JvmStatic
-        fun builder() = Builder()
-    }
+        import com.expediagroup.sdk.rest.trait.operation.OperationRequestTrait
+        import com.expediagroup.sdk.rest.trait.operation.UrlPathTrait
+        
+            import com.fasterxml.jackson.core.type.TypeReference
+            import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+            import com.expediagroup.sdk.rest.trait.operation.JacksonModelOperationResponseBodyTrait
+        
+        
+            import com.expediagroup.sdk.rest.trait.operation.UrlQueryParamsTrait
+            import com.expediagroup.sdk.rest.model.UrlQueryParam
+            import com.expediagroup.sdk.rest.util.swaggerCollectionFormatStringifier
+            import com.expediagroup.sdk.rest.util.stringifyExplode
 
-    enum class Type(
-        val value: kotlin.String
-    ) {
-        DESTINATION("DESTINATION"),
-        VENDORLOGO("VENDORLOGO"),
-        SUMMARY("SUMMARY"),
-        LISTINGS("LISTINGS"),
-        IMAGES("IMAGES"),
-        AMENITIES("AMENITIES"),
-        LOCATIONS("LOCATIONS"),
-        DESCRIPTIONS("DESCRIPTIONS"),
-        POLICIES("POLICIES"),
-        GUEST_REVIEW("GUEST_REVIEW"),
-        VACATION_RENTAL("VACATION_RENTAL"),
-        ALL_REGIONS("ALL_REGIONS"),
-        BOUNDING_POLYGON("BOUNDING_POLYGON"),
-        HOTEL_TO_REGION_HIERARCHY("HOTEL_TO_REGION_HIERARCHY"),
-        ROOM_DETAILS("ROOM_DETAILS")
-    }
 
-    enum class PointOfSupply(
-        val value: kotlin.String
-    ) {
-        US("US"),
-        AT("AT"),
-        BR("BR"),
-        CA("CA"),
-        FR("FR"),
-        DE("DE"),
-        GR("GR"),
-        IT("IT"),
-        JA("JA"),
-        KR("KR"),
-        MX("MX"),
-        PT("PT"),
-        ES("ES"),
-        TR("TR"),
-        AE("AE"),
-        GB("GB")
-    }
+import com.expediagroup.sdk.xap.models.PresignedUrlResponse
+import com.expediagroup.sdk.xap.models.SdpAPIMError
 
-    enum class LodgingType(
-        val value: kotlin.String
-    ) {
-        CL("CL"),
-        VR("VR")
-    }
 
-    enum class Brand(
-        val value: kotlin.String
-    ) {
-        VRBO("VRBO")
-    }
+            import com.fasterxml.jackson.annotation.JsonProperty
+            import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 
-    class Builder(
-        @JsonProperty("type") private var type: GetFeedDownloadUrlOperationParams.Type? = null,
-        @JsonProperty("locale") private var locale: kotlin.String? = null,
-        @JsonProperty("pointOfSupply") private var pointOfSupply: GetFeedDownloadUrlOperationParams.PointOfSupply? = null,
-        @JsonProperty("lodgingType") private var lodgingType: GetFeedDownloadUrlOperationParams.LodgingType? = null,
-        @JsonProperty("brand") private var brand: GetFeedDownloadUrlOperationParams.Brand? = null
-    ) {
-        /**
-         * @param type The type of file, used to get files by type.
-         */
-        fun type(type: GetFeedDownloadUrlOperationParams.Type) = apply { this.type = type }
+            /**
+                    * @property type The type of file, used to get files by type.
+                    * @property locale Follow ISO-3166 Country Codes and ISO-639 Language Codes, format: \"{LanguageCode}-{CountryCode}\".Support multiple values, for the feed files that support localization, Use this parameter to help filter out the localization files you want to download. If not using this parameter, then this API will return all locales files for specified type. If the specified type of file is not  supported localization, there is no file will be returned.
+                    * @property pointOfSupply The point of supply means a country generally. The downloadable files provided after specifying will only contain properties' information for that country.
+                    * @property lodgingType The lodging type also means structure type, it only can be `CL`(Conventional Lodging) and `VR`(Vacation Rental). The downloadable files provided after specifying will only contain property information for that lodging type.
+                    * @property brand The downloadable files provided after specifying will only contain property information for that brand.
+            */
+            @JsonDeserialize(builder = GetFeedDownloadUrlOperationParams.Builder::class)
+            data class GetFeedDownloadUrlOperationParams(
+                    val type:     GetFeedDownloadUrlOperationParams.Type
+    
 
-        /**
-         * @param locale Follow ISO-3166 Country Codes and ISO-639 Language Codes, format: \"{LanguageCode}-{CountryCode}\".Support multiple values, for the feed files that support localization, Use this parameter to help filter out the localization files you want to download. If not using this parameter, then this API will return all locales files for specified type. If the specified type of file is not  supported localization, there is no file will be returned.
-         */
-        fun locale(locale: kotlin.String) = apply { this.locale = locale }
+    , 
+                    val locale:     
+    kotlin.String
 
-        /**
-         * @param pointOfSupply The point of supply means a country generally. The downloadable files provided after specifying will only contain properties' information for that country.
-         */
-        fun pointOfSupply(pointOfSupply: GetFeedDownloadUrlOperationParams.PointOfSupply) = apply { this.pointOfSupply = pointOfSupply }
+?
+    = null
+, 
+                    val pointOfSupply:     GetFeedDownloadUrlOperationParams.PointOfSupply
+    
 
-        /**
-         * @param lodgingType The lodging type also means structure type, it only can be `CL`(Conventional Lodging) and `VR`(Vacation Rental). The downloadable files provided after specifying will only contain property information for that lodging type.
-         */
-        fun lodgingType(lodgingType: GetFeedDownloadUrlOperationParams.LodgingType) = apply { this.lodgingType = lodgingType }
+?
+    = null
+, 
+                    val lodgingType:     GetFeedDownloadUrlOperationParams.LodgingType
+    
 
-        /**
-         * @param brand The downloadable files provided after specifying will only contain property information for that brand.
-         */
-        fun brand(brand: GetFeedDownloadUrlOperationParams.Brand) = apply { this.brand = brand }
+?
+    = null
+, 
+                    val brand:     GetFeedDownloadUrlOperationParams.Brand
+    
 
-        fun build(): GetFeedDownloadUrlOperationParams {
-            val params =
-                GetFeedDownloadUrlOperationParams(
-                    type = type!!,
-                    locale = locale,
-                    pointOfSupply = pointOfSupply,
-                    lodgingType = lodgingType,
-                    brand = brand
-                )
+?
+    = null
 
-            validate(params)
+            ) {
 
-            return params
-        }
+            init {
+                            require(type != null) { "type must not be null" }
 
-        private fun validate(params: GetFeedDownloadUrlOperationParams) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
 
-            val violations = validator.validate(params)
 
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             }
-        }
-    }
 
-    fun toBuilder() =
-        Builder(
-            type = type,
-            locale = locale,
-            pointOfSupply = pointOfSupply,
-            lodgingType = lodgingType,
-            brand = brand
+            companion object {
+            @JvmStatic
+            fun builder() = Builder()
+            }
+
+                        enum class Type(
+            val value:
+            
+            kotlin.String
+            ) {
+                    DESTINATION("DESTINATION")
+                    ,
+                    VENDORLOGO("VENDORLOGO")
+                    ,
+                    SUMMARY("SUMMARY")
+                    ,
+                    LISTINGS("LISTINGS")
+                    ,
+                    IMAGES("IMAGES")
+                    ,
+                    AMENITIES("AMENITIES")
+                    ,
+                    LOCATIONS("LOCATIONS")
+                    ,
+                    DESCRIPTIONS("DESCRIPTIONS")
+                    ,
+                    POLICIES("POLICIES")
+                    ,
+                    GUEST_REVIEW("GUEST_REVIEW")
+                    ,
+                    VACATION_RENTAL("VACATION_RENTAL")
+                    ,
+                    ALL_REGIONS("ALL_REGIONS")
+                    ,
+                    BOUNDING_POLYGON("BOUNDING_POLYGON")
+                    ,
+                    HOTEL_TO_REGION_HIERARCHY("HOTEL_TO_REGION_HIERARCHY")
+                    ,
+                    ROOM_DETAILS("ROOM_DETAILS")
+                    
+            }
+            enum class PointOfSupply(
+            val value:
+            
+            kotlin.String
+            ) {
+                    US("US")
+                    ,
+                    AT("AT")
+                    ,
+                    BR("BR")
+                    ,
+                    CA("CA")
+                    ,
+                    FR("FR")
+                    ,
+                    DE("DE")
+                    ,
+                    GR("GR")
+                    ,
+                    IT("IT")
+                    ,
+                    JA("JA")
+                    ,
+                    KR("KR")
+                    ,
+                    MX("MX")
+                    ,
+                    PT("PT")
+                    ,
+                    ES("ES")
+                    ,
+                    TR("TR")
+                    ,
+                    AE("AE")
+                    ,
+                    GB("GB")
+                    
+            }
+            enum class LodgingType(
+            val value:
+            
+            kotlin.String
+            ) {
+                    CL("CL")
+                    ,
+                    VR("VR")
+                    
+            }
+            enum class Brand(
+            val value:
+            
+            kotlin.String
+            ) {
+                    VRBO("VRBO")
+                    
+            }
+
+
+            class Builder(
+        @JsonProperty("type") private var type:     GetFeedDownloadUrlOperationParams.Type
+    
+? = null
+        ,
+        @JsonProperty("locale") private var locale:     
+    kotlin.String
+? = null
+        ,
+        @JsonProperty("pointOfSupply") private var pointOfSupply:     GetFeedDownloadUrlOperationParams.PointOfSupply
+    
+? = null
+        ,
+        @JsonProperty("lodgingType") private var lodgingType:     GetFeedDownloadUrlOperationParams.LodgingType
+    
+? = null
+        ,
+        @JsonProperty("brand") private var brand:     GetFeedDownloadUrlOperationParams.Brand
+    
+? = null
+        
+) {
+        /**
+        * @param type The type of file, used to get files by type.
+        */
+        fun type(type:     GetFeedDownloadUrlOperationParams.Type
+    
+) = apply { this.type = type }
+        /**
+        * @param locale Follow ISO-3166 Country Codes and ISO-639 Language Codes, format: \"{LanguageCode}-{CountryCode}\".Support multiple values, for the feed files that support localization, Use this parameter to help filter out the localization files you want to download. If not using this parameter, then this API will return all locales files for specified type. If the specified type of file is not  supported localization, there is no file will be returned.
+        */
+        fun locale(locale:     
+    kotlin.String
+) = apply { this.locale = locale }
+        /**
+        * @param pointOfSupply The point of supply means a country generally. The downloadable files provided after specifying will only contain properties' information for that country.
+        */
+        fun pointOfSupply(pointOfSupply:     GetFeedDownloadUrlOperationParams.PointOfSupply
+    
+) = apply { this.pointOfSupply = pointOfSupply }
+        /**
+        * @param lodgingType The lodging type also means structure type, it only can be `CL`(Conventional Lodging) and `VR`(Vacation Rental). The downloadable files provided after specifying will only contain property information for that lodging type.
+        */
+        fun lodgingType(lodgingType:     GetFeedDownloadUrlOperationParams.LodgingType
+    
+) = apply { this.lodgingType = lodgingType }
+        /**
+        * @param brand The downloadable files provided after specifying will only contain property information for that brand.
+        */
+        fun brand(brand:     GetFeedDownloadUrlOperationParams.Brand
+    
+) = apply { this.brand = brand }
+
+    fun build(): GetFeedDownloadUrlOperationParams {
+        val params = GetFeedDownloadUrlOperationParams(
+                type = type!!,
+                locale = locale,
+                pointOfSupply = pointOfSupply,
+                lodgingType = lodgingType,
+                brand = brand
         )
 
-    fun getQueryParams(): List<UrlQueryParam> =
-        buildList {
-            type?.let {
-                val key = "type"
-                val value =
-                    buildList {
-                        add(it.value)
-                    }
+        return params
+    }
+}
 
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
-                    )
-                )
-            }
-            locale?.let {
-                val key = "locale"
-                val value =
-                    buildList {
-                        add(it)
-                    }
+fun toBuilder() = Builder(
+        type = type,
+        locale = locale,
+        pointOfSupply = pointOfSupply,
+        lodgingType = lodgingType,
+        brand = brand
+)
 
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
-                    )
-                )
-            }
-            pointOfSupply?.let {
-                val key = "pointOfSupply"
-                val value =
-                    buildList {
-                        add(it.value)
-                    }
 
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
-                    )
-                )
-            }
-            lodgingType?.let {
-                val key = "lodgingType"
-                val value =
-                    buildList {
-                        add(it.value)
-                    }
+            
 
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
-                    )
-                )
-            }
-            brand?.let {
-                val key = "brand"
-                val value =
-                    buildList {
-                        add(it.value)
-                    }
+            fun getQueryParams(): List<UrlQueryParam> =
+    buildList {
+        type?.let {
+        val key = "type"
+        val value = buildList {
+            add(it.value)
+        }
 
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
-                    )
-                )
-            }
+        add(UrlQueryParam(
+        key = key,
+        value = value,
+        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
+        ))
+        }
+        locale?.let {
+        val key = "locale"
+        val value = buildList {
+            add(it)
+        }
+
+        add(UrlQueryParam(
+        key = key,
+        value = value,
+        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
+        ))
+        }
+        pointOfSupply?.let {
+        val key = "pointOfSupply"
+        val value = buildList {
+            add(it.value)
+        }
+
+        add(UrlQueryParam(
+        key = key,
+        value = value,
+        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
+        ))
+        }
+        lodgingType?.let {
+        val key = "lodgingType"
+        val value = buildList {
+            add(it.value)
+        }
+
+        add(UrlQueryParam(
+        key = key,
+        value = value,
+        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
+        ))
+        }
+        brand?.let {
+        val key = "brand"
+        val value = buildList {
+            add(it.value)
+        }
+
+        add(UrlQueryParam(
+        key = key,
+        value = value,
+        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode)
+        ))
         }
 }
+
+            
+            }

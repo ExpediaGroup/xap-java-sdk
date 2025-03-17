@@ -15,84 +15,84 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.Money
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
-*
- * @param `value` The total price of the corresponding date.
- * @param currency The ISO 4217 Currency Code that the Value is expressed in.  See [Global Currency Codes](https://developers.expediagroup.com/xap/products/xap/lodging/references/global-currency-codes) for a full list of supported currencies.
- * @param localCurrencyPrice
+* 
+    * @param `value` The total price of the corresponding date.
+    * @param currency The ISO 4217 Currency Code that the Value is expressed in.  See [Global Currency Codes](https://developers.expediagroup.com/xap/products/xap/lodging/references/global-currency-codes) for a full list of supported currencies. 
+    * @param localCurrencyPrice 
 */
 data class RateCalendarPrice(
-    // The total price of the corresponding date.
-    @JsonProperty("Value")
-    @field:Valid
-    val `value`: kotlin.Any? = null,
-    // The ISO 4217 Currency Code that the Value is expressed in.  See [Global Currency Codes](https://developers.expediagroup.com/xap/products/xap/lodging/references/global-currency-codes) for a full list of supported currencies.
-    @JsonProperty("Currency")
-    @field:Valid
-    val currency: kotlin.Any? = null,
-    @JsonProperty("LocalCurrencyPrice")
-    @field:Valid
-    val localCurrencyPrice: Money? = null
+            /* The total price of the corresponding date. */
+@JsonProperty("Value")
+val `value`: kotlin.Any? = null,
+
+            /* The ISO 4217 Currency Code that the Value is expressed in.  See [Global Currency Codes](https://developers.expediagroup.com/xap/products/xap/lodging/references/global-currency-codes) for a full list of supported currencies.  */
+@JsonProperty("Currency")
+val currency: kotlin.Any? = null,
+
+        @JsonProperty("LocalCurrencyPrice")
+val localCurrencyPrice: Money? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var `value`: kotlin.Any? = null,
-        private var currency: kotlin.Any? = null,
-        private var localCurrencyPrice: Money? = null
-    ) {
-        fun `value`(`value`: kotlin.Any?) = apply { this.`value` = `value` }
+        class Builder(
+                private var `value`: kotlin.Any? = null,
+                private var currency: kotlin.Any? = null,
+                private var localCurrencyPrice: Money? = null
+        ) {
+                fun `value`(`value`: kotlin.Any?) = apply { this.`value` = `value` }
+                fun currency(currency: kotlin.Any?) = apply { this.currency = currency }
+                fun localCurrencyPrice(localCurrencyPrice: Money?) = apply { this.localCurrencyPrice = localCurrencyPrice }
 
-        fun currency(currency: kotlin.Any?) = apply { this.currency = currency }
-
-        fun localCurrencyPrice(localCurrencyPrice: Money?) = apply { this.localCurrencyPrice = localCurrencyPrice }
-
-        fun build(): RateCalendarPrice {
-            val instance =
-                RateCalendarPrice(
-                    `value` = `value`,
-                    currency = currency,
-                    localCurrencyPrice = localCurrencyPrice
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: RateCalendarPrice) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): RateCalendarPrice {
+    val instance = RateCalendarPrice(
             `value` = `value`,
             currency = currency,
             localCurrencyPrice = localCurrencyPrice
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            `value` = `value`,
+            currency = currency,
+            localCurrencyPrice = localCurrencyPrice
+    )
 }

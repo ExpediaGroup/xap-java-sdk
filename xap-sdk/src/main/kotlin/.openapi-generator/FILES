@@ -155,6 +155,7 @@ com/expediagroup/sdk/xap/models/Redemption.kt
 com/expediagroup/sdk/xap/models/ReferencePrice.kt
 com/expediagroup/sdk/xap/models/RentalLimits.kt
 com/expediagroup/sdk/xap/models/Restrictions.kt
+com/expediagroup/sdk/xap/models/Room.kt
 com/expediagroup/sdk/xap/models/RoomOccupancyPolicy.kt
 com/expediagroup/sdk/xap/models/RoomPreference.kt
 com/expediagroup/sdk/xap/models/RoomRates.kt

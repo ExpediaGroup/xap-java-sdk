@@ -15,82 +15,82 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.CarsMoney
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Indicate whether it is deductible
- * @param excessAmount
- * @param liabilityAmount
- * @param deductibleAmount
+    * @param excessAmount 
+    * @param liabilityAmount 
+    * @param deductibleAmount 
 */
 data class Deductible(
-    @JsonProperty("ExcessAmount")
-    @field:Valid
-    val excessAmount: CarsMoney? = null,
-    @JsonProperty("LiabilityAmount")
-    @field:Valid
-    val liabilityAmount: CarsMoney? = null,
-    @JsonProperty("DeductibleAmount")
-    @field:Valid
-    val deductibleAmount: CarsMoney? = null
+        @JsonProperty("ExcessAmount")
+val excessAmount: CarsMoney? = null,
+
+        @JsonProperty("LiabilityAmount")
+val liabilityAmount: CarsMoney? = null,
+
+        @JsonProperty("DeductibleAmount")
+val deductibleAmount: CarsMoney? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var excessAmount: CarsMoney? = null,
-        private var liabilityAmount: CarsMoney? = null,
-        private var deductibleAmount: CarsMoney? = null
-    ) {
-        fun excessAmount(excessAmount: CarsMoney?) = apply { this.excessAmount = excessAmount }
+        class Builder(
+                private var excessAmount: CarsMoney? = null,
+                private var liabilityAmount: CarsMoney? = null,
+                private var deductibleAmount: CarsMoney? = null
+        ) {
+                fun excessAmount(excessAmount: CarsMoney?) = apply { this.excessAmount = excessAmount }
+                fun liabilityAmount(liabilityAmount: CarsMoney?) = apply { this.liabilityAmount = liabilityAmount }
+                fun deductibleAmount(deductibleAmount: CarsMoney?) = apply { this.deductibleAmount = deductibleAmount }
 
-        fun liabilityAmount(liabilityAmount: CarsMoney?) = apply { this.liabilityAmount = liabilityAmount }
-
-        fun deductibleAmount(deductibleAmount: CarsMoney?) = apply { this.deductibleAmount = deductibleAmount }
-
-        fun build(): Deductible {
-            val instance =
-                Deductible(
-                    excessAmount = excessAmount,
-                    liabilityAmount = liabilityAmount,
-                    deductibleAmount = deductibleAmount
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: Deductible) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): Deductible {
+    val instance = Deductible(
             excessAmount = excessAmount,
             liabilityAmount = liabilityAmount,
             deductibleAmount = deductibleAmount
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            excessAmount = excessAmount,
+            liabilityAmount = liabilityAmount,
+            deductibleAmount = deductibleAmount
+    )
 }

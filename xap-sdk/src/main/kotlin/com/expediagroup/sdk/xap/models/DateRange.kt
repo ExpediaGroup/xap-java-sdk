@@ -15,71 +15,68 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Validation
 
 /**
 * The actual date range for the shown availability.
- * @param startDate The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
- * @param endDate The final day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
+    * @param startDate The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
+    * @param endDate The final day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
 */
 data class DateRange(
-    // The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
-    @JsonProperty("StartDate")
-    val startDate: java.time.LocalDate? = null,
-    // The final day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
-    @JsonProperty("EndDate")
-    val endDate: java.time.LocalDate? = null
+            /* The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD]. */
+@JsonProperty("StartDate")
+val startDate: java.time.LocalDate? = null,
+
+            /* The final day of the date range in an ISO 8601 Date format [YYYY-MM-DD]. */
+@JsonProperty("EndDate")
+val endDate: java.time.LocalDate? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var startDate: java.time.LocalDate? = null,
-        private var endDate: java.time.LocalDate? = null
-    ) {
-        fun startDate(startDate: java.time.LocalDate?) = apply { this.startDate = startDate }
+        class Builder(
+                private var startDate: java.time.LocalDate? = null,
+                private var endDate: java.time.LocalDate? = null
+        ) {
+                fun startDate(startDate: java.time.LocalDate?) = apply { this.startDate = startDate }
+                fun endDate(endDate: java.time.LocalDate?) = apply { this.endDate = endDate }
 
-        fun endDate(endDate: java.time.LocalDate?) = apply { this.endDate = endDate }
-
-        fun build(): DateRange {
-            val instance =
-                DateRange(
-                    startDate = startDate,
-                    endDate = endDate
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: DateRange) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): DateRange {
+    val instance = DateRange(
             startDate = startDate,
             endDate = endDate
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            startDate = startDate,
+            endDate = endDate
+    )
 }

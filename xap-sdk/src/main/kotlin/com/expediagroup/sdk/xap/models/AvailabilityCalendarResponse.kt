@@ -15,86 +15,86 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.AvailabilityCalendar
 import com.expediagroup.sdk.xap.models.LodgingWarning
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
-*
- * @param warnings There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
- * @param transactionId Unique identifier for the transaction.
- * @param availabilityCalendars A list of the calendar entities.
+* 
+    * @param warnings There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings. 
+    * @param transactionId Unique identifier for the transaction.
+    * @param availabilityCalendars A list of the calendar entities.
 */
 data class AvailabilityCalendarResponse(
-    // There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
-    @JsonProperty("Warnings")
-    @field:Valid
-    val warnings: kotlin.collections.List<LodgingWarning>? = null,
-    // Unique identifier for the transaction.
-    @JsonProperty("TransactionId")
-    @field:Valid
-    val transactionId: kotlin.String? = null,
-    // A list of the calendar entities.
-    @JsonProperty("AvailabilityCalendars")
-    @field:Valid
-    val availabilityCalendars: kotlin.collections.List<AvailabilityCalendar>? = null
+            /* There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.  */
+@JsonProperty("Warnings")
+val warnings: kotlin.collections.List<LodgingWarning>? = null,
+
+            /* Unique identifier for the transaction. */
+@JsonProperty("TransactionId")
+val transactionId: kotlin.String? = null,
+
+            /* A list of the calendar entities. */
+@JsonProperty("AvailabilityCalendars")
+val availabilityCalendars: kotlin.collections.List<AvailabilityCalendar>? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var warnings: kotlin.collections.List<LodgingWarning>? = null,
-        private var transactionId: kotlin.String? = null,
-        private var availabilityCalendars: kotlin.collections.List<AvailabilityCalendar>? = null
-    ) {
-        fun warnings(warnings: kotlin.collections.List<LodgingWarning>?) = apply { this.warnings = warnings }
+        class Builder(
+                private var warnings: kotlin.collections.List<LodgingWarning>? = null,
+                private var transactionId: kotlin.String? = null,
+                private var availabilityCalendars: kotlin.collections.List<AvailabilityCalendar>? = null
+        ) {
+                fun warnings(warnings: kotlin.collections.List<LodgingWarning>?) = apply { this.warnings = warnings }
+                fun transactionId(transactionId: kotlin.String?) = apply { this.transactionId = transactionId }
+                fun availabilityCalendars(availabilityCalendars: kotlin.collections.List<AvailabilityCalendar>?) = apply { this.availabilityCalendars = availabilityCalendars }
 
-        fun transactionId(transactionId: kotlin.String?) = apply { this.transactionId = transactionId }
-
-        fun availabilityCalendars(availabilityCalendars: kotlin.collections.List<AvailabilityCalendar>?) = apply { this.availabilityCalendars = availabilityCalendars }
-
-        fun build(): AvailabilityCalendarResponse {
-            val instance =
-                AvailabilityCalendarResponse(
-                    warnings = warnings,
-                    transactionId = transactionId,
-                    availabilityCalendars = availabilityCalendars
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: AvailabilityCalendarResponse) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): AvailabilityCalendarResponse {
+    val instance = AvailabilityCalendarResponse(
             warnings = warnings,
             transactionId = transactionId,
             availabilityCalendars = availabilityCalendars
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            warnings = warnings,
+            transactionId = transactionId,
+            availabilityCalendars = availabilityCalendars
+    )
 }

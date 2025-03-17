@@ -15,86 +15,89 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * Price of Special equipment.
- * @param `value` The value of the element being defined.
- * @param currency The ISO 4217 Currency Code that the value is expressed in.
- * @param localCurrencyPrice
+    * @param `value` The value of the element being defined.
+    * @param currency The ISO 4217 Currency Code that the value is expressed in.
+    * @param localCurrencyPrice 
 */
 data class CarsMoney(
-    // The value of the element being defined.
-    @JsonProperty("Value")
-    @field:NotNull
-    @field:Valid
-    val `value`: kotlin.String,
-    // The ISO 4217 Currency Code that the value is expressed in.
-    @JsonProperty("Currency")
-    @field:NotNull
-    @field:Valid
-    val currency: kotlin.String,
-    @JsonProperty("LocalCurrencyPrice")
-    @field:Valid
-    val localCurrencyPrice: CarsMoney? = null
+            /* The value of the element being defined. */
+@JsonProperty("Value")
+val `value`:
+    kotlin.String
+,
+
+            /* The ISO 4217 Currency Code that the value is expressed in. */
+@JsonProperty("Currency")
+val currency:
+    kotlin.String
+,
+
+        @JsonProperty("LocalCurrencyPrice")
+val localCurrencyPrice: CarsMoney? = null
 ) {
+    
+
+
+    init {
+                require(`value` != null) { "`value` must not be null" }
+
+
+
+
+
+
+
+        require(currency != null) { "currency must not be null" }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var `value`: kotlin.String? = null,
-        private var currency: kotlin.String? = null,
-        private var localCurrencyPrice: CarsMoney? = null
-    ) {
-        fun `value`(`value`: kotlin.String) = apply { this.`value` = `value` }
+        class Builder(
+                private var `value`: kotlin.String? = null,
+                private var currency: kotlin.String? = null,
+                private var localCurrencyPrice: CarsMoney? = null
+        ) {
+                fun `value`(`value`: kotlin.String) = apply { this.`value` = `value` }
+                fun currency(currency: kotlin.String) = apply { this.currency = currency }
+                fun localCurrencyPrice(localCurrencyPrice: CarsMoney?) = apply { this.localCurrencyPrice = localCurrencyPrice }
 
-        fun currency(currency: kotlin.String) = apply { this.currency = currency }
-
-        fun localCurrencyPrice(localCurrencyPrice: CarsMoney?) = apply { this.localCurrencyPrice = localCurrencyPrice }
-
-        fun build(): CarsMoney {
-            val instance =
-                CarsMoney(
-                    `value` = `value`!!,
-                    currency = currency!!,
-                    localCurrencyPrice = localCurrencyPrice
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: CarsMoney) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): CarsMoney {
+    val instance = CarsMoney(
             `value` = `value`!!,
             currency = currency!!,
             localCurrencyPrice = localCurrencyPrice
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            `value` = `value`!!,
+            currency = currency!!,
+            localCurrencyPrice = localCurrencyPrice
+    )
 }

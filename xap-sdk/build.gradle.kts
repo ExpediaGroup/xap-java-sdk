@@ -11,19 +11,18 @@ group = "com.expediagroup.sdk"
 version = "1.0.0-SNAPSHOT"
 
 repositories {
-    mavenLocal()
     mavenCentral()
+    maven {
+        url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
 }
 
 dependencies {
     testImplementation(kotlin("test"))
-    api("com.expediagroup:sdk-rest:1.0.1-SNAPSHOT")
-    api("com.expediagroup:sdk-core:1.0.0-SNAPSHOT")
-    implementation("com.expediagroup:sdk-okhttp-transport:1.0.0-SNAPSHOT")
+    api("com.expediagroup:expediagroup-sdk-rest:0.0.1-beta-SNAPSHOT")
+    implementation("com.expediagroup:expediagroup-sdk-transport-okhttp:0.0.1-beta-SNAPSHOT")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.2")
-    implementation("org.hibernate:hibernate-validator:6.0.2.Final")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2")
-    implementation("javax.validation:validation-api:2.0.1.Final")
     implementation("org.slf4j:slf4j-simple:2.0.16")
     runtimeOnly("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2")
 }
@@ -55,22 +54,51 @@ ktlint {
             "indent_size" to "4",
             "insert_final_newline" to "true",
             "end_of_line" to "lf",
-            "ktlint_standard_enum-entry-name-case" to "disabled"
+            "ktlint_standard_enum-entry-name-case" to "disabled",
         )
 }
-
 
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            artifactId = "xap-sdk"
-            version = "1.0.0-SNAPSHOT"
-            groupId = project.property("groupId").toString()
             from(components["java"])
-        }
-    }
+            artifactId = project.property("ARTIFACT_NAME").toString()
+            groupId = project.property("GROUP_ID").toString()
+            version = if (project.hasProperty("SNAPSHOT_VERSION")) {
+                project.property("SNAPSHOT_VERSION").toString()
+            } else {
+                project.property("VERSION").toString()
+            }
+            description = project.findProperty("DESCRIPTION")?.toString()
 
-    repositories {
-        mavenLocal()
+            pom {
+                name.set(project.property("ARTIFACT_NAME").toString())
+                description.set(project.findProperty("DESCRIPTION")?.toString())
+                url.set(project.property("POM_URL").toString())
+
+                licenses {
+                    license {
+                        name.set(project.property("LICENSE_NAME").toString())
+                        url.set(project.property("LICENSE_URL").toString())
+                        distribution.set(project.property("LICENSE_DISTRIBUTION").toString())
+                        comments.set(project.property("LICENSE_COMMENTS").toString())
+                    }
+                }
+
+                developers {
+                    developer {
+                        name.set(project.property("DEVELOPER_NAME").toString())
+                        organization.set(project.property("DEVELOPER_ORG").toString())
+                        organizationUrl.set(project.property("DEVELOPER_ORG_URL").toString())
+                    }
+                }
+
+                scm {
+                    url.set(project.property("POM_SCM_URL").toString())
+                    connection.set(project.property("POM_SCM_CONNECTION").toString())
+                    developerConnection.set(project.property("POM_SCM_DEVELOPER_CONNECTION").toString())
+                }
+            }
+        }
     }
 }

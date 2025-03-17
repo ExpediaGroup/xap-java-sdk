@@ -15,77 +15,74 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * Car transmission and drive. Please find list of Car Transmission Drive Codes in https://expediaintegration.zendesk.com/hc/en-us/articles/115005380028
- * @param code Car transmission and drive code.
- * @param `value` Car transmission and drive value.
+    * @param code Car transmission and drive code.
+    * @param `value` Car transmission and drive value.
 */
 data class TransmissionDrive(
-    // Car transmission and drive code.
-    @JsonProperty("Code")
-    @field:NotNull
-    @field:Valid
-    val code: kotlin.String,
-    // Car transmission and drive value.
-    @JsonProperty("Value")
-    @field:NotNull
-    @field:Valid
-    val `value`: kotlin.String
+            /* Car transmission and drive code. */
+@JsonProperty("Code")
+val code:
+    kotlin.String
+,
+
+            /* Car transmission and drive value. */
+@JsonProperty("Value")
+val `value`:
+    kotlin.String
+
 ) {
+    
+
+
+    init {
+                require(code != null) { "code must not be null" }
+
+
+
+
+
+
+
+        require(`value` != null) { "`value` must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var code: kotlin.String? = null,
-        private var `value`: kotlin.String? = null
-    ) {
-        fun code(code: kotlin.String) = apply { this.code = code }
+        class Builder(
+                private var code: kotlin.String? = null,
+                private var `value`: kotlin.String? = null
+        ) {
+                fun code(code: kotlin.String) = apply { this.code = code }
+                fun `value`(`value`: kotlin.String) = apply { this.`value` = `value` }
 
-        fun `value`(`value`: kotlin.String) = apply { this.`value` = `value` }
-
-        fun build(): TransmissionDrive {
-            val instance =
-                TransmissionDrive(
-                    code = code!!,
-                    `value` = `value`!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: TransmissionDrive) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): TransmissionDrive {
+    val instance = TransmissionDrive(
             code = code!!,
             `value` = `value`!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            code = code!!,
+            `value` = `value`!!
+    )
 }

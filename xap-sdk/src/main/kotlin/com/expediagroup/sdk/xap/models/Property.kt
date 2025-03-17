@@ -15,114 +15,115 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.LodgingRoomType
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Container for information on each offered hotel.
- * @param id The unique property identifier used to designate a single property.
- * @param status Represents whether the offer is currently available.
- * @param roomTypes Container for all of available room types.
+    * @param id The unique property identifier used to designate a single property.
+    * @param status Represents whether the offer is currently available.
+    * @param roomTypes Container for all of available room types.
 */
 data class Property(
-    // The unique property identifier used to designate a single property.
-    @JsonProperty("Id")
-    @field:Valid
-    val id: kotlin.String? = null,
-    // Represents whether the offer is currently available.
-    @JsonProperty("Status")
-    val status: Property.Status? = null,
-    // Container for all of available room types.
-    @JsonProperty("RoomTypes")
-    @field:Valid
-    val roomTypes: kotlin.collections.List<LodgingRoomType>? = null
+            /* The unique property identifier used to designate a single property. */
+@JsonProperty("Id")
+val id: kotlin.String? = null,
+
+            /* Represents whether the offer is currently available. */
+@JsonProperty("Status")
+val status: Property.Status? = null,
+
+            /* Container for all of available room types. */
+@JsonProperty("RoomTypes")
+val roomTypes: kotlin.collections.List<LodgingRoomType>? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var id: kotlin.String? = null,
-        private var status: Property.Status? = null,
-        private var roomTypes: kotlin.collections.List<LodgingRoomType>? = null
-    ) {
-        fun id(id: kotlin.String?) = apply { this.id = id }
+        class Builder(
+                private var id: kotlin.String? = null,
+                private var status: Property.Status? = null,
+                private var roomTypes: kotlin.collections.List<LodgingRoomType>? = null
+        ) {
+                fun id(id: kotlin.String?) = apply { this.id = id }
+                fun status(status: Property.Status?) = apply { this.status = status }
+                fun roomTypes(roomTypes: kotlin.collections.List<LodgingRoomType>?) = apply { this.roomTypes = roomTypes }
 
-        fun status(status: Property.Status?) = apply { this.status = status }
-
-        fun roomTypes(roomTypes: kotlin.collections.List<LodgingRoomType>?) = apply { this.roomTypes = roomTypes }
-
-        fun build(): Property {
-            val instance =
-                Property(
-                    id = id,
-                    status = status,
-                    roomTypes = roomTypes
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: Property) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): Property {
+    val instance = Property(
             id = id,
             status = status,
             roomTypes = roomTypes
-        )
+    )
 
-    /**
-     * Represents whether the offer is currently available.
-     * Values: AVAILABLE,NOT_AVAILABLE,ERROR,NUMBER_OF_ADULTS_NOT_ACCEPTED,NUMBER_OF_CHILDREN_NOT_ACCEPTED,NUMBER_OF_INFANTS_NOT_ACCEPTED,NUMBER_OF_PERSONS_NOT_ACCEPTED,CHECK_IN_AGE_NOT_ACCEPTED
-     */
-    enum class Status(val value: kotlin.String) {
-        @JsonProperty("AVAILABLE")
-        AVAILABLE("AVAILABLE"),
-
-        @JsonProperty("NOT_AVAILABLE")
-        NOT_AVAILABLE("NOT_AVAILABLE"),
-
-        @JsonProperty("ERROR")
-        ERROR("ERROR"),
-
-        @JsonProperty("NUMBER_OF_ADULTS_NOT_ACCEPTED")
-        NUMBER_OF_ADULTS_NOT_ACCEPTED("NUMBER_OF_ADULTS_NOT_ACCEPTED"),
-
-        @JsonProperty("NUMBER_OF_CHILDREN_NOT_ACCEPTED")
-        NUMBER_OF_CHILDREN_NOT_ACCEPTED("NUMBER_OF_CHILDREN_NOT_ACCEPTED"),
-
-        @JsonProperty("NUMBER_OF_INFANTS_NOT_ACCEPTED")
-        NUMBER_OF_INFANTS_NOT_ACCEPTED("NUMBER_OF_INFANTS_NOT_ACCEPTED"),
-
-        @JsonProperty("NUMBER_OF_PERSONS_NOT_ACCEPTED")
-        NUMBER_OF_PERSONS_NOT_ACCEPTED("NUMBER_OF_PERSONS_NOT_ACCEPTED"),
-
-        @JsonProperty("CHECK_IN_AGE_NOT_ACCEPTED")
-        CHECK_IN_AGE_NOT_ACCEPTED("CHECK_IN_AGE_NOT_ACCEPTED")
+    return instance
     }
+    }
+
+    fun toBuilder() = Builder(
+            id = id,
+            status = status,
+            roomTypes = roomTypes
+    )
+
+            /**
+            * Represents whether the offer is currently available.
+            * Values: AVAILABLE,NOT_AVAILABLE,ERROR,NUMBER_OF_ADULTS_NOT_ACCEPTED,NUMBER_OF_CHILDREN_NOT_ACCEPTED,NUMBER_OF_INFANTS_NOT_ACCEPTED,NUMBER_OF_PERSONS_NOT_ACCEPTED,CHECK_IN_AGE_NOT_ACCEPTED
+            */
+            enum class Status(val value: kotlin.String) {
+                    @JsonProperty("AVAILABLE")
+                    AVAILABLE("AVAILABLE"),
+                    
+                    @JsonProperty("NOT_AVAILABLE")
+                    NOT_AVAILABLE("NOT_AVAILABLE"),
+                    
+                    @JsonProperty("ERROR")
+                    ERROR("ERROR"),
+                    
+                    @JsonProperty("NUMBER_OF_ADULTS_NOT_ACCEPTED")
+                    NUMBER_OF_ADULTS_NOT_ACCEPTED("NUMBER_OF_ADULTS_NOT_ACCEPTED"),
+                    
+                    @JsonProperty("NUMBER_OF_CHILDREN_NOT_ACCEPTED")
+                    NUMBER_OF_CHILDREN_NOT_ACCEPTED("NUMBER_OF_CHILDREN_NOT_ACCEPTED"),
+                    
+                    @JsonProperty("NUMBER_OF_INFANTS_NOT_ACCEPTED")
+                    NUMBER_OF_INFANTS_NOT_ACCEPTED("NUMBER_OF_INFANTS_NOT_ACCEPTED"),
+                    
+                    @JsonProperty("NUMBER_OF_PERSONS_NOT_ACCEPTED")
+                    NUMBER_OF_PERSONS_NOT_ACCEPTED("NUMBER_OF_PERSONS_NOT_ACCEPTED"),
+                    
+                    @JsonProperty("CHECK_IN_AGE_NOT_ACCEPTED")
+                    CHECK_IN_AGE_NOT_ACCEPTED("CHECK_IN_AGE_NOT_ACCEPTED");
+            }
 }

@@ -15,118 +15,128 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.Country
 import com.expediagroup.sdk.xap.models.GeoLocation
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Container for possible matches to your ambiguous `locationKeyword` query.
- * @param type Type of the location.
- * @param regionId RegionId the location resides in.
- * @param shortName The name of the location which matches the location keyword.
- * @param airportCode Indicates the nearest major airport to the location.
- * @param address The address of the location.
- * @param country
- * @param geoLocation
+    * @param type Type of the location.
+    * @param regionId RegionId the location resides in.
+    * @param shortName The name of the location which matches the location keyword.
+    * @param airportCode Indicates the nearest major airport to the location.
+    * @param address The address of the location.
+    * @param country 
+    * @param geoLocation 
 */
 data class LocationOption(
-    // Type of the location.
-    @JsonProperty("Type")
-    @field:Valid
-    val type: kotlin.String? = null,
-    // RegionId the location resides in.
-    @JsonProperty("RegionId")
-    @field:Valid
-    val regionId: kotlin.String? = null,
-    // The name of the location which matches the location keyword.
-    @JsonProperty("ShortName")
-    @field:Valid
-    val shortName: kotlin.String? = null,
-    // Indicates the nearest major airport to the location.
-    @JsonProperty("AirportCode")
-    @field:Valid
-    val airportCode: kotlin.String? = null,
-    // The address of the location.
-    @JsonProperty("Address")
-    @field:Valid
-    val address: kotlin.String? = null,
-    @JsonProperty("Country")
-    @field:Valid
-    val country: Country? = null,
-    @JsonProperty("GeoLocation")
-    @field:Valid
-    val geoLocation: GeoLocation? = null
+            /* Type of the location. */
+@JsonProperty("Type")
+val type: kotlin.String? = null,
+
+            /* RegionId the location resides in. */
+@JsonProperty("RegionId")
+val regionId: kotlin.String? = null,
+
+            /* The name of the location which matches the location keyword. */
+@JsonProperty("ShortName")
+val shortName: kotlin.String? = null,
+
+            /* Indicates the nearest major airport to the location. */
+@JsonProperty("AirportCode")
+val airportCode: kotlin.String? = null,
+
+            /* The address of the location. */
+@JsonProperty("Address")
+val address: kotlin.String? = null,
+
+        @JsonProperty("Country")
+val country: Country? = null,
+
+        @JsonProperty("GeoLocation")
+val geoLocation: GeoLocation? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var type: kotlin.String? = null,
-        private var regionId: kotlin.String? = null,
-        private var shortName: kotlin.String? = null,
-        private var airportCode: kotlin.String? = null,
-        private var address: kotlin.String? = null,
-        private var country: Country? = null,
-        private var geoLocation: GeoLocation? = null
-    ) {
-        fun type(type: kotlin.String?) = apply { this.type = type }
+        class Builder(
+                private var type: kotlin.String? = null,
+                private var regionId: kotlin.String? = null,
+                private var shortName: kotlin.String? = null,
+                private var airportCode: kotlin.String? = null,
+                private var address: kotlin.String? = null,
+                private var country: Country? = null,
+                private var geoLocation: GeoLocation? = null
+        ) {
+                fun type(type: kotlin.String?) = apply { this.type = type }
+                fun regionId(regionId: kotlin.String?) = apply { this.regionId = regionId }
+                fun shortName(shortName: kotlin.String?) = apply { this.shortName = shortName }
+                fun airportCode(airportCode: kotlin.String?) = apply { this.airportCode = airportCode }
+                fun address(address: kotlin.String?) = apply { this.address = address }
+                fun country(country: Country?) = apply { this.country = country }
+                fun geoLocation(geoLocation: GeoLocation?) = apply { this.geoLocation = geoLocation }
 
-        fun regionId(regionId: kotlin.String?) = apply { this.regionId = regionId }
-
-        fun shortName(shortName: kotlin.String?) = apply { this.shortName = shortName }
-
-        fun airportCode(airportCode: kotlin.String?) = apply { this.airportCode = airportCode }
-
-        fun address(address: kotlin.String?) = apply { this.address = address }
-
-        fun country(country: Country?) = apply { this.country = country }
-
-        fun geoLocation(geoLocation: GeoLocation?) = apply { this.geoLocation = geoLocation }
-
-        fun build(): LocationOption {
-            val instance =
-                LocationOption(
-                    type = type,
-                    regionId = regionId,
-                    shortName = shortName,
-                    airportCode = airportCode,
-                    address = address,
-                    country = country,
-                    geoLocation = geoLocation
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: LocationOption) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): LocationOption {
+    val instance = LocationOption(
             type = type,
             regionId = regionId,
             shortName = shortName,
@@ -134,5 +144,19 @@ data class LocationOption(
             address = address,
             country = country,
             geoLocation = geoLocation
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            type = type,
+            regionId = regionId,
+            shortName = shortName,
+            airportCode = airportCode,
+            address = address,
+            country = country,
+            geoLocation = geoLocation
+    )
 }

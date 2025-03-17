@@ -15,84 +15,84 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
-*
- * @param accept The Accept request header for API queries only.  Note: this value will only be returned if the link is an API query, as website URLs do not require an `Accept` header.
- * @param method Method of request.
- * @param href The URL of the destination web page or API query.
+* 
+    * @param accept The Accept request header for API queries only.  Note: this value will only be returned if the link is an API query, as website URLs do not require an `Accept` header. 
+    * @param method Method of request.
+    * @param href The URL of the destination web page or API query.
 */
 data class LodgingRoomTypeLinksWebDetails(
-    // The Accept request header for API queries only.  Note: this value will only be returned if the link is an API query, as website URLs do not require an `Accept` header.
-    @JsonProperty("Accept")
-    @field:Valid
-    val accept: kotlin.String? = null,
-    // Method of request.
-    @JsonProperty("Method")
-    @field:Valid
-    val method: kotlin.String? = null,
-    // The URL of the destination web page or API query.
-    @JsonProperty("Href")
-    @field:Valid
-    val href: kotlin.String? = null
+            /* The Accept request header for API queries only.  Note: this value will only be returned if the link is an API query, as website URLs do not require an `Accept` header.  */
+@JsonProperty("Accept")
+val accept: kotlin.String? = null,
+
+            /* Method of request. */
+@JsonProperty("Method")
+val method: kotlin.String? = null,
+
+            /* The URL of the destination web page or API query. */
+@JsonProperty("Href")
+val href: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var accept: kotlin.String? = null,
-        private var method: kotlin.String? = null,
-        private var href: kotlin.String? = null
-    ) {
-        fun accept(accept: kotlin.String?) = apply { this.accept = accept }
+        class Builder(
+                private var accept: kotlin.String? = null,
+                private var method: kotlin.String? = null,
+                private var href: kotlin.String? = null
+        ) {
+                fun accept(accept: kotlin.String?) = apply { this.accept = accept }
+                fun method(method: kotlin.String?) = apply { this.method = method }
+                fun href(href: kotlin.String?) = apply { this.href = href }
 
-        fun method(method: kotlin.String?) = apply { this.method = method }
-
-        fun href(href: kotlin.String?) = apply { this.href = href }
-
-        fun build(): LodgingRoomTypeLinksWebDetails {
-            val instance =
-                LodgingRoomTypeLinksWebDetails(
-                    accept = accept,
-                    method = method,
-                    href = href
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: LodgingRoomTypeLinksWebDetails) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): LodgingRoomTypeLinksWebDetails {
+    val instance = LodgingRoomTypeLinksWebDetails(
             accept = accept,
             method = method,
             href = href
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            accept = accept,
+            method = method,
+            href = href
+    )
 }

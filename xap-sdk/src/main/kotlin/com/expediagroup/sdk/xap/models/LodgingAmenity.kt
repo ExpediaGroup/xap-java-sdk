@@ -15,72 +15,66 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
-*
- * @param id
- * @param name
+* 
+    * @param id 
+    * @param name 
 */
 data class LodgingAmenity(
-    @JsonProperty("Id")
-    @field:Valid
-    val id: kotlin.String? = null,
-    @JsonProperty("Name")
-    @field:Valid
-    val name: kotlin.String? = null
+        @JsonProperty("Id")
+val id: kotlin.String? = null,
+
+        @JsonProperty("Name")
+val name: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var id: kotlin.String? = null,
-        private var name: kotlin.String? = null
-    ) {
-        fun id(id: kotlin.String?) = apply { this.id = id }
+        class Builder(
+                private var id: kotlin.String? = null,
+                private var name: kotlin.String? = null
+        ) {
+                fun id(id: kotlin.String?) = apply { this.id = id }
+                fun name(name: kotlin.String?) = apply { this.name = name }
 
-        fun name(name: kotlin.String?) = apply { this.name = name }
-
-        fun build(): LodgingAmenity {
-            val instance =
-                LodgingAmenity(
-                    id = id,
-                    name = name
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: LodgingAmenity) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): LodgingAmenity {
+    val instance = LodgingAmenity(
             id = id,
             name = name
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            id = id,
+            name = name
+    )
 }

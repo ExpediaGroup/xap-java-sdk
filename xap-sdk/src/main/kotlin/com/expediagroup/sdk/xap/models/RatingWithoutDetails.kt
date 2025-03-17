@@ -15,77 +15,74 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * The rating of the car being offered.
- * @param ratingPercentage The percentage of rating.
- * @param ratingCount The total count of rating.
+    * @param ratingPercentage The percentage of rating.
+    * @param ratingCount The total count of rating.
 */
 data class RatingWithoutDetails(
-    // The percentage of rating.
-    @JsonProperty("RatingPercentage")
-    @field:NotNull
-    @field:Valid
-    val ratingPercentage: kotlin.String,
-    // The total count of rating.
-    @JsonProperty("RatingCount")
-    @field:NotNull
-    @field:Valid
-    val ratingCount: kotlin.String
+            /* The percentage of rating. */
+@JsonProperty("RatingPercentage")
+val ratingPercentage:
+    kotlin.String
+,
+
+            /* The total count of rating. */
+@JsonProperty("RatingCount")
+val ratingCount:
+    kotlin.String
+
 ) {
+    
+
+
+    init {
+                require(ratingPercentage != null) { "ratingPercentage must not be null" }
+
+
+
+
+
+
+
+        require(ratingCount != null) { "ratingCount must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var ratingPercentage: kotlin.String? = null,
-        private var ratingCount: kotlin.String? = null
-    ) {
-        fun ratingPercentage(ratingPercentage: kotlin.String) = apply { this.ratingPercentage = ratingPercentage }
+        class Builder(
+                private var ratingPercentage: kotlin.String? = null,
+                private var ratingCount: kotlin.String? = null
+        ) {
+                fun ratingPercentage(ratingPercentage: kotlin.String) = apply { this.ratingPercentage = ratingPercentage }
+                fun ratingCount(ratingCount: kotlin.String) = apply { this.ratingCount = ratingCount }
 
-        fun ratingCount(ratingCount: kotlin.String) = apply { this.ratingCount = ratingCount }
-
-        fun build(): RatingWithoutDetails {
-            val instance =
-                RatingWithoutDetails(
-                    ratingPercentage = ratingPercentage!!,
-                    ratingCount = ratingCount!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: RatingWithoutDetails) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): RatingWithoutDetails {
+    val instance = RatingWithoutDetails(
             ratingPercentage = ratingPercentage!!,
             ratingCount = ratingCount!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            ratingPercentage = ratingPercentage!!,
+            ratingCount = ratingCount!!
+    )
 }

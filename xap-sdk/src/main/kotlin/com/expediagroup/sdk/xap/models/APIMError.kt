@@ -15,63 +15,51 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
-*
- * @param message
+* 
+    * @param message 
 */
 data class APIMError(
-    @JsonProperty("message")
-    @field:Valid
-    val message: kotlin.String? = null
+        @JsonProperty("message")
+val message: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var message: kotlin.String? = null
-    ) {
-        fun message(message: kotlin.String?) = apply { this.message = message }
+        class Builder(
+                private var message: kotlin.String? = null
+        ) {
+                fun message(message: kotlin.String?) = apply { this.message = message }
 
-        fun build(): APIMError {
-            val instance =
-                APIMError(
-                    message = message
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: APIMError) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): APIMError {
+    val instance = APIMError(
             message = message
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            message = message
+    )
 }

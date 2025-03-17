@@ -15,75 +15,69 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.Error
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
-*
- * @param errors Container for error list.
- * @param transactionId A unique identifier for the transaction.
+* 
+    * @param errors Container for error list.
+    * @param transactionId A unique identifier for the transaction.
 */
 data class Errors(
-    // Container for error list.
-    @JsonProperty("Errors")
-    @field:Valid
-    val errors: kotlin.collections.List<Error>? = null,
-    // A unique identifier for the transaction.
-    @JsonProperty("TransactionId")
-    @field:Valid
-    val transactionId: kotlin.String? = null
+            /* Container for error list. */
+@JsonProperty("Errors")
+val errors: kotlin.collections.List<Error>? = null,
+
+            /* A unique identifier for the transaction. */
+@JsonProperty("TransactionId")
+val transactionId: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var errors: kotlin.collections.List<Error>? = null,
-        private var transactionId: kotlin.String? = null
-    ) {
-        fun errors(errors: kotlin.collections.List<Error>?) = apply { this.errors = errors }
+        class Builder(
+                private var errors: kotlin.collections.List<Error>? = null,
+                private var transactionId: kotlin.String? = null
+        ) {
+                fun errors(errors: kotlin.collections.List<Error>?) = apply { this.errors = errors }
+                fun transactionId(transactionId: kotlin.String?) = apply { this.transactionId = transactionId }
 
-        fun transactionId(transactionId: kotlin.String?) = apply { this.transactionId = transactionId }
-
-        fun build(): Errors {
-            val instance =
-                Errors(
-                    errors = errors,
-                    transactionId = transactionId
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: Errors) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): Errors {
+    val instance = Errors(
             errors = errors,
             transactionId = transactionId
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            errors = errors,
+            transactionId = transactionId
+    )
 }

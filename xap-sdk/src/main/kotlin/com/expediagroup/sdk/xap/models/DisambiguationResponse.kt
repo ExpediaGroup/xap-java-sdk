@@ -15,81 +15,80 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.CarsError
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
-*
- * @param errors Container for error list.
- * @param transactionId A unique identifier for the transaction.
+* 
+    * @param errors Container for error list.
+    * @param transactionId A unique identifier for the transaction.
 */
 data class DisambiguationResponse(
-    // Container for error list.
-    @JsonProperty("Errors")
-    @field:NotNull
-    @field:Valid
-    val errors: kotlin.collections
-        .List<
-            CarsError
-        >,
-    // A unique identifier for the transaction.
-    @JsonProperty("TransactionId")
-    @field:NotNull
-    @field:Valid
-    val transactionId: kotlin.String
+            /* Container for error list. */
+@JsonProperty("Errors")
+val errors:
+                kotlin.collections.
+        List
+<
+        CarsError
+>
+    
+,
+
+            /* A unique identifier for the transaction. */
+@JsonProperty("TransactionId")
+val transactionId:
+    kotlin.String
+
 ) {
+    
+
+
+    init {
+                require(errors != null) { "errors must not be null" }
+
+
+
+
+
+
+
+        require(transactionId != null) { "transactionId must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var errors: kotlin.collections.List<CarsError>? = null,
-        private var transactionId: kotlin.String? = null
-    ) {
-        fun errors(errors: kotlin.collections.List<CarsError>) = apply { this.errors = errors }
+        class Builder(
+                private var errors: kotlin.collections.List<CarsError>? = null,
+                private var transactionId: kotlin.String? = null
+        ) {
+                fun errors(errors: kotlin.collections.List<CarsError>) = apply { this.errors = errors }
+                fun transactionId(transactionId: kotlin.String) = apply { this.transactionId = transactionId }
 
-        fun transactionId(transactionId: kotlin.String) = apply { this.transactionId = transactionId }
-
-        fun build(): DisambiguationResponse {
-            val instance =
-                DisambiguationResponse(
-                    errors = errors!!,
-                    transactionId = transactionId!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: DisambiguationResponse) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): DisambiguationResponse {
+    val instance = DisambiguationResponse(
             errors = errors!!,
             transactionId = transactionId!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            errors = errors!!,
+            transactionId = transactionId!!
+    )
 }

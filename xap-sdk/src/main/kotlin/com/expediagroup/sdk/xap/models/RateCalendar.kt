@@ -15,118 +15,127 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.RateCalendarPrice
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * The lowest rate information of requested days
- * @param stayDate Stay date for which the price is returned.
- * @param price
- * @param priceLevel Indicates how that day's price compares to the other lowest price for that hotel over the searched date range. Prices will be bucketed into LOW/MEDIUM/HIGH. Here are the details for each `PriceLevel`: - HIGH: 65th percentile+ - MEDIUM: 30th Percentile+ - LOW: Anything lower than 30th percentile
- * @param status Represents whether the offer is currently available.
+    * @param stayDate Stay date for which the price is returned.
+    * @param price 
+    * @param priceLevel Indicates how that day's price compares to the other lowest price for that hotel over the searched date range. Prices will be bucketed into LOW/MEDIUM/HIGH. Here are the details for each `PriceLevel`: - HIGH: 65th percentile+ - MEDIUM: 30th Percentile+ - LOW: Anything lower than 30th percentile 
+    * @param status Represents whether the offer is currently available.
 */
 data class RateCalendar(
-    // Stay date for which the price is returned.
-    @JsonProperty("StayDate")
-    val stayDate: java.time.LocalDate? = null,
-    @JsonProperty("Price")
-    @field:Valid
-    val price: RateCalendarPrice? = null,
-    // Indicates how that day's price compares to the other lowest price for that hotel over the searched date range. Prices will be bucketed into LOW/MEDIUM/HIGH. Here are the details for each `PriceLevel`: - HIGH: 65th percentile+ - MEDIUM: 30th Percentile+ - LOW: Anything lower than 30th percentile
-    @JsonProperty("PriceLevel")
-    val priceLevel: RateCalendar.PriceLevel? = null,
-    // Represents whether the offer is currently available.
-    @JsonProperty("Status")
-    val status: RateCalendar.Status? = null
+            /* Stay date for which the price is returned. */
+@JsonProperty("StayDate")
+val stayDate: java.time.LocalDate? = null,
+
+        @JsonProperty("Price")
+val price: RateCalendarPrice? = null,
+
+            /* Indicates how that day's price compares to the other lowest price for that hotel over the searched date range. Prices will be bucketed into LOW/MEDIUM/HIGH. Here are the details for each `PriceLevel`: - HIGH: 65th percentile+ - MEDIUM: 30th Percentile+ - LOW: Anything lower than 30th percentile  */
+@JsonProperty("PriceLevel")
+val priceLevel: RateCalendar.PriceLevel? = null,
+
+            /* Represents whether the offer is currently available. */
+@JsonProperty("Status")
+val status: RateCalendar.Status? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var stayDate: java.time.LocalDate? = null,
-        private var price: RateCalendarPrice? = null,
-        private var priceLevel: RateCalendar.PriceLevel? = null,
-        private var status: RateCalendar.Status? = null
-    ) {
-        fun stayDate(stayDate: java.time.LocalDate?) = apply { this.stayDate = stayDate }
+        class Builder(
+                private var stayDate: java.time.LocalDate? = null,
+                private var price: RateCalendarPrice? = null,
+                private var priceLevel: RateCalendar.PriceLevel? = null,
+                private var status: RateCalendar.Status? = null
+        ) {
+                fun stayDate(stayDate: java.time.LocalDate?) = apply { this.stayDate = stayDate }
+                fun price(price: RateCalendarPrice?) = apply { this.price = price }
+                fun priceLevel(priceLevel: RateCalendar.PriceLevel?) = apply { this.priceLevel = priceLevel }
+                fun status(status: RateCalendar.Status?) = apply { this.status = status }
 
-        fun price(price: RateCalendarPrice?) = apply { this.price = price }
-
-        fun priceLevel(priceLevel: RateCalendar.PriceLevel?) = apply { this.priceLevel = priceLevel }
-
-        fun status(status: RateCalendar.Status?) = apply { this.status = status }
-
-        fun build(): RateCalendar {
-            val instance =
-                RateCalendar(
-                    stayDate = stayDate,
-                    price = price,
-                    priceLevel = priceLevel,
-                    status = status
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: RateCalendar) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): RateCalendar {
+    val instance = RateCalendar(
             stayDate = stayDate,
             price = price,
             priceLevel = priceLevel,
             status = status
-        )
+    )
 
-    /**
-     * Indicates how that day's price compares to the other lowest price for that hotel over the searched date range. Prices will be bucketed into LOW/MEDIUM/HIGH. Here are the details for each `PriceLevel`: - HIGH: 65th percentile+ - MEDIUM: 30th Percentile+ - LOW: Anything lower than 30th percentile
-     * Values: HIGH,MEDIUM,LOW
-     */
-    enum class PriceLevel(val value: kotlin.String) {
-        @JsonProperty("HIGH")
-        HIGH("HIGH"),
-
-        @JsonProperty("MEDIUM")
-        MEDIUM("MEDIUM"),
-
-        @JsonProperty("LOW")
-        LOW("LOW")
+    return instance
+    }
     }
 
-    /**
-     * Represents whether the offer is currently available.
-     * Values: AVAILABLE,NOT_AVAILABLE
-     */
-    enum class Status(val value: kotlin.String) {
-        @JsonProperty("AVAILABLE")
-        AVAILABLE("AVAILABLE"),
+    fun toBuilder() = Builder(
+            stayDate = stayDate,
+            price = price,
+            priceLevel = priceLevel,
+            status = status
+    )
 
-        @JsonProperty("NOT_AVAILABLE")
-        NOT_AVAILABLE("NOT_AVAILABLE")
-    }
+            /**
+            * Indicates how that day's price compares to the other lowest price for that hotel over the searched date range. Prices will be bucketed into LOW/MEDIUM/HIGH. Here are the details for each `PriceLevel`: - HIGH: 65th percentile+ - MEDIUM: 30th Percentile+ - LOW: Anything lower than 30th percentile 
+            * Values: HIGH,MEDIUM,LOW
+            */
+            enum class PriceLevel(val value: kotlin.String) {
+                    @JsonProperty("HIGH")
+                    HIGH("HIGH"),
+                    
+                    @JsonProperty("MEDIUM")
+                    MEDIUM("MEDIUM"),
+                    
+                    @JsonProperty("LOW")
+                    LOW("LOW");
+            }
+
+            /**
+            * Represents whether the offer is currently available.
+            * Values: AVAILABLE,NOT_AVAILABLE
+            */
+            enum class Status(val value: kotlin.String) {
+                    @JsonProperty("AVAILABLE")
+                    AVAILABLE("AVAILABLE"),
+                    
+                    @JsonProperty("NOT_AVAILABLE")
+                    NOT_AVAILABLE("NOT_AVAILABLE");
+            }
 }

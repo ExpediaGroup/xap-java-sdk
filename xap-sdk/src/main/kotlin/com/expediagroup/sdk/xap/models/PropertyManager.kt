@@ -15,83 +15,84 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Container for information about the property manager. It will be shown for Vacation Rental hotel only.
- * @param name The name of the property manager.
- * @param calendarLastUpdated The latest updated date.
- * @param photoUrl The URL for property manager's photo.
+    * @param name The name of the property manager.
+    * @param calendarLastUpdated The latest updated date.
+    * @param photoUrl The URL for property manager's photo.
 */
 data class PropertyManager(
-    // The name of the property manager.
-    @JsonProperty("Name")
-    @field:Valid
-    val name: kotlin.String? = null,
-    // The latest updated date.
-    @JsonProperty("CalendarLastUpdated")
-    val calendarLastUpdated: java.time.LocalDate? = null,
-    // The URL for property manager's photo.
-    @JsonProperty("PhotoUrl")
-    @field:Valid
-    val photoUrl: kotlin.String? = null
+            /* The name of the property manager. */
+@JsonProperty("Name")
+val name: kotlin.String? = null,
+
+            /* The latest updated date. */
+@JsonProperty("CalendarLastUpdated")
+val calendarLastUpdated: java.time.LocalDate? = null,
+
+            /* The URL for property manager's photo. */
+@JsonProperty("PhotoUrl")
+val photoUrl: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var name: kotlin.String? = null,
-        private var calendarLastUpdated: java.time.LocalDate? = null,
-        private var photoUrl: kotlin.String? = null
-    ) {
-        fun name(name: kotlin.String?) = apply { this.name = name }
+        class Builder(
+                private var name: kotlin.String? = null,
+                private var calendarLastUpdated: java.time.LocalDate? = null,
+                private var photoUrl: kotlin.String? = null
+        ) {
+                fun name(name: kotlin.String?) = apply { this.name = name }
+                fun calendarLastUpdated(calendarLastUpdated: java.time.LocalDate?) = apply { this.calendarLastUpdated = calendarLastUpdated }
+                fun photoUrl(photoUrl: kotlin.String?) = apply { this.photoUrl = photoUrl }
 
-        fun calendarLastUpdated(calendarLastUpdated: java.time.LocalDate?) = apply { this.calendarLastUpdated = calendarLastUpdated }
-
-        fun photoUrl(photoUrl: kotlin.String?) = apply { this.photoUrl = photoUrl }
-
-        fun build(): PropertyManager {
-            val instance =
-                PropertyManager(
-                    name = name,
-                    calendarLastUpdated = calendarLastUpdated,
-                    photoUrl = photoUrl
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: PropertyManager) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): PropertyManager {
+    val instance = PropertyManager(
             name = name,
             calendarLastUpdated = calendarLastUpdated,
             photoUrl = photoUrl
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            name = name,
+            calendarLastUpdated = calendarLastUpdated,
+            photoUrl = photoUrl
+    )
 }

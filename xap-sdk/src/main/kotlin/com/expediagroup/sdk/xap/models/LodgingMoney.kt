@@ -15,74 +15,68 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
 * Pricing information of the stat date
- * @param `value` The value of the element being defined.
- * @param currency The ISO 4217 Currency Code that the value is expressed in.
+    * @param `value` The value of the element being defined.
+    * @param currency The ISO 4217 Currency Code that the value is expressed in.
 */
 data class LodgingMoney(
-    // The value of the element being defined.
-    @JsonProperty("Value")
-    @field:Valid
-    val `value`: kotlin.String? = null,
-    // The ISO 4217 Currency Code that the value is expressed in.
-    @JsonProperty("Currency")
-    @field:Valid
-    val currency: kotlin.String? = null
+            /* The value of the element being defined. */
+@JsonProperty("Value")
+val `value`: kotlin.String? = null,
+
+            /* The ISO 4217 Currency Code that the value is expressed in. */
+@JsonProperty("Currency")
+val currency: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var `value`: kotlin.String? = null,
-        private var currency: kotlin.String? = null
-    ) {
-        fun `value`(`value`: kotlin.String?) = apply { this.`value` = `value` }
+        class Builder(
+                private var `value`: kotlin.String? = null,
+                private var currency: kotlin.String? = null
+        ) {
+                fun `value`(`value`: kotlin.String?) = apply { this.`value` = `value` }
+                fun currency(currency: kotlin.String?) = apply { this.currency = currency }
 
-        fun currency(currency: kotlin.String?) = apply { this.currency = currency }
-
-        fun build(): LodgingMoney {
-            val instance =
-                LodgingMoney(
-                    `value` = `value`,
-                    currency = currency
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: LodgingMoney) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): LodgingMoney {
+    val instance = LodgingMoney(
             `value` = `value`,
             currency = currency
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            `value` = `value`,
+            currency = currency
+    )
 }

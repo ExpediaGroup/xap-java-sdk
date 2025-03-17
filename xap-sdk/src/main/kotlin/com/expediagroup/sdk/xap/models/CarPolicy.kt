@@ -15,76 +15,71 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * A list of policies that apply to this car rental.
- * @param categoryCode The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements)
- * @param policyText The raw text of the policy.This is generally localized into the requested language, but may be English if no other translations are available.
+    * @param categoryCode The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements) 
+    * @param policyText The raw text of the policy.This is generally localized into the requested language, but may be English if no other translations are available.
 */
 data class CarPolicy(
-    // The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements)
-    @JsonProperty("CategoryCode")
-    @field:NotNull
-    @field:Valid
-    val categoryCode: kotlin.String,
-    // The raw text of the policy.This is generally localized into the requested language, but may be English if no other translations are available.
-    @JsonProperty("PolicyText")
-    @field:Valid
-    val policyText: kotlin.String? = null
+            /* The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements)  */
+@JsonProperty("CategoryCode")
+val categoryCode:
+    kotlin.String
+,
+
+            /* The raw text of the policy.This is generally localized into the requested language, but may be English if no other translations are available. */
+@JsonProperty("PolicyText")
+val policyText: kotlin.String? = null
 ) {
+    
+
+
+    init {
+                require(categoryCode != null) { "categoryCode must not be null" }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var categoryCode: kotlin.String? = null,
-        private var policyText: kotlin.String? = null
-    ) {
-        fun categoryCode(categoryCode: kotlin.String) = apply { this.categoryCode = categoryCode }
+        class Builder(
+                private var categoryCode: kotlin.String? = null,
+                private var policyText: kotlin.String? = null
+        ) {
+                fun categoryCode(categoryCode: kotlin.String) = apply { this.categoryCode = categoryCode }
+                fun policyText(policyText: kotlin.String?) = apply { this.policyText = policyText }
 
-        fun policyText(policyText: kotlin.String?) = apply { this.policyText = policyText }
-
-        fun build(): CarPolicy {
-            val instance =
-                CarPolicy(
-                    categoryCode = categoryCode!!,
-                    policyText = policyText
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: CarPolicy) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): CarPolicy {
+    val instance = CarPolicy(
             categoryCode = categoryCode!!,
             policyText = policyText
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            categoryCode = categoryCode!!,
+            policyText = policyText
+    )
 }

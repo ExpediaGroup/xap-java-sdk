@@ -15,74 +15,68 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
-*
- * @param stayDate One date of the property stay
- * @param baseRate Nightly Base Rate for the selected date of stay.
+* 
+    * @param stayDate One date of the property stay
+    * @param baseRate Nightly Base Rate for the selected date of stay.
 */
 data class RoomRatesNightlyRatesInner(
-    // One date of the property stay
-    @JsonProperty("StayDate")
-    @field:Valid
-    val stayDate: kotlin.Any? = null,
-    // Nightly Base Rate for the selected date of stay.
-    @JsonProperty("BaseRate")
-    @field:Valid
-    val baseRate: kotlin.Any? = null
+            /* One date of the property stay */
+@JsonProperty("StayDate")
+val stayDate: kotlin.Any? = null,
+
+            /* Nightly Base Rate for the selected date of stay. */
+@JsonProperty("BaseRate")
+val baseRate: kotlin.Any? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var stayDate: kotlin.Any? = null,
-        private var baseRate: kotlin.Any? = null
-    ) {
-        fun stayDate(stayDate: kotlin.Any?) = apply { this.stayDate = stayDate }
+        class Builder(
+                private var stayDate: kotlin.Any? = null,
+                private var baseRate: kotlin.Any? = null
+        ) {
+                fun stayDate(stayDate: kotlin.Any?) = apply { this.stayDate = stayDate }
+                fun baseRate(baseRate: kotlin.Any?) = apply { this.baseRate = baseRate }
 
-        fun baseRate(baseRate: kotlin.Any?) = apply { this.baseRate = baseRate }
-
-        fun build(): RoomRatesNightlyRatesInner {
-            val instance =
-                RoomRatesNightlyRatesInner(
-                    stayDate = stayDate,
-                    baseRate = baseRate
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: RoomRatesNightlyRatesInner) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): RoomRatesNightlyRatesInner {
+    val instance = RoomRatesNightlyRatesInner(
             stayDate = stayDate,
             baseRate = baseRate
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            stayDate = stayDate,
+            baseRate = baseRate
+    )
 }

@@ -15,88 +15,93 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * List of image resources of the car product.
- * @param type Resource typeSupported values :Thumbnail - (70 pixels wide)Image - (165 pixels wide)
- * @param propertySize Size of imageSupported values :s - (165 pixels wide)t - (70 pixels wide)
- * @param href URL for the image.
+    * @param type Resource typeSupported values :Thumbnail - (70 pixels wide)Image - (165 pixels wide)
+    * @param propertySize Size of imageSupported values :s - (165 pixels wide)t - (70 pixels wide)
+    * @param href URL for the image.
 */
 data class Image(
-    // Resource typeSupported values :Thumbnail - (70 pixels wide)Image - (165 pixels wide)
-    @JsonProperty("Type")
-    @field:NotNull
-    @field:Valid
-    val type: kotlin.String,
-    // Size of imageSupported values :s - (165 pixels wide)t - (70 pixels wide)
-    @JsonProperty("Size")
-    @field:NotNull
-    @field:Valid
-    val propertySize: kotlin.String,
-    // URL for the image.
-    @JsonProperty("Href")
-    @field:NotNull
-    @field:Valid
-    val href: kotlin.String
+            /* Resource typeSupported values :Thumbnail - (70 pixels wide)Image - (165 pixels wide) */
+@JsonProperty("Type")
+val type:
+    kotlin.String
+,
+
+            /* Size of imageSupported values :s - (165 pixels wide)t - (70 pixels wide) */
+@JsonProperty("Size")
+val propertySize:
+    kotlin.String
+,
+
+            /* URL for the image. */
+@JsonProperty("Href")
+val href:
+    kotlin.String
+
 ) {
+    
+
+
+    init {
+                require(type != null) { "type must not be null" }
+
+
+
+
+
+
+
+        require(propertySize != null) { "propertySize must not be null" }
+
+
+
+
+
+
+
+        require(href != null) { "href must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var type: kotlin.String? = null,
-        private var propertySize: kotlin.String? = null,
-        private var href: kotlin.String? = null
-    ) {
-        fun type(type: kotlin.String) = apply { this.type = type }
+        class Builder(
+                private var type: kotlin.String? = null,
+                private var propertySize: kotlin.String? = null,
+                private var href: kotlin.String? = null
+        ) {
+                fun type(type: kotlin.String) = apply { this.type = type }
+                fun propertySize(propertySize: kotlin.String) = apply { this.propertySize = propertySize }
+                fun href(href: kotlin.String) = apply { this.href = href }
 
-        fun propertySize(propertySize: kotlin.String) = apply { this.propertySize = propertySize }
-
-        fun href(href: kotlin.String) = apply { this.href = href }
-
-        fun build(): Image {
-            val instance =
-                Image(
-                    type = type!!,
-                    propertySize = propertySize!!,
-                    href = href!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: Image) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): Image {
+    val instance = Image(
             type = type!!,
             propertySize = propertySize!!,
             href = href!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            type = type!!,
+            propertySize = propertySize!!,
+            href = href!!
+    )
 }

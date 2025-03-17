@@ -15,73 +15,68 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
-* Container for information on hotel property type.  You can find a complete list of Lodging Property Types in [Lodging Property Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/property-types).
- * @param id The id of hotel property type.
- * @param name The name of hotel property type.
+* Container for information on hotel property type.  You can find a complete list of Lodging Property Types in [Lodging Property Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/property-types). 
+    * @param id The id of hotel property type.
+    * @param name The name of hotel property type.
 */
 data class HotelPropertyType(
-    // The id of hotel property type.
-    @JsonProperty("Id")
-    val id: kotlin.Int? = null,
-    // The name of hotel property type.
-    @JsonProperty("Name")
-    @field:Valid
-    val name: kotlin.String? = null
+            /* The id of hotel property type. */
+@JsonProperty("Id")
+val id: kotlin.Int? = null,
+
+            /* The name of hotel property type. */
+@JsonProperty("Name")
+val name: kotlin.String? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var id: kotlin.Int? = null,
-        private var name: kotlin.String? = null
-    ) {
-        fun id(id: kotlin.Int?) = apply { this.id = id }
+        class Builder(
+                private var id: kotlin.Int? = null,
+                private var name: kotlin.String? = null
+        ) {
+                fun id(id: kotlin.Int?) = apply { this.id = id }
+                fun name(name: kotlin.String?) = apply { this.name = name }
 
-        fun name(name: kotlin.String?) = apply { this.name = name }
-
-        fun build(): HotelPropertyType {
-            val instance =
-                HotelPropertyType(
-                    id = id,
-                    name = name
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: HotelPropertyType) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): HotelPropertyType {
+    val instance = HotelPropertyType(
             id = id,
             name = name
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            id = id,
+            name = name
+    )
 }

@@ -15,75 +15,74 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.models.ActivitiesMoney
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
 * Container of savings information.
- * @param percentage The percentage of the price that has been discounted off the regular price for the current activity.
- * @param amount
+    * @param percentage The percentage of the price that has been discounted off the regular price for the current activity.
+    * @param amount 
 */
 data class Savings(
-    // The percentage of the price that has been discounted off the regular price for the current activity.
-    @JsonProperty("Percentage")
-    val percentage: kotlin.Int,
-    @JsonProperty("Amount")
-    @field:NotNull
-    @field:Valid
-    val amount: ActivitiesMoney
+            /* The percentage of the price that has been discounted off the regular price for the current activity. */
+@JsonProperty("Percentage")
+val percentage:
+    kotlin.Int
+,
+
+        @JsonProperty("Amount")
+val amount:
+    ActivitiesMoney
+
 ) {
+    
+
+
+    init {
+                require(percentage != null) { "percentage must not be null" }
+
+
+
+
+
+
+
+        require(amount != null) { "amount must not be null" }
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var percentage: kotlin.Int? = null,
-        private var amount: ActivitiesMoney? = null
-    ) {
-        fun percentage(percentage: kotlin.Int) = apply { this.percentage = percentage }
+        class Builder(
+                private var percentage: kotlin.Int? = null,
+                private var amount: ActivitiesMoney? = null
+        ) {
+                fun percentage(percentage: kotlin.Int) = apply { this.percentage = percentage }
+                fun amount(amount: ActivitiesMoney) = apply { this.amount = amount }
 
-        fun amount(amount: ActivitiesMoney) = apply { this.amount = amount }
-
-        fun build(): Savings {
-            val instance =
-                Savings(
-                    percentage = percentage!!,
-                    amount = amount!!
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: Savings) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): Savings {
+    val instance = Savings(
             percentage = percentage!!,
             amount = amount!!
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            percentage = percentage!!,
+            amount = amount!!
+    )
 }

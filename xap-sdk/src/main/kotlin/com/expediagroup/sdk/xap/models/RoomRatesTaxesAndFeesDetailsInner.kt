@@ -15,74 +15,68 @@
  */
 package com.expediagroup.sdk.xap.models
 
-import com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException
+
 import com.fasterxml.jackson.annotation.JsonProperty
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
 
 /**
-*
- * @param categoryCode Tax or fee category code.
- * @param amount Tax or fee value.
+* 
+    * @param categoryCode Tax or fee category code.
+    * @param amount Tax or fee value.
 */
 data class RoomRatesTaxesAndFeesDetailsInner(
-    // Tax or fee category code.
-    @JsonProperty("CategoryCode")
-    @field:Valid
-    val categoryCode: kotlin.Any? = null,
-    // Tax or fee value.
-    @JsonProperty("Amount")
-    @field:Valid
-    val amount: kotlin.Any? = null
+            /* Tax or fee category code. */
+@JsonProperty("CategoryCode")
+val categoryCode: kotlin.Any? = null,
+
+            /* Tax or fee value. */
+@JsonProperty("Amount")
+val amount: kotlin.Any? = null
 ) {
+    
+
+
+    init {
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
     companion object {
-        @JvmStatic
-        fun builder() = Builder()
+    @JvmStatic
+    fun builder() = Builder()
     }
 
-    class Builder(
-        private var categoryCode: kotlin.Any? = null,
-        private var amount: kotlin.Any? = null
-    ) {
-        fun categoryCode(categoryCode: kotlin.Any?) = apply { this.categoryCode = categoryCode }
+        class Builder(
+                private var categoryCode: kotlin.Any? = null,
+                private var amount: kotlin.Any? = null
+        ) {
+                fun categoryCode(categoryCode: kotlin.Any?) = apply { this.categoryCode = categoryCode }
+                fun amount(amount: kotlin.Any?) = apply { this.amount = amount }
 
-        fun amount(amount: kotlin.Any?) = apply { this.amount = amount }
-
-        fun build(): RoomRatesTaxesAndFeesDetailsInner {
-            val instance =
-                RoomRatesTaxesAndFeesDetailsInner(
-                    categoryCode = categoryCode,
-                    amount = amount
-                )
-
-            validate(instance)
-
-            return instance
-        }
-
-        private fun validate(instance: RoomRatesTaxesAndFeesDetailsInner) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(instance)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
-        }
-    }
-
-    fun toBuilder() =
-        Builder(
+    fun build(): RoomRatesTaxesAndFeesDetailsInner {
+    val instance = RoomRatesTaxesAndFeesDetailsInner(
             categoryCode = categoryCode,
             amount = amount
-        )
+    )
+
+    return instance
+    }
+    }
+
+    fun toBuilder() = Builder(
+            categoryCode = categoryCode,
+            amount = amount
+    )
 }
