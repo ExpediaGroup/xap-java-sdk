@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     kotlin("jvm")
     id("java")
+    id("signing")
     id("maven-publish")
     id("org.jlleitschuh.gradle.ktlint") version "12.1.2"
 }
@@ -102,6 +103,14 @@ publishing {
             }
         }
     }
+}
+
+signing {
+    val signingKey = System.getenv("GPG_SECRET")
+    val signingPassword = System.getenv("GPG_PASSPHRASE")
+
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign(publishing.publications)
 }
 
 gradle.taskGraph.whenReady {
