@@ -103,3 +103,28 @@ publishing {
         }
     }
 }
+
+gradle.taskGraph.whenReady {
+    if (hasTask(":publishSnapshots")) {
+        rootProject.version = "1.0.0-SNAPSHOT"
+        println("📌 Setting root project version to 1.0.0-SNAPSHOT for publishSnapshots task")
+    }
+}
+
+tasks.register("publishSnapshots") {
+    val snapshotModules = rootProject.subprojects.filter { project ->
+        project.version.toString().contains("-SNAPSHOT") && project.tasks.names.contains("publish")
+    }
+
+    if (snapshotModules.isNotEmpty()) {
+        dependsOn(snapshotModules.map { ":${it.name}:publish" })
+    }
+
+    doLast {
+        if (snapshotModules.isEmpty()) {
+            println("❌ No snapshot modules to publish.")
+        } else {
+            println("📦 Successfully published snapshots for: ${snapshotModules.map { it.name }}")
+        }
+    }
+}
