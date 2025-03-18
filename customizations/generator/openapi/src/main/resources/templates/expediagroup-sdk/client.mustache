@@ -1,5 +1,6 @@
 package com.expediagroup.sdk.{{namespace}}.client
 
+import io.ktor.client.plugins.contentnegotiation.exclude
 import java.util.concurrent.CompletableFuture
 import java.util.stream.Collectors
 import kotlin.collections.Map.Entry
@@ -69,6 +70,7 @@ class {{clientClassname}}Client private constructor(clientConfiguration: XapClie
             appendHeaders(extraHeaders)
             contentType(ContentType.Application.Json)
             setBody(operation.requestBody)
+            exclude(ContentType.Application.Json)
         }
     }
 
