@@ -130,7 +130,8 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
         new MockResponse()
             .setHeader("Content-Type", ACCEPT_HOTEL)
             .setResponseCode(200)
-            .setBody("{}"));
+            .setBody("{}")
+    );
 
     xapClient.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams));
     try {
@@ -212,7 +213,8 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
   }
 
   @Test
-  public void testResponse(@GivenTextResource("GetLodgingListingsResponse.json") String mockedResponse) {
+  public void testResponse(
+      @GivenTextResource("lodging/GetLodgingListingsResponse.json") String mockedResponse) {
     GetLodgingListingsOperationParams operationParams = GetLodgingListingsOperationParams.builder()
         .partnerTransactionId(Constant.PARTNER_TRANSACTION_ID)
         .locationKeyword("Seattle")

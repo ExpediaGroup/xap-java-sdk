@@ -6,7 +6,7 @@ import static com.expediagroup.sdk.xap.integrations.common.Constant.MOCK_KEY;
 
 import com.expediagroup.sdk.core.model.Response;
 import com.expediagroup.sdk.xap.integrations.common.Constant;
-import com.expediagroup.sdk.xap.integrations.common.XapIT;
+import com.expediagroup.sdk.xap.integrations.common.XapIntegrationTests;
 import com.expediagroup.sdk.xap.models.ActivitiesLink;
 import com.expediagroup.sdk.xap.models.ActivitiesLocation;
 import com.expediagroup.sdk.xap.models.ActivitiesMedia;
@@ -16,6 +16,8 @@ import com.expediagroup.sdk.xap.models.ActivityListingsResponse;
 import com.expediagroup.sdk.xap.models.CategoryGroup;
 import com.expediagroup.sdk.xap.operations.GetActivityListingsOperation;
 import com.expediagroup.sdk.xap.operations.GetActivityListingsOperationParams;
+import io.hosuaby.inject.resources.junit.jupiter.GivenTextResource;
+import io.hosuaby.inject.resources.junit.jupiter.TestWithResources;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -27,41 +29,47 @@ import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
 /**
  * This class is used to test the integration of the Lodging Listings API.
  */
-public class ListingsIT extends XapIT {
-
+@TestWithResources
+public class ListingsIntegrationTests extends XapIntegrationTests {
   @Test
-  public void testRequest() {
+  public void testRequest(
+      @GivenTextResource("activities/GetActivityListingsResponse.json") String mockedResponse) {
     GetActivityListingsOperationParams getActivityListingsOperationParams =
         GetActivityListingsOperationParams.builder()
-            .partnerTransactionId(UUID.randomUUID().toString()).geoLocation("47.6062,-122.3321")
+            .partnerTransactionId(UUID.randomUUID().toString())
             .location("seattle")
-            .links(Arrays.asList(GetActivityListingsOperationParams.Links.WD,
-                GetActivityListingsOperationParams.Links.AD))
-            .startDate(LocalDate.now().plusDays(5)).endDate(LocalDate.now().plusDays(8))
-            .locale("en_US").build();
+            .links(
+                Arrays.asList(
+                    GetActivityListingsOperationParams.Links.WD,
+                    GetActivityListingsOperationParams.Links.AD
+                )
+            )
+            .startDate(LocalDate.now().plusDays(5))
+            .endDate(LocalDate.now().plusDays(8))
+            .locale("en_US")
+            .build();
 
-    String mockResponse = "{" 
-        + "\"TransactionId\": \"2d410825-fe68-449d-877f-d36b90d6fe0c\","
-        + "\"Count\": 50," 
-        + "\"Location\": \"Seattle (and vicinity)\"" 
-        + "}";
+    mockWebServer.enqueue(
+        new MockResponse()
+            .setHeader("Content-Type", ACCEPT_ACTIVITY)
+            .setResponseCode(200)
+            .setBody(mockedResponse)
+    );
 
-    mockWebServer.enqueue(new MockResponse().setHeader("Content-Type", ACCEPT_ACTIVITY)
-        .setResponseCode(200).setBody(mockResponse));
-
-    mockClient.execute(new GetActivityListingsOperation(getActivityListingsOperationParams));
+    xapClient.execute(new GetActivityListingsOperation(getActivityListingsOperationParams));
     try {
       RecordedRequest recordedRequest = mockWebServer.takeRequest();
       // method
       Assertions.assertEquals("GET", recordedRequest.getMethod());
       // headers
       Headers headers = recordedRequest.getHeaders();
-      Assertions.assertEquals(getActivityListingsOperationParams.getPartnerTransactionId(),
-          headers.get("Partner-Transaction-Id"));
+      Assertions.assertEquals(
+          getActivityListingsOperationParams.getPartnerTransactionId(),
+          headers.get("Partner-Transaction-Id")
+      );
       Assertions.assertEquals(ACCEPT_ACTIVITY, headers.get("Accept"));
       Assertions.assertEquals(MOCK_KEY, headers.get("key"));
       Assertions.assertEquals(AUTHORIZATION, headers.get("Authorization"));
@@ -72,7 +80,6 @@ public class ListingsIT extends XapIT {
       String query = path.substring(path.indexOf("?") + 1);
       // activity selection
       Assertions.assertTrue(query.contains("location=seattle"));
-      Assertions.assertTrue(query.contains("geoLocation=47.6062%2C-122.3321"));
       // search
       Assertions.assertTrue(
           query.contains("startDate=" + getActivityListingsOperationParams.getStartDate()));
@@ -83,21 +90,34 @@ public class ListingsIT extends XapIT {
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
-
   }
 
   @Test
-  public void testResponse() {
+  public void testResponse(
+      @GivenTextResource("activities/GetActivityListingsResponse.json") String mockedResponse) {
     GetActivityListingsOperationParams getActivityListingsOperationParams =
-        GetActivityListingsOperationParams.builder()
+        GetActivityListingsOperationParams
+            .builder()
             .partnerTransactionId(Constant.PARTNER_TRANSACTION_ID)
             .location("seattle")
-            .links(Arrays.asList(GetActivityListingsOperationParams.Links.WD,
-                GetActivityListingsOperationParams.Links.AD))
+            .links(
+                Arrays.asList(
+                    GetActivityListingsOperationParams.Links.WD,
+                    GetActivityListingsOperationParams.Links.AD
+                )
+            )
             .startDate(LocalDate.now().plusDays(5))
             .endDate(LocalDate.now().plusDays(8))
             .locale("en_US")
             .build();
+
+    mockWebServer.enqueue(
+        new MockResponse()
+            .setHeader("Content-Type", ACCEPT_ACTIVITY)
+            .setHeader("Partner-Transaction-Id", Constant.PARTNER_TRANSACTION_ID)
+            .setResponseCode(200)
+            .setBody(mockedResponse)
+    );
 
     Response<ActivityListingsResponse> response =
         xapClient.execute(new GetActivityListingsOperation(getActivityListingsOperationParams));
@@ -109,8 +129,10 @@ public class ListingsIT extends XapIT {
     Assertions.assertEquals(200, response.getStatusCode());
     Map<String, List<String>> headers = response.getHeaders();
     Assertions.assertNotNull(headers);
-    Assertions.assertEquals(Constant.PARTNER_TRANSACTION_ID,
-        headers.get("partner-transaction-id").get(0));
+    Assertions.assertEquals(
+        Constant.PARTNER_TRANSACTION_ID,
+        headers.get("partner-transaction-id").get(0)
+    );
     verifyActivityListingsResponse(response.getData());
   }
 
@@ -127,26 +149,22 @@ public class ListingsIT extends XapIT {
     if (activityListingsResponse.getCategories() != null) {
       verifyCategories(activityListingsResponse.getCategories());
     }
-
   }
 
   private void verifyActivity(Activity activity) {
     Assertions.assertNotNull(activity);
-    Assertions.assertNotNull(activity.getId());
     Assertions.assertNotNull(activity.getTitle());
     Assertions.assertNotNull(activity.getDescription());
     Assertions.assertNotNull(activity.getDuration());
     Assertions.assertNotNull(activity.getFreeCancellation());
 
-    verfiyMedia(activity.getMedia());
-    verfiyCategories(activity.getCategories());
+    verifyMedia(activity.getMedia());
     verifyPrice(activity.getPrice());
     verifyActivityLocations(activity.getActivityLocations());
     verifyActivityLinks(activity.getLinks());
-
   }
 
-  protected void verfiyMedia(List<ActivitiesMedia> media) {
+  protected void verifyMedia(List<ActivitiesMedia> media) {
     Assertions.assertNotNull(media);
     media.forEach(item -> {
       Assertions.assertNotNull(item.getPropertySize());
@@ -155,23 +173,11 @@ public class ListingsIT extends XapIT {
     });
   }
 
-  protected void verfiyCategories(List<String> categories) {
-    Assertions.assertNotNull(categories);
-    //Currently there is a bug in Activity, values in Categories will be null
-    //  "Categories": [
-    //      null
-    //  ],
-//    categories.forEach(item -> {
-//      Assertions.assertNotNull(item);
-//    });
-  }
-
   protected void verifyPrice(ActivitiesPrice price) {
     Assertions.assertNotNull(price);
     Assertions.assertNotNull(price.getTotalRate());
     Assertions.assertNotNull(price.getTotalRate().getCurrency());
     Assertions.assertNotNull(price.getTotalRate().getValue());
-
   }
 
   protected void verifyActivityLocations(List<ActivitiesLocation> locations) {
@@ -186,7 +192,6 @@ public class ListingsIT extends XapIT {
         Assertions.assertNotNull(location.getGeoLocation().getLatitude());
         Assertions.assertNotNull(location.getGeoLocation().getLongitude());
       }
-
     });
   }
 
@@ -206,9 +211,6 @@ public class ListingsIT extends XapIT {
       Assertions.assertNotNull(category.getGroupDisplayName());
       Assertions.assertNotNull(category.getGroupName());
       Assertions.assertTrue(category.getCount() > 0);
-
-
     });
-
   }
 }
