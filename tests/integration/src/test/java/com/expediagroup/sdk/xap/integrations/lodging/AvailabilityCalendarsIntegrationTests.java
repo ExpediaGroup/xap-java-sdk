@@ -72,7 +72,9 @@ public class AvailabilityCalendarsIntegrationTests extends XapIntegrationTests {
   }
 
   @Test
-  public void testResponse(@GivenTextResource("GetLodgingAvailabilityCalendarsResponse.json") String mockedResponse) {
+  public void testResponse(
+      @GivenTextResource("lodging/GetLodgingAvailabilityCalendarsResponse.json")
+      String mockedResponse) {
     GetLodgingAvailabilityCalendarsOperationParams params =
         GetLodgingAvailabilityCalendarsOperationParams.builder()
             .partnerTransactionId(PARTNER_TRANSACTION_ID)
@@ -85,7 +87,8 @@ public class AvailabilityCalendarsIntegrationTests extends XapIntegrationTests {
             .setHeader("Content-Type", ACCEPT_HOTEL)
             .setHeader("partner-transaction-id", PARTNER_TRANSACTION_ID)
             .setResponseCode(200)
-            .setBody(mockedResponse));
+            .setBody(mockedResponse)
+    );
 
     Response<AvailabilityCalendarResponse> response =
         xapClient.execute(new GetLodgingAvailabilityCalendarsOperation(params));

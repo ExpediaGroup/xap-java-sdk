@@ -116,7 +116,8 @@ public class QuotesIntegrationTests extends XapIntegrationTests {
   }
 
   @Test
-  public void testResponse(@GivenTextResource("GetLodgingQuotesResponse.json") String mockedResponse) {
+  public void testResponse(
+      @GivenTextResource("lodging/GetLodgingQuotesResponse.json") String mockedResponse) {
     GetLodgingQuotesOperationParams getLodgingQuotesOperationParams =
         GetLodgingQuotesOperationParams.builder()
             .partnerTransactionId(PARTNER_TRANSACTION_ID)
