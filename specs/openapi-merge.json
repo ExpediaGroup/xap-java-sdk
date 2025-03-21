@@ -1,0 +1,50 @@
+{
+  "inputs": [
+    {
+      "inputFile": "./xap-hotel.specs.yaml"
+    },
+    {
+      "inputFile": "./xap-lodging.specs.yaml",
+      "dispute": {
+        "prefix": "Lodging"
+      }
+    },
+    {
+      "inputFile": "./xap-car.specs.yaml",
+      "dispute": {
+        "prefix": "Cars"
+      }
+    },
+    {
+      "inputFile": "./xap-sdp-v1.specs.yaml",
+      "dispute": {
+        "prefix": "Sdp"
+      }
+    },
+    {
+      "inputFile": "./xap-activity.specs.yaml",
+      "dispute": {
+        "prefix": "Activities"
+      }
+    },
+    {
+      "inputFile":  "./xap-flight-v1.specs.yaml",
+      "dispute": {
+        "prefix": "FlightsV1"
+      }
+    },
+    {
+      "inputFile":  "./xap-flight-v2.specs.yaml",
+      "dispute": {
+        "prefix": "FlightsV2"
+      }
+    },
+    {
+      "inputFile":  "./xap-flight-v3.specs.yaml",
+      "dispute": {
+        "prefix": "FlightsV3"
+      }
+    }
+  ],
+  "output": "./specs.yaml"
+}

@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    kotlin("jvm")
+    kotlin("jvm") version "2.1.10"
     id("java")
     id("signing")
     id("maven-publish")
@@ -68,24 +68,6 @@ signing {
     useInMemoryPgpKeys(signingKey, signingPassword)
     sign(publishing.publications)
 }
-
-group = "com.expediagroup.sdk"
-version = "1.0.0-SNAPSHOT"
-
-
-//nexusPublishing {
-//    repositories {
-//        sonatype {
-//            username.set(System.getenv("SONATYPE_USERNAME"))
-//            password.set(System.getenv("SONATYPE_PASSWORD"))
-//        }
-//    }
-//
-//    transitionCheckOptions {
-//        maxRetries.set(60)
-//        delayBetween.set(Duration.ofMillis(5000))
-//    }
-//}
 
 dependencies {
     testImplementation(kotlin("test"))

@@ -1,0 +1,392 @@
+openapi: 3.0.1
+info:
+  title: EWS-Feed-Service APIs specification
+  version: v1
+  description: OpenAPI Spec for EWS Feed Service  APIs
+  contact:
+    name: Partner APIs
+    url: https://confluence.expedia.biz/display/EWS/EWS-feed-service
+    email: skywalker@expedia.com
+  x-eg-lifecycle: LIVE
+  x-eg-tags: ["ews", "feeds", "presignedurl", "downloadurl", "sdp", "staticInfo"]
+servers:
+  - url: 'https://apim.expedia.com'
+    description: Production Server
+paths:
+  /feed/v1/download-url:
+    get:
+      tags:
+        - download-url
+      operationId: get-feed-download-url
+      description: >-
+        Get the Download URL and other details of the static files.
+      parameters:
+        - name: Key
+          in: header
+          description: >-
+            Indicates a unique identifier assigned to every user of this API.
+            This attribute will help uniquely identify the caller.
+          required: true
+          deprecated: false
+          schema:
+            type: string
+          example: X99X9X9-99XX-9XX9-X999-99XX99X9X999
+        - name: type
+          in: query
+          description: >-
+            The type of file, used to get files by type.
+          deprecated: false
+          required: true
+          schema:
+            type: string
+            enum:
+              - DESTINATION
+              - VENDORLOGO
+              - SUMMARY
+              - LISTINGS
+              - IMAGES
+              - AMENITIES
+              - LOCATIONS
+              - DESCRIPTIONS
+              - POLICIES
+              - GUEST_REVIEW
+              - VACATION_RENTAL
+              - ALL_REGIONS
+              - BOUNDING_POLYGON
+              - HOTEL_TO_REGION_HIERARCHY
+              - ROOM_DETAILS
+          example: SUMMARY
+        - name: locale
+          in: query
+          description: >-
+            Follow ISO-3166 Country Codes and ISO-639 Language Codes, format: "{LanguageCode}-{CountryCode}".Support multiple values, for the feed files that support localization, Use this parameter to help filter out the localization files you want to download. If not using this parameter, then this API will return all locales files for specified type. If the specified type of file is not  supported localization, there is no file will be returned.
+          deprecated: false
+          required: false
+          schema:
+            type: string
+          example: en-US
+        - name: pointOfSupply
+          in: query
+          description: >-
+            The point of supply means a country generally. The downloadable files provided after specifying will only contain properties' information for that country.
+          deprecated: false
+          required: false
+          schema:
+            type: string
+            enum:
+              - US
+              - AT
+              - BR
+              - CA
+              - FR
+              - DE
+              - GR
+              - IT
+              - JA
+              - KR
+              - MX
+              - PT
+              - ES
+              - TR
+              - AE
+              - GB
+          example: AT
+        - name: lodgingType
+          in: query
+          description: >-
+            The lodging type also means structure type, it only can be `CL`(Conventional Lodging) and `VR`(Vacation Rental). The downloadable files provided after specifying will only contain property information for that lodging type.
+          deprecated: false
+          required: false
+          schema:
+            type: string
+            enum:
+              - CL
+              - VR
+          example: CL
+        - name: brand
+          in: query
+          description: >-
+            The downloadable files provided after specifying will only contain property information for that brand.
+          deprecated: false
+          required: false
+          schema:
+            type: string
+            enum:
+              - VRBO
+      responses:
+        '200':
+          content:
+            application/vnd.exp-lodging.v1+json:
+              schema:
+                $ref: '#/components/schemas/PresignedUrlResponse'
+              examples:
+                SDP-Summary:
+                  value:
+                    transactionId: c12dcd5d-4d05-42ed-8119-0e97e11f7deb
+                    bestMatchedFile:
+                      fileContentType: Summary
+                      locale: de-DE
+                      fileName: expedia-lodging-summary-en_us-all.jsonl.zip
+                      fileSize:
+                        unit: MB
+                        value: 198.12
+                      fileLastUpdated: Tue Mar 28 08:38:14 UTC 2023
+                      downloadUrl: https://lpdp-data-test.s3.us-west-2.amazonaws.com/hotels/common/summary/expedia-lodging-summary-en_us-all.jsonl.zip?X-Client-Key=DD0CFD5B-4CE6-474C-934C-C2ABC250D72B&X-Amz-Security-Token=FwoGZXIvYXdzEJD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDDgCq3hfh2uzzkVrdiL0AbJ2Mr51BioDJbfW66%2F7QGFKQ5PPAcq3TprAoBGMBJVeafZ%2BvsrkKOdAUrxDGnheLNwmRBlE%2B2HS7f3pK6rE3XnnY6rEJKLe1EE2DmmNe3qIarJVVogurZumYcZ9SDPBvWwX4IGsNolFS5Qu8vtyur93xqg5%2BHnoPxLEJsP1yztRMGAiWKz9O1V79C6ZiFI5HtVOt4jYXSXdvtPKz9E6DA0ebXTpbAsm4T8PIvl30I5nNBdesXv8ap4Uie2fE6ALtUgWyJrKs%2Fy333aT6iV8Kau%2BNX3V3NW3LHh7rECgTtr5nySSxMJ2UFfQx8w7e9K8aAm098covbOPoQYyK5UIm%2BjPE%2FMbJqmroHqhzbKwbn7JFK5NnkXRmpPuGxn%2Bxmt%2Fe8Bg327adJ0%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230329T063549Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3599&X-Amz-Credential=ASIASWURL3BTL5JH6TPD%2F20230329%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=58714cc22181faea3243d689741ba0e7f1a43ae8cab172984778ca5f8b963f1f
+                      downloadUrlExpires: Wed Mar 29 07:35:49 UTC 2023
+                    otherFileOptions:
+                      - fileContentType: Summary
+                        locale: en-US
+                        fileName: expedia-lodging-summary_filtered_by_canada_en_us.jsonl.zip
+                        fileSize:
+                          unit: MB
+                          value: 18.12
+                        fileLastUpdated: Tue Mar 28 06:37:36 UTC 2023
+                        downloadUrl: https://lpdp-data-test.s3.us-west-2.amazonaws.com/hotels/common/summary/filtered/expedia-lodging-summary_filtered_by_canada_en_us.jsonl.zip?X-Client-Key=DD0CFD5B-4CE6-474C-934C-C2ABC250D72B&X-Amz-Security-Token=FwoGZXIvYXdzEJD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDDgCq3hfh2uzzkVrdiL0AbJ2Mr51BioDJbfW66%2F7QGFKQ5PPAcq3TprAoBGMBJVeafZ%2BvsrkKOdAUrxDGnheLNwmRBlE%2B2HS7f3pK6rE3XnnY6rEJKLe1EE2DmmNe3qIarJVVogurZumYcZ9SDPBvWwX4IGsNolFS5Qu8vtyur93xqg5%2BHnoPxLEJsP1yztRMGAiWKz9O1V79C6ZiFI5HtVOt4jYXSXdvtPKz9E6DA0ebXTpbAsm4T8PIvl30I5nNBdesXv8ap4Uie2fE6ALtUgWyJrKs%2Fy333aT6iV8Kau%2BNX3V3NW3LHh7rECgTtr5nySSxMJ2UFfQx8w7e9K8aAm098covbOPoQYyK5UIm%2BjPE%2FMbJqmroHqhzbKwbn7JFK5NnkXRmpPuGxn%2Bxmt%2Fe8Bg327adJ0%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230329T063549Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASWURL3BTL5JH6TPD%2F20230329%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=ac4389b81d4b9e6563fd234b16dafceaab5fcbe2931454da2fe9956b1e3f5919
+                        filterConditions:
+                          pointOfSupply: CA
+                        bestMatchedLink:
+                          href: https://localhost:8443/feed/v1/download-url?type=SUMMARY&pointOfSupply=CA
+                          method: GET
+                      - fileContentType: Summary
+                        locale: en-US
+                        fileName: expedia-lodging-summary_filtered_by_conventional_en_us.jsonl.zip
+                        fileSize:
+                          unit: MB
+                          value: 98.12
+                        fileLastUpdated: Tue Mar 28 06:38:11 UTC 2023
+                        downloadUrl: https://lpdp-data-test.s3.us-west-2.amazonaws.com/hotels/common/summary/filtered/expedia-lodging-summary_filtered_by_conventional_en_us.jsonl.zip?X-Client-Key=DD0CFD5B-4CE6-474C-934C-C2ABC250D72B&X-Amz-Security-Token=FwoGZXIvYXdzEJD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDDgCq3hfh2uzzkVrdiL0AbJ2Mr51BioDJbfW66%2F7QGFKQ5PPAcq3TprAoBGMBJVeafZ%2BvsrkKOdAUrxDGnheLNwmRBlE%2B2HS7f3pK6rE3XnnY6rEJKLe1EE2DmmNe3qIarJVVogurZumYcZ9SDPBvWwX4IGsNolFS5Qu8vtyur93xqg5%2BHnoPxLEJsP1yztRMGAiWKz9O1V79C6ZiFI5HtVOt4jYXSXdvtPKz9E6DA0ebXTpbAsm4T8PIvl30I5nNBdesXv8ap4Uie2fE6ALtUgWyJrKs%2Fy333aT6iV8Kau%2BNX3V3NW3LHh7rECgTtr5nySSxMJ2UFfQx8w7e9K8aAm098covbOPoQYyK5UIm%2BjPE%2FMbJqmroHqhzbKwbn7JFK5NnkXRmpPuGxn%2Bxmt%2Fe8Bg327adJ0%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230329T063549Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASWURL3BTL5JH6TPD%2F20230329%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=9364ec533e909c2cb3331f16a449feee41a968492e61bcdd5761e56e7bbad73a
+                        downloadUrlExpires: Wed Mar 29 07:35:49 UTC 2023
+                        filterConditions:
+                          structureType: CONVENTIONAL
+                        bestMatchedLink:
+                          href: https://localhost:8443/feed/v1/download-url?type=SUMMARY&loadgingType=CL
+                          method: GET
+                VendorLogo:
+                  value:
+                    transactionId: c12dcd5d-4d05-42ed-8119-0e97e11f7deb
+                    bestMatchedFile:
+                      fileName: VendorLogos.json
+                      fileSize:
+                        unit: MB
+                        value: 1.32
+                      fileLastUpdated: Tue Mar 28 06:38:11 UTC 2023
+                      downloadUrl: https://ews-generated-feeds-prod-p.s3.us-west-2.amazonaws.com/vendor-logos/VendorLogos.json?response-content-disposition=inline&X-Amz-Security-Token=XXX
+                      downloadUrlExpires: Wed Mar 29 07:35:49 UTC 2023
+          description: Download URLs successfully generated for the feed files.
+        '400':
+          content:
+            application/vnd.exp-lodging.v1+json:
+              schema:
+                $ref: '#/components/schemas/PresignedUrlResponse'
+              example:
+                transactionId: 38dc7269-12b1-58c9-a381-4963c274cdfe
+                error:
+                  code: INVALID_TYPE_ATTR
+                  description: Invalid type provided.
+          description: Invalid request from the client.
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIMError'
+              examples:
+                unauthorized:
+                  value:
+                    message: Unauthorized
+                Invalid authentication credentials:
+                  value:
+                    message: Invalid authentication credentials
+          description: Unauthorized or Invalid authentication credentials.
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIMError'
+              examples:
+                cannot consume this service:
+                  value:
+                    message: You cannot consume this service
+          description: Cannot consume this service.
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIMError'
+              examples:
+                no Route matched:
+                  value:
+                    message: no Route matched with those values
+          description: No Route matched.
+        '429':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIMError'
+              examples:
+                API rate limit exceeded:
+                  value:
+                    message: API rate limit exceeded
+          description: API rate limit exceeded.
+        '500':
+          content:
+            application/vnd.exp-lodging.v1+json:
+              schema:
+                $ref: '#/components/schemas/PresignedUrlResponse'
+              example:
+                transactionId: 38dc7269-12b1-58c9-a381-4963c274cdfe
+                error:
+                  code: SERVER_ERROR
+                  description: An error has occurred while processing the request.
+          description: >-
+            Server side error like backend service has some issues or some
+            issues in EWS Feed service. The Error code is SERVER_ERROR.
+        '503':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIMError'
+              examples:
+                service unavailable:
+                  value:
+                    message: name resolution failed
+          description: Service unavailable.
+components:
+  schemas:
+    PresignedUrlResponse:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          description: Unique identifier for each API response.
+        error:
+          $ref: '#/components/schemas/Fault'
+        warning:
+          $ref: '#/components/schemas/Fault'
+        bestMatchedFile:
+          $ref: '#/components/schemas/FileInfo'
+        otherFileOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/FileInfo'
+          description: >-
+            Container for file Pre-signed download URL and informations.
+    FileInfo:
+      type: object
+      properties:
+        partner:
+          nullable: true
+          type: string
+          description: >-
+            The partner associated with the file. List of partners: `Bing`,
+            `Criteo`, `Facebook`, `Google`, `Retarget`, `Snapchat`.
+        brand:
+          nullable: true
+          type: string
+          description: >-
+            The brand associated with the file content. List of brand:
+            `Expedia`, `Hotels`, `Hotwire`, `Vrbo`, `HomeAway`, `Abritel`,
+            `Bookabach`, `Stayz`, `Ebbokers`, `Travalocity`, `Orbitz`, `Wotif`.
+        fileContentType:
+          nullable: true
+          type: string
+          description: >-
+            The type associated with the file content. List of types:
+            `Amenities`, `Descriptions`, `Images`, `Listings`, `Locations`,
+            `Policies`, `Regions`, `Reviews`, `Summary`, `VacationRental`
+        locale:
+          nullable: true
+          type: string
+          description: The locale associated with the file content.
+        fileName:
+          type: string
+          description: File name.
+        size:
+          $ref: '#/components/schemas/FileSize'
+        fileLastUpdated:
+          type: string
+          description: >-
+            The time about the file last updated. The format is uuuu-MM-dd'T'HH:mm:ss.SSSX
+        downloadUrl:
+          type: string
+          description: >-
+            Pre-signed URL is a self signed URL generated for a resource in S3
+            with a set expiration time.
+        downloadUrlExpires:
+          type: string
+          description: >-
+            The time about the download Url expires. The format is uuuu-MM-dd'T'HH:mm:ss.SSSX
+        filterConditions:
+          $ref: '#/components/schemas/FilterConditions'
+        bestMatchedLink:
+          $ref: '#/components/schemas/Link'
+    Fault:
+      type: object
+      description: API returned information.
+      properties:
+        code:
+          type: string
+          description: Fault code.
+        description:
+          type: string
+          description: Fault description.
+    FileSize:
+      type: object
+      description: The information about the file size.
+      properties:
+        unit:
+          type: string
+          enum:
+            - KB
+            - MB
+            - GB
+          description: The unit about the file size.
+        value:
+          type: integer
+          format: int64
+          description: The value about the file size.
+    FilterConditions:
+      nullable: true
+      type: object
+      description: Container filter condition for the filtered file. [Filters](https://confluence.expedia.biz/display/EWS/Filtered+Feed+File+Generation+Schedule+and+Access#FilteredFeedFileGenerationScheduleandAccess-Filters)
+      properties:
+        pointOfSupply:
+          type: string
+          description: >-
+            List of filter condition for PointOfSupplies: `US`,
+            `AT`,`BR`,`CA`,`FR`,`DE`,`GR`,`IT`,
+            `JP`,`KR`,`MX`,`PT`,`ES`,`TR`,
+            `AE`,`GB`.
+        brand:
+          type: string
+          description: >-
+            List of filter condition for Brands: `VRBO`.
+        structureType:
+          type: string
+          description: >-
+            List of filter condition for StructureTypes: `VR`, `CONVENTIONAL`.
+    Link:
+      nullable: true
+      type: object
+      description: Contains link information, including link address, request method. Only provided if FileInfo is in OtherFileOptions.
+      properties:
+        href:
+          type: string
+          description: a link address.
+        method:
+          type: string
+          description: Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc...
+    APIMError:
+      type: object
+      description: Error from the APIM.
+      properties:
+        message:
+          type: string
+          description: Error from the APIM.
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+security:
+  - BasicAuth: []
+tags:
+  - name: download-url

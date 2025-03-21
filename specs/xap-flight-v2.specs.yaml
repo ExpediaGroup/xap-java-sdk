@@ -1,0 +1,566 @@
+openapi: 3.0.1
+info:
+  title: EWSAir V2 APIs
+  description: OpenAPI Spec for EWS Air V2 APIs
+  contact:
+    name: Partner APIs
+    url: 'https://confluence.expedia.biz/display/EWS/EWS+Air'
+    email: EWSTeam@expedia.com
+  version: v2
+  x-eg-lifecycle: LIVE
+  x-eg-tags: ["EWS", "Flights", "Flight SeatMap"]
+servers:
+  - url: 'https://apim.expedia.com'
+    description: Production Server
+tags:
+  - name: Flight SeatMap
+paths:
+  /flights/seatmaps/{offerToken}:
+    get:
+      tags:
+        - Flight SeatMap
+      description: request for seatmap information
+      operationId: get-flight-seatmap
+      parameters:
+        - name: offerToken
+          in: path
+          description: An Air offerToken from a Flight Search or Flight Details.
+          required: true
+          schema:
+            type: string
+          example: CgFOEgNTRUEaAkFBIhFBbWVyaWNhbiBBaXJsaW5lcyoOQm9laW5nIDczNy04MDAyAzczODodMjAyMS0wNC0yMVQxNzo1MTowMC4wMDAtMDc6MDBCHTIwMjEtMDQtMjFUMTQ6NTU6MDAuMDAwLTA3OjAwSgM3MTBSA1BIWFoHRUNPTk9NWQ
+        - name: locale
+          in: query
+          description: The language in which the response content should be displayed.
+          schema:
+            type: string
+          example: en_US
+        - name: loyaltyProgramNumber
+          in: query
+          description: A Traveler's Loyalty Program number for a specified carrier.
+          schema:
+            type: string
+          example: F263M74
+        - name: travelerFirstName
+          in: query
+          description: Traveler's first name of whose loyalty information is passed (mandatory if you are entering a loyalty number).
+          schema:
+            type: string
+          example: SAM
+        - name: travelerLastName
+          in: query
+          description: Traveler's last name of whose loyalty information is passed (mandatory if you are entering a loyalty number).
+          schema:
+            type: string
+          example: JOHN
+        - name: Key
+          in: header
+          description: |-
+            Unique identifier assigned to partner.
+            Required for all requests.
+            Obtained from Expedia Account Manager or representative.
+          required: true
+          schema:
+            type: string
+          example: X99X9X9-99XX-9XX9-X999-99XX99X9X999X
+        - name: Partner-Transaction-ID
+          in: header
+          description: Partner-generated identifier.
+          required: true
+          schema:
+            type: string
+          example: 123456-798101112
+        - name: Accept
+          in: header
+          description: Accept header for the request.
+          required: true
+          schema:
+            type: string
+          example: application/vnd.exp-flight.v2+json
+      responses:
+        '200':
+          description: |
+            Seatmap information returned successfully (in some cases this can have warnings).
+             Warning messages are:
+            NO_RESULTS_FOUND
+            MISSING_LOYALTY_INFORMATION
+          content:
+            application/vnd.exp-flight.v2+json:
+              schema:
+                $ref: '#/components/schemas/SeatMapResponse'
+              example:
+                FlightNumber: "710"
+                DepartureDate: 2021-04-21
+                MarketingAirLineCode: AA
+                MarketingAirLineName: American Airlines
+                EquipmentCode: "738"
+                EquipmentName: Boeing 737-800
+                DepartureAirport:
+                  Code: SEA
+                ArrivalAirport:
+                  Code: PHX
+                SeatMap:
+                  CabinClass: ECONOMY
+                  Rows:
+                    - RowNumber: 8
+                      Seats:
+                        - SeatNumber: 8A
+                          SeatToken: AQogCNOiARIEMTMyMRiSASCycSjs09sCMPDU2wI4S0AAWAESBRoDQURUGgMxOEE
+                          SeatOccupancy: AVAILABLE
+                          Column: A
+                          SeatCharacteristics:
+                            - Code: W
+                              Name: WINDOW
+                            - Code: M
+                              Name: MAINCABINEXTRA
+                          PaidSeat: true
+                          SeatPrice:
+                            Value: 38.55
+                            Currency: USD
+                    - RowNumber: 33
+                      Seats:
+                        - SeatNumber: 33A
+                          SeatToken: AQogCNOiARIEMTMyMRiSASCycSjs09sCMPDU2wI4S0AAWAESBRoDQURUGgMxOEE
+                          SeatOccupancy: OCCUPIED
+                          Column: A
+                          SeatCharacteristics:
+                            - Code: W
+                              Name: WINDOW
+                          PaidSeat: true
+                          SeatPrice:
+                            Value: 38.55
+                            Currency: USD
+                        - SeatNumber: 33B
+                          SeatToken: AQogCNOiARIEMTMyMRiSASCycSjs09sCMPDU2wI4S0AAWAESBRoDQURUGgMxOEE
+                          SeatOccupancy: OCCUPIED
+                          Column: B
+                          PaidSeat: true
+                          SeatPrice:
+                            Value: 35.20
+                            Currency: USD
+                Warnings:
+                  - Code: MISSING_LOYALTY_INFORMATION
+                    Description: travelerFirstName,travelerLastName missing in request
+                TransactionId: 7b8a36d9-c920-40da-999d-5eddd53318b2
+        '400':
+          description: |
+            Error shown when accept header or partner transaction ID is missing or invalid.
+             Possible error codes are:
+            INVALID_ACCEPT_HEADER
+            INVALID_ARGUMENT
+          content:
+            application/vnd.exp-flight.v2+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+                Errors:
+                  - Code: INVALID_ACCEPT_HEADER
+                    Description: Please provide a valid Accept header
+                TransactionId: aedfd328-797a-43c9-9584-e901ea1f589d
+        '500':
+          description: |
+            There is either no seat map data available for the request or supply failed to provide seat map information due to internal failure.
+             Possible error codes are:
+            SEATMAP_NOT_AVAILABLE
+            SERVER_ERROR
+          content:
+            application/vnd.exp-flight.v2+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+                Errors:
+                  - Code: SERVER_ERROR
+                    Description: An error has occurred while processing the request
+                TransactionId: 68bce810-5af7-40c1-bea7-07a823b6f1f0
+        '404':
+          description: No Route matched
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIMError'
+              examples:
+                no Route matched:
+                  value: |-
+                    {
+                        "message": "no Route matched with those values"
+                    }
+        '429':
+          description: API rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIMError'
+              examples:
+                API rate limit exceeded:
+                  value: |-
+                    {
+                        "message": "API rate limit exceeded"
+                    }
+        '401':
+          description: Unauthorized or Invalid authentication credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIMError'
+              examples:
+                unauthorized:
+                  value: |-
+                    {
+                        "message": "Unauthorized"
+                    }
+                Invalid authentication credentials:
+                  value: |-
+                    {
+                        "message": "Invalid authentication credentials"
+                    }
+        '403':
+          description: cannot consume this service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIMError'
+              examples:
+                cannot consume this service:
+                  value: |-
+                    {
+                        "message": "You cannot consume this service"
+                    }
+        '503':
+          description: name resolution failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIMError'
+              examples:
+                name resolution failed:
+                  value: |-
+                    {
+                        "message": "name resolution failed"
+                    }
+        '504':
+          description: upstream server is timing out
+          content:
+            text/plain:
+              examples:
+                upstream server is timing out:
+                  value: The upstream server is timing out
+      security:
+        - basicSchema: []
+components:
+  schemas:
+    Airport:
+      required:
+        - Code
+      type: object
+      properties:
+        Code:
+          type: string
+          description: Three-letter IATA airport code for departure location
+          example: SFO
+        Name:
+          type: string
+          description: Name of departure airport
+          example: San Francisco International Airport
+        City:
+          type: string
+          description: City where departure airport resides
+          example: San Francisco
+        Province:
+          type: string
+          description: Province or State where departure airport resides
+          example: CA
+        Country:
+          type: string
+          description: Country where departure airport resides
+          example: USA
+        Latitude:
+          type: string
+          description: Latitude where departure airport resides
+          example: "33.641"
+        Longitude:
+          type: string
+          description: Longitude where departure airport resides
+          example: "84.4429"
+      description: Container for showing the arrival airport details
+      xml:
+        name: Airport
+    Row:
+      required:
+        - RowNumber
+      type: object
+      properties:
+        RowNumber:
+          type: integer
+          description: Specific row number.
+          format: int32
+          example: 37
+        RowCharacteristics:
+          type: array
+          description: Container for row characteristics.
+          items:
+            $ref: '#/components/schemas/RowCharacteristic'
+        Seats:
+          type: array
+          description: |-
+            Container for seat information in that particular row.
+            It can be null if it is empty row.
+          items:
+            $ref: '#/components/schemas/Seat'
+      description: Container for list of seat row information.
+      xml:
+        name: Row
+    RowCharacteristic:
+      required:
+        - Code
+        - Name
+      type: object
+      properties:
+        Code:
+          type: string
+          description: Code of Row
+          example: E
+          enum:
+            - E
+            - X
+            - S
+            - N
+            - U
+            - W
+        Name:
+          type: string
+          description: |-
+            Corresponding name for the row code
+            Same response will have upper deck and lower deck information if any
+          example: EMPTY
+          enum:
+            - EMPTY
+            - EXIT
+            - SMOKING
+            - NONSMOKING
+            - UPPERDECK
+            - OVERWING
+      description: Container for row characteristics.
+      xml:
+        name: RowCharacteristic
+    Seat:
+      type: object
+      properties:
+        SeatNumber:
+          type: string
+          description: |-
+            Seat Number
+            It can be null if there is no physical seat in the location
+          example: 37A
+        SeatToken:
+          type: string
+          description: Token used by the Booking service to reserve seats
+          example: AQogCNOiARIEMTMyMRiSASCycSjs09sCMPDU2wI4S0AAWAESBRoDQURUGgMxOEE
+        SeatOccupancy:
+          type: string
+          description: |-
+            Occupancy details whether it is available or not.
+            It can be null if there is no physical seat in that location.
+            AVAILABLE - Seat is currently available for selection.
+            OCCUPIED - Seat already occupied
+          example: OCCUPIED
+          enum:
+            - AVAILABLE
+            - OCCUPIED
+        Column:
+          type: string
+          description: It can be null if there is no physical seat in that location
+          example: A
+        SeatCharacteristics:
+          type: array
+          description: Container for seat characteristics information.
+          items:
+            $ref: '#/components/schemas/SeatCharacteristic'
+        PaidSeat:
+          type: boolean
+          description: A boolean object (true/false) to indicate whether the seat is paid or not. It can be null
+        SeatPrice:
+          type: object
+          description: Container for seat price to provide fee information associated with a paid seat. It can be null if it is not a paid seat.
+          required:
+            - Value
+            - Currency
+          properties:
+            Value:
+              type: string
+              example: "17.99"
+            Currency:
+              type: string
+              example: "USD"
+      description: |-
+        Container for seat information in that particular row.
+        It can be null if it is empty row.
+      xml:
+        name: Seat
+    SeatCharacteristic:
+      required:
+        - Code
+        - Name
+      type: object
+      properties:
+        Code:
+          type: string
+          description: Code of seat
+          example: W
+          enum:
+            - E
+            - H
+            - W
+            - A
+            - X
+            - M
+            - S
+            - P
+        Name:
+          type: string
+          description: Corresponding name for the seat code
+          example: WINDOW
+          enum:
+            - EMPTY
+            - ACCESSIBLE
+            - WINDOW
+            - AISLE
+            - EXIT
+            - MAINCABINEXTRA
+            - PREFERRED
+            - PREMIUM
+      description: Container for seat characteristics information.
+      xml:
+        name: SeatCharacteristic
+    SeatMap:
+      required:
+        - CabinClass
+        - Rows
+      type: object
+      properties:
+        CabinClass:
+          type: string
+          description: Cabin code for different class of service offered by the airline
+          example: ECONOMY
+          enum:
+            - ECONOMY
+            - FIRST
+            - BUSINESS
+            - PREMIUM_ECONOMY
+        Rows:
+          type: array
+          description: Container for list of seat row information.
+          items:
+            $ref: '#/components/schemas/Row'
+      description: Container for seatmap information.
+      xml:
+        name: SeatMap
+    SeatMapResponse:
+      required:
+        - ArrivalAirport
+        - DepartureAirport
+        - DepartureDate
+        - EquipmentCode
+        - FlightNumber
+        - MarketingAirLineCode
+        - SeatMap
+        - TransactionId
+      type: object
+      properties:
+        FlightNumber:
+          type: string
+          description: Specifies the requested flight number.
+          example: "0300"
+        DepartureDate:
+          type: string
+          description: Specifies the departure date of the requested flight
+          format: date
+          example: 2021-07-03
+        MarketingAirLineCode:
+          type: string
+          description: The IATA or Expedia assigned airline codes of the carrier. IATA codes must contain at least one alphabetic character.
+          example: AS
+        MarketingAirLineName:
+          type: string
+          description: The airline name of the marketing airline
+          example: Alaska Airlines
+        EquipmentCode:
+          type: string
+          description: IATA Equipment type codes.
+          example: 73J
+        EquipmentName:
+          type: string
+          description: Equipment type name.
+          example: Airbus 123
+        DepartureAirport:
+          $ref: '#/components/schemas/Airport'
+        ArrivalAirport:
+          $ref: '#/components/schemas/Airport'
+        SeatMap:
+          $ref: '#/components/schemas/SeatMap'
+        Warnings:
+          type: array
+          description: Container for Warning messages.
+          items:
+            $ref: '#/components/schemas/Warning'
+        TransactionId:
+          type: string
+          description: Unique identifier for the transaction.
+          example: f06edfa3-27f4-44e6-838c-b8dd3d0a3210
+      xml:
+        name: SeatMapResponse
+    Warning:
+      required:
+        - Code
+        - Description
+      type: object
+      properties:
+        Code:
+          type: string
+          description: Standardized warning code.
+          example: NO_RESULTS_FOUND
+        Description:
+          type: string
+          description: Standardized warning description message.
+          example: No results found for the request.
+      description: Container for Warning message.
+    Error:
+      required:
+        - Code
+        - Description
+      type: object
+      properties:
+        Code:
+          type: string
+          description: Error code describing the issue
+          example: SERVER_ERROR
+        Description:
+          type: string
+          description: A simple description of what the error is.
+          example: An error has occurred while processing the request.
+      description: Container for error list.
+    Errors:
+      required:
+        - Errors
+        - TransactionId
+      type: object
+      properties:
+        Errors:
+          type: array
+          description: Container for error list.
+          items:
+            $ref: '#/components/schemas/Error'
+        TransactionId:
+          type: string
+          description: A unique identifier for the transaction.
+          example: a9e371c4-89d9-4f9c-8df7-df105830e7fe
+      xml:
+        name: ErrorResponse
+    APIMError:
+      title: APIMError
+      properties:
+        message:
+          type: string
+  securitySchemes:
+    basicSchema:
+      type: http
+      scheme: basic
