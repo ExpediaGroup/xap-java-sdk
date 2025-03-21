@@ -118,9 +118,10 @@ gradle.taskGraph.whenReady {
 }
 
 tasks.register("publishSnapshots") {
-    val snapshotModules = rootProject.subprojects.filter { project ->
-        project.version.toString().contains("-SNAPSHOT") && project.tasks.names.contains("publish")
-    }
+    val snapshotModules =
+        rootProject.subprojects.filter { project ->
+            project.version.toString().contains("-SNAPSHOT") && project.tasks.names.contains("publish")
+        }
 
     if (snapshotModules.isNotEmpty()) {
         dependsOn(snapshotModules.map { ":${it.name}:publish" })

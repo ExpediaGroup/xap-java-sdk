@@ -13,7 +13,18 @@ tasks.register("transformSpecs") {
     exec {
         commandLine(
             "npx --yes -p @expediagroup/spec-transformer cli --headers --operationIdsToTags -i specs.yaml -o specs.yaml"
+                .split(" ")
         )
         workingDir = File(rootDir, "specs")
+    }
+}
+
+tasks.register("prepareSpecs") {
+    dependsOn("mergeSpecs", "transformSpecs")
+
+    doLast {
+        File("$rootDir", "specs/specs.yaml").copyTo(
+            File("$rootDir", "generator/src/main/resources/specs-copied.yaml"),
+        )
     }
 }

@@ -1,5 +1,5 @@
-import java.time.Duration
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.time.Duration
 
 plugins {
     kotlin("jvm") version "2.1.10"
@@ -61,12 +61,6 @@ nexusPublishing {
 
 kotlin {
     jvmToolchain(21)
-}
-
-tasks.register("prepareSpecs") {
-    dependsOn("mergeSpecs", "transformSpecs")
-
-    File("$rootDir", "specs/specs.yaml")
 }
 
 apply("gradle-tasks/specs.gradle.kts")
