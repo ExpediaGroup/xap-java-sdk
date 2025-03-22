@@ -29,10 +29,10 @@ data class PenaltyRule(
     val penalty: PenaltyType,
     // The time when this penalty window starts
     @JsonProperty("StartDateTime")
-    val startDateTime: java.time.LocalDateTime,
+    val startDateTime: java.time.OffsetDateTime,
     // The time when this penalty window ends
     @JsonProperty("EndDateTime")
-    val endDateTime: java.time.LocalDateTime,
+    val endDateTime: java.time.OffsetDateTime,
 ) {
     init {
         require(penalty != null) { "penalty must not be null" }
@@ -49,14 +49,14 @@ data class PenaltyRule(
 
     class Builder(
         private var penalty: PenaltyType? = null,
-        private var startDateTime: java.time.LocalDateTime? = null,
-        private var endDateTime: java.time.LocalDateTime? = null,
+        private var startDateTime: java.time.OffsetDateTime? = null,
+        private var endDateTime: java.time.OffsetDateTime? = null,
     ) {
         fun penalty(penalty: PenaltyType) = apply { this.penalty = penalty }
 
-        fun startDateTime(startDateTime: java.time.LocalDateTime) = apply { this.startDateTime = startDateTime }
+        fun startDateTime(startDateTime: java.time.OffsetDateTime) = apply { this.startDateTime = startDateTime }
 
-        fun endDateTime(endDateTime: java.time.LocalDateTime) = apply { this.endDateTime = endDateTime }
+        fun endDateTime(endDateTime: java.time.OffsetDateTime) = apply { this.endDateTime = endDateTime }
 
         fun build(): PenaltyRule {
             val instance =

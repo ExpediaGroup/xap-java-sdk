@@ -50,3 +50,14 @@ openApiGenerate {
 
     globalProperties.put("supportingFiles", "Room.kt")
 }
+
+tasks.named("openApiGenerate").configure {
+    doLast {
+        exec {
+            commandLine(
+                "../gradlew ktlintFormat".split(" ")
+            )
+            workingDir = File("$rootDir/xap-sdk").absoluteFile
+        }
+    }
+}

@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 data class VendorLocationDetails(
     // Pickup date and time.
     @JsonProperty("DateTime")
-    val dateTime: java.time.LocalDateTime,
+    val dateTime: java.time.OffsetDateTime,
     @JsonProperty("Location")
     val location: CarsLocation,
     // The category of shuttle from the terminal to the rental car counter. Please find list of Shuttle Categories in the Related Links Section below.
@@ -55,13 +55,13 @@ data class VendorLocationDetails(
     }
 
     class Builder(
-        private var dateTime: java.time.LocalDateTime? = null,
+        private var dateTime: java.time.OffsetDateTime? = null,
         private var location: CarsLocation? = null,
         private var shuttleCategory: kotlin.String? = null,
         private var distance: CarsDistance? = null,
         private var openSchedule: kotlin.collections.List<DateTimePeriod>? = null,
     ) {
-        fun dateTime(dateTime: java.time.LocalDateTime) = apply { this.dateTime = dateTime }
+        fun dateTime(dateTime: java.time.OffsetDateTime) = apply { this.dateTime = dateTime }
 
         fun location(location: CarsLocation) = apply { this.location = location }
 

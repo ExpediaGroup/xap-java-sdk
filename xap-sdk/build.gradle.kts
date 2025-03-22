@@ -15,7 +15,6 @@ repositories {
     }
 }
 
-
 dependencies {
     testImplementation(kotlin("test"))
     api("com.expediagroup:expediagroup-sdk-rest:0.0.1-beta-SNAPSHOT")
@@ -79,9 +78,3 @@ tasks.register("publishSnapshots") {
 apply("$rootDir/gradle-tasks/publish.gradle.kts")
 apply("$rootDir/gradle-tasks/signing.gradle.kts")
 apply("$rootDir/gradle-tasks/snapshot.gradle.kts")
-tasks.register("testVersion") {
-    println("Version: ${project.version}")
-    println(project.version)
-    println("Version: ${project.property("VERSION")}")
-    println("Version: ${project.findProperty("SNAPSHOT_VERSION")}")
-}

@@ -36,7 +36,7 @@ data class CarsCancellationPolicy(
     val freeCancellation: kotlin.Boolean? = null,
     // Indicates the latest time that the car can be cancelled for free.
     @JsonProperty("FreeCancellationEndDateTime")
-    val freeCancellationEndDateTime: java.time.LocalDateTime? = null,
+    val freeCancellationEndDateTime: java.time.OffsetDateTime? = null,
     // Container for penalty rules
     @JsonProperty("PenaltyRules")
     val penaltyRules: kotlin.collections.List<PenaltyRule>? = null,
@@ -54,7 +54,7 @@ data class CarsCancellationPolicy(
     class Builder(
         private var cancellable: kotlin.Boolean? = null,
         private var freeCancellation: kotlin.Boolean? = null,
-        private var freeCancellationEndDateTime: java.time.LocalDateTime? = null,
+        private var freeCancellationEndDateTime: java.time.OffsetDateTime? = null,
         private var penaltyRules: kotlin.collections.List<PenaltyRule>? = null,
         private var nonCancellableDateTimeRange: NonCancellableDateTimeRange? = null,
     ) {
@@ -62,7 +62,7 @@ data class CarsCancellationPolicy(
 
         fun freeCancellation(freeCancellation: kotlin.Boolean?) = apply { this.freeCancellation = freeCancellation }
 
-        fun freeCancellationEndDateTime(freeCancellationEndDateTime: java.time.LocalDateTime?) = apply { this.freeCancellationEndDateTime = freeCancellationEndDateTime }
+        fun freeCancellationEndDateTime(freeCancellationEndDateTime: java.time.OffsetDateTime?) = apply { this.freeCancellationEndDateTime = freeCancellationEndDateTime }
 
         fun penaltyRules(penaltyRules: kotlin.collections.List<PenaltyRule>?) = apply { this.penaltyRules = penaltyRules }
 

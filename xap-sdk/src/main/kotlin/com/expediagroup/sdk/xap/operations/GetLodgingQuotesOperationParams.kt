@@ -205,54 +205,117 @@ data class GetLodgingQuotesOperationParams(
          */
         fun travelWithPets(travelWithPets: kotlin.Boolean) = apply { this.travelWithPets = travelWithPets }
 
-        fun rooms(rooms: List<com.expediagroup.sdk.xap.models.Room>) =
-            apply {
-                if (rooms.size > 8) {
-                    throw com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException(
-                        constraintViolations = listOf("rooms: size must be between 0 and 8"),
-                    )
-                }
+        /**
+         * @param room1Adults Specifies the number of adults staying in a specific room.  Example: `room1.adults` is used to specify the number of adults in the first room.  ***NOTE***: multiple room request is only supported for conventional lodging hotels. Request for Vrbo  properties should only include one room. e.g. 3 adults in room 1 and 3 in room 2, \"room1.adults\" is 6.
+         */
+        fun room1Adults(room1Adults: kotlin.Long) = apply { this.room1Adults = room1Adults }
 
-                rooms.elementAtOrNull(0)?.let {
-                    this.room1Adults = it.adults
-                    this.room1ChildAges = it.childAges?.map { item -> item.toString() }
-                }
+        /**
+         * @param room1ChildAges Comma-separated list that specifies the age(s) for each of the children in each of the rooms.  Example: `room2.childAges=1,3` means two children (1-year old and 3-year old) are staying in room #2.  Children must be accompanied by an adult.  Total number of children is indicated by the number of childAges included.  If there are no children in the party then this value should not be included.  ***NOTE***: multiple room request is only supported for conventional lodging hotels. Request for Vrbo properties should include the ages of all the children in the first room. e.g. 1 child age 10 in room #1 and 1 child age 11 in room #2, \"room1.childAges\" is 10,11.
+         */
+        fun room1ChildAges(
+            room1ChildAges: kotlin.collections.List<
+                kotlin.String,
+            >,
+        ) = apply { this.room1ChildAges = room1ChildAges }
 
-                rooms.elementAtOrNull(1)?.let {
-                    this.room2Adults = it.adults
-                    this.room2ChildAges = it.childAges?.map { item -> item.toString() }
-                }
+        /**
+         * @param room2Adults Specifies the number of adults staying in second room.
+         */
+        fun room2Adults(room2Adults: kotlin.Long) = apply { this.room2Adults = room2Adults }
 
-                rooms.elementAtOrNull(2)?.let {
-                    this.room3Adults = it.adults
-                    this.room3ChildAges = it.childAges?.map { item -> item.toString() }
-                }
+        /**
+         * @param room2ChildAges Comma-separated list that specifies the age(s) for each of the children in second room.
+         */
+        fun room2ChildAges(
+            room2ChildAges: kotlin.collections.List<
+                kotlin.String,
+            >,
+        ) = apply { this.room2ChildAges = room2ChildAges }
 
-                rooms.elementAtOrNull(3)?.let {
-                    this.room4Adults = it.adults
-                    this.room4ChildAges = it.childAges?.map { item -> item.toString() }
-                }
+        /**
+         * @param room3Adults Specifies the number of adults staying in third room.
+         */
+        fun room3Adults(room3Adults: kotlin.Long) = apply { this.room3Adults = room3Adults }
 
-                rooms.elementAtOrNull(4)?.let {
-                    this.room5Adults = it.adults
-                    this.room5ChildAges = it.childAges?.map { item -> item.toString() }
-                }
+        /**
+         * @param room3ChildAges Comma-separated list that specifies the age(s) for each of the children in third room.
+         */
+        fun room3ChildAges(
+            room3ChildAges: kotlin.collections.List<
+                kotlin.String,
+            >,
+        ) = apply { this.room3ChildAges = room3ChildAges }
 
-                rooms.elementAtOrNull(5)?.let {
-                    this.room6Adults = it.adults
-                    this.room6ChildAges = it.childAges?.map { item -> item.toString() }
-                }
+        /**
+         * @param room4Adults Specifies the number of adults staying in fourth room.
+         */
+        fun room4Adults(room4Adults: kotlin.Long) = apply { this.room4Adults = room4Adults }
 
-                rooms.elementAtOrNull(6)?.let {
-                    this.room7Adults = it.adults
-                    this.room7ChildAges = it.childAges?.map { item -> item.toString() }
-                }
+        /**
+         * @param room4ChildAges Comma-separated list that specifies the age(s) for each of the children in fourth room.
+         */
+        fun room4ChildAges(
+            room4ChildAges: kotlin.collections.List<
+                kotlin.String,
+            >,
+        ) = apply { this.room4ChildAges = room4ChildAges }
 
-                rooms.elementAtOrNull(7)?.let {
-                    this.room8Adults = it.adults
-                    this.room8ChildAges = it.childAges?.map { item -> item.toString() }
-                }
-            }
+        /**
+         * @param room5Adults Specifies the number of adults staying in fifth room.
+         */
+        fun room5Adults(room5Adults: kotlin.Long) = apply { this.room5Adults = room5Adults }
+
+        /**
+         * @param room5ChildAges Comma-separated list that specifies the age(s) for each of the children in fifth room.
+         */
+        fun room5ChildAges(
+            room5ChildAges: kotlin.collections.List<
+                kotlin.String,
+            >,
+        ) = apply { this.room5ChildAges = room5ChildAges }
+
+        /**
+         * @param room6Adults Specifies the number of adults staying in sixth room.
+         */
+        fun room6Adults(room6Adults: kotlin.Long) = apply { this.room6Adults = room6Adults }
+
+        /**
+         * @param room6ChildAges Comma-separated list that specifies the age(s) for each of the children in sixth room.
+         */
+        fun room6ChildAges(
+            room6ChildAges: kotlin.collections.List<
+                kotlin.String,
+            >,
+        ) = apply { this.room6ChildAges = room6ChildAges }
+
+        /**
+         * @param room7Adults Specifies the number of adults staying in seventh room.
+         */
+        fun room7Adults(room7Adults: kotlin.Long) = apply { this.room7Adults = room7Adults }
+
+        /**
+         * @param room7ChildAges Comma-separated list that specifies the age(s) for each of the children in seventh room.
+         */
+        fun room7ChildAges(
+            room7ChildAges: kotlin.collections.List<
+                kotlin.String,
+            >,
+        ) = apply { this.room7ChildAges = room7ChildAges }
+
+        /**
+         * @param room8Adults Specifies the number of adults staying in eighth room.
+         */
+        fun room8Adults(room8Adults: kotlin.Long) = apply { this.room8Adults = room8Adults }
+
+        /**
+         * @param room8ChildAges Comma-separated list that specifies the age(s) for each of the children in eighth room.
+         */
+        fun room8ChildAges(
+            room8ChildAges: kotlin.collections.List<
+                kotlin.String,
+            >,
+        ) = apply { this.room8ChildAges = room8ChildAges }
 
         fun build(): GetLodgingQuotesOperationParams {
             val params =
