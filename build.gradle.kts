@@ -3,12 +3,14 @@ import java.time.Duration
 
 plugins {
     kotlin("jvm") version "2.1.10"
+    id("signing")
+    id("maven-publish")
     id("org.jlleitschuh.gradle.ktlint") version "12.1.2"
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
 group = "com.expediagroup.sdk"
-version = "1.0-SNAPSHOT"
+version = "1.0.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -19,6 +21,8 @@ repositories {
 }
 
 subprojects {
+    apply(plugin = "signing")
+    apply(plugin = "maven-publish")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
     apply(plugin = "org.jetbrains.kotlin.jvm")
 

@@ -1,5 +1,5 @@
+import com.expediagroup.sdk.xap.generator.mustache.AllowedMediaTypesLambda
 import org.openapitools.codegen.CodegenConstants
-// import com.expediagroup.sdk.xap.generator.mustache.AllowedMediaTypesLambda
 
 plugins {
     `kotlin-dsl`
@@ -43,8 +43,8 @@ openApiGenerate {
     configFile = "$projectDir/src/main/resources/generator-config.yaml"
     outputDir = "$rootDir/xap-sdk/src/main/kotlin"
 
-    additionalProperties.put(CodegenConstants.ENUM_PROPERTY_NAMING.toString(), "UPPERCASE")
-//    additionalProperties.put("allowedMediaTypes", AllowedMediaTypesLambda())
+    additionalProperties.put(CodegenConstants.ENUM_PROPERTY_NAMING, "UPPERCASE")
+    additionalProperties.put("allowedMediaTypes", AllowedMediaTypesLambda())
 
     configOptions.put("sourceFolder", "")
 

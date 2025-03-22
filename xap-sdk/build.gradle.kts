@@ -15,59 +15,6 @@ repositories {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-            artifactId = project.property("ARTIFACT_NAME").toString()
-            groupId = project.property("GROUP_ID").toString()
-            version =
-                if (project.hasProperty("SNAPSHOT_VERSION")) {
-                    project.property("SNAPSHOT_VERSION").toString()
-                } else {
-                    project.property("VERSION").toString()
-                }
-            description = project.findProperty("DESCRIPTION")?.toString()
-
-            pom {
-                name.set(project.property("ARTIFACT_NAME").toString())
-                description.set(project.findProperty("DESCRIPTION")?.toString())
-                url.set(project.property("POM_URL").toString())
-
-                licenses {
-                    license {
-                        name.set(project.property("LICENSE_NAME").toString())
-                        url.set(project.property("LICENSE_URL").toString())
-                        distribution.set(project.property("LICENSE_DISTRIBUTION").toString())
-                        comments.set(project.property("LICENSE_COMMENTS").toString())
-                    }
-                }
-
-                developers {
-                    developer {
-                        name.set(project.property("DEVELOPER_NAME").toString())
-                        organization.set(project.property("DEVELOPER_ORG").toString())
-                        organizationUrl.set(project.property("DEVELOPER_ORG_URL").toString())
-                    }
-                }
-
-                scm {
-                    url.set(project.property("POM_SCM_URL").toString())
-                    connection.set(project.property("POM_SCM_CONNECTION").toString())
-                    developerConnection.set(project.property("POM_SCM_DEVELOPER_CONNECTION").toString())
-                }
-            }
-        }
-    }
-}
-
-signing {
-    val signingKey = System.getenv("GPG_SECRET")
-    val signingPassword = System.getenv("GPG_PASSPHRASE")
-
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign(publishing.publications)
-}
 
 dependencies {
     testImplementation(kotlin("test"))
@@ -110,13 +57,6 @@ ktlint {
         )
 }
 
-gradle.taskGraph.whenReady {
-    if (hasTask(":publishSnapshots")) {
-        rootProject.version = "1.0.0-SNAPSHOT"
-        println("📌 Setting root project version to 1.0.0-SNAPSHOT for publishSnapshots task")
-    }
-}
-
 tasks.register("publishSnapshots") {
     val snapshotModules =
         rootProject.subprojects.filter { project ->
@@ -134,4 +74,14 @@ tasks.register("publishSnapshots") {
             println("📦 Successfully published snapshots for: ${snapshotModules.map { it.name }}")
         }
     }
+}
+
+apply("$rootDir/gradle-tasks/publish.gradle.kts")
+apply("$rootDir/gradle-tasks/signing.gradle.kts")
+apply("$rootDir/gradle-tasks/snapshot.gradle.kts")
+tasks.register("testVersion") {
+    println("Version: ${project.version}")
+    println(project.version)
+    println("Version: ${project.property("VERSION")}")
+    println("Version: ${project.findProperty("SNAPSHOT_VERSION")}")
 }
