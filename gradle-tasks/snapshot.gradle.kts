@@ -14,7 +14,7 @@ tasks.register("publishSnapshot") {
         "$artifactId:$version version must contain -SNAPSHOT to publish snapshots."
     }
 
-    dependsOn("${project.name}:publish")
+    dependsOn(":${project.name}:publish")
     doLast {
         val url = "https://oss.sonatype.org/content/repositories/snapshots/com/expediagroup/$artifactId/$version/"
         println("📦 Successfully published $artifactId:$version snapshot.")
