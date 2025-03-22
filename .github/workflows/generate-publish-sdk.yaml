@@ -58,7 +58,7 @@ jobs:
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         run: |
           if [ -z "${{ github.event.inputs.snapshot }}" ]; then
-            gradle publishToSonatype closeAndReleaseSonatypeStagingRepository
+            gradle publishSnapshot
           else
              exit 1
             gradle publishToSonatype closeAndReleaseSonatypeStagingRepository

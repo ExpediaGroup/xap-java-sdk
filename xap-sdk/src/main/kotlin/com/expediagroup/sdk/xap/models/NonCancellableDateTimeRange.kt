@@ -25,10 +25,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
 data class NonCancellableDateTimeRange(
     // The time of this non-cancellable window starts
     @JsonProperty("StartDateTime")
-    val startDateTime: java.time.OffsetDateTime,
+    val startDateTime: java.time.LocalDateTime,
     // The time of this non-cancellable window ends
     @JsonProperty("EndDateTime")
-    val endDateTime: java.time.OffsetDateTime,
+    val endDateTime: java.time.LocalDateTime,
 ) {
     init {
         require(startDateTime != null) { "startDateTime must not be null" }
@@ -42,12 +42,12 @@ data class NonCancellableDateTimeRange(
     }
 
     class Builder(
-        private var startDateTime: java.time.OffsetDateTime? = null,
-        private var endDateTime: java.time.OffsetDateTime? = null,
+        private var startDateTime: java.time.LocalDateTime? = null,
+        private var endDateTime: java.time.LocalDateTime? = null,
     ) {
-        fun startDateTime(startDateTime: java.time.OffsetDateTime) = apply { this.startDateTime = startDateTime }
+        fun startDateTime(startDateTime: java.time.LocalDateTime) = apply { this.startDateTime = startDateTime }
 
-        fun endDateTime(endDateTime: java.time.OffsetDateTime) = apply { this.endDateTime = endDateTime }
+        fun endDateTime(endDateTime: java.time.LocalDateTime) = apply { this.endDateTime = endDateTime }
 
         fun build(): NonCancellableDateTimeRange {
             val instance =

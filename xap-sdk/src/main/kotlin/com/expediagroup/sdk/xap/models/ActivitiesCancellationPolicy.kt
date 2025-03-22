@@ -36,7 +36,7 @@ data class ActivitiesCancellationPolicy(
     val freeCancellationMinHours: kotlin.Int? = null,
     // The date and time after which the activity will not be able to be cancelled for free, stated in the local time to where the activity takes place.
     @JsonProperty("FreeCancellationEndDateTime")
-    val freeCancellationEndDateTime: java.time.OffsetDateTime? = null,
+    val freeCancellationEndDateTime: java.time.LocalDateTime? = null,
 ) {
     init {
         require(freeCancellation != null) { "freeCancellation must not be null" }
@@ -51,7 +51,7 @@ data class ActivitiesCancellationPolicy(
         private var freeCancellation: kotlin.Boolean? = null,
         private var cancelPolicyDescription: kotlin.String? = null,
         private var freeCancellationMinHours: kotlin.Int? = null,
-        private var freeCancellationEndDateTime: java.time.OffsetDateTime? = null,
+        private var freeCancellationEndDateTime: java.time.LocalDateTime? = null,
     ) {
         fun freeCancellation(freeCancellation: kotlin.Boolean) = apply { this.freeCancellation = freeCancellation }
 
@@ -59,7 +59,7 @@ data class ActivitiesCancellationPolicy(
 
         fun freeCancellationMinHours(freeCancellationMinHours: kotlin.Int?) = apply { this.freeCancellationMinHours = freeCancellationMinHours }
 
-        fun freeCancellationEndDateTime(freeCancellationEndDateTime: java.time.OffsetDateTime?) = apply { this.freeCancellationEndDateTime = freeCancellationEndDateTime }
+        fun freeCancellationEndDateTime(freeCancellationEndDateTime: java.time.LocalDateTime?) = apply { this.freeCancellationEndDateTime = freeCancellationEndDateTime }
 
         fun build(): ActivitiesCancellationPolicy {
             val instance =

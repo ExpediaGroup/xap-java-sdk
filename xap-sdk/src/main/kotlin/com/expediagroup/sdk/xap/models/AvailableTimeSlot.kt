@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 data class AvailableTimeSlot(
     // The date and time when the activity happens.
     @JsonProperty("DateTime")
-    val dateTime: java.time.OffsetDateTime,
+    val dateTime: java.time.LocalDateTime,
     // Indicates whether the activity is an all-day activity.
     @JsonProperty("AllDayActivity")
     val allDayActivity: kotlin.Boolean,
@@ -58,12 +58,12 @@ data class AvailableTimeSlot(
     }
 
     class Builder(
-        private var dateTime: java.time.OffsetDateTime? = null,
+        private var dateTime: java.time.LocalDateTime? = null,
         private var allDayActivity: kotlin.Boolean? = null,
         private var cancellationPolicy: ActivitiesCancellationPolicy? = null,
         private var tickets: kotlin.collections.List<Ticket>? = null,
     ) {
-        fun dateTime(dateTime: java.time.OffsetDateTime) = apply { this.dateTime = dateTime }
+        fun dateTime(dateTime: java.time.LocalDateTime) = apply { this.dateTime = dateTime }
 
         fun allDayActivity(allDayActivity: kotlin.Boolean) = apply { this.allDayActivity = allDayActivity }
 

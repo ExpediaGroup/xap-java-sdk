@@ -60,8 +60,8 @@ data class GetCarsListingsOperationParams(
         null,
     val dropOffRadius: kotlin.Int? =
         null,
-    val pickupTime: java.time.OffsetDateTime,
-    val dropOffTime: java.time.OffsetDateTime,
+    val pickupTime: java.time.LocalDateTime,
+    val dropOffTime: java.time.LocalDateTime,
     val sortType: GetCarsListingsOperationParams.SortType? =
         null,
     val sortOrder: GetCarsListingsOperationParams.SortOrder? =
@@ -171,8 +171,8 @@ data class GetCarsListingsOperationParams(
         @JsonProperty("dropOff.address") private var dropOffAddress: kotlin.String? = null,
         @JsonProperty("dropOff.geoLocation") private var dropOffGeoLocation: kotlin.String? = null,
         @JsonProperty("dropOff.radius") private var dropOffRadius: kotlin.Int? = null,
-        @JsonProperty("pickupTime") private var pickupTime: java.time.OffsetDateTime? = null,
-        @JsonProperty("dropOffTime") private var dropOffTime: java.time.OffsetDateTime? = null,
+        @JsonProperty("pickupTime") private var pickupTime: java.time.LocalDateTime? = null,
+        @JsonProperty("dropOffTime") private var dropOffTime: java.time.LocalDateTime? = null,
         @JsonProperty("sortType") private var sortType: GetCarsListingsOperationParams.SortType? = null,
         @JsonProperty("sortOrder") private var sortOrder: GetCarsListingsOperationParams.SortOrder? = null,
         @JsonProperty("limit") private var limit: kotlin.Int? = null,
@@ -257,12 +257,12 @@ data class GetCarsListingsOperationParams(
         /**
          * @param pickupTime Requested car pickup date and time.Date should be ISO8601 Date format.The default TIME is 10:30:00.The supported search window is today to 330 days in the future.(Note that each rental counter has different hours of operation. If you select a time in the middle of the night there may be no inventory available as all locations may be closed.)
          */
-        fun pickupTime(pickupTime: java.time.OffsetDateTime) = apply { this.pickupTime = pickupTime }
+        fun pickupTime(pickupTime: java.time.LocalDateTime) = apply { this.pickupTime = pickupTime }
 
         /**
          * @param dropOffTime Requested car drop off date and time. Date should be ISO8601 Date format.The supported search window is today to 330 days in the future.Note: The dropOffTime must be at least 2 hours later than the pickupTime for the request to be valid.
          */
-        fun dropOffTime(dropOffTime: java.time.OffsetDateTime) = apply { this.dropOffTime = dropOffTime }
+        fun dropOffTime(dropOffTime: java.time.LocalDateTime) = apply { this.dropOffTime = dropOffTime }
 
         /**
          * @param sortType Method of sorting the car search results.Supported value: Price.If no value is present a sort by 'price' will be assumed.
