@@ -1,3 +1,4 @@
+id: generate-publish-sdk-new
 on:
   workflow_dispatch:
     inputs:
