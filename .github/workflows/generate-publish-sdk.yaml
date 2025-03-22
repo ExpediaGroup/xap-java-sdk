@@ -1,5 +1,11 @@
 on:
-  push:
+  workflow_dispatch:
+    inputs:
+      snapshot:
+        type: checkbox
+        description: "Is a snapshot release?"
+        required: true
+        default: true
 
 jobs:
   generate-and-publish:
@@ -32,11 +38,27 @@ jobs:
           export KOTLIN_POST_PROCESS_FILE="npm run --prefix src/main/resources/post-processor process"
           gradle openApiGenerate
 
-      - name: Publish Snapshot
+      - name: Open PR
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_PAT }}
+          commit-message: "chore: publishing docs for version ${{ env.NEW_DOCS_VERSION }}"
+          body: "This PR adds the reference documentation for version ${{ env.NEW_DOCS_VERSION }}."
+          title: "chore: reference docs update for version ${{ env.NEW_DOCS_VERSION }}"
+          branch: "docs-update-${{ env.NEW_DOCS_VERSION }}-$(date +'%Y%m%d%H%M%S')"
+          add-paths: .
+
+      - name: Publish SDK
         working-directory: xap-sdk
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
           GPG_SECRET: ${{ secrets.GPG_PRIVATE_KEY }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-        run: gradle publishSnapshot
+        run: |
+          if [ -z "${{ github.event.inputs.snapshot }}" ]; then
+            gradle publishToSonatype closeAndReleaseSonatypeStagingRepository
+          else
+               exit 1
+#            ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
+          fi
