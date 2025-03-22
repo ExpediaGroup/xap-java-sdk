@@ -32,11 +32,11 @@ jobs:
           export KOTLIN_POST_PROCESS_FILE="npm run --prefix src/main/resources/post-processor process"
           gradle openApiGenerate
 
-      - name: Publish Snapshots
+      - name: Publish Snapshot
         working-directory: xap-sdk
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
           GPG_SECRET: ${{ secrets.GPG_PRIVATE_KEY }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-        run: gradle publishSnapshots
+        run: gradle publishSnapshot

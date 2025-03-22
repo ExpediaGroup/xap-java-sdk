@@ -12,6 +12,11 @@ import com.expediagroup.sdk.core.transport.AbstractAsyncRequestExecutor
 import com.expediagroup.sdk.xap.configuration.AsyncXapClientConfiguration
 import org.slf4j.LoggerFactory
 
+/**
+ * Executor for handling asynchronous requests with XAP client configuration.
+ *
+ * @param configuration The configuration for the asynchronous XAP client.
+ */
 class AsyncRequestExecutor(
     configuration: AsyncXapClientConfiguration,
 ) : AbstractAsyncRequestExecutor(configuration.asyncTransport) {
@@ -20,6 +25,9 @@ class AsyncRequestExecutor(
             credentials = Credentials(configuration.key, configuration.secret),
         )
 
+    /**
+     * The execution pipeline for processing requests and responses.
+     */
     override val executionPipeline =
         ExecutionPipeline(
             requestPipeline =
