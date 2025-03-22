@@ -59,6 +59,6 @@ jobs:
           if [ -z "${{ github.event.inputs.snapshot }}" ]; then
             gradle publishToSonatype closeAndReleaseSonatypeStagingRepository
           else
-               exit 1
-#            ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository
+             exit 1
+            gradle publishToSonatype closeAndReleaseSonatypeStagingRepository
           fi
