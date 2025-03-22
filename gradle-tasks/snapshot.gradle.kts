@@ -10,8 +10,8 @@ tasks.register("publishSnapshot") {
         "Publish task must be present to publish a $artifactId snapshot"
     }
 
-    require(project.version.toString().contains("-SNAPSHOT")) {
-        "$artifactId version must contain -SNAPSHOT to publish snapshots."
+    require(version.contains("-SNAPSHOT")) {
+        "$artifactId:$version version must contain -SNAPSHOT to publish snapshots."
     }
 
     dependsOn("${project.name}:publish")
