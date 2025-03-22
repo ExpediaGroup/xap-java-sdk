@@ -23,6 +23,9 @@ jobs:
         working-directory: generator/src/main/resources/post-processor
         run: npm ci && npm run clean && npm run compile
 
+      - name: Build Project
+        run: gradle build
+
       - name: Generate SDK
         working-directory: generator
         run: |
