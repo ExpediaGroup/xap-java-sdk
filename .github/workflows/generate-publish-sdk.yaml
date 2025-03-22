@@ -40,12 +40,12 @@ jobs:
 
       - name: Open PR
         uses: peter-evans/create-pull-request@v7
+        working-directory: xap-sdk
         with:
           token: ${{ secrets.GITHUB_PAT }}
-          commit-message: "chore: publishing docs for version ${{ env.NEW_DOCS_VERSION }}"
-          body: "This PR adds the reference documentation for version ${{ env.NEW_DOCS_VERSION }}."
-          title: "chore: reference docs update for version ${{ env.NEW_DOCS_VERSION }}"
-          branch: "docs-update-${{ env.NEW_DOCS_VERSION }}-$(date +'%Y%m%d%H%M%S')"
+          commit-message: "chore: publishing code for sdk release $(date +'%Y%m%d%H%M%S')"
+          title: "chore: code update on $(date +'%Y%m%d%H%M%S')"
+          branch: "xap-sdk-code-update-$(date +'%Y%m%d%H%M%S')"
           add-paths: .
 
       - name: Publish SDK
