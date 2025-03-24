@@ -1,4 +1,3 @@
-id: generate-publish-sdk-new
 on:
   workflow_dispatch:
     inputs:
@@ -55,7 +54,7 @@ jobs:
         run: |
           version="${{ github.event.inputs.version }}"
           if [[ "${v// /}" == *"-SNAPSHOT" ]]; then
-            gradle publishSnapshot
+            gradle publishSnapshot -PVERSION="${version}"
           else
-            gradle publishToSonatype closeAndReleaseSonatypeStagingRepository
+            gradle publishToSonatype closeAndReleaseSonatypeStagingRepository -PVERSION="${version}"
           fi
