@@ -21,17 +21,17 @@ The repository contains the following key components:
 
 # Technology Stack
 
-| Capability            | Technology                                                                                                                                      |
-|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
-| Build System          | [Gradle](https://docs.gradle.org/current/userguide/userguide.html) with [Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html) |
-| Code Generation       | [OpenAPI Generator](https://openapi-generator.tech/)                                                                                            |
-| CI/CD                 | GitHub Actions                                                                                                                                  |
-| Testing               | [JUnit5](https://junit.org/junit5/)                                                                                                             |
-| Version Control       | Git                                                                                                                                             |
-| Code Quality          | [Kover](https://kotlin.github.io/kotlinx-kover/gradle-plugin/)                                                                                  |
-| Programming Languages | Kotlin (JVM)                                                                                                                                    |
-| Documentation         | [KDoc](https://kotlinlang.org/docs/kotlin-doc.html), [Dokka](https://kotlinlang.org/docs/dokka-introduction.html)                               |
-| Target                | [Java (LTS)](https://www.oracle.com/middleeast/java/technologies/java-se-support-roadmap.html)                                                  |
+| Capability                | Technology                                                                                                                                      |
+|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Build System**          | [Gradle](https://docs.gradle.org/current/userguide/userguide.html) with [Kotlin DSL](https://docs.gradle.org/current/userguide/kotlin_dsl.html) |
+| **Code Generation**       | [OpenAPI Generator](https://openapi-generator.tech/)                                                                                            |
+| **CI/CD**                 | GitHub Actions                                                                                                                                  |
+| **Testing**               | [JUnit5](https://junit.org/junit5/)                                                                                                             |
+| **Version Control**       | Git                                                                                                                                             |
+| **Code Quality**          | [Kover](https://kotlin.github.io/kotlinx-kover/gradle-plugin/)                                                                                  |
+| **Programming Languages** | Kotlin (JVM)                                                                                                                                    |
+| **Documentation**         | [KDoc](https://kotlinlang.org/docs/kotlin-doc.html), [Dokka](https://kotlinlang.org/docs/dokka-introduction.html)                               |
+| **Target**                | [Java (LTS)](https://www.oracle.com/middleeast/java/technologies/java-se-support-roadmap.html)                                                  |
 
 # Modules
 
@@ -47,11 +47,12 @@ specification files pre-processing, publishing, as well as for generating and pu
 It also includes configurations for code quality checks, such as Ktlint and Kover. All tasks are defined using kotlin
 DSL.
 
-| Defined Gradle Task | Description                                                                                                                                                             |
-|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `mergeSpecs`        | Executes the openapi-merge-cli command using npx to merge OpenAPI specs.                                                                                                |
-| `transformSpecs`    | Executes the spec-transformer CLI command using npx to transform the OpenAPI specs.                                                                                     |
-| `prepareSpecs`      | A wrapper for the sequential execution of `mergeSpecs` and `transformSpecs`. Generates and copies a final specs.yaml file to the generator module's resources directory |
+| Defined Gradle Task | Description                                                                                                                                                                                                                                                           |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `mergeSpecs`        | Executes the openapi-merge-cli command using npx to merge OpenAPI specs.                                                                                                                                                                                              |
+| `transformSpecs`    | Executes the spec-transformer CLI command using npx to transform the OpenAPI specs.                                                                                                                                                                                   |
+| `prepareSpecs`      | A wrapper for the sequential execution of `mergeSpecs` and `transformSpecs`. Generates and copies a final specs.yaml file to the generator module's resources directory                                                                                               |
+| `publishSnapshot`   | Triggers the execution of the `publish` task. It verifies the artifact has a valid snapshot version suffix, ensures the publish task exists, executes the publish task, and outputs confirmation messages with the repository URL where the artifact can be accessed. |
 
 ## Generator Module
 
@@ -95,3 +96,16 @@ and reusability of build scripts and configurations.
 The `buildSrc` module is used to define OpenAPI Generator customizations, such as custom mustache lambdas. This module
 can be used to define custom Gradle tasks, plugins, and other build-related logic that can be reused across the project.
 It is automatically included in the build process and can be used to extend the functionality of Gradle.
+
+## XAP SDK Module
+
+The `xap-sdk` module is the main module that contains the generated SDK code. It includes the generated API client code,
+along with SDK specific configurations and SDK core libraries integrations. The module is structured as follows:
+
+| Package         | Generated | Description                                                                                        |
+|-----------------|-----------|----------------------------------------------------------------------------------------------------|
+| `core`          | **No**    | SDK core libraries integrations. Defines the workflow for sync and async operations execution.     |
+| `configuration` | **No**    | SDK specific configurations such as endpoints, jackson configurations and others.                  |
+| `client`        | **No**    | API clients that are responsible for executing operations.                                         |
+| `operations`    | **YES**   | Representations of available API requests. Generated based on the OpenAPI spec defined operations. |
+| `models`        | **YES**   | Representation of API models. Generated based on the OpenAPI spec defined schemas                  |
