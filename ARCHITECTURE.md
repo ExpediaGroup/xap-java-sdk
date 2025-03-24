@@ -36,6 +36,10 @@ The repository contains the following key components:
 # Modules
 
 The project is organized into several modules, each serving a specific purpose. The main modules include:
+* Root Module: The root of the repository.
+* Generator Module: Located at the `generator` directory.
+* Build-Logic Module: Located at the `buildSrc` directory.
+* XAP SDK Module: Located at the `xap-sdk` directory.
 
 ## Root Module
 
