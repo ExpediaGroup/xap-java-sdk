@@ -4,7 +4,7 @@ The XAP (Expedia API Platform) SDK is structured as a multi-module Gradle projec
 from OpenAPI specifications. The architecture follows a code generation approach, where API client code is automatically
 generated and then published to repositories for consumption by developers.
 
-The repository contains the following key components:
+The repository embraces the following key functionalities:
 
 | Component                       | Description                                                                                                     |
 |---------------------------------|-----------------------------------------------------------------------------------------------------------------|
