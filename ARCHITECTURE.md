@@ -1,6 +1,5 @@
-# XAP SDK Architecture
-## Overview
-The XAP (Expedia Affiliate Platform) SDK is structured as a multi-module Gradle project designed to generate a Kotlin/Java SDK from OpenAPI specifications. The architecture follows a code generation approach, where API client code is automatically generated and then published to repositories for consumption by developers.
+# Overview
+The XAP (Expedia API Platform) SDK is structured as a multi-module Gradle project designed to generate a Kotlin/Java SDK from OpenAPI specifications. The architecture follows a code generation approach, where API client code is automatically generated and then published to repositories for consumption by developers.
 
 The repository contains the following key components:
 - **OpenAPI Specifications**: Defines the API endpoints, request/response models, and data types.
@@ -12,7 +11,7 @@ The repository contains the following key components:
 - **Documentation**: Contains guides and references for developers to understand and utilize the SDK effectively.
 - **Testing**: Includes unit, integration and end-to-end tests to ensure the correctness and reliability of the generated SDK.
 
-## Technology Stack
+# Technology Stack
 - **Languages**: Kotlin (primary), Java (compatibility)
 - **Build System**: Gradle with Kotlin DSL
 - **Code Generation**: OpenAPI Generator
@@ -26,10 +25,10 @@ The repository contains the following key components:
 - **Code Quality**: Ktlint
 - **Code Coverage**: Kover
 
-## Modules
+# Modules
 The project is organized into several modules, each serving a specific purpose. The main modules include:
 
-### `generator` module
+## `generator` module
 This module is responsible for the core functionality of the SDK generation process. It consumes the OpenAPI specifications and generates the initial SDK code using OpenAPI Generator. It also integrates with the `expediagroup-sdk-openapi-plugin`. The module contains the following components:
 - **OpenAPI Generator Configurations**: The core library that generates the SDK code from OpenAPI specifications. Lives in the `build.gradle.kts` file.
 - **Custom Templates**: Custom templates for generating Kotlin/Java code. Lives in the `src/main/resources/templates` directory.
