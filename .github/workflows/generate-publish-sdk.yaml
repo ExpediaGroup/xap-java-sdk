@@ -2,9 +2,9 @@ id: generate-publish-sdk-new
 on:
   workflow_dispatch:
     inputs:
-      snapshot:
-        type: checkbox
-        description: "Is a snapshot release?"
+      version:
+        type: string
+        description: "Version to publish. For snapshot releases, add `-SNAPSHOT` suffix to the version. For example, `1.0.0-SNAPSHOT`."
         required: true
         default: true
 
@@ -12,17 +12,14 @@ jobs:
   generate-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set Up JDK
-        uses: actions/setup-java@v3
+      - uses: actions/setup-java@v3
         with:
           distribution: 'corretto'
           java-version: '21'
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.13"
 
@@ -30,8 +27,7 @@ jobs:
         working-directory: generator/src/main/resources/post-processor
         run: npm ci && npm run clean && npm run compile
 
-      - name: Build Project
-        run: gradle build
+      - run: gradle build
 
       - name: Generate SDK
         working-directory: generator
@@ -57,9 +53,9 @@ jobs:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         run: |
-          if [ -z "${{ github.event.inputs.snapshot }}" ]; then
+          version="${{ github.event.inputs.version }}"
+          if [[ "${v// /}" == *"-SNAPSHOT" ]]; then
             gradle publishSnapshot
           else
-             exit 1
             gradle publishToSonatype closeAndReleaseSonatypeStagingRepository
           fi
