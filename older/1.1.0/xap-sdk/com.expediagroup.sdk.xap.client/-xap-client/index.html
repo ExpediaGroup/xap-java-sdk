@@ -1,0 +1,247 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>XapClient</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/multimodule.css" rel="Stylesheet">
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+</head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+            <a class="library-name--link" href="../../../index.html">
+                    xap-sdk
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;xap-sdk/com.expediagroup.sdk.xap.client/-xap-client/index.html&quot;}"><div class="dropdown versions-dropdown" data-role="dropdown">
+  <div class="button button_dropdown versions-dropdown-button" role="combobox" data-role="dropdown-toggle" aria-controls="versions-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Select version" tabindex="0">1.1.0</div>
+  <div class="dropdown--list dropdown--list_positioned_left versions-dropdown-data" role="listbox" data-role="dropdown-listbox" aria-label="Versions" id="versions-listbox">
+    <div class="dropdown--header" data-remove-style="true" style="display: none"><span>Select version</span><button class="button" data-role="dropdown-toggle" aria-label="Close versions selection"><i class="ui-kit-icon ui-kit-icon_cross"></i></button></div>
+    <div><a href="../../../../../xap-sdk/com.expediagroup.sdk.xap.client/-xap-client/index.html" class="dropdown--option dropdown--option-link" style="display: block; padding: 5px; color: #fff" data-remove-style="true" role="option">2.0.3</a></div>
+    <div><a href="../../../../2.0.2/xap-sdk/com.expediagroup.sdk.xap.client/-xap-client/index.html" class="dropdown--option dropdown--option-link" style="display: block; padding: 5px; color: #fff" data-remove-style="true" role="option">2.0.2</a></div>
+    <div><a href="index.html" class="dropdown--option dropdown--option-link" style="display: block; padding: 5px; color: #fff" data-remove-style="true" role="option">1.1.0</a></div>
+    <div><a href="../../../../1.0.0/xap-sdk/com.expediagroup.sdk.xap.client/-xap-client/index.html" class="dropdown--option dropdown--option-link" style="display: block; padding: 5px; color: #fff" data-remove-style="true" role="option">1.0.0</a></div>
+  </div>
+  <div class="dropdown--overlay"></div>
+</div>
+</dokka-template-command>        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="xap-sdk/JVM">JVM</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id="xap-sdk/JVM" data-filter="xap-sdk/JVM">
+                                <span class="checkbox--icon"></span>
+                                JVM
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    xap-sdk
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="xap-sdk::com.expediagroup.sdk.xap.client/XapClient///PointingToDeclaration//699445674">
+  <div class="breadcrumbs"><a href="../../../index.html">xap-sdk</a><span class="delimiter">/</span><a href="../index.html">com.expediagroup.sdk.xap.client</a><span class="delimiter">/</span><span class="current">XapClient</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Xap</span><wbr><span><span>Client</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="index.html">XapClient</a></div><p class="paragraph">The XAP Lodging Search APIs can be used by partners both booking via an Expedia website, or by partners that will be booking via the XAP APIs. Each API also provides pre-configured links to the Expedia website, the XAP Booking API, or both.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1718957349%2FClasslikes%2F699445674" anchor-label="Builder" id="1718957349%2FClasslikes%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-builder/index.html"><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1718957349%2FClasslikes%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="-builder/index.html">Builder</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1538472012%2FClasslikes%2F699445674" anchor-label="BuilderWithHttpClient" id="1538472012%2FClasslikes%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-builder-with-http-client/index.html"><span>Builder</span><wbr><span>With</span><wbr><span>Http</span><wbr><span><span>Client</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1538472012%2FClasslikes%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span class="token keyword">class </span><a href="-builder-with-http-client/index.html">BuilderWithHttpClient</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1094842732%2FFunctions%2F699445674" anchor-label="builder" id="-1094842732%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="builder.html"><span><span>builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1094842732%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="-builder/index.html">XapClient.Builder</a>&nbsp;<a href="builder.html"><span class="token function">builder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1839857787%2FFunctions%2F699445674" anchor-label="builderWithHttpClient" id="1839857787%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="builder-with-http-client.html"><span>builder</span><wbr><span>With</span><wbr><span>Http</span><wbr><span><span>Client</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1839857787%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="-builder-with-http-client/index.html">XapClient.BuilderWithHttpClient</a>&nbsp;<a href="builder-with-http-client.html"><span class="token function">builderWithHttpClient</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1362749146%2FFunctions%2F699445674" anchor-label="execute" id="1362749146%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="execute.html"><span><span>execute</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1362749146%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-activity-details-response/index.html">ActivityDetailsResponse</a><span class="token operator">&gt;</span>&nbsp;<a href="execute.html"><span class="token function">execute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-activity-details-operation/index.html">GetActivityDetailsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The Activity Details API provides detailed information about one selected activity.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-activity-listings-response/index.html">ActivityListingsResponse</a><span class="token operator">&gt;</span>&nbsp;<a href="execute.html"><span class="token function">execute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-activity-listings-operation/index.html">GetActivityListingsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The Activities Search API allows partners to search for Expedia Activity inventory.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-car-details-response/index.html">CarDetailsResponse</a><span class="token operator">&gt;</span>&nbsp;<a href="execute.html"><span class="token function">execute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-car-details-operation/index.html">GetCarDetailsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Get Extended information with a single car offer Extended information about the rates, charges, fees, and other terms associated with a single car offer.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-car-listings-response/index.html">CarListingsResponse</a><span class="token operator">&gt;</span>&nbsp;<a href="execute.html"><span class="token function">execute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-cars-listings-operation/index.html">GetCarsListingsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Search Expedia car inventory Search Expedia car inventory by date, pickup, and dropoff location to return a listing of available cars for hire.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-presigned-url-response/index.html">PresignedUrlResponse</a><span class="token operator">&gt;</span>&nbsp;<a href="execute.html"><span class="token function">execute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-feed-download-url-operation/index.html">GetFeedDownloadUrlOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Get the Download URL and other details of the static files.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-availability-calendar-response/index.html">AvailabilityCalendarResponse</a><span class="token operator">&gt;</span>&nbsp;<a href="execute.html"><span class="token function">execute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-lodging-availability-calendars-operation/index.html">GetLodgingAvailabilityCalendarsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Get availability calendars of properties Returns the availability of each day for a range of dates for given Expedia lodging properties.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-hotel-details-response/index.html">HotelDetailsResponse</a><span class="token operator">&gt;</span>&nbsp;<a href="execute.html"><span class="token function">execute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-lodging-details-operation/index.html">GetLodgingDetailsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Get Extended information with a single property offer Extended information about the rate, charges, fees, and financial terms associated with booking a single lodging rate plan offer.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-hotel-listings-response/index.html">HotelListingsResponse</a><span class="token operator">&gt;</span>&nbsp;<a href="execute.html"><span class="token function">execute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-lodging-listings-operation/index.html">GetLodgingListingsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Search lodging inventory Search Expedia lodging inventory by Location Keyword, Region ID, Lat/Long, or Hotel ID(s) and return up to 1,000 offers in response.  Provides deeplink to Expedia site to book, or rate plan info to enable API booking.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-lodging-quotes-response/index.html">LodgingQuotesResponse</a><span class="token operator">&gt;</span>&nbsp;<a href="execute.html"><span class="token function">execute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-lodging-quotes-operation/index.html">GetLodgingQuotesOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Get properties price and availability information The Lodging Quotes API will return the price and availability information for given Expedia lodging property ID(s).</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-rate-calendar-response/index.html">RateCalendarResponse</a><span class="token operator">&gt;</span>&nbsp;<a href="execute.html"><span class="token function">execute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-lodging-rate-calendar-operation/index.html">GetLodgingRateCalendarOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Get rate calendar of a property The Rate Calendar API will return the lowest rate plan for a range of days for one selected Expedia lodging property.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="937388868%2FFunctions%2F699445674" anchor-label="executeAsync" id="937388868%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="execute-async.html"><span>execute</span><wbr><span><span>Async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="937388868%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-activity-details-response/index.html">ActivityDetailsResponse</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span>&nbsp;<a href="execute-async.html"><span class="token function">executeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-activity-details-operation/index.html">GetActivityDetailsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The Activity Details API provides detailed information about one selected activity.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-activity-listings-response/index.html">ActivityListingsResponse</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span>&nbsp;<a href="execute-async.html"><span class="token function">executeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-activity-listings-operation/index.html">GetActivityListingsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The Activities Search API allows partners to search for Expedia Activity inventory.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-car-details-response/index.html">CarDetailsResponse</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span>&nbsp;<a href="execute-async.html"><span class="token function">executeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-car-details-operation/index.html">GetCarDetailsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Get Extended information with a single car offer Extended information about the rates, charges, fees, and other terms associated with a single car offer.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-car-listings-response/index.html">CarListingsResponse</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span>&nbsp;<a href="execute-async.html"><span class="token function">executeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-cars-listings-operation/index.html">GetCarsListingsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Search Expedia car inventory Search Expedia car inventory by date, pickup, and dropoff location to return a listing of available cars for hire.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-presigned-url-response/index.html">PresignedUrlResponse</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span>&nbsp;<a href="execute-async.html"><span class="token function">executeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-feed-download-url-operation/index.html">GetFeedDownloadUrlOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Get the Download URL and other details of the static files.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-availability-calendar-response/index.html">AvailabilityCalendarResponse</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span>&nbsp;<a href="execute-async.html"><span class="token function">executeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-lodging-availability-calendars-operation/index.html">GetLodgingAvailabilityCalendarsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Get availability calendars of properties Returns the availability of each day for a range of dates for given Expedia lodging properties.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-hotel-details-response/index.html">HotelDetailsResponse</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span>&nbsp;<a href="execute-async.html"><span class="token function">executeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-lodging-details-operation/index.html">GetLodgingDetailsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Get Extended information with a single property offer Extended information about the rate, charges, fees, and financial terms associated with booking a single lodging rate plan offer.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-hotel-listings-response/index.html">HotelListingsResponse</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span>&nbsp;<a href="execute-async.html"><span class="token function">executeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-lodging-listings-operation/index.html">GetLodgingListingsOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Search lodging inventory Search Expedia lodging inventory by Location Keyword, Region ID, Lat/Long, or Hotel ID(s) and return up to 1,000 offers in response.  Provides deeplink to Expedia site to book, or rate plan info to enable API booking.</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-lodging-quotes-response/index.html">LodgingQuotesResponse</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span>&nbsp;<a href="execute-async.html"><span class="token function">executeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-lodging-quotes-operation/index.html">GetLodgingQuotesOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Get properties price and availability information The Lodging Quotes API will return the price and availability information for given Expedia lodging property ID(s).</p></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html">CompletableFuture</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="/&amp;lt;Error class: unknown class&amp;gt;///PointingToDeclaration/">&lt;Error class: unknown class&gt;</span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.models/-rate-calendar-response/index.html">RateCalendarResponse</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span>&nbsp;<a href="execute-async.html"><span class="token function">executeAsync</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../com.expediagroup.sdk.xap.operations/-get-lodging-rate-calendar-operation/index.html">GetLodgingRateCalendarOperation</a>&nbsp;operation</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Get rate calendar of a property The Rate Calendar API will return the lowest rate plan for a range of days for one selected Expedia lodging property.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-917553751%2FFunctions%2F699445674" anchor-label="throwServiceException" id="-917553751%2FFunctions%2F699445674" data-filterable-set="xap-sdk/JVM"></a>
+          <div class="table-row" data-filterable-current="xap-sdk/JVM" data-filterable-set="xap-sdk/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="throw-service-exception.html"><span>throw</span><wbr><span>Service</span><wbr><span><span>Exception</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-917553751%2FFunctions%2F699445674"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="xap-sdk/JVM"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a>&nbsp;<a href="throw-service-exception.html"><span class="token function">throwServiceException</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span data-unresolved-link="io.ktor.client.statement/HttpResponse///PointingToDeclaration/">HttpResponse</span>&nbsp;response<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html">String</a>&nbsp;operationId</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
