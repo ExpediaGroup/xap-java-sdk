@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Hotel</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+<link href="../../../styles/multimodule.css" rel="Stylesheet">
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/custom-styles.css" rel="Stylesheet">
+</head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+            <a class="library-name--link" href="../../../index.html">
+                    xap-sdk
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;xap-sdk/com.expediagroup.sdk.xap.models/-hotel/index.html&quot;}"><div class="dropdown versions-dropdown" data-role="dropdown">
+  <div class="button button_dropdown versions-dropdown-button" role="combobox" data-role="dropdown-toggle" aria-controls="versions-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Select version" tabindex="0">2.0.3</div>
+  <div class="dropdown--list dropdown--list_positioned_left versions-dropdown-data" role="listbox" data-role="dropdown-listbox" aria-label="Versions" id="versions-listbox">
+    <div class="dropdown--header" data-remove-style="true" style="display: none"><span>Select version</span><button class="button" data-role="dropdown-toggle" aria-label="Close versions selection"><i class="ui-kit-icon ui-kit-icon_cross"></i></button></div>
+    <div><a href="index.html" class="dropdown--option dropdown--option-link" style="display: block; padding: 5px; color: #fff" data-remove-style="true" role="option">2.0.3</a></div>
+    <div><a href="../../../older/2.0.2/xap-sdk/com.expediagroup.sdk.xap.models/-hotel/index.html" class="dropdown--option dropdown--option-link" style="display: block; padding: 5px; color: #fff" data-remove-style="true" role="option">2.0.2</a></div>
+    <div><a href="../../../older/1.1.0/xap-sdk/com.expediagroup.sdk.xap.models/-hotel/index.html" class="dropdown--option dropdown--option-link" style="display: block; padding: 5px; color: #fff" data-remove-style="true" role="option">1.1.0</a></div>
+    <div><a href="../../../older/1.0.0/xap-sdk/com.expediagroup.sdk.xap.models/-hotel/index.html" class="dropdown--option dropdown--option-link" style="display: block; padding: 5px; color: #fff" data-remove-style="true" role="option">1.0.0</a></div>
+  </div>
+  <div class="dropdown--overlay"></div>
+</div>
+</dokka-template-command>        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active=""
+                        data-filter=":xap-sdk/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":xap-sdk/main"
+                                       data-filter=":xap-sdk/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                        data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    xap-sdk
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="xap-sdk::com.expediagroup.sdk.xap.models/Hotel///PointingToDeclaration//736661570">
+  <div class="breadcrumbs"><a href="../../../index.html">xap-sdk</a><span class="delimiter">/</span><a href="../index.html">com.expediagroup.sdk.xap.models</a><span class="delimiter">/</span><span class="current">Hotel</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Hotel</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">Hotel</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>hcomId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>propertyType<span class="token operator">: </span><a href="../-hotel-property-type/index.html">HotelPropertyType</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>propertyDetails<span class="token operator">: </span><a href="../-property-details/index.html">PropertyDetails</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>localCurrencyCode<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>location<span class="token operator">: </span><a href="../-hotel-location/index.html">HotelLocation</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>phoneInfos<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-phone/index.html">Phone</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>distance<span class="token operator">: </span><a href="../-distance/index.html">Distance</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>description<span class="token operator">: </span><a href="../-description/index.html">Description</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>status<span class="token operator">: </span><a href="-status/index.html">Hotel.Status</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>renovationsAndClosures<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>chainAndBrandInfo<span class="token operator">: </span><a href="../-chain-and-brand-info/index.html">ChainAndBrandInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>thumbnailUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>starRating<span class="token operator">: </span><a href="-star-rating/index.html">Hotel.StarRating</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>guestRating<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>guestReviewCount<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>petFriendly<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>lgbtqiaFriendly<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>links<span class="token operator">: </span><a href="../-hotel-links/index.html">HotelLinks</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>policies<span class="token operator">: </span><a href="../-hotel-policies/index.html">HotelPolicies</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>cleanlinessAndSafety<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>optionalExtras<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>importantNotices<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>media<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-media/index.html">Media</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>hotelAmenities<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-hotel-hotel-amenities-inner/index.html">HotelHotelAmenitiesInner</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>hotelDescriptiveAmenities<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>roomAmenities<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-hotel-room-amenities-inner/index.html">HotelRoomAmenitiesInner</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>roomDescriptiveAmenities<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>accessibility<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>memberOnlyDealAvailable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>roomTypes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-room-type/index.html">RoomType</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><p class="paragraph">Container for information on each offered hotel.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>id</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The unique, Expedia-specific hotel property identifier used to designate a single hotel.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>hcom</span><wbr></wbr><span><span>Id</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The unique, Hotels.com-specific hotel property identifier used to designate a single hotel.  This will only be returned if searching via hcomHotelIds in request.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>name</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The common name of the hotel</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>property</span><wbr></wbr><span><span>Type</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>property</span><wbr></wbr><span><span>Details</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>local</span><wbr></wbr><span>Currency</span><wbr></wbr><span><span>Code</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The Local Currency Code for Hotel (which will be used for any fees that must be paid at the hotel)</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>location</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>phone</span><wbr></wbr><span><span>Infos</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Container for property phone numbers.  Note: PhoneInfos section will not return for Vrbo Vacation Rental properties.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>distance</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>description</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>status</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Indicates whether there are available offers at the property during the dates requested, as well as information as to why.  Note that pricing will <u>only</u> be present in the API response for a status of <code class="lang-kotlin">AVAILABLE</code>.  If there are no rooms available at the property for the dates requested, then <code class="lang-kotlin">NOT_AVAILABLE</code> will be returned.  If there are available rooms, but none that meet the specific parameters of the search request, then one of the other messages will be returned.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>renovations</span><wbr></wbr><span>And</span><wbr></wbr><span><span>Closures</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The information about renovations and closures</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>chain</span><wbr></wbr><span>And</span><wbr></wbr><span>Brand</span><wbr></wbr><span><span>Info</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>thumbnail</span><wbr></wbr><span><span>Url</span></span></u></div></span></div><div><div class="title"><p class="paragraph">URL of the thumbnail image of the hotel.  Note that other images sizes are available - You can find a link to the complete list of Supported Hotel Image Sizes in <a href="https://developers.expediagroup.com/xap/products/xap/lodging/references/image-captions-ids-and-sizes">Lodging Image Captions, IDs, and Sizes</a>.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>star</span><wbr></wbr><span><span>Rating</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Star rating value of the hotel property.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>guest</span><wbr></wbr><span><span>Rating</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Average overall guest rating of the hotel.  The value is between 1.0 and 5.0 in 0.1 increments.  Higher is better.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>guest</span><wbr></wbr><span>Review</span><wbr></wbr><span><span>Count</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The total count of guest reviews used to create the average <code class="lang-kotlin">GuestRating</code> above.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>pet</span><wbr></wbr><span><span>Friendly</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Indicates whether the property allows certain pets under certain circumstances.  Prior to booking, guests should review the PetPolicies information in the Lodging Details API to find out whether a particular pet will be permitted to stay at the property.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>lgbtqia</span><wbr></wbr><span><span>Friendly</span></span></u></div></span></div><div><div class="title"><p class="paragraph">This value is returned if the property owner has specifically designated this property as LGBTQIA-friendly.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>links</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>policies</span></span></u></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>cleanliness</span><wbr></wbr><span>And</span><wbr></wbr><span><span>Safety</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Container for all cleanliness and safety measures.  The key is the measures category, the values are the information. The category will be: - CLEANLINESS - SOCIAL_DISTANCING - SAFETY - DISCLAIMER</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>optional</span><wbr></wbr><span><span>Extras</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The optional extras info.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>important</span><wbr></wbr><span><span>Notices</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The important notices for hotel.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>media</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Container for hotel images</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>hotel</span><wbr></wbr><span><span>Amenities</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Container for all hotel amenities.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>hotel</span><wbr></wbr><span>Descriptive</span><wbr></wbr><span><span>Amenities</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Container for all hotel amenities in group.  The key is amenity category, the values are the amenity information. The category for grouped amenities in hotel level for conventional lodging hotel will be: - PARKING - FOOD_AND_DRINK - INTERNET - THINGS_TO_DO - FAMILY_FRIENDLY - CONVENIENCES - GUEST_SERVICES - BUSINESS_SERVICE - OUTDOOR - ACCESSIBILITY - SPA - ACTIVITIES_NEARBY - LANGS_SPOKEN - MORE  The category for grouped amenities in hotel level for Vacation Rental hotel will be: - BEACH - SKI - POOL/SPA - INTERNET - PARKING - FAMILY_FRIENDLY - KITCHEN - DINING - BEDROOM - BATHROOMS - LIVING_SPACES - ENTERTAINMENT - OUTDOORS - LAUNDRY - WORKSPACES - CLIMATE_CONTROL - PETS - SUITABILITY/ACCESSIBILITY - SERVICES_AND_CONVENIENCES - LOCATION_HIGHLIGHTS - THINGS_TO_DO - GENERAL - SAFETY</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>room</span><wbr></wbr><span><span>Amenities</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Container for all room amenities.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>room</span><wbr></wbr><span>Descriptive</span><wbr></wbr><span><span>Amenities</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Container for all common room amenities in group.  The key is amenity category, the values are the amenity information. The category for grouped amenities in common room level will be: - BEDROOM - BATHROOM - FOOD_AND_DRINK - ENTERTAINMENT - OUTDOOR_SPACE - MORE</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>accessibility</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The accessibility options available for the room.  Possible accessibility include: - Accessible path of travel - Accessible bathroom - Roll-in shower - Handicapped parking - In-room accessibility - Accessibility equipment for the deaf - Braille or raised signage</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>member</span><wbr></wbr><span>Only</span><wbr></wbr><span>Deal</span><wbr></wbr><span><span>Available</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Indicates whether the property has member only deal rates available.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>room</span><wbr></wbr><span><span>Types</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Container for all of available room types.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="836727104%2FConstructors%2F736661570" anchor-label="Hotel" id="836727104%2FConstructors%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hotel.html"><span><span>Hotel</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="836727104%2FConstructors%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">hcomId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">propertyType<span class="token operator">: </span><a href="../-hotel-property-type/index.html">HotelPropertyType</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">propertyDetails<span class="token operator">: </span><a href="../-property-details/index.html">PropertyDetails</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">localCurrencyCode<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">location<span class="token operator">: </span><a href="../-hotel-location/index.html">HotelLocation</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">phoneInfos<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-phone/index.html">Phone</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">distance<span class="token operator">: </span><a href="../-distance/index.html">Distance</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">description<span class="token operator">: </span><a href="../-description/index.html">Description</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">status<span class="token operator">: </span><a href="-status/index.html">Hotel.Status</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">renovationsAndClosures<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">chainAndBrandInfo<span class="token operator">: </span><a href="../-chain-and-brand-info/index.html">ChainAndBrandInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">thumbnailUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">starRating<span class="token operator">: </span><a href="-star-rating/index.html">Hotel.StarRating</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">guestRating<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">guestReviewCount<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">petFriendly<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">lgbtqiaFriendly<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">links<span class="token operator">: </span><a href="../-hotel-links/index.html">HotelLinks</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">policies<span class="token operator">: </span><a href="../-hotel-policies/index.html">HotelPolicies</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">cleanlinessAndSafety<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">optionalExtras<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">importantNotices<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">media<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-media/index.html">Media</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">hotelAmenities<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-hotel-hotel-amenities-inner/index.html">HotelHotelAmenitiesInner</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">hotelDescriptiveAmenities<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">roomAmenities<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-hotel-room-amenities-inner/index.html">HotelRoomAmenitiesInner</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">roomDescriptiveAmenities<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">accessibility<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">memberOnlyDealAvailable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">roomTypes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-room-type/index.html">RoomType</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1818866436%2FClasslikes%2F736661570" anchor-label="Builder" id="1818866436%2FClasslikes%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-builder/index.html"><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1818866436%2FClasslikes%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-builder/index.html">Builder</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">hcomId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">propertyType<span class="token operator">: </span><a href="../-hotel-property-type/index.html">HotelPropertyType</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">propertyDetails<span class="token operator">: </span><a href="../-property-details/index.html">PropertyDetails</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">localCurrencyCode<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">location<span class="token operator">: </span><a href="../-hotel-location/index.html">HotelLocation</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">phoneInfos<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-phone/index.html">Phone</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">distance<span class="token operator">: </span><a href="../-distance/index.html">Distance</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">description<span class="token operator">: </span><a href="../-description/index.html">Description</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">status<span class="token operator">: </span><a href="-status/index.html">Hotel.Status</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">renovationsAndClosures<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">chainAndBrandInfo<span class="token operator">: </span><a href="../-chain-and-brand-info/index.html">ChainAndBrandInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">thumbnailUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">starRating<span class="token operator">: </span><a href="-star-rating/index.html">Hotel.StarRating</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">guestRating<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">guestReviewCount<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">petFriendly<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">lgbtqiaFriendly<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">links<span class="token operator">: </span><a href="../-hotel-links/index.html">HotelLinks</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">policies<span class="token operator">: </span><a href="../-hotel-policies/index.html">HotelPolicies</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">cleanlinessAndSafety<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">optionalExtras<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">importantNotices<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">media<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-media/index.html">Media</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">hotelAmenities<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-hotel-hotel-amenities-inner/index.html">HotelHotelAmenitiesInner</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">hotelDescriptiveAmenities<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">roomAmenities<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-hotel-room-amenities-inner/index.html">HotelRoomAmenitiesInner</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">roomDescriptiveAmenities<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">accessibility<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">memberOnlyDealAvailable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">roomTypes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-room-type/index.html">RoomType</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="678626611%2FClasslikes%2F736661570" anchor-label="Companion" id="678626611%2FClasslikes%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="678626611%2FClasslikes%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1937157044%2FClasslikes%2F736661570" anchor-label="StarRating" id="1937157044%2FClasslikes%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-star-rating/index.html"><span>Star</span><wbr></wbr><span><span>Rating</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1937157044%2FClasslikes%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-star-rating/index.html">StarRating</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-star-rating/index.html">Hotel.StarRating</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Star rating value of the hotel property. Values: _1_PERIOD0,_1_PERIOD5,_2_PERIOD0,_2_PERIOD5,_3_PERIOD0,_3_PERIOD5,_4_PERIOD0,_4_PERIOD5,_5_PERIOD0</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1913039025%2FClasslikes%2F736661570" anchor-label="Status" id="1913039025%2FClasslikes%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-status/index.html"><span><span>Status</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1913039025%2FClasslikes%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-status/index.html">Status</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-status/index.html">Hotel.Status</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Indicates whether there are available offers at the property during the dates requested, as well as information as to why.  Note that pricing will <u>only</u> be present in the API response for a status of <code class="lang-kotlin">AVAILABLE</code>.  If there are no rooms available at the property for the dates requested, then <code class="lang-kotlin">NOT_AVAILABLE</code> will be returned.  If there are available rooms, but none that meet the specific parameters of the search request, then one of the other messages will be returned. Values: AVAILABLE,NOT_AVAILABLE,ERROR,NUMBER_OF_ADULTS_NOT_ACCEPTED,NUMBER_OF_CHILDREN_NOT_ACCEPTED,NUMBER_OF_INFANTS_NOT_ACCEPTED,NUMBER_OF_PERSONS_NOT_ACCEPTED,CHECK_IN_AGE_NOT_ACCEPTED</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="2142975710%2FProperties%2F736661570" anchor-label="accessibility" id="2142975710%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="accessibility.html"><span><span>accessibility</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2142975710%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="accessibility.html">accessibility</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1140786093%2FProperties%2F736661570" anchor-label="chainAndBrandInfo" id="1140786093%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="chain-and-brand-info.html"><span>chain</span><wbr></wbr><span>And</span><wbr></wbr><span>Brand</span><wbr></wbr><span><span>Info</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1140786093%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="chain-and-brand-info.html">chainAndBrandInfo</a><span class="token operator">: </span><a href="../-chain-and-brand-info/index.html">ChainAndBrandInfo</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="625276546%2FProperties%2F736661570" anchor-label="cleanlinessAndSafety" id="625276546%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cleanliness-and-safety.html"><span>cleanliness</span><wbr></wbr><span>And</span><wbr></wbr><span><span>Safety</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="625276546%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="cleanliness-and-safety.html">cleanlinessAndSafety</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1450480560%2FProperties%2F736661570" anchor-label="description" id="1450480560%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="description.html"><span><span>description</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1450480560%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="description.html">description</a><span class="token operator">: </span><a href="../-description/index.html">Description</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="967586649%2FProperties%2F736661570" anchor-label="distance" id="967586649%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="distance.html"><span><span>distance</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="967586649%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="distance.html">distance</a><span class="token operator">: </span><a href="../-distance/index.html">Distance</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2053940169%2FProperties%2F736661570" anchor-label="guestRating" id="-2053940169%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="guest-rating.html"><span>guest</span><wbr></wbr><span><span>Rating</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2053940169%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="guest-rating.html">guestRating</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1594306031%2FProperties%2F736661570" anchor-label="guestReviewCount" id="1594306031%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="guest-review-count.html"><span>guest</span><wbr></wbr><span>Review</span><wbr></wbr><span><span>Count</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1594306031%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="guest-review-count.html">guestReviewCount</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1933457062%2FProperties%2F736661570" anchor-label="hcomId" id="-1933457062%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hcom-id.html"><span>hcom</span><wbr></wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1933457062%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="hcom-id.html">hcomId</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1535388811%2FProperties%2F736661570" anchor-label="hotelAmenities" id="1535388811%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hotel-amenities.html"><span>hotel</span><wbr></wbr><span><span>Amenities</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1535388811%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="hotel-amenities.html">hotelAmenities</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-hotel-hotel-amenities-inner/index.html">HotelHotelAmenitiesInner</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="937126221%2FProperties%2F736661570" anchor-label="hotelDescriptiveAmenities" id="937126221%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hotel-descriptive-amenities.html"><span>hotel</span><wbr></wbr><span>Descriptive</span><wbr></wbr><span><span>Amenities</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="937126221%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="hotel-descriptive-amenities.html">hotelDescriptiveAmenities</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-260787789%2FProperties%2F736661570" anchor-label="id" id="-260787789%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="id.html"><span><span>id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-260787789%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="id.html">id</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1530791093%2FProperties%2F736661570" anchor-label="importantNotices" id="1530791093%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="important-notices.html"><span>important</span><wbr></wbr><span><span>Notices</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1530791093%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="important-notices.html">importantNotices</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2137919835%2FProperties%2F736661570" anchor-label="lgbtqiaFriendly" id="-2137919835%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="lgbtqia-friendly.html"><span>lgbtqia</span><wbr></wbr><span><span>Friendly</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2137919835%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="lgbtqia-friendly.html">lgbtqiaFriendly</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1940109869%2FProperties%2F736661570" anchor-label="links" id="-1940109869%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="links.html"><span><span>links</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1940109869%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="links.html">links</a><span class="token operator">: </span><a href="../-hotel-links/index.html">HotelLinks</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1882068893%2FProperties%2F736661570" anchor-label="localCurrencyCode" id="-1882068893%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="local-currency-code.html"><span>local</span><wbr></wbr><span>Currency</span><wbr></wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1882068893%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="local-currency-code.html">localCurrencyCode</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="460838809%2FProperties%2F736661570" anchor-label="location" id="460838809%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="location.html"><span><span>location</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="460838809%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="location.html">location</a><span class="token operator">: </span><a href="../-hotel-location/index.html">HotelLocation</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-340452344%2FProperties%2F736661570" anchor-label="media" id="-340452344%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="media.html"><span><span>media</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-340452344%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="media.html">media</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-media/index.html">Media</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-639730283%2FProperties%2F736661570" anchor-label="memberOnlyDealAvailable" id="-639730283%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="member-only-deal-available.html"><span>member</span><wbr></wbr><span>Only</span><wbr></wbr><span>Deal</span><wbr></wbr><span><span>Available</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-639730283%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="member-only-deal-available.html">memberOnlyDealAvailable</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-607692285%2FProperties%2F736661570" anchor-label="name" id="-607692285%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="name.html"><span><span>name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-607692285%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="name.html">name</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="370806891%2FProperties%2F736661570" anchor-label="optionalExtras" id="370806891%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="optional-extras.html"><span>optional</span><wbr></wbr><span><span>Extras</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="370806891%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="optional-extras.html">optionalExtras</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2048798850%2FProperties%2F736661570" anchor-label="petFriendly" id="2048798850%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pet-friendly.html"><span>pet</span><wbr></wbr><span><span>Friendly</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2048798850%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="pet-friendly.html">petFriendly</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1543222121%2FProperties%2F736661570" anchor-label="phoneInfos" id="-1543222121%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="phone-infos.html"><span>phone</span><wbr></wbr><span><span>Infos</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1543222121%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="phone-infos.html">phoneInfos</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-phone/index.html">Phone</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-500106658%2FProperties%2F736661570" anchor-label="policies" id="-500106658%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="policies.html"><span><span>policies</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-500106658%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="policies.html">policies</a><span class="token operator">: </span><a href="../-hotel-policies/index.html">HotelPolicies</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1235018081%2FProperties%2F736661570" anchor-label="propertyDetails" id="-1235018081%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="property-details.html"><span>property</span><wbr></wbr><span><span>Details</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1235018081%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="property-details.html">propertyDetails</a><span class="token operator">: </span><a href="../-property-details/index.html">PropertyDetails</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1105401183%2FProperties%2F736661570" anchor-label="propertyType" id="1105401183%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="property-type.html"><span>property</span><wbr></wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1105401183%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="property-type.html">propertyType</a><span class="token operator">: </span><a href="../-hotel-property-type/index.html">HotelPropertyType</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-762688321%2FProperties%2F736661570" anchor-label="renovationsAndClosures" id="-762688321%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="renovations-and-closures.html"><span>renovations</span><wbr></wbr><span>And</span><wbr></wbr><span><span>Closures</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-762688321%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="renovations-and-closures.html">renovationsAndClosures</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1717505392%2FProperties%2F736661570" anchor-label="roomAmenities" id="1717505392%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="room-amenities.html"><span>room</span><wbr></wbr><span><span>Amenities</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1717505392%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="room-amenities.html">roomAmenities</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-hotel-room-amenities-inner/index.html">HotelRoomAmenitiesInner</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="324892488%2FProperties%2F736661570" anchor-label="roomDescriptiveAmenities" id="324892488%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="room-descriptive-amenities.html"><span>room</span><wbr></wbr><span>Descriptive</span><wbr></wbr><span><span>Amenities</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="324892488%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="room-descriptive-amenities.html">roomDescriptiveAmenities</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-383155890%2FProperties%2F736661570" anchor-label="roomTypes" id="-383155890%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="room-types.html"><span>room</span><wbr></wbr><span><span>Types</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-383155890%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="room-types.html">roomTypes</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../-room-type/index.html">RoomType</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-222615105%2FProperties%2F736661570" anchor-label="starRating" id="-222615105%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="star-rating.html"><span>star</span><wbr></wbr><span><span>Rating</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-222615105%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="star-rating.html">starRating</a><span class="token operator">: </span><a href="-star-rating/index.html">Hotel.StarRating</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-952287684%2FProperties%2F736661570" anchor-label="status" id="-952287684%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="status.html"><span><span>status</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-952287684%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="status.html">status</a><span class="token operator">: </span><a href="-status/index.html">Hotel.Status</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="118579627%2FProperties%2F736661570" anchor-label="thumbnailUrl" id="118579627%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="thumbnail-url.html"><span>thumbnail</span><wbr></wbr><span><span>Url</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="118579627%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="thumbnail-url.html">thumbnailUrl</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1012277428%2FFunctions%2F736661570" anchor-label="toBuilder" id="-1012277428%2FFunctions%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-builder.html"><span>to</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1012277428%2FFunctions%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-builder.html"><span class="token function">toBuilder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-builder/index.html">Hotel.Builder</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

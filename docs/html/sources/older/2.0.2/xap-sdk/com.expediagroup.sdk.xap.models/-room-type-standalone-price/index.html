@@ -1,0 +1,362 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>RoomTypeStandalonePrice</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>
+<link href="../../../styles/multimodule.css" rel="Stylesheet">
+<link href="../../../images/logo-icon.svg">
+<link href="../../../styles/custom-styles.css" rel="Stylesheet">
+</head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+            <a class="library-name--link" href="../../../index.html">
+                    xap-sdk
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+<dokka-template-command data="{&quot;@class&quot;:&quot;org.jetbrains.dokka.base.templating.ReplaceVersionsCommand&quot;,&quot;location&quot;:&quot;xap-sdk/com.expediagroup.sdk.xap.models/-room-type-standalone-price/index.html&quot;}"><div class="dropdown versions-dropdown" data-role="dropdown">
+  <div class="button button_dropdown versions-dropdown-button" role="combobox" data-role="dropdown-toggle" aria-controls="versions-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Select version" tabindex="0">2.0.2</div>
+  <div class="dropdown--list dropdown--list_positioned_left versions-dropdown-data" role="listbox" data-role="dropdown-listbox" aria-label="Versions" id="versions-listbox">
+    <div class="dropdown--header" data-remove-style="true" style="display: none"><span>Select version</span><button class="button" data-role="dropdown-toggle" aria-label="Close versions selection"><i class="ui-kit-icon ui-kit-icon_cross"></i></button></div>
+    <div><a href="../../../../../xap-sdk/com.expediagroup.sdk.xap.models/-room-type-standalone-price/index.html" class="dropdown--option dropdown--option-link" style="display: block; padding: 5px; color: #fff" data-remove-style="true" role="option">2.0.3</a></div>
+    <div><a href="index.html" class="dropdown--option dropdown--option-link" style="display: block; padding: 5px; color: #fff" data-remove-style="true" role="option">2.0.2</a></div>
+    <div><a href="../../../../1.1.0/xap-sdk/com.expediagroup.sdk.xap.models/-room-type-standalone-price/index.html" class="dropdown--option dropdown--option-link" style="display: block; padding: 5px; color: #fff" data-remove-style="true" role="option">1.1.0</a></div>
+    <div><a href="../../../../1.0.0/xap-sdk/com.expediagroup.sdk.xap.models/-room-type-standalone-price/index.html" class="dropdown--option dropdown--option-link" style="display: block; padding: 5px; color: #fff" data-remove-style="true" role="option">1.0.0</a></div>
+  </div>
+  <div class="dropdown--overlay"></div>
+</div>
+</dokka-template-command>        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":xap-sdk/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":xap-sdk/main" data-filter=":xap-sdk/main">
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    xap-sdk
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="xap-sdk::com.expediagroup.sdk.xap.models/RoomTypeStandalonePrice///PointingToDeclaration//736661570">
+  <div class="breadcrumbs"><a href="../../../index.html">xap-sdk</a><span class="delimiter">/</span><a href="../index.html">com.expediagroup.sdk.xap.models</a><span class="delimiter">/</span><span class="current">RoomTypeStandalonePrice</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Room</span><wbr><span>Type</span><wbr><span>Standalone</span><wbr><span><span>Price</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">RoomTypeStandalonePrice</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>baseRate<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>strikeOutBaseRate<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>taxesAndFees<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>strikeOutTaxesAndFees<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>totalPrice<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>totalStrikeOutPrice<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>avgNightlyRate<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>avgNightlyStrikeOutRate<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>hotelMandatoryFees<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>strikeOutHotelMandatoryFees<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><p class="paragraph">The corresponded standalone price to the package rate plan (to show the <code class="lang-kotlin">strikethrough</code>).  Only returned when this is a package rate plan.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>base</span><wbr><span><span>Rate</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The standalone price of the rate plan for all occupants, excluding taxes and fees.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>strike</span><wbr><span>Out</span><wbr><span>Base</span><wbr><span><span>Rate</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The base rate strikeout in the standalone shopping path.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>taxes</span><wbr><span>And</span><wbr><span><span>Fees</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The total standalone rate of taxes and fees of the rate plan for all occupants.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>strike</span><wbr><span>Out</span><wbr><span>Taxes</span><wbr><span>And</span><wbr><span><span>Fees</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The taxes and fees strikeout in the standalone shopping path.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>total</span><wbr><span><span>Price</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The total standalone price of the rate plan, which is equal to the sum of <code class="lang-kotlin">BaseRate</code> and <code class="lang-kotlin">TaxesAndFees</code>. Hotel mandatory fees are not included as these are paid at the hotel at checkout.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>total</span><wbr><span>Strike</span><wbr><span>Out</span><wbr><span><span>Price</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The total strikeout in the standalone shopping path, which is equal to the sum of <code class="lang-kotlin">StrikeOutBaseRate</code> and <code class="lang-kotlin">StrikeOutTaxesAndFees</code>.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>avg</span><wbr><span>Nightly</span><wbr><span><span>Rate</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The average standalone nightly base rate per night per room of the rate plan, which is equal to the <code class="lang-kotlin">BaseRate</code> divided by <code class="lang-kotlin">StayDates</code> and by <code class="lang-kotlin">room number</code>.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>avg</span><wbr><span>Nightly</span><wbr><span>Strike</span><wbr><span>Out</span><wbr><span><span>Rate</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The average strikeout of the base rate in the standalone shopping path, which is per night per room and is equal to <code class="lang-kotlin">StrikeOutBaseRate</code> divided by <code class="lang-kotlin">StayDates</code> and by <code class="lang-kotlin">room number</code>.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>hotel</span><wbr><span>Mandatory</span><wbr><span><span>Fees</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The total standalone mandatory fees.</p></div></div></div></div><div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>strike</span><wbr><span>Out</span><wbr><span>Hotel</span><wbr><span>Mandatory</span><wbr><span><span>Fees</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The strikeout of the mandatory fees in the standalone shopping path.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-167275619%2FConstructors%2F736661570" anchor-label="RoomTypeStandalonePrice" id="-167275619%2FConstructors%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-room-type-standalone-price.html"><span>Room</span><wbr><span>Type</span><wbr><span>Standalone</span><wbr><span><span>Price</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-167275619%2FConstructors%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">baseRate<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">strikeOutBaseRate<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">taxesAndFees<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">strikeOutTaxesAndFees<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">totalPrice<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">totalStrikeOutPrice<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">avgNightlyRate<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">avgNightlyStrikeOutRate<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">hotelMandatoryFees<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">strikeOutHotelMandatoryFees<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1212197513%2FClasslikes%2F736661570" anchor-label="Builder" id="1212197513%2FClasslikes%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-builder/index.html"><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1212197513%2FClasslikes%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-builder/index.html">Builder</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">baseRate<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">strikeOutBaseRate<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">taxesAndFees<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">strikeOutTaxesAndFees<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">totalPrice<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">totalStrikeOutPrice<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">avgNightlyRate<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">avgNightlyStrikeOutRate<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">hotelMandatoryFees<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">strikeOutHotelMandatoryFees<span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1785343864%2FClasslikes%2F736661570" anchor-label="Companion" id="1785343864%2FClasslikes%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1785343864%2FClasslikes%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="431575350%2FProperties%2F736661570" anchor-label="avgNightlyRate" id="431575350%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="avg-nightly-rate.html"><span>avg</span><wbr><span>Nightly</span><wbr><span><span>Rate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="431575350%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="avg-nightly-rate.html">avgNightlyRate</a><span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-585601080%2FProperties%2F736661570" anchor-label="avgNightlyStrikeOutRate" id="-585601080%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="avg-nightly-strike-out-rate.html"><span>avg</span><wbr><span>Nightly</span><wbr><span>Strike</span><wbr><span>Out</span><wbr><span><span>Rate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-585601080%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="avg-nightly-strike-out-rate.html">avgNightlyStrikeOutRate</a><span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1183121256%2FProperties%2F736661570" anchor-label="baseRate" id="-1183121256%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="base-rate.html"><span>base</span><wbr><span><span>Rate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1183121256%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="base-rate.html">baseRate</a><span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-414483913%2FProperties%2F736661570" anchor-label="hotelMandatoryFees" id="-414483913%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hotel-mandatory-fees.html"><span>hotel</span><wbr><span>Mandatory</span><wbr><span><span>Fees</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-414483913%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="hotel-mandatory-fees.html">hotelMandatoryFees</a><span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="283915556%2FProperties%2F736661570" anchor-label="strikeOutBaseRate" id="283915556%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="strike-out-base-rate.html"><span>strike</span><wbr><span>Out</span><wbr><span>Base</span><wbr><span><span>Rate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="283915556%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="strike-out-base-rate.html">strikeOutBaseRate</a><span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1188917187%2FProperties%2F736661570" anchor-label="strikeOutHotelMandatoryFees" id="1188917187%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="strike-out-hotel-mandatory-fees.html"><span>strike</span><wbr><span>Out</span><wbr><span>Hotel</span><wbr><span>Mandatory</span><wbr><span><span>Fees</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1188917187%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="strike-out-hotel-mandatory-fees.html">strikeOutHotelMandatoryFees</a><span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1082261866%2FProperties%2F736661570" anchor-label="strikeOutTaxesAndFees" id="1082261866%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="strike-out-taxes-and-fees.html"><span>strike</span><wbr><span>Out</span><wbr><span>Taxes</span><wbr><span>And</span><wbr><span><span>Fees</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1082261866%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="strike-out-taxes-and-fees.html">strikeOutTaxesAndFees</a><span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="622195422%2FProperties%2F736661570" anchor-label="taxesAndFees" id="622195422%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="taxes-and-fees.html"><span>taxes</span><wbr><span>And</span><wbr><span><span>Fees</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="622195422%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="taxes-and-fees.html">taxesAndFees</a><span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1206865148%2FProperties%2F736661570" anchor-label="totalPrice" id="-1206865148%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="total-price.html"><span>total</span><wbr><span><span>Price</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1206865148%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="total-price.html">totalPrice</a><span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-337889920%2FProperties%2F736661570" anchor-label="totalStrikeOutPrice" id="-337889920%2FProperties%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="total-strike-out-price.html"><span>total</span><wbr><span>Strike</span><wbr><span>Out</span><wbr><span><span>Price</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-337889920%2FProperties%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="total-strike-out-price.html">totalStrikeOutPrice</a><span class="token operator">: </span><a href="../-money/index.html">Money</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="94439825%2FFunctions%2F736661570" anchor-label="toBuilder" id="94439825%2FFunctions%2F736661570" data-filterable-set=":xap-sdk/main"></a>
+          <div class="table-row" data-filterable-current=":xap-sdk/main" data-filterable-set=":xap-sdk/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-builder.html"><span>to</span><wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="94439825%2FFunctions%2F736661570"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":xap-sdk/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="to-builder.html"><span class="token function">toBuilder</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-builder/index.html">RoomTypeStandalonePrice.Builder</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
