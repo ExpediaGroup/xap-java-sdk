@@ -91,7 +91,7 @@ public class CarListingsQuickStartScenario implements XapScenario {
                         .pickupRadius(10)
                         .dropOffRadius(10)
                         //The maximum number of search results that will be returned by the query.
-                        .limit(10)
+                        .limit(5)
                         .partnerTransactionId("BestTravel-123456-798101112")
                         .links(linksList)
                         .build();
