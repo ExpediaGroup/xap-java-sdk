@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Expedia, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.expediagroup.sdk.xap.core
 
 import com.expediagroup.sdk.core.auth.basic.BasicAuthManager
@@ -6,6 +22,7 @@ import com.expediagroup.sdk.core.auth.oauth.OAuthCredentials
 import com.expediagroup.sdk.core.auth.oauth.OAuthManager
 import com.expediagroup.sdk.core.exception.client.ExpediaGroupConfigurationException
 import com.expediagroup.sdk.core.logging.LoggerDecorator
+import com.expediagroup.sdk.core.logging.masking.MaskHeaders
 import com.expediagroup.sdk.core.pipeline.ExecutionPipeline
 import com.expediagroup.sdk.core.pipeline.RequestPipelineStep
 import com.expediagroup.sdk.core.pipeline.ResponsePipelineStep
@@ -27,6 +44,9 @@ import org.slf4j.LoggerFactory
 class RequestExecutor(
     private val configuration: XapClientConfiguration,
 ) : AbstractRequestExecutor(configuration.transport) {
+
+    private val headersMask = MaskHeaders(listOf("authorization"))
+
     override val executionPipeline =
         ExecutionPipeline(
             requestPipeline = getRequestPipeline(),
@@ -40,7 +60,10 @@ class RequestExecutor(
                     RequestHeadersStep(),
                     ApiKeyHeaderStep(configuration.credentials.username),
                     BasicAuthStep(BasicAuthManager(configuration.credentials)),
-                    RequestLoggingStep(logger),
+                    RequestLoggingStep(
+                        logger = logger,
+                        maskHeaders = headersMask
+                    ),
                 )
 
             is OAuthCredentials ->
@@ -54,7 +77,10 @@ class RequestExecutor(
                             authUrl = AUTH_ENDPOINT,
                         ),
                     ),
-                    RequestLoggingStep(logger),
+                    RequestLoggingStep(
+                        logger = logger,
+                        maskHeaders = headersMask
+                    ),
                 )
 
             else -> throw ExpediaGroupConfigurationException("Unsupported credentials type: ${configuration.credentials.javaClass.name}")

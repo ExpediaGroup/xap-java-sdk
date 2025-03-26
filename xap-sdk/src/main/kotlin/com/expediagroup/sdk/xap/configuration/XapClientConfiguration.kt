@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Expedia, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.expediagroup.sdk.xap.configuration
 
 import com.expediagroup.sdk.core.auth.common.Credentials
@@ -35,6 +51,12 @@ abstract class ClientBuilder<T : RestClient> {
     private var credentials: Credentials? = null
     private var transport: Transport? = null
 
+    /**
+     * Sets the credentials used to authenticate with the API.
+     *
+     * @param credentials
+     * @return The builder instance.
+     */
     fun credentials(credentials: Credentials) = apply { this.credentials = credentials }
 
     /**
@@ -56,7 +78,7 @@ abstract class ClientBuilder<T : RestClient> {
      * Builds the configuration for the XAP client.
      *
      * @return The built [XapClientConfiguration] instance.
-     * @throws IllegalArgumentException If the key or secret is not provided.
+     * @throws IllegalArgumentException If the credentials type is unsupported
      */
     protected fun buildConfig(): XapClientConfiguration {
         require(credentials != null) {
@@ -79,6 +101,12 @@ abstract class AsyncClientBuilder<T : AsyncRestClient> {
     private var credentials: Credentials? = null
     private var asyncTransport: AsyncTransport? = null
 
+    /**
+     * Sets the credentials used to authenticate with the API.
+     *
+     * @param credentials
+     * @return The builder instance.
+     */
     fun credentials(credentials: Credentials) = apply { this.credentials = credentials }
 
     /**
@@ -100,7 +128,7 @@ abstract class AsyncClientBuilder<T : AsyncRestClient> {
      * Builds the configuration for the asynchronous XAP client.
      *
      * @return The built [AsyncXapClientConfiguration] instance.
-     * @throws IllegalArgumentException If the key or secret is not provided.
+     * @throws IllegalArgumentException If the credentials type is unsupported
      */
     protected fun buildConfig(): AsyncXapClientConfiguration {
         require(credentials != null) {

@@ -1,5 +1,6 @@
 package com.expediagroup.sdk.xap.examples.scenarios;
 
+import com.expediagroup.sdk.core.auth.basic.BasicCredentials;
 import com.expediagroup.sdk.xap.client.XapClient;
 
 /**
@@ -19,10 +20,15 @@ public interface XapScenario {
     default XapClient createClient() {
         String key = System.getProperty("com.expediagroup.xapjavasdk.apikey");
         String secret = System.getProperty("com.expediagroup.xapjavasdk.apisecret");
+
+        BasicCredentials credentials = new BasicCredentials(key, secret);
+
+        // Or enable OAuth by passing OAuthCredentials instead:
+        // OAuthCredentials credentials = new OAuthCredentials("api-key", "api-secret");
+
         return XapClient
-                .builder()
-                .key(key)
-                .secret(secret)
-                .build();
+            .builder()
+            .credentials(credentials)
+            .build();
     }
 }
