@@ -44,7 +44,6 @@ import org.slf4j.LoggerFactory
 class RequestExecutor(
     private val configuration: XapClientConfiguration,
 ) : AbstractRequestExecutor(configuration.transport) {
-
     private val headersMask = MaskHeaders(listOf("authorization"))
 
     override val executionPipeline =
@@ -62,7 +61,7 @@ class RequestExecutor(
                     BasicAuthStep(BasicAuthManager(configuration.credentials)),
                     RequestLoggingStep(
                         logger = logger,
-                        maskHeaders = headersMask
+                        maskHeaders = headersMask,
                     ),
                 )
 
@@ -79,7 +78,7 @@ class RequestExecutor(
                     ),
                     RequestLoggingStep(
                         logger = logger,
-                        maskHeaders = headersMask
+                        maskHeaders = headersMask,
                     ),
                 )
 

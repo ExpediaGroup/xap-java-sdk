@@ -44,7 +44,6 @@ import org.slf4j.LoggerFactory
 class AsyncRequestExecutor(
     private val configuration: AsyncXapClientConfiguration,
 ) : AbstractAsyncRequestExecutor(configuration.asyncTransport) {
-
     private val headersMask = MaskHeaders(listOf("authorization"))
 
     override val executionPipeline =
@@ -62,7 +61,7 @@ class AsyncRequestExecutor(
                     BasicAuthStep(BasicAuthManager(configuration.credentials)),
                     RequestLoggingStep(
                         logger = logger,
-                        maskHeaders = headersMask
+                        maskHeaders = headersMask,
                     ),
                 )
 
@@ -79,7 +78,7 @@ class AsyncRequestExecutor(
                     ),
                     RequestLoggingStep(
                         logger = logger,
-                        maskHeaders = headersMask
+                        maskHeaders = headersMask,
                     ),
                 )
 
