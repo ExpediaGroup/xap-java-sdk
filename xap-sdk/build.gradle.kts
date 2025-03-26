@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    api("com.expediagroup:expediagroup-sdk-rest:0.0.4-alpha-SNAPSHOT")
+    api("com.expediagroup:expediagroup-sdk-rest:0.0.5-alpha-SNAPSHOT")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.2")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2")
     runtimeOnly("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2")
