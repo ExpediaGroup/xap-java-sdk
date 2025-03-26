@@ -53,7 +53,7 @@ jobs:
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         run: |
           version="${{ github.event.inputs.version }}"
-          if [[ "${v// /}" == *"-SNAPSHOT" ]]; then
+          if [[ "${version// /}" == *"-SNAPSHOT" ]]; then
             gradle publishSnapshot -PVERSION="${version}"
           else
             gradle publishToSonatype closeAndReleaseSonatypeStagingRepository -PVERSION="${version}"
