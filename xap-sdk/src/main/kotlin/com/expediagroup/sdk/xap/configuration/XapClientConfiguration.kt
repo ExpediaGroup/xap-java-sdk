@@ -1,5 +1,6 @@
 package com.expediagroup.sdk.xap.configuration
 
+import com.expediagroup.sdk.core.auth.common.Credentials
 import com.expediagroup.sdk.core.transport.AsyncTransport
 import com.expediagroup.sdk.core.transport.Transport
 import com.expediagroup.sdk.rest.AsyncRestClient
@@ -8,30 +9,20 @@ import com.expediagroup.sdk.rest.RestClient
 /**
  * Configuration data class for XAP client.
  *
- * @property key The API key.
- * @property secret The API secret.
- * @property environment The client environment. Defaults to null.
  * @property transport The transport mechanism. Defaults to null.
  */
 data class XapClientConfiguration(
-    val key: String,
-    val secret: String,
-    val environment: ClientEnvironment? = null,
+    val credentials: Credentials,
     val transport: Transport? = null,
 )
 
 /**
  * Configuration data class for asynchronous XAP client.
  *
- * @property key The API key.
- * @property secret The API secret.
- * @property environment The client environment. Defaults to null.
  * @property asyncTransport The asynchronous transport mechanism. Defaults to null.
  */
 data class AsyncXapClientConfiguration(
-    val key: String,
-    val secret: String,
-    val environment: ClientEnvironment? = null,
+    val credentials: Credentials,
     val asyncTransport: AsyncTransport? = null,
 )
 
@@ -41,34 +32,10 @@ data class AsyncXapClientConfiguration(
  * @param T The type of [RestClient] to build.
  */
 abstract class ClientBuilder<T : RestClient> {
-    private var key: String? = null
-    private var secret: String? = null
-    private var environment: ClientEnvironment? = null
+    private var credentials: Credentials? = null
     private var transport: Transport? = null
 
-    /**
-     * Sets the API key.
-     *
-     * @param key The API key.
-     * @return The builder instance.
-     */
-    fun key(key: String) = apply { this.key = key }
-
-    /**
-     * Sets the API secret.
-     *
-     * @param secret The API secret.
-     * @return The builder instance.
-     */
-    fun secret(secret: String) = apply { this.secret = secret }
-
-    /**
-     * Sets the client environment.
-     *
-     * @param environment The client environment.
-     * @return The builder instance.
-     */
-    fun environment(environment: ClientEnvironment) = apply { this.environment = environment }
+    fun credentials(credentials: Credentials) = apply { this.credentials = credentials }
 
     /**
      * Sets the transport mechanism.
@@ -92,18 +59,12 @@ abstract class ClientBuilder<T : RestClient> {
      * @throws IllegalArgumentException If the key or secret is not provided.
      */
     protected fun buildConfig(): XapClientConfiguration {
-        require(key != null) {
-            "key is required"
-        }
-
-        require(secret != null) {
-            "secret is required"
+        require(credentials != null) {
+            "credentials is required"
         }
 
         return XapClientConfiguration(
-            key = key!!,
-            secret = secret!!,
-            environment = environment,
+            credentials = credentials!!,
             transport = transport,
         )
     }
@@ -115,34 +76,10 @@ abstract class ClientBuilder<T : RestClient> {
  * @param T The type of [AsyncRestClient] to build.
  */
 abstract class AsyncClientBuilder<T : AsyncRestClient> {
-    private var key: String? = null
-    private var secret: String? = null
-    private var environment: ClientEnvironment? = null
+    private var credentials: Credentials? = null
     private var asyncTransport: AsyncTransport? = null
 
-    /**
-     * Sets the API key.
-     *
-     * @param key The API key.
-     * @return The builder instance.
-     */
-    fun key(key: String) = apply { this.key = key }
-
-    /**
-     * Sets the API secret.
-     *
-     * @param secret The API secret.
-     * @return The builder instance.
-     */
-    fun secret(secret: String) = apply { this.secret = secret }
-
-    /**
-     * Sets the client environment.
-     *
-     * @param environment The client environment.
-     * @return The builder instance.
-     */
-    fun environment(environment: ClientEnvironment) = apply { this.environment = environment }
+    fun credentials(credentials: Credentials) = apply { this.credentials = credentials }
 
     /**
      * Sets the asynchronous transport mechanism.
@@ -166,18 +103,12 @@ abstract class AsyncClientBuilder<T : AsyncRestClient> {
      * @throws IllegalArgumentException If the key or secret is not provided.
      */
     protected fun buildConfig(): AsyncXapClientConfiguration {
-        require(key != null) {
-            "key is required"
-        }
-
-        require(secret != null) {
-            "secret is required"
+        require(credentials != null) {
+            "credentials is required"
         }
 
         return AsyncXapClientConfiguration(
-            key = key!!,
-            secret = secret!!,
-            environment = environment,
+            credentials = credentials!!,
             asyncTransport = asyncTransport,
         )
     }
