@@ -13,5 +13,4 @@ dependencies {
 
 apply("$rootDir/gradle-tasks/publish.gradle.kts")
 apply("$rootDir/gradle-tasks/signing.gradle.kts")
-apply("$rootDir/gradle-tasks/snapshot.gradle.kts")
 apply("$rootDir/gradle-tasks/sdk-properties.gradle.kts")
