@@ -2,26 +2,13 @@ import com.expediagroup.sdk.xap.generator.mustache.AllowedMediaTypesLambda
 import org.openapitools.codegen.CodegenConstants
 
 plugins {
-    `kotlin-dsl`
-    kotlin("jvm") version "2.1.10"
     id("com.expediagroup.sdk.openapigenerator") version "0.0.3-beta-SNAPSHOT"
-    id("org.jlleitschuh.gradle.ktlint") version "12.1.2"
 }
 
-group = "com.expediagroup.sdk"
-version = "1.0-SNAPSHOT"
+group = project.property("GROUP_ID") as String
 
 dependencies {
     api("org.openapitools:openapi-generator:7.11.0")
-    testImplementation(kotlin("test"))
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-
-kotlin {
-    jvmToolchain(8)
 }
 
 openApiGenerate {

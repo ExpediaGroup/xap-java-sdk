@@ -1,15 +1,9 @@
-plugins {
-    id("java")
-}
-
 group = project.property("GROUP_ID") as String
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    implementation(project(":xap-sdk"))
+    api(project(":xap-sdk"))
+
+    implementation("com.expediagroup:expediagroup-sdk-transport-okhttp:0.0.4-alpha")
 
     implementation("org.apache.logging.log4j:log4j-api:2.24.3")
     implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.24.3")

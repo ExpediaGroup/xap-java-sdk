@@ -1,5 +1,22 @@
+/*
+ * Copyright (C) 2025 Expedia, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.expediagroup.sdk.xap.configuration
 
+import com.expediagroup.sdk.core.auth.common.Credentials
 import com.expediagroup.sdk.core.transport.AsyncTransport
 import com.expediagroup.sdk.core.transport.Transport
 import com.expediagroup.sdk.rest.AsyncRestClient
@@ -8,30 +25,20 @@ import com.expediagroup.sdk.rest.RestClient
 /**
  * Configuration data class for XAP client.
  *
- * @property key The API key.
- * @property secret The API secret.
- * @property environment The client environment. Defaults to null.
  * @property transport The transport mechanism. Defaults to null.
  */
 data class XapClientConfiguration(
-    val key: String,
-    val secret: String,
-    val environment: ClientEnvironment? = null,
+    val credentials: Credentials,
     val transport: Transport? = null,
 )
 
 /**
  * Configuration data class for asynchronous XAP client.
  *
- * @property key The API key.
- * @property secret The API secret.
- * @property environment The client environment. Defaults to null.
  * @property asyncTransport The asynchronous transport mechanism. Defaults to null.
  */
 data class AsyncXapClientConfiguration(
-    val key: String,
-    val secret: String,
-    val environment: ClientEnvironment? = null,
+    val credentials: Credentials,
     val asyncTransport: AsyncTransport? = null,
 )
 
@@ -41,34 +48,16 @@ data class AsyncXapClientConfiguration(
  * @param T The type of [RestClient] to build.
  */
 abstract class ClientBuilder<T : RestClient> {
-    private var key: String? = null
-    private var secret: String? = null
-    private var environment: ClientEnvironment? = null
+    private var credentials: Credentials? = null
     private var transport: Transport? = null
 
     /**
-     * Sets the API key.
+     * Sets the credentials used to authenticate with the API.
      *
-     * @param key The API key.
+     * @param credentials
      * @return The builder instance.
      */
-    fun key(key: String) = apply { this.key = key }
-
-    /**
-     * Sets the API secret.
-     *
-     * @param secret The API secret.
-     * @return The builder instance.
-     */
-    fun secret(secret: String) = apply { this.secret = secret }
-
-    /**
-     * Sets the client environment.
-     *
-     * @param environment The client environment.
-     * @return The builder instance.
-     */
-    fun environment(environment: ClientEnvironment) = apply { this.environment = environment }
+    fun credentials(credentials: Credentials) = apply { this.credentials = credentials }
 
     /**
      * Sets the transport mechanism.
@@ -89,21 +78,15 @@ abstract class ClientBuilder<T : RestClient> {
      * Builds the configuration for the XAP client.
      *
      * @return The built [XapClientConfiguration] instance.
-     * @throws IllegalArgumentException If the key or secret is not provided.
+     * @throws IllegalArgumentException If the credentials type is unsupported
      */
     protected fun buildConfig(): XapClientConfiguration {
-        require(key != null) {
-            "key is required"
-        }
-
-        require(secret != null) {
-            "secret is required"
+        require(credentials != null) {
+            "credentials is required"
         }
 
         return XapClientConfiguration(
-            key = key!!,
-            secret = secret!!,
-            environment = environment,
+            credentials = credentials!!,
             transport = transport,
         )
     }
@@ -115,34 +98,16 @@ abstract class ClientBuilder<T : RestClient> {
  * @param T The type of [AsyncRestClient] to build.
  */
 abstract class AsyncClientBuilder<T : AsyncRestClient> {
-    private var key: String? = null
-    private var secret: String? = null
-    private var environment: ClientEnvironment? = null
+    private var credentials: Credentials? = null
     private var asyncTransport: AsyncTransport? = null
 
     /**
-     * Sets the API key.
+     * Sets the credentials used to authenticate with the API.
      *
-     * @param key The API key.
+     * @param credentials
      * @return The builder instance.
      */
-    fun key(key: String) = apply { this.key = key }
-
-    /**
-     * Sets the API secret.
-     *
-     * @param secret The API secret.
-     * @return The builder instance.
-     */
-    fun secret(secret: String) = apply { this.secret = secret }
-
-    /**
-     * Sets the client environment.
-     *
-     * @param environment The client environment.
-     * @return The builder instance.
-     */
-    fun environment(environment: ClientEnvironment) = apply { this.environment = environment }
+    fun credentials(credentials: Credentials) = apply { this.credentials = credentials }
 
     /**
      * Sets the asynchronous transport mechanism.
@@ -163,21 +128,15 @@ abstract class AsyncClientBuilder<T : AsyncRestClient> {
      * Builds the configuration for the asynchronous XAP client.
      *
      * @return The built [AsyncXapClientConfiguration] instance.
-     * @throws IllegalArgumentException If the key or secret is not provided.
+     * @throws IllegalArgumentException If the credentials type is unsupported
      */
     protected fun buildConfig(): AsyncXapClientConfiguration {
-        require(key != null) {
-            "key is required"
-        }
-
-        require(secret != null) {
-            "secret is required"
+        require(credentials != null) {
+            "credentials is required"
         }
 
         return AsyncXapClientConfiguration(
-            key = key!!,
-            secret = secret!!,
-            environment = environment,
+            credentials = credentials!!,
             asyncTransport = asyncTransport,
         )
     }
