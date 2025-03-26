@@ -4,7 +4,6 @@ plugins {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
     api("com.expediagroup:expediagroup-sdk-rest:0.0.4-alpha-SNAPSHOT")
     implementation("com.expediagroup:expediagroup-sdk-transport-okhttp:0.0.4-alpha")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.2")
