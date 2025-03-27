@@ -16,8 +16,8 @@
 
 package com.expediagroup.sdk.xap.core
 
+import com.expediagroup.sdk.core.auth.basic.BasicAuthCredentials
 import com.expediagroup.sdk.core.auth.basic.BasicAuthManager
-import com.expediagroup.sdk.core.auth.basic.BasicCredentials
 import com.expediagroup.sdk.core.auth.oauth.OAuthAsyncManager
 import com.expediagroup.sdk.core.auth.oauth.OAuthCredentials
 import com.expediagroup.sdk.core.exception.client.ExpediaGroupConfigurationException
@@ -54,7 +54,7 @@ class AsyncRequestExecutor(
 
     private fun getRequestPipeline(): List<RequestPipelineStep> =
         when (configuration.credentials) {
-            is BasicCredentials ->
+            is BasicAuthCredentials ->
                 listOf(
                     RequestHeadersStep(),
                     ApiKeyHeaderStep(configuration.credentials.username),
