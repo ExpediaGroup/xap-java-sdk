@@ -5,7 +5,6 @@ on:
         type: string
         description: "Version to publish. For snapshot releases, add `-SNAPSHOT` suffix to the version. For example, `1.0.0-SNAPSHOT`."
         required: true
-        default: true
 
 jobs:
   generate-and-publish:
@@ -53,7 +52,8 @@ jobs:
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         run: |
           version="${{ github.event.inputs.version }}"
-          if [[ "${version// /}" == *"-SNAPSHOT" ]]; then
+          version="${version// /}"
+          if [[ "$version" == *"-SNAPSHOT" ]]; then
             gradle publishSnapshot -PVERSION="${version}"
           else
             gradle publishToSonatype closeAndReleaseSonatypeStagingRepository -PVERSION="${version}"
