@@ -13,11 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.expediagroup.sdk.core.plugin.logging
+package com.expediagroup.sdk.xap.operations
 
-import com.ebay.ejmask.core.BaseFilter
+import com.expediagroup.sdk.core.model.Nothing
+import com.expediagroup.sdk.core.model.Operation
 
-internal class ExpediaGroupJsonFieldFilter(maskedFields: Array<String>) : BaseFilter(
-    ExpediaGroupJsonFieldPatternBuilder::class.java,
-    *maskedFields
-)
+/**
+ *
+ * @property params [GetFlightListingsOperationParams]
+ */
+class GetFlightListingsOperation(
+    params: GetFlightListingsOperationParams
+) : Operation<
+        Nothing
+    >(
+        "/flights/listings",
+        "GET",
+        "getFlightListings",
+        null,
+        params
+    )
