@@ -28,7 +28,7 @@ import javax.validation.Validation
 import javax.validation.constraints.NotNull
 
 /**
- * @property offerToken A Hotel Natural Key from the Lodging Search API -> Hotels -> RoomTypes -> OfferId. It is a concatenated  string of multiple values that defines a hotel offer.
+ * @property offerToken A Hotel Natural Key from the Lodging Search API -> Hotels -> RoomTypes -> OfferId. It is a concatenated string of multiple values that defines a hotel offer.
  * @property partnerTransactionId The `Partner-Transaction-ID` is a required API request header element that is <u>not</u> consumed by Expedia. It will be required in all XAP v3 API request headers and will be mirrored back to the partner in the corresponding API response header.  The `Partner-Transaction-ID` may be any alphanumeric string of the partner's choosing.
  * @property price The total price of the selected property.  This value will be used to determine if there is a price change between the details and booking request.  The `price` element will be automatically included in the ApiDetails HATEOAS link which is returned along with the Lodging Details API response.
  * @property currency Value should be a standard ISO 3 letter currency code.  The currency code that is associated to the `TotalPrice` element for the selected property's rate plan from the Lodging Listing API response.  The `currency` element will be automatically included in the ApiDetails HATEOAS link which is returned along with the Lodging Details response.
@@ -84,7 +84,7 @@ data class GetLodgingDetailsOperationParams(
         @JsonProperty("groupedAmenities") private var groupedAmenities: kotlin.Boolean? = null
     ) {
         /**
-         * @param offerToken A Hotel Natural Key from the Lodging Search API -> Hotels -> RoomTypes -> OfferId. It is a concatenated  string of multiple values that defines a hotel offer.
+         * @param offerToken A Hotel Natural Key from the Lodging Search API -> Hotels -> RoomTypes -> OfferId. It is a concatenated string of multiple values that defines a hotel offer.
          */
         fun offerToken(offerToken: kotlin.String) = apply { this.offerToken = offerToken }
 
