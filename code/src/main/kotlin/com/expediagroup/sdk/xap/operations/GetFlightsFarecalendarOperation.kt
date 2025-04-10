@@ -13,14 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.expediagroup.sdk.core.plugin.logging
+package com.expediagroup.sdk.xap.operations
 
-import com.ebay.ejmask.extenstion.builder.json.JsonFieldPatternBuilder
-import com.expediagroup.sdk.core.constant.LoggingMessage.OMITTED
+import com.expediagroup.sdk.core.model.Nothing
+import com.expediagroup.sdk.core.model.Operation
 
-internal class ExpediaGroupJsonFieldPatternBuilder : JsonFieldPatternBuilder() {
-    override fun buildReplacement(
-        visibleCharacters: Int,
-        vararg fieldNames: String?
-    ): String = "\"$1$2$OMITTED\""
-}
+/**
+ *
+ * @property params [GetFlightsFarecalendarOperationParams]
+ */
+class GetFlightsFarecalendarOperation(
+    params: GetFlightsFarecalendarOperationParams
+) : Operation<
+        Nothing
+    >(
+        "/flights/farecalendar",
+        "GET",
+        "getFlightsFarecalendar",
+        null,
+        params
+    )
