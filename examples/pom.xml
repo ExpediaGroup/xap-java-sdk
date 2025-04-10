@@ -22,7 +22,7 @@
 
     <groupId>com.expediagroup</groupId>
     <artifactId>xap-java-sdk-examples</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.2.2-SNAPSHOT</version>
     <name>XAP Java SDK Examples</name>
     <description>Expedia Group XAP Java SDK Examples</description>
 
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>com.expediagroup</groupId>
             <artifactId>xap-sdk</artifactId>
-            <version>${xap-java-sdk.sdk.version}</version>
+            <version>1.2.2-SNAPSHOT</version>
         </dependency>
 
         <dependency>

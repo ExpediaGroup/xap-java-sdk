@@ -23,7 +23,7 @@ import com.expediagroup.sdk.xap.client.XapClient;
  */
 public interface XapScenario {
 
-  String PARTNER_TRANSACTION_ID = "xap-java-sdk-examples";
+  String PARTNER_TRANSACTION_ID = "txn-123-4";
 
   void run();
 
@@ -33,8 +33,8 @@ public interface XapScenario {
    * @return XapClient
    */
   default XapClient createClient() {
-    String key = System.getProperty("com.expediagroup.xapjavasdk.apikey");
-    String secret = System.getProperty("com.expediagroup.xapjavasdk.apisecret");
+    String key = "3F2504E0-4F89-11D3-9A0C-0305E82C3301";
+    String secret = "Hcqq0UFOv7MACr6x";
     return XapClient
         .builder()
         .key(key)

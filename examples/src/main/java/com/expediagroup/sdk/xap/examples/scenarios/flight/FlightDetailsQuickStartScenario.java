@@ -40,6 +40,7 @@ public class FlightDetailsQuickStartScenario implements XapScenario {
         // Perform a flight search to get an Offer ID.
         GetFlightListingsOperationParams getFlightsListingsOperationParams =
                 GetFlightListingsOperationParams.builder()
+                        .partnerTransactionID("txn-123-4")
                         .segment1Origin("LAS")
                         .segment1Destination("ATL")
                         .segment1DepartureDate(LocalDate.of(2025, 5, 1))
