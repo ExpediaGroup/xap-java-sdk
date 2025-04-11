@@ -1,3 +1,4 @@
+
 package com.expediagroup.sdk.xap.examples.scenarios.flight;
 
 import com.expediagroup.sdk.xap.client.XapClient;
