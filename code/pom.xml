@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.expediagroup</groupId>
     <artifactId>xap-sdk</artifactId>
-    <version>1.2.2-SNAPSHOT</version>
+    <version>1.1.0</version>
     <name>EG xap-sdk for Java</name>
-    <description>EG xap-sdk v1.2.2-SNAPSHOT</description>
-    <url>https://github.com/ExpediaGroup/xap-java-sdk</url>
+    <description>EG xap-sdk v1.1.0</description>
+    <url>https://github.com/ExpediaGroup/test-sdk</url>
     <inceptionYear>2022</inceptionYear>
     <packaging>jar</packaging>
 
@@ -77,11 +77,11 @@
         <dokka-plugin.version>2.0.0</dokka-plugin.version>
         <dokka-old-versions.location/> <!-- passed as a property when running dokka:dokka-->
         <properties.maven.plugin.version>1.2.1</properties.maven.plugin.version>
-        <maven.licence.plugin.version>4.6</maven.licence.plugin.version>
+        <maven.licence.plugin.version>5.0.0</maven.licence.plugin.version>
         <flatten.maven.plugin.version>1.7.0</flatten.maven.plugin.version>
         <kotlin.version>2.1.20</kotlin.version>
         <kotlinx.coroutines.version>1.10.1</kotlinx.coroutines.version>
-        <ktor.version>3.1.1</ktor.version>
+        <ktor.version>3.1.2</ktor.version>
         <kotlin-atomic.version>0.27.0</kotlin-atomic.version>
         <slf4j.version>2.0.17</slf4j.version>
         <maven.nexus-staging.plugin.version>1.7.0</maven.nexus-staging.plugin.version>
@@ -449,7 +449,6 @@
             <plugin>
                 <groupId>org.jetbrains.dokka</groupId>
                 <artifactId>dokka-maven-plugin</artifactId>
-                <version>${dokka-plugin.version}</version>
                 <configuration>
                     <sourceDirectories>
                         <dir>${project.basedir}/src/main/kotlin/com/expediagroup/sdk/xap</dir>

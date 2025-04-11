@@ -30,13 +30,13 @@ import javax.validation.constraints.NotNull
 
 /**
  * @property partnerTransactionId The `Partner-Transaction-ID` is a required API request header element that is <u>not</u> consumed by Expedia. It will be required in all XAP v3 API request headers and will be mirrored back to the partner in the corresponding API response header.  The `Partner-Transaction-ID` may be any alphanumeric string of the partner's choosing.
- * @property propertyIds Comma-separated list of Expedia Property IDs.  ***NOTE**: This API supports Expedia property IDs <u>only</u> by design – HCOM and Vrbo property IDs are <u>not</u> supported.*  *For optimal performance, limiting your request to a maximum of 200 properties is recommended.*
+ * @property propertyIds Comma-separated list of Expedia Property IDs.  ***NOTE**: This API supports Expedia property IDs <u>only</u> by design – HCOM and Vrbo property IDs are  <u>not</u> supported.*  *For optimal performance, limiting your request to a maximum of 200 properties is recommended.*
  * @property checkIn Check-in date for property stay in an ISO 8601 Date format.  This parameter should be used in combination with the checkOut parameter.  The maximum advanced search window is 1000 days in the future, and the maximum length of stay is 732.
  * @property checkOut Check-out date for property stay in an ISO 8601 Date format  This parameter should be used in combination with the checkIn parameter.  The maximum advanced search window is 1000 days in the future, and the maximum length of stay is 732.
  * @property currency The requested currency expressed according to ISO 4217.  PoS default currency will be passed if another currency is not specified in the request.
  * @property links Comma-separated list to specify the types of deep links. - WD (link to web infosite) - WS (link to web search result page) - WEB (include all website links)
  * @property travelWithPets Indicates if the search should include pet-friendly properties.  If set to \"True\" only properties that allow pets are returned. Pet fees, if available, are included in TaxesAndFees.  The parameter is only applicable to the Vrbo brand.
- * @property room1Adults Specifies the number of adults staying in a specific room.  Example: `room1.adults` is used to specify the number of adults in the first room.  ***NOTE***: multiple room request is only supported for conventional lodging hotels. Request for Vrbo properties should only include one room. e.g. 3 adults in room 1 and 3 in room 2, \"room1.adults\" is 6.
+ * @property room1Adults Specifies the number of adults staying in a specific room.  Example: `room1.adults` is used to specify the number of adults in the first room.  ***NOTE***: multiple room request is only supported for conventional lodging hotels. Request for Vrbo  properties should only include one room. e.g. 3 adults in room 1 and 3 in room 2, \"room1.adults\" is 6.
  * @property room1ChildAges Comma-separated list that specifies the age(s) for each of the children in each of the rooms.  Example: `room2.childAges=1,3` means two children (1-year old and 3-year old) are staying in room #2.  Children must be accompanied by an adult.  Total number of children is indicated by the number of childAges included.  If there are no children in the party then this value should not be included.  ***NOTE***: multiple room request is only supported for conventional lodging hotels. Request for Vrbo properties should include the ages of all the children in the first room. e.g. 1 child age 10 in room #1 and 1 child age 11 in room #2, \"room1.childAges\" is 10,11.
  * @property room2Adults Specifies the number of adults staying in second room.
  * @property room2ChildAges Comma-separated list that specifies the age(s) for each of the children in second room.
@@ -208,7 +208,7 @@ data class GetLodgingQuotesOperationParams(
         fun partnerTransactionId(partnerTransactionId: kotlin.String) = apply { this.partnerTransactionId = partnerTransactionId }
 
         /**
-         * @param propertyIds Comma-separated list of Expedia Property IDs.  ***NOTE**: This API supports Expedia property IDs <u>only</u> by design – HCOM and Vrbo property IDs are <u>not</u> supported.*  *For optimal performance, limiting your request to a maximum of 200 properties is recommended.*
+         * @param propertyIds Comma-separated list of Expedia Property IDs.  ***NOTE**: This API supports Expedia property IDs <u>only</u> by design – HCOM and Vrbo property IDs are  <u>not</u> supported.*  *For optimal performance, limiting your request to a maximum of 200 properties is recommended.*
          */
         fun propertyIds(
             propertyIds: kotlin.collections.Set<
