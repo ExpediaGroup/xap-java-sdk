@@ -328,6 +328,7 @@ paths:
           description: Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
           schema:
             type: string
+            format: date
         - name: segment2.departureStartTime
           in: query
           description: Lower limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
@@ -353,6 +354,7 @@ paths:
           description: Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
           schema:
             type: string
+            format: date
         - name: segment3.departureStartTime
           in: query
           description: Lower limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
@@ -378,6 +380,7 @@ paths:
           description: Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
           schema:
             type: string
+            format: date
         - name: segment4.departureStartTime
           in: query
           description: Lower limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
@@ -403,6 +406,7 @@ paths:
           description: Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
           schema:
             type: string
+            format: date
         - name: segment5.departureStartTime
           in: query
           description: Lower limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
@@ -428,6 +432,7 @@ paths:
           description: Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
           schema:
             type: string
+            format: date
         - name: segment6.departureStartTime
           in: query
           description: Lower limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
