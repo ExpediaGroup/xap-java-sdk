@@ -2656,7 +2656,6 @@ components:
       required:
         - International
         - Links
-        - offerToken
         - OfferPrice
         - Refundable
         - SegmentIds
