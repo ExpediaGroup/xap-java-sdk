@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
  * This example demonstrates how to search for flight listings for a one-way trip with adults,
  * seniors, and children.
  */
-
 public class FlightListingExampleTesting implements XapScenario {
 
   private static final Logger LOGGER =
