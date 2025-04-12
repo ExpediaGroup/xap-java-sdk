@@ -70,18 +70,18 @@
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
         <build-helper-maven-plugin.version>3.6.0</build-helper-maven-plugin.version>
         <ktlint-plugin.version>3.5.0</ktlint-plugin.version>
-        <jacoco-plugin.version>0.8.12</jacoco-plugin.version>
-        <dokka-plugin.version>1.9.20</dokka-plugin.version>
+        <jacoco-plugin.version>0.8.13</jacoco-plugin.version>
+        <dokka-plugin.version>2.0.0</dokka-plugin.version>
         <dokka-old-versions.location/> <!-- passed as a property when running dokka:dokka-->
         <properties.maven.plugin.version>1.2.1</properties.maven.plugin.version>
         <maven.licence.plugin.version>5.0.0</maven.licence.plugin.version>
         <flatten.maven.plugin.version>1.7.0</flatten.maven.plugin.version>
         <kotlin.version>2.1.20</kotlin.version>
         <kotlinx.coroutines.version>1.10.1</kotlinx.coroutines.version>
-        <ktor.version>2.3.13</ktor.version>
+        <ktor.version>3.1.2</ktor.version>
         <kotlin-atomic.version>0.27.0</kotlin-atomic.version>
         <slf4j.version>2.0.17</slf4j.version>
         <maven.nexus-staging.plugin.version>1.7.0</maven.nexus-staging.plugin.version>

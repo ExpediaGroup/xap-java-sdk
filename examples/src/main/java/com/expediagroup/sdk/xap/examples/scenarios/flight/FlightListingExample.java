@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2025 Expedia, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package com.expediagroup.sdk.xap.examples.scenarios.flight;
 
@@ -7,22 +22,24 @@ import com.expediagroup.sdk.xap.models.FlightSearchResponse;
 import com.expediagroup.sdk.xap.operations.GetFlightListingsOperation;
 import com.expediagroup.sdk.xap.operations.GetFlightListingsOperationParams;
 import java.time.LocalDate;
+import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 /**
- * This example demonstrates how to search for flight listings for a one-way ,round trip & mutli-stop with adults,
- * seniors, and children.
+ * This example demonstrates how to search for flight listings for a one-way,
+ * round-trip & mutli-stop with adults, seniors, and childrens.
  */
 
-public class FlightListingExampleTesting implements XapScenario {
+public class FlightListingExample implements XapScenario {
 
   private static final Logger LOGGER =
-            LoggerFactory.getLogger(FlightListingExampleTesting.class);
+            LoggerFactory.getLogger(FlightListingExample.class);
 
 
   public static void main(String[] args) {
-    new FlightListingExampleTesting().run();
+    new FlightListingExample().run();
     System.exit(0);
   }
 
@@ -44,7 +61,7 @@ public class FlightListingExampleTesting implements XapScenario {
                         .segment1DepartureDate(LocalDate.of(2025, 5, 1))
                         .adult(1)
                         .senior(1)
-                        .childrenAges("2,3")
+                        .childrenAges(Arrays.asList(4, 5))
                         .build();
 
     XapClient xapClient = createClient();
@@ -77,6 +94,7 @@ public class FlightListingExampleTesting implements XapScenario {
         if (segment.getLegs() != null) {
           segment.getLegs().forEach(leg -> {
             LOGGER.info("-------------------- Leg Start --------------------");
+
             if (leg.getDepartureAirport() != null) {
               LOGGER.info("Departure Airport Code: {}",
                       leg.getDepartureAirport().getCode());
@@ -93,6 +111,7 @@ public class FlightListingExampleTesting implements XapScenario {
               LOGGER.info("Departure Longitude: {}",
                       leg.getDepartureAirport().getLongitude());
             }
+
             if (leg.getArrivalAirport() != null) {
               LOGGER.info("Arrival Airport Code: {}",
                       leg.getArrivalAirport().getCode());
@@ -127,6 +146,7 @@ public class FlightListingExampleTesting implements XapScenario {
                     leg.getEquipmentName());
             LOGGER.info("Flight Duration (Leg): {}",
                     leg.getFlightDuration());
+
             if (leg.getFlightDistance() != null) {
               LOGGER.info("Flight Distance Value: {}",
                       leg.getFlightDistance().getValue());
@@ -168,6 +188,7 @@ public class FlightListingExampleTesting implements XapScenario {
             LOGGER.info("Total Price Currency: {}",
                     offer.getOfferPrice().getTotalPrice().getCurrency());
           }
+
           if (offer.getOfferPrice().getBasePrice() != null) {
             LOGGER.info("Base Price Value: {}",
                     offer.getOfferPrice().getBasePrice().getValue());
@@ -180,12 +201,14 @@ public class FlightListingExampleTesting implements XapScenario {
             LOGGER.info("Total Taxes Currency: {}",
                     offer.getOfferPrice().getTotalTaxes().getCurrency());
           }
+
           if (offer.getOfferPrice().getTotalTaxesAndFees() != null) {
             LOGGER.info("Total Taxes and Fees Value: {}",
                     offer.getOfferPrice().getTotalTaxesAndFees().getValue());
             LOGGER.info("Total Taxes and Fees Currency: {}",
                     offer.getOfferPrice().getTotalTaxesAndFees().getCurrency());
           }
+
           if (offer.getOfferPrice().getAveragePricePerTicket() != null) {
             LOGGER.info("Average Price Per Ticket Value: {}",
                     offer.getOfferPrice().getAveragePricePerTicket().getValue());
@@ -194,6 +217,7 @@ public class FlightListingExampleTesting implements XapScenario {
             LOGGER.info("Average Price Per Ticket Count: {}",
                     offer.getOfferPrice().getAveragePricePerTicket().getCount());
           }
+
           if (offer.getOfferPrice().getPricePerPassengerCategory() != null) {
             offer.getOfferPrice().getPricePerPassengerCategory()
                     .forEach(categoryPrice -> {
@@ -271,7 +295,7 @@ public class FlightListingExampleTesting implements XapScenario {
                         .segment2Origin("LAX")
                         .segment2Destination("EWR")
                         .segment2DepartureDate(LocalDate.of(2025, 5, 5))
-                        .childrenAges("4,5")
+                        .childrenAges(Arrays.asList(4, 5))
                         .adult(1)
                         .senior(1)
                         .build();
@@ -281,6 +305,7 @@ public class FlightListingExampleTesting implements XapScenario {
 
     LOGGER.info(
                 "========= GetFlightListingsOperation (Round Trip) Executed ==============");
+
     if (roundTripResponse != null && roundTripResponse.getSegments() != null
                 && roundTripResponse.getSegments().size() == 2) {
       LOGGER.info("Round trip search returned {} segments.",
@@ -302,7 +327,7 @@ public class FlightListingExampleTesting implements XapScenario {
                         .segment2DepartureDate(LocalDate.of(2025, 5, 5))
                         .adult(1)
                         .senior(1)
-                        .childrenAges("4,5")
+                        .childrenAges(Arrays.asList(4, 5))
                         .build();
 
     FlightSearchResponse multiStopResponse =
@@ -310,6 +335,7 @@ public class FlightListingExampleTesting implements XapScenario {
 
     LOGGER.info(
                 "============ GetFlightListingsOperation (Multi-Stop) Executed ===========");
+
     if (multiStopResponse != null && multiStopResponse.getSegments() != null
                 && multiStopResponse.getSegments().size() == 3) {
       LOGGER.info("Multi-stop search returned {} segments.",
