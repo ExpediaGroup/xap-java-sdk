@@ -58,7 +58,7 @@ data class GetFlightFlexsearchOperationParams(
     val segment2Destination: kotlin.String? =
         null,
     @field:Valid
-    val segment2DepartureDate: kotlin.String? =
+    val segment2DepartureDate: java.time.LocalDate? =
         null,
     @field:Valid
     val includeSegmentDetails: kotlin.Boolean? =
@@ -76,7 +76,7 @@ data class GetFlightFlexsearchOperationParams(
         @JsonProperty("segment1.departureDate") private var segment1DepartureDate: java.time.LocalDate? = null,
         @JsonProperty("segment2.origin") private var segment2Origin: kotlin.String? = null,
         @JsonProperty("segment2.destination") private var segment2Destination: kotlin.String? = null,
-        @JsonProperty("segment2.departureDate") private var segment2DepartureDate: kotlin.String? = null,
+        @JsonProperty("segment2.departureDate") private var segment2DepartureDate: java.time.LocalDate? = null,
         @JsonProperty("includeSegmentDetails") private var includeSegmentDetails: kotlin.Boolean? = null
     ) {
         /**
@@ -112,7 +112,7 @@ data class GetFlightFlexsearchOperationParams(
         /**
          * @param segment2DepartureDate Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
          */
-        fun segment2DepartureDate(segment2DepartureDate: kotlin.String) = apply { this.segment2DepartureDate = segment2DepartureDate }
+        fun segment2DepartureDate(segment2DepartureDate: java.time.LocalDate) = apply { this.segment2DepartureDate = segment2DepartureDate }
 
         /**
          * @param includeSegmentDetails If included, the response will included all segment and leg details. By default, the value of this parameter will be false.
@@ -194,7 +194,7 @@ data class GetFlightFlexsearchOperationParams(
                 append("segment2.destination", it)
             }
             segment2DepartureDate?.let {
-                append("segment2.departureDate", it)
+                append("segment2.departureDate", it.toString())
             }
             includeSegmentDetails?.let {
                 append("includeSegmentDetails", it.toString())

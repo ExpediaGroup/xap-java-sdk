@@ -38,7 +38,7 @@ import javax.validation.constraints.NotNull
  * @param location
  * @param distance
  * @param description
- * @param status  Indicates whether there are available offers at the property during the dates requested, as well as information as to why. Note that pricing will only be present in the API response for a status of 'AVAILABLE'. If there are no rooms available at the property for the dates requested, then 'NOT_AVAILABLE' will be returned. If there are available rooms, but none that meet the specific parameters of the search request, then one of the other messages will be returned
+ * @param status   Indicates whether there are available offers at the property during the dates requested, as well as information as to why. Note that pricing will only be present in the API response for a status of 'AVAILABLE'. If there are no rooms available at the property for the dates requested, then 'NOT_AVAILABLE' will be returned. If there are available rooms, but none that meet the specific parameters of the search request, then one of the other messages will be returned
  * @param thumbnailUrl URL of the thumbnail image of the hotel.Note that other images sizes are available - You can find a link to the complete list of Supported Hotel Image Sizes in the Related Links section at the bottom of the page
  * @param starRating Star rating value of the hotel property.
  * @param isOfficialRating Official rating value indicates if the hotel is certified or official. (Required in Australia Point of Sale)
@@ -284,7 +284,7 @@ data class FlightsV3Hotel(
         )
 
     /**
-     *  Indicates whether there are available offers at the property during the dates requested, as well as information as to why. Note that pricing will only be present in the API response for a status of 'AVAILABLE'. If there are no rooms available at the property for the dates requested, then 'NOT_AVAILABLE' will be returned. If there are available rooms, but none that meet the specific parameters of the search request, then one of the other messages will be returned
+     *   Indicates whether there are available offers at the property during the dates requested, as well as information as to why. Note that pricing will only be present in the API response for a status of 'AVAILABLE'. If there are no rooms available at the property for the dates requested, then 'NOT_AVAILABLE' will be returned. If there are available rooms, but none that meet the specific parameters of the search request, then one of the other messages will be returned
      * Values: AVAILABLE,NOT_AVAILABLE,ERROR,NUMBER_OF_ADULTS_NOT_ACCEPTED,NUMBER_OF_CHILDREN_NOT_ACCEPTED,NUMBER_OF_INFANTS_NOT_ACCEPTED,NUMBER_OF_PERSONS_NOT_ACCEPTED,CHECK_IN_AGE_NOT_ACCEPTED
      */
     enum class Status(val value: kotlin.String) {

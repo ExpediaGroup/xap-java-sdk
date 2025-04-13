@@ -33,7 +33,7 @@ import javax.validation.Validation
  * @param freeCancellationEndDateTime The date and time until which the room can be cancelled free of charge.  This is expressed in the local time of the Hotel.
  * @param cancellationPenaltyRules Container for cancellation penalty details.
  * @param cancelPolicyDescription Additional cancellation policy information available as static text.
- * @param nonRefundableDateRanges A list of dates ranges that are non-refundable.  **Note**: The stay dates in those date ranges will always be charged whenever there is any cancellation penalty rule.
+ * @param nonRefundableDateRanges A list of dates ranges that are non-refundable.  **Note**: The stay dates in those date ranges will always be charged whenever there is any cancellation  penalty rule.
  */
 data class CancellationPolicy(
     @JsonProperty("WaiverPolicy")
@@ -62,7 +62,7 @@ data class CancellationPolicy(
     @JsonProperty("CancelPolicyDescription")
     @field:Valid
     val cancelPolicyDescription: kotlin.String? = null,
-    // A list of dates ranges that are non-refundable.  **Note**: The stay dates in those date ranges will always be charged whenever there is any cancellation penalty rule.
+    // A list of dates ranges that are non-refundable.  **Note**: The stay dates in those date ranges will always be charged whenever there is any cancellation  penalty rule.
     @JsonProperty("NonRefundableDateRanges")
     @field:Valid
     val nonRefundableDateRanges: kotlin.collections.List<NonRefundableDateRange>? = null

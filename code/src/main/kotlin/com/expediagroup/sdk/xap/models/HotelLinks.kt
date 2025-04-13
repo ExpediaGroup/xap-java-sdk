@@ -25,7 +25,7 @@ import javax.validation.Valid
 import javax.validation.Validation
 
 /**
- * Container for list of **HATEOAS** links to Expedia website to complete booking.  This links section will only return a deeplink to the Website Search Results page by default.  If you have selected AD deeplinks they will only <u>appear</u> within the `RoomTypes` section of the response, as the Lodging Details API returns details at the room offer level, and not at the property level.
+ * Container for list of **HATEOAS** links to Expedia website to complete booking.  This links section will only return a deeplink to the Website Search Results page by default.  If you have selected AD deeplinks they will only <u>appear</u> within the `RoomTypes` section of the  response, as the Lodging Details API returns details at the room offer level, and not at the property level.
  * @param webSearchResult
  * @param apiRateCalendar
  */

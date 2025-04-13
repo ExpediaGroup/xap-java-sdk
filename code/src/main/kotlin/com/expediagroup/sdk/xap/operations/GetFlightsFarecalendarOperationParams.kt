@@ -57,8 +57,7 @@ data class GetFlightsFarecalendarOperationParams(
     @field:NotNull
     @field:Valid
     val departureDate: java.time.LocalDate,
-    @field:Valid
-    val trip: kotlin.String? =
+    val trip: GetFlightsFarecalendarOperationParams.Trip? =
         null,
     @field:Valid
     val includeSegmentDetails: kotlin.Boolean? =
@@ -69,6 +68,13 @@ data class GetFlightsFarecalendarOperationParams(
         fun builder() = Builder()
     }
 
+    enum class Trip(
+        val value: kotlin.String
+    ) {
+        INBOUND("inbound"),
+        OUTBOUND("outbound")
+    }
+
     class Builder(
         @JsonProperty("Partner-Transaction-ID") private var partnerTransactionID: kotlin.String? = null,
         @JsonProperty("segment1.origin") private var segment1Origin: kotlin.String? = null,
@@ -76,7 +82,7 @@ data class GetFlightsFarecalendarOperationParams(
         @JsonProperty("segment2.origin") private var segment2Origin: kotlin.String? = null,
         @JsonProperty("segment2.destination") private var segment2Destination: kotlin.String? = null,
         @JsonProperty("departureDate") private var departureDate: java.time.LocalDate? = null,
-        @JsonProperty("trip") private var trip: kotlin.String? = null,
+        @JsonProperty("trip") private var trip: GetFlightsFarecalendarOperationParams.Trip? = null,
         @JsonProperty("includeSegmentDetails") private var includeSegmentDetails: kotlin.Boolean? = null
     ) {
         /**
@@ -112,7 +118,7 @@ data class GetFlightsFarecalendarOperationParams(
         /**
          * @param trip Required for RoundTrip for identifying whether we are requesting for inbound or outbound.  Possible values :  inbound  outbound
          */
-        fun trip(trip: kotlin.String) = apply { this.trip = trip }
+        fun trip(trip: GetFlightsFarecalendarOperationParams.Trip) = apply { this.trip = trip }
 
         /**
          * @param includeSegmentDetails If the user wants to know the segment details of the offer then they can send this param as true and will get the segment and leg level details in the response. By default this will be set as false.
@@ -194,7 +200,7 @@ data class GetFlightsFarecalendarOperationParams(
                 append("departureDate", it.toString())
             }
             trip?.let {
-                append("trip", it)
+                append("trip", it.value)
             }
             includeSegmentDetails?.let {
                 append("includeSegmentDetails", it.toString())

@@ -93,7 +93,9 @@ data class GetFlightListingsOperationParams(
     val senior: kotlin.Int? =
         null,
     @field:Valid
-    val childrenAges: kotlin.String? =
+    val childrenAges: kotlin.collections.List<
+        kotlin.String
+    >? =
         null,
     @field:Valid
     val infantInLap: kotlin.Int? =
@@ -194,8 +196,7 @@ data class GetFlightListingsOperationParams(
     @field:Valid
     val locale: kotlin.String? =
         null,
-    @field:Valid
-    val cabinClass: kotlin.String? =
+    val cabinClass: GetFlightListingsOperationParams.CabinClass? =
         null,
     @field:Valid
     val numberOfStops: kotlin.Int? =
@@ -207,16 +208,21 @@ data class GetFlightListingsOperationParams(
     val limit: kotlin.Int? =
         null,
     @field:Valid
-    val selectedCarriers: kotlin.String? =
+    val selectedCarriers: kotlin.collections.List<
+        kotlin.String
+    >? =
         null,
     @field:Valid
-    val accountCodes: kotlin.String? =
+    val accountCodes: kotlin.collections.List<
+        kotlin.String
+    >? =
         null,
     @field:Valid
     val agent: kotlin.Boolean? =
         null,
-    @field:Valid
-    val links: kotlin.String? =
+    val links: kotlin.collections.List<
+        GetFlightListingsOperationParams.Links
+    >? =
         null,
     @field:Valid
     val refundable: kotlin.Boolean? =
@@ -227,8 +233,7 @@ data class GetFlightListingsOperationParams(
     @field:Valid
     val filterBasicEconomy: kotlin.Boolean? =
         null,
-    @field:Valid
-    val anchorBy: kotlin.String? =
+    val anchorBy: GetFlightListingsOperationParams.AnchorBy? =
         null,
     @field:Valid
     val selectedOffer: kotlin.String? =
@@ -245,11 +250,42 @@ data class GetFlightListingsOperationParams(
         fun builder() = Builder()
     }
 
+    enum class CabinClass(
+        val value: kotlin.String
+    ) {
+        ECONOMY("economy"),
+        FIRST("first"),
+        BUSINESS("business"),
+        PREMIUMECONOMY("premiumeconomy")
+    }
+
+    enum class Links(
+        val value: kotlin.String
+    ) {
+        WD("WD"),
+        AD("AD"),
+        ABF("ABF"),
+        ASM("ASM"),
+        WPS("WPS")
+    }
+
+    enum class AnchorBy(
+        val value: kotlin.String
+    ) {
+        SEGMENT1("segment1"),
+        SEGMENT2("segment2"),
+        SEGMENT3("segment3"),
+        SEGMENT4("segment4"),
+        SEGMENT5("segment5")
+    }
+
     class Builder(
         @JsonProperty("Partner-Transaction-ID") private var partnerTransactionID: kotlin.String? = null,
         @JsonProperty("adult") private var adult: kotlin.Int? = null,
         @JsonProperty("senior") private var senior: kotlin.Int? = null,
-        @JsonProperty("childrenAges") private var childrenAges: kotlin.String? = null,
+        @JsonProperty("childrenAges") private var childrenAges: kotlin.collections.List<
+            kotlin.String
+        >? = null,
         @JsonProperty("infantInLap") private var infantInLap: kotlin.Int? = null,
         @JsonProperty("infantInSeat") private var infantInSeat: kotlin.Int? = null,
         @JsonProperty("segment1.origin") private var segment1Origin: kotlin.String? = null,
@@ -283,18 +319,24 @@ data class GetFlightListingsOperationParams(
         @JsonProperty("segment6.departureStartTime") private var segment6DepartureStartTime: kotlin.String? = null,
         @JsonProperty("segment6.departureEndTime") private var segment6DepartureEndTime: kotlin.String? = null,
         @JsonProperty("locale") private var locale: kotlin.String? = null,
-        @JsonProperty("cabinClass") private var cabinClass: kotlin.String? = null,
+        @JsonProperty("cabinClass") private var cabinClass: GetFlightListingsOperationParams.CabinClass? = null,
         @JsonProperty("numberOfStops") private var numberOfStops: kotlin.Int? = null,
         @JsonProperty("sortType") private var sortType: kotlin.String? = null,
         @JsonProperty("limit") private var limit: kotlin.Int? = null,
-        @JsonProperty("selectedCarriers") private var selectedCarriers: kotlin.String? = null,
-        @JsonProperty("accountCodes") private var accountCodes: kotlin.String? = null,
+        @JsonProperty("selectedCarriers") private var selectedCarriers: kotlin.collections.List<
+            kotlin.String
+        >? = null,
+        @JsonProperty("accountCodes") private var accountCodes: kotlin.collections.List<
+            kotlin.String
+        >? = null,
         @JsonProperty("agent") private var agent: kotlin.Boolean? = null,
-        @JsonProperty("links") private var links: kotlin.String? = null,
+        @JsonProperty("links") private var links: kotlin.collections.List<
+            GetFlightListingsOperationParams.Links
+        >? = null,
         @JsonProperty("refundable") private var refundable: kotlin.Boolean? = null,
         @JsonProperty("filterNearByAirport") private var filterNearByAirport: kotlin.Boolean? = null,
         @JsonProperty("filterBasicEconomy") private var filterBasicEconomy: kotlin.Boolean? = null,
-        @JsonProperty("anchorBy") private var anchorBy: kotlin.String? = null,
+        @JsonProperty("anchorBy") private var anchorBy: GetFlightListingsOperationParams.AnchorBy? = null,
         @JsonProperty("selectedOffer") private var selectedOffer: kotlin.String? = null,
         @JsonProperty("filterNonFlightOffers") private var filterNonFlightOffers: kotlin.Boolean? = null,
         @JsonProperty("enableSplitTicket") private var enableSplitTicket: kotlin.Boolean? = null
@@ -317,7 +359,11 @@ data class GetFlightListingsOperationParams(
         /**
          * @param childrenAges Comma-separated list of the ages of all child travelers (ages 2 - 17).
          */
-        fun childrenAges(childrenAges: kotlin.String) = apply { this.childrenAges = childrenAges }
+        fun childrenAges(
+            childrenAges: kotlin.collections.List<
+                kotlin.String
+            >
+        ) = apply { this.childrenAges = childrenAges }
 
         /**
          * @param infantInLap Number of Infant travelers without a reserved seat. Age should be less than 2
@@ -487,7 +533,7 @@ data class GetFlightListingsOperationParams(
         /**
          * @param cabinClass The desired cabin classes that the user would like to see offers for. Options can be: economy | first | business | premiumeconomy
          */
-        fun cabinClass(cabinClass: kotlin.String) = apply { this.cabinClass = cabinClass }
+        fun cabinClass(cabinClass: GetFlightListingsOperationParams.CabinClass) = apply { this.cabinClass = cabinClass }
 
         /**
          * @param numberOfStops Filter for the number of stops the user would like to see offers for. A value of 0 returns only non-stop flights in the search response, and a value of 1 returns offers
@@ -507,12 +553,20 @@ data class GetFlightListingsOperationParams(
         /**
          * @param selectedCarriers Adding comma-separated list of IATA or Expedia airline codes will limit the search results to include flight offers only with the selected carriers.
          */
-        fun selectedCarriers(selectedCarriers: kotlin.String) = apply { this.selectedCarriers = selectedCarriers }
+        fun selectedCarriers(
+            selectedCarriers: kotlin.collections.List<
+                kotlin.String
+            >
+        ) = apply { this.selectedCarriers = selectedCarriers }
 
         /**
          * @param accountCodes AlphaNumeric characters. Different codes separated by comma
          */
-        fun accountCodes(accountCodes: kotlin.String) = apply { this.accountCodes = accountCodes }
+        fun accountCodes(
+            accountCodes: kotlin.collections.List<
+                kotlin.String
+            >
+        ) = apply { this.accountCodes = accountCodes }
 
         /**
          * @param agent Designates whether a telesales agent was involved in the transaction. true = telesales agent involved false = no telesales agent involved
@@ -522,7 +576,11 @@ data class GetFlightListingsOperationParams(
         /**
          * @param links Comma-separated list that indicates which HATEOAS links should be included in the response. WD (Website Details Page - included by default) AD (Details API link) ABF (Baggage Fee API) ASM (Seat Map API) WPS (Web Package Search)
          */
-        fun links(links: kotlin.String) = apply { this.links = links }
+        fun links(
+            links: kotlin.collections.List<
+                GetFlightListingsOperationParams.Links
+            >
+        ) = apply { this.links = links }
 
         /**
          * @param refundable Refundable solutions will be returned if and only if we pass refundable as true in the request.(refundable=true). (Not Yet Supported in Production)
@@ -542,7 +600,7 @@ data class GetFlightListingsOperationParams(
         /**
          * @param anchorBy Designates that the user is doing a Multi-step Search. Possible values are: segment1 | segment2 | segment3 | segment4 | segment5
          */
-        fun anchorBy(anchorBy: kotlin.String) = apply { this.anchorBy = anchorBy }
+        fun anchorBy(anchorBy: GetFlightListingsOperationParams.AnchorBy) = apply { this.anchorBy = anchorBy }
 
         /**
          * @param selectedOffer Captures the previously selected flight segments during a Multi-step Search.
@@ -713,7 +771,7 @@ data class GetFlightListingsOperationParams(
                 append("senior", it.toString())
             }
             childrenAges?.let {
-                append("childrenAges", it)
+                appendAll("childrenAges", toMultiValue(it, "csv"))
             }
             infantInLap?.let {
                 append("infantInLap", it.toString())
@@ -815,7 +873,7 @@ data class GetFlightListingsOperationParams(
                 append("locale", it)
             }
             cabinClass?.let {
-                append("cabinClass", it)
+                append("cabinClass", it.value)
             }
             numberOfStops?.let {
                 append("numberOfStops", it.toString())
@@ -827,16 +885,16 @@ data class GetFlightListingsOperationParams(
                 append("limit", it.toString())
             }
             selectedCarriers?.let {
-                append("selectedCarriers", it)
+                appendAll("selectedCarriers", toMultiValue(it, "csv"))
             }
             accountCodes?.let {
-                append("accountCodes", it)
+                appendAll("accountCodes", toMultiValue(it, "csv"))
             }
             agent?.let {
                 append("agent", it.toString())
             }
             links?.let {
-                append("links", it)
+                appendAll("links", toMultiValue(it.map { item -> item.value }, "csv"))
             }
             refundable?.let {
                 append("refundable", it.toString())
@@ -848,7 +906,7 @@ data class GetFlightListingsOperationParams(
                 append("filterBasicEconomy", it.toString())
             }
             anchorBy?.let {
-                append("anchorBy", it)
+                append("anchorBy", it.value)
             }
             selectedOffer?.let {
                 append("selectedOffer", it)

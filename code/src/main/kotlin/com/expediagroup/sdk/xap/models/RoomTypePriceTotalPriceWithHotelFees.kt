@@ -23,7 +23,7 @@ import javax.validation.Valid
 import javax.validation.Validation
 
 /**
- * The total combined price that includes `TotalPrice` that will be charged by Expedia (`BaseRate` + `TaxesAndFees`) combined with any `HotelMandatoryFees` that will be charged at hotel. **NOTE**: Since UK regulations require that `HotelMandatoryFees` be included in this price, the quoted price will <u>only</u> be accurate for the day of quote. This is due to the fact that currency exchange fluctuations will change the exact amount of any `HotelMandatoryFees` that are to be collected at the hotel during the guest's stay if the cost is converted into any other currency. **CMA Compliance Note (UK)**: Websites doing business in the UK should be displaying this value to be compliant with CMA requirements.
+ * The total combined price that includes `TotalPrice` that will be charged by Expedia (`BaseRate` + `TaxesAndFees`) combined with any `HotelMandatoryFees` that will be charged at hotel. **NOTE**: Since UK regulations require that `HotelMandatoryFees` be included in this price, the  quoted price will <u>only</u> be accurate for the day of quote. This is due to the fact that  currency exchange fluctuations will change the exact amount of any `HotelMandatoryFees` that are to be collected at the hotel during the guest's stay if the cost is converted into any other currency. **CMA Compliance Note (UK)**: Websites doing business in the UK should be displaying this value to  be compliant with CMA requirements.
  * @param `value` The value of the element being defined.
  * @param currency The ISO 4217 Currency Code that the value is expressed in.
  * @param localCurrencyPrice
