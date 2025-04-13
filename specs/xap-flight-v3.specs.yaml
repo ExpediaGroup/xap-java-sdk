@@ -260,8 +260,11 @@ paths:
         - name: childrenAges
           in: query
           description: Comma-separated list of the ages of all child travelers (ages 2 - 17).
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
           example: 4,5
         - name: infantInLap
           in: query
@@ -456,6 +459,11 @@ paths:
             Options can be: economy | first | business | premiumeconomy
           schema:
             type: string
+            enum:
+              - economy
+              - first
+              - business
+              - premiumeconomy
           example: economy
         - name: numberOfStops
           in: query
@@ -485,14 +493,20 @@ paths:
         - name: selectedCarriers
           in: query
           description: Adding comma-separated list of IATA or Expedia airline codes will limit the search results to include flight offers only with the selected carriers.
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
           example: AS
         - name: accountCodes
           in: query
           description: AlphaNumeric characters. Different codes separated by comma
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
           example: AXP01
         - name: agent
           in: query
@@ -512,8 +526,17 @@ paths:
             ABF (Baggage Fee API)
             ASM (Seat Map API)
             WPS (Web Package Search)
+          explode: false
           schema:
-            type: string
+            type: array
+            items:
+              type: string
+              enum:
+                - WD
+                - AD
+                - ABF
+                - ASM
+                - WPS
           example: WD
         - name: refundable
           in: query
@@ -547,6 +570,12 @@ paths:
             Possible values are: segment1 | segment2 | segment3 | segment4 | segment5
           schema:
             type: string
+            enum:
+              - segment1
+              - segment2
+              - segment3
+              - segment4
+              - segment5
           example: segment1
         - name: selectedOffer
           in: query
@@ -1467,6 +1496,7 @@ paths:
           description: Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
           schema:
             type: string
+            format: date
         - name: includeSegmentDetails
           in: query
           description: |-
@@ -1887,6 +1917,9 @@ paths:
              outbound
           schema:
             type: string
+            enum:
+              - inbound
+              - outbound
         - name: includeSegmentDetails
           in: query
           description: If the user wants to know the segment details of the offer then they can send this param as true and will get the segment and leg level details in the response. By default this will be set as false.
