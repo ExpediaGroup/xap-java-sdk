@@ -32,6 +32,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <xap-java-sdk.sdk.version>1.1.0</xap-java-sdk.sdk.version>
+        <maven.licence.plugin.version>5.0.0</maven.licence.plugin.version>
     </properties>
 
     <repositories>
@@ -88,6 +89,33 @@
                     <execution>
                         <goals>
                             <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${maven.licence.plugin.version}</version>
+                <configuration>
+                    <properties>
+                        <year>2025</year>
+                    </properties>
+                    <licenseSets>
+                        <licenseSet>
+                            <header>LICENSE-HEADER.txt</header>
+                            <includes>
+                                <include>**/*.java</include>
+                            </includes>
+                        </licenseSet>
+                    </licenseSets>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>add-license-header</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>format</goal>
                         </goals>
                     </execution>
                 </executions>

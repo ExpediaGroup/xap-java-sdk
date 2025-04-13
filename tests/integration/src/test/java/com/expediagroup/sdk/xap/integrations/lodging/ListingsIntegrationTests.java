@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2025 Expedia, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.expediagroup.sdk.xap.integrations.lodging;
 
 import static com.expediagroup.sdk.xap.integrations.common.Constant.ACCEPT_HOTEL;
@@ -130,7 +146,8 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
         new MockResponse()
             .setHeader("Content-Type", ACCEPT_HOTEL)
             .setResponseCode(200)
-            .setBody("{}"));
+            .setBody("{}")
+    );
 
     xapClient.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams));
     try {
@@ -212,7 +229,8 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
   }
 
   @Test
-  public void testResponse(@GivenTextResource("GetLodgingListingsResponse.json") String mockedResponse) {
+  public void testResponse(
+      @GivenTextResource("lodging/GetLodgingListingsResponse.json") String mockedResponse) {
     GetLodgingListingsOperationParams operationParams = GetLodgingListingsOperationParams.builder()
         .partnerTransactionId(Constant.PARTNER_TRANSACTION_ID)
         .locationKeyword("Seattle")
