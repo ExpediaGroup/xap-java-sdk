@@ -2367,9 +2367,9 @@ components:
           description: Indication of whether this amenity is available.
           example: YES
           enum:
-            - "YES"
-            - "NO"
-            - "UNKNOWN"
+            - YES
+            - NO
+            - UNKNOWN
         Types:
           type: array
           description: Type of entertainment
@@ -2837,9 +2837,9 @@ components:
           type: string
           description: Indication of the availability of Power amenity.
           enum:
-            - "YES"
-            - "NO"
-            - "UNKNOWN"
+            - YES
+            - NO
+            - UNKNOWN
       description: Container for power amenities available in this flight leg
     PricePerPassengerCategory:
       required:
@@ -2890,9 +2890,9 @@ components:
           description: Status of penalty information
           example: YES
           enum:
-            - "YES"
-            - "NO"
-            - "UNKNOWN"
+            - YES
+            - NO
+            - UNKNOWN
         Penalty:
           $ref: '#/components/schemas/Money'
       description: Container for en route change/cancellations and pre-trip change/cancellations
@@ -3007,9 +3007,9 @@ components:
           type: string
           description: Indication of the availability of WIFI amenity.
           enum:
-            - "YES"
-            - "NO"
-            - "UNKNOWN"
+            - YES
+            - NO
+            - UNKNOWN
       description: Container for WiFi amenities available in this flight leg
     APIMError:
       title: APIMError
@@ -4146,15 +4146,15 @@ components:
         Transferable:
           type: string
           enum:
-            - "YES"
-            - "NO"
-            - "UNKNOWN"
+            - YES
+            - NO
+            - UNKNOWN
         NameChangeAllowed:
           type: string
           enum:
-            - "YES"
-            - "NO"
-            - "UNKNOWN"
+            - YES
+            - NO
+            - UNKNOWN
       description: Contains refund penalty information
     RoomOccupancyPolicy:
       required:
