@@ -15,10 +15,8 @@
  */
 package com.expediagroup.sdk.core.constant
 
-import com.expediagroup.sdk.core.constant.LoggingMessage.OMITTED
-
 internal object LogMaskingRegex {
     val FIELD_REGEX = "^[a-zA-Z0-9-_]+$".toRegex()
 
-    const val REPLACEMENT_TEMPLATE = "\"$1$2${OMITTED}\""
+    val NUMBER_FIELD_REGEX = "(?<=[\"']?number[\"']?:\\s?[\"'])(\\s*\\d{15,16}\\s*)(?=[\"'])".toRegex()
 }
