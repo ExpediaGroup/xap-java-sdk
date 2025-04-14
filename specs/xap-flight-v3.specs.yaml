@@ -264,7 +264,7 @@ paths:
           schema:
             type: array
             items:
-              type: string
+              type: integer
           example: 4,5
         - name: infantInLap
           in: query
