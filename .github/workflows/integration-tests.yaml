@@ -1,4 +1,4 @@
-name: Integration Test
+name: Integration Tests
 
 on:
   workflow_call:
@@ -16,17 +16,6 @@ on:
         description: 'Branch to build SDK and run integration tests from'
         required: true
         type: string
-  workflow_dispatch:
-    inputs:
-      jdk:
-        type: string
-        default: '11'
-      distribution:
-        type: string
-        default: 'corretto'
-      branch:
-        type: string
-        default: ''
 
 jobs:
   integration-tests:
