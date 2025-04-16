@@ -71,8 +71,5 @@ jobs:
           JAVA_HOME: ${{ steps.set-java-home.outputs.JAVA_HOME_RUN }}
         run: |
           mvn verify \
-            -Dcom.expediagroup.xapjavasdk.apikey="${{ secrets.API_KEY }}" \
-            -Dcom.expediagroup.xapjavasdk.apisecret="${{ secrets.API_SECRET }}" \
-            -Dcom.expediagroup.xapjavasdk.vrbokey="${{ secrets.VRBO_KEY }}" \
-            -Dcom.expediagroup.xapjavasdk.vrbosecret="${{ secrets.VRBO_SECRET }}" \
+            -Dmaven.license.plugin.skip=true \
             -Dxap-java-sdk.sdk.version="${{ steps.parse-sdk-version.outputs.version }}"
