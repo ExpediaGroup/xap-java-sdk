@@ -63,8 +63,6 @@ jobs:
         env:
           JAVA_HOME: ${{ steps.set-java-home.outputs.JAVA_HOME_INSTALL }}
         run: |
-          mvn --version
-          java -version
           mvn clean install
 
       - name: Run Integration Tests
@@ -72,8 +70,6 @@ jobs:
         env:
           JAVA_HOME: ${{ steps.set-java-home.outputs.JAVA_HOME_RUN }}
         run: |
-          mvn --version
-          java -version
           mvn verify \
             -Dcom.expediagroup.xapjavasdk.apikey="${{ secrets.API_KEY }}" \
             -Dcom.expediagroup.xapjavasdk.apisecret="${{ secrets.API_SECRET }}" \
