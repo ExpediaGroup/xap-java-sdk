@@ -20,6 +20,8 @@ on:
 jobs:
   integration-tests:
     runs-on: ubuntu-latest
+    env:
+      JAVA_VERSION: 21
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -49,22 +51,27 @@ jobs:
           distribution: ${{ inputs.distribution }}
           java-version: |
             ${{ inputs.jdk }}
-            21
+            ${{ env.JAVA_VERSION }}
 
-      - run: |
-          echo "Runner Architecture: ${{ runner.arch }}"
-          echo "$JAVA_HOME_${{ inputs.jdk }}_${{ runner.arch }}"
+      - id: set-java-home
+        run: |
+          echo "JAVA_HOME_RUN=$JAVA_HOME_${{ inputs.jdk }}_${{ runner.arch }}" >> $GITHUB_OUTPUT
+          echo "JAVA_HOME_INSTALL=$JAVA_HOME_${{ env.JAVA_VERSION }}_${{ runner.arch }}" >> $GITHUB_OUTPUT
 
       - name: Install SDK
         working-directory: sdk-repo/code
         env:
-          JAVA_HOME: ${{ steps.setup-java.outputs.java-home }}
+          JAVA_HOME: ${{ steps.set-java-home.outputs.JAVA_HOME_INSTALL }}
         run: |
+          which java
           mvn clean install
 
       - name: Run Integration Tests
         working-directory: sdk-repo/tests/integration
+        env:
+          JAVA_HOME: ${{ steps.set-java-home.outputs.JAVA_HOME_RUN }}
         run: |
+          which java
           mvn verify \
             -Dcom.expediagroup.xapjavasdk.apikey="${{ secrets.API_KEY }}" \
             -Dcom.expediagroup.xapjavasdk.apisecret="${{ secrets.API_SECRET }}" \
