@@ -16,6 +16,17 @@ on:
         description: 'Branch to build SDK and run integration tests from'
         required: true
         type: string
+  workflow_dispatch:
+    inputs:
+      jdk:
+        type: string
+        default: '11'
+      distribution:
+        type: string
+        default: 'corretto'
+      branch:
+        type: string
+        default: ''
 
 jobs:
   integration-tests:
@@ -46,11 +57,19 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: ${{ inputs.jdk }}
           distribution: ${{ inputs.distribution }}
+          java-version: |
+            ${{ inputs.jdk }}
+            21
+
+      - run: |
+          echo "Runner Architecture: ${{ runner.arch }}"
+          echo "JAVA_HOME_${{ inputs.jdk }}_${{ runner.arch }}"
 
       - name: Install SDK
         working-directory: sdk-repo/code
+        env:
+          JAVA_HOME: ${{ steps.setup-java.outputs.java-home }}
         run: |
           mvn clean install
 
