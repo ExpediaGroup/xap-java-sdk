@@ -53,7 +53,7 @@ jobs:
 
       - run: |
           echo "Runner Architecture: ${{ runner.arch }}"
-          echo "JAVA_HOME_${{ inputs.jdk }}_${{ runner.arch }}"
+          echo "$JAVA_HOME_${{ inputs.jdk }}_${{ runner.arch }}"
 
       - name: Install SDK
         working-directory: sdk-repo/code
