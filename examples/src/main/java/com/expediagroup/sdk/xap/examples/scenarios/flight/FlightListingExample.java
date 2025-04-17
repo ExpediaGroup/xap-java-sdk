@@ -182,6 +182,7 @@ public class FlightListingExample implements XapScenario {
         LOGGER.info("Segment IDs: {}", offer.getSegmentIds());
 
         if (offer.getOfferPrice() != null) {
+          
           if (offer.getOfferPrice().getTotalPrice() != null) {
             LOGGER.info("Total Price Value: {}",
                     offer.getOfferPrice().getTotalPrice().getValue());
@@ -195,6 +196,7 @@ public class FlightListingExample implements XapScenario {
             LOGGER.info("Base Price Currency: {}",
                     offer.getOfferPrice().getBasePrice().getCurrency());
           }
+          
           if (offer.getOfferPrice().getTotalTaxes() != null) {
             LOGGER.info("Total Taxes Value: {}",
                     offer.getOfferPrice().getTotalTaxes().getValue());
@@ -224,18 +226,21 @@ public class FlightListingExample implements XapScenario {
                       LOGGER.info("---- Passenger Category Price Start ----");
                       LOGGER.info("Category: {}", categoryPrice.getCategory());
                       LOGGER.info("Count: {}", categoryPrice.getCount());
+                      
                       if (categoryPrice.getTotalPrice() != null) {
                         LOGGER.info("Total Price Value: {}",
                                 categoryPrice.getTotalPrice().getValue());
                         LOGGER.info("Total Price Currency: {}",
                                 categoryPrice.getTotalPrice().getCurrency());
                       }
+                      
                       if (categoryPrice.getBasePrice() != null) {
                         LOGGER.info("Base Price Value: {}",
                                 categoryPrice.getBasePrice().getValue());
                         LOGGER.info("Base Price Currency: {}",
                                 categoryPrice.getBasePrice().getCurrency());
                       }
+                      
                       if (categoryPrice.getTotalTaxes() != null) {
                         LOGGER.info("Total Taxes Value: {}",
                                 categoryPrice.getTotalTaxes().getValue());
