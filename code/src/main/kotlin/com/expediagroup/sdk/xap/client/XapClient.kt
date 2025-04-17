@@ -31,8 +31,21 @@ import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiAPIGatewayErrorE
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiAPIMErrorException
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiActivitiesErrorsException
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiCarsErrorsException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiErrorResponseException
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiErrorsException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiFlightsV1ErrorsException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiFlightsV2ErrorsException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiFlightsV3APIMErrorException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiFlightsV3ErrorsException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiGetFlightFlexsearch400ResponseException
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiLodgingErrorsException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiPostFlightLinks401ResponseException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiPostFlightLinks403ResponseException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiPostFlightLinks404ResponseException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiPostFlightLinks405ResponseException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiPostFlightLinks429ResponseException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiPostFlightLinks503ResponseException
+import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiPostFlightLinks504ResponseException
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiPresignedUrlResponseException
 import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiSdpAPIMErrorException
 import com.expediagroup.sdk.xap.operations.GetActivityDetailsOperation
@@ -40,12 +53,21 @@ import com.expediagroup.sdk.xap.operations.GetActivityListingsOperation
 import com.expediagroup.sdk.xap.operations.GetCarDetailsOperation
 import com.expediagroup.sdk.xap.operations.GetCarsListingsOperation
 import com.expediagroup.sdk.xap.operations.GetFeedDownloadUrlOperation
+import com.expediagroup.sdk.xap.operations.GetFlightBagaggefeeOperation
+import com.expediagroup.sdk.xap.operations.GetFlightDetailsOperation
+import com.expediagroup.sdk.xap.operations.GetFlightFarerulesOperation
+import com.expediagroup.sdk.xap.operations.GetFlightFlexsearchOperation
+import com.expediagroup.sdk.xap.operations.GetFlightListingsOperation
+import com.expediagroup.sdk.xap.operations.GetFlightSeatmapOperation
+import com.expediagroup.sdk.xap.operations.GetFlightsFarecalendarOperation
 import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperation
 import com.expediagroup.sdk.xap.operations.GetLodgingDetailsOperation
 import com.expediagroup.sdk.xap.operations.GetLodgingListingsOperation
 import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperation
 import com.expediagroup.sdk.xap.operations.GetLodgingRateCalendarOperation
+import com.expediagroup.sdk.xap.operations.PostFlightLinksOperation
 import io.ktor.client.call.body
+import io.ktor.client.plugins.contentnegotiation.exclude
 import io.ktor.client.request.request
 import io.ktor.client.request.setBody
 import io.ktor.client.request.url
@@ -117,6 +139,7 @@ class XapClient private constructor(clientConfiguration: XapClientConfiguration)
             appendHeaders(extraHeaders)
             contentType(ContentType.Application.Json)
             setBody(operation.requestBody)
+            exclude(ContentType.Application.Json)
         }
 
     private inline fun <reified RequestType> executeWithEmptyResponse(operation: Operation<RequestType>): EmptyResponse {
@@ -266,6 +289,160 @@ class XapClient private constructor(clientConfiguration: XapClientConfiguration)
     fun executeAsync(operation: GetFeedDownloadUrlOperation): CompletableFuture<Response<PresignedUrlResponse>> = executeAsync<Nothing, PresignedUrlResponse>(operation)
 
     /**
+     *
+     * request for baggage fee information
+     * @param operation [GetFlightBagaggefeeOperation]
+     * @throws ExpediaGroupApiFlightsV1ErrorsException
+     * @throws ExpediaGroupApiAPIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [Response] object with a body of type FlightBaggageFeesResponse
+     */
+    fun execute(operation: GetFlightBagaggefeeOperation): Response<FlightBaggageFeesResponse> = execute<Nothing, FlightBaggageFeesResponse>(operation)
+
+    /**
+     *
+     * request for baggage fee information
+     * @param operation [GetFlightBagaggefeeOperation]
+     * @throws ExpediaGroupApiFlightsV1ErrorsException
+     * @throws ExpediaGroupApiAPIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [CompletableFuture<Response>] object with a body of type FlightBaggageFeesResponse
+     */
+    fun executeAsync(operation: GetFlightBagaggefeeOperation): CompletableFuture<Response<FlightBaggageFeesResponse>> = executeAsync<Nothing, FlightBaggageFeesResponse>(operation)
+
+    /**
+     *
+     * The Flight Details API will return validated pricing on the itinerary passed in on the request. It's a GET request with the transaction secured over HTTPS. This message supports response in JSON and XML format.
+     * @param operation [GetFlightDetailsOperation]
+     * @throws ExpediaGroupApiFlightsV3ErrorsException
+     * @throws ExpediaGroupApiFlightsV3APIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [Response] object with a body of type FlightDetailsResponse
+     */
+    fun execute(operation: GetFlightDetailsOperation): Response<FlightDetailsResponse> = execute<Nothing, FlightDetailsResponse>(operation)
+
+    /**
+     *
+     * The Flight Details API will return validated pricing on the itinerary passed in on the request. It's a GET request with the transaction secured over HTTPS. This message supports response in JSON and XML format.
+     * @param operation [GetFlightDetailsOperation]
+     * @throws ExpediaGroupApiFlightsV3ErrorsException
+     * @throws ExpediaGroupApiFlightsV3APIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [CompletableFuture<Response>] object with a body of type FlightDetailsResponse
+     */
+    fun executeAsync(operation: GetFlightDetailsOperation): CompletableFuture<Response<FlightDetailsResponse>> = executeAsync<Nothing, FlightDetailsResponse>(operation)
+
+    /**
+     *
+     * request for farerule information
+     * @param operation [GetFlightFarerulesOperation]
+     * @throws ExpediaGroupApiFlightsV1ErrorsException
+     * @throws ExpediaGroupApiAPIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [Response] object with a body of type FlightFareRulesResponse
+     */
+    fun execute(operation: GetFlightFarerulesOperation): Response<FlightFareRulesResponse> = execute<Nothing, FlightFareRulesResponse>(operation)
+
+    /**
+     *
+     * request for farerule information
+     * @param operation [GetFlightFarerulesOperation]
+     * @throws ExpediaGroupApiFlightsV1ErrorsException
+     * @throws ExpediaGroupApiAPIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [CompletableFuture<Response>] object with a body of type FlightFareRulesResponse
+     */
+    fun executeAsync(operation: GetFlightFarerulesOperation): CompletableFuture<Response<FlightFareRulesResponse>> = executeAsync<Nothing, FlightFareRulesResponse>(operation)
+
+    /**
+     *
+     * request for flexsearch information
+     * @param operation [GetFlightFlexsearchOperation]
+     * @throws ExpediaGroupApiGetFlightFlexsearch400ResponseException
+     * @throws ExpediaGroupApiFlightsV3APIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [Response] object with a body of type FlexSearchResponse
+     */
+    fun execute(operation: GetFlightFlexsearchOperation): Response<FlexSearchResponse> = execute<Nothing, FlexSearchResponse>(operation)
+
+    /**
+     *
+     * request for flexsearch information
+     * @param operation [GetFlightFlexsearchOperation]
+     * @throws ExpediaGroupApiGetFlightFlexsearch400ResponseException
+     * @throws ExpediaGroupApiFlightsV3APIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [CompletableFuture<Response>] object with a body of type FlexSearchResponse
+     */
+    fun executeAsync(operation: GetFlightFlexsearchOperation): CompletableFuture<Response<FlexSearchResponse>> = executeAsync<Nothing, FlexSearchResponse>(operation)
+
+    /**
+     *
+     * search flight products
+     * @param operation [GetFlightListingsOperation]
+     * @throws ExpediaGroupApiFlightsV3ErrorsException
+     * @throws ExpediaGroupApiFlightsV3APIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [Response] object with a body of type FlightSearchResponse
+     */
+    fun execute(operation: GetFlightListingsOperation): Response<FlightSearchResponse> = execute<Nothing, FlightSearchResponse>(operation)
+
+    /**
+     *
+     * search flight products
+     * @param operation [GetFlightListingsOperation]
+     * @throws ExpediaGroupApiFlightsV3ErrorsException
+     * @throws ExpediaGroupApiFlightsV3APIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [CompletableFuture<Response>] object with a body of type FlightSearchResponse
+     */
+    fun executeAsync(operation: GetFlightListingsOperation): CompletableFuture<Response<FlightSearchResponse>> = executeAsync<Nothing, FlightSearchResponse>(operation)
+
+    /**
+     *
+     * request for seatmap information
+     * @param operation [GetFlightSeatmapOperation]
+     * @throws ExpediaGroupApiFlightsV2ErrorsException
+     * @throws ExpediaGroupApiAPIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [Response] object with a body of type SeatMapResponse
+     */
+    fun execute(operation: GetFlightSeatmapOperation): Response<SeatMapResponse> = execute<Nothing, SeatMapResponse>(operation)
+
+    /**
+     *
+     * request for seatmap information
+     * @param operation [GetFlightSeatmapOperation]
+     * @throws ExpediaGroupApiFlightsV2ErrorsException
+     * @throws ExpediaGroupApiAPIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [CompletableFuture<Response>] object with a body of type SeatMapResponse
+     */
+    fun executeAsync(operation: GetFlightSeatmapOperation): CompletableFuture<Response<SeatMapResponse>> = executeAsync<Nothing, SeatMapResponse>(operation)
+
+    /**
+     *
+     * API that will return the lowest fares for multiple days so that the same can be displayed as a booking widget calendar.
+     * @param operation [GetFlightsFarecalendarOperation]
+     * @throws ExpediaGroupApiFlightsV3ErrorsException
+     * @throws ExpediaGroupApiFlightsV3APIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [Response] object with a body of type FareCalendarResponse
+     */
+    fun execute(operation: GetFlightsFarecalendarOperation): Response<FareCalendarResponse> = execute<Nothing, FareCalendarResponse>(operation)
+
+    /**
+     *
+     * API that will return the lowest fares for multiple days so that the same can be displayed as a booking widget calendar.
+     * @param operation [GetFlightsFarecalendarOperation]
+     * @throws ExpediaGroupApiFlightsV3ErrorsException
+     * @throws ExpediaGroupApiFlightsV3APIMErrorException
+     * @throws ExpediaGroupApiException
+     * @return a [CompletableFuture<Response>] object with a body of type FareCalendarResponse
+     */
+    fun executeAsync(operation: GetFlightsFarecalendarOperation): CompletableFuture<Response<FareCalendarResponse>> = executeAsync<Nothing, FareCalendarResponse>(operation)
+
+    /**
      * Get availability calendars of properties
      * Returns the availability of each day for a range of dates for given Expedia lodging properties.
      * @param operation [GetLodgingAvailabilityCalendarsOperation]
@@ -364,4 +541,36 @@ class XapClient private constructor(clientConfiguration: XapClientConfiguration)
      * @return a [CompletableFuture<Response>] object with a body of type RateCalendarResponse
      */
     fun executeAsync(operation: GetLodgingRateCalendarOperation): CompletableFuture<Response<RateCalendarResponse>> = executeAsync<Nothing, RateCalendarResponse>(operation)
+
+    /**
+     * Request for flight links
+     * The API inputs define a particular flight itinerary. The API response will include deeplinks to Expedia Flight Infosite and/or an API query for details for the selected flight.
+     * @param operation [PostFlightLinksOperation]
+     * @throws ExpediaGroupApiErrorResponseException
+     * @throws ExpediaGroupApiPostFlightLinks401ResponseException
+     * @throws ExpediaGroupApiPostFlightLinks403ResponseException
+     * @throws ExpediaGroupApiPostFlightLinks404ResponseException
+     * @throws ExpediaGroupApiPostFlightLinks405ResponseException
+     * @throws ExpediaGroupApiPostFlightLinks429ResponseException
+     * @throws ExpediaGroupApiPostFlightLinks503ResponseException
+     * @throws ExpediaGroupApiPostFlightLinks504ResponseException
+     * @return a [Response] object with a body of type FlightLinksResponse
+     */
+    fun execute(operation: PostFlightLinksOperation): Response<FlightLinksResponse> = execute<FlightLinksRequest, FlightLinksResponse>(operation)
+
+    /**
+     * Request for flight links
+     * The API inputs define a particular flight itinerary. The API response will include deeplinks to Expedia Flight Infosite and/or an API query for details for the selected flight.
+     * @param operation [PostFlightLinksOperation]
+     * @throws ExpediaGroupApiErrorResponseException
+     * @throws ExpediaGroupApiPostFlightLinks401ResponseException
+     * @throws ExpediaGroupApiPostFlightLinks403ResponseException
+     * @throws ExpediaGroupApiPostFlightLinks404ResponseException
+     * @throws ExpediaGroupApiPostFlightLinks405ResponseException
+     * @throws ExpediaGroupApiPostFlightLinks429ResponseException
+     * @throws ExpediaGroupApiPostFlightLinks503ResponseException
+     * @throws ExpediaGroupApiPostFlightLinks504ResponseException
+     * @return a [CompletableFuture<Response>] object with a body of type FlightLinksResponse
+     */
+    fun executeAsync(operation: PostFlightLinksOperation): CompletableFuture<Response<FlightLinksResponse>> = executeAsync<FlightLinksRequest, FlightLinksResponse>(operation)
 }
