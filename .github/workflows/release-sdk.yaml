@@ -14,10 +14,17 @@ jobs:
   integration-tests:
     strategy:
       matrix:
-        jdk: [ 8, 11, 17, 21 ]
+        jdk: [ 11, 17, 21 ]
     uses: ./.github/workflows/integration-tests.yaml
     secrets: inherit
     with:
       branch: ${{ inputs.branch }}
       jdk: ${{ matrix.jdk }}
+
+  release-sdk:
+    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-release-sdk.yaml@v20250304
+    needs: [ integration-tests ]
+    secrets: inherit
+    with:
+      branch: ${{ inputs.branch }}
 
