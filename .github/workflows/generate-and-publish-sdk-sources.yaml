@@ -12,12 +12,12 @@ on:
 
 jobs:
   generate-and-publish-sources:
-    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-full-workflow.yaml@v20250304
+    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-full-workflow.yaml@v20250415
     secrets: inherit
     with:
       name: xap
       ref: ${{ github.head_ref || github.ref_name }}
       repository: 'ExpediaGroup/xap-java-sdk'
-      sdk_repo_ref: 'v20250304'
-      transformations: '--headers key --operationIdsToTags'
+      sdk_repo_ref: 'v20250415'
+      transformations: '--headers accept,accept-encoding,key --operationIdsToTags --defaultStringType QUOTE_SINGLE'
       version: ${{ inputs.version }}
