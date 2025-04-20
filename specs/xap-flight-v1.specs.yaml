@@ -45,7 +45,7 @@ paths:
             If this information is not provided, the currency corresponding for that partners default will be selected.
           schema:
             type: string
-          example: en_US
+          example: USD
         - name: Key
           in: header
           description: |-
