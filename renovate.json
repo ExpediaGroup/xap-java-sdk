@@ -4,6 +4,6 @@
     "local>ExpediaGroup/renovate-config"
   ],
   "ignorePaths": [
-    "**/xap-sdk/**"
+    "**/code/**"
   ]
 }
