@@ -1,4 +1,4 @@
-name: Integration Tests
+name: Integration Test
 
 on:
   workflow_call:
@@ -20,8 +20,6 @@ on:
 jobs:
   integration-tests:
     runs-on: ubuntu-latest
-    env:
-      JAVA_VERSION: 21
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -48,26 +46,20 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          distribution: ${{ inputs.distribution }}
           java-version: ${{ inputs.jdk }}
-
-#      - id: set-java-home
-#        run: |
-#          echo "JAVA_HOME_RUN=$JAVA_HOME_${{ inputs.jdk }}_${{ runner.arch }}" >> $GITHUB_OUTPUT
-#          echo "JAVA_HOME_INSTALL=$JAVA_HOME_${{ env.JAVA_VERSION }}_${{ runner.arch }}" >> $GITHUB_OUTPUT
+          distribution: ${{ inputs.distribution }}
 
       - name: Install SDK
         working-directory: sdk-repo/code
-#        env:
-#          JAVA_HOME: ${{ steps.set-java-home.outputs.JAVA_HOME_INSTALL }}
         run: |
           mvn clean install
 
       - name: Run Integration Tests
         working-directory: sdk-repo/tests/integration
-#        env:
-#          JAVA_HOME: ${{ steps.set-java-home.outputs.JAVA_HOME_RUN }}
         run: |
           mvn verify \
-            -Dmaven.license.plugin.skip=true \
+            -Dcom.expediagroup.xapjavasdk.apikey="${{ secrets.API_KEY }}" \
+            -Dcom.expediagroup.xapjavasdk.apisecret="${{ secrets.API_SECRET }}" \
+            -Dcom.expediagroup.xapjavasdk.vrbokey="${{ secrets.VRBO_KEY }}" \
+            -Dcom.expediagroup.xapjavasdk.vrbosecret="${{ secrets.VRBO_SECRET }}" \
             -Dxap-java-sdk.sdk.version="${{ steps.parse-sdk-version.outputs.version }}"
