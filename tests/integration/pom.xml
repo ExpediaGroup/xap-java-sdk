@@ -13,9 +13,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <xap-java-sdk.sdk.version>1.1.0</xap-java-sdk.sdk.version>
+        <xap-java-sdk.sdk.version>1.2.0</xap-java-sdk.sdk.version>
         <maven.licence.plugin.version>5.0.0</maven.licence.plugin.version>
-        <maven.license.plugin.skip>false</maven.license.plugin.skip>
     </properties>
 
     <repositories>
@@ -124,7 +123,6 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <version>${maven.licence.plugin.version}</version>
                 <configuration>
-                    <skip>${maven.license.plugin.skip}</skip>
                     <properties>
                         <year>2025</year>
                     </properties>
