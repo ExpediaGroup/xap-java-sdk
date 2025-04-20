@@ -19,7 +19,6 @@ import com.expediagroup.sdk.core.client.Client
 import com.expediagroup.sdk.core.plugin.Plugin
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import java.text.SimpleDateFormat
 
