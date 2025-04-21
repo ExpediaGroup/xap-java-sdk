@@ -1,0 +1,29 @@
+name: Release SDK
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: |
+          Branch to release the SDK from.
+          Defaults to the branch the action is being run from.
+        type: string
+        default: ''
+
+jobs:
+  integration-tests:
+    strategy:
+      matrix:
+        jdk: [ 8, 11, 17, 21 ]
+    uses: ./.github/workflows/integration-tests.yaml
+    secrets: inherit
+    with:
+      branch: ${{ inputs.branch }}
+      jdk: ${{ matrix.jdk }}
+
+  release-sdk:
+    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-release-sdk.yaml@v20250304
+    needs: [ integration-tests ]
+    secrets: inherit
+    with:
+      branch: ${{ inputs.branch }}
