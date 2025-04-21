@@ -12,7 +12,7 @@ tasks.register("transformSpecs") {
 
     exec {
         commandLine(
-            "npx --yes -p @expediagroup/spec-transformer cli --headers --operationIdsToTags -i specs.yaml -o specs.yaml"
+            "npx --yes -p @expediagroup/spec-transformer cli --headers --operationIdsToTags --input specs.yaml --output specs.yaml"
                 .split(" ")
         )
         workingDir = File(rootDir, "specs")

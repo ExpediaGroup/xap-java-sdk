@@ -14,9 +14,9 @@ permissions:
 
 jobs:
   deploy-reference-docs:
-    uses: "ExpediaGroup/expediagroup-java-sdk/.github/workflows/generate-ref-docs.yaml@main"
+    uses: "ExpediaGroup/expediagroup-java-sdk/.github/workflows/generate-ref-docs.yaml@feature/new-sdk-core"
     with:
-      buildsystem: 'maven'
       ref: ${{ inputs.ref != '' && inputs.ref || github.ref }}
+      sources_dir: 'xap-sdk'
     secrets:
       GITHUB_PAT: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
