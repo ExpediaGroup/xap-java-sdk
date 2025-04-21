@@ -22,7 +22,7 @@
 
     <groupId>com.expediagroup</groupId>
     <artifactId>xap-java-sdk-examples</artifactId>
-    <version>v1.2.0</version>
+    <version>1.2.5-SNAPSHOT</version>
     <name>XAP Java SDK Examples</name>
     <description>Expedia Group XAP Java SDK Examples</description>
 
