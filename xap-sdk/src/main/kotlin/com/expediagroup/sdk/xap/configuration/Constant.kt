@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Expedia, Inc.
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.expediagroup.sdk.core.model
 
-import java.util.UUID
+package com.expediagroup.sdk.xap.configuration
 
-class TransactionId {
-    private var transactionId: UUID = UUID.randomUUID()
-
-    fun peek(): UUID = transactionId
-
-    fun dequeue(): UUID = transactionId.also { transactionId = UUID.randomUUID() }
+internal object Constant {
+    const val ENDPOINT = "https://apim.expedia.com"
+    const val AUTH_ENDPOINT = "https://api.expediagroup.com/identity/oauth2/v3/token"
 }
