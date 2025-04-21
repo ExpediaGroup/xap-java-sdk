@@ -1,0 +1,18 @@
+
+# Configuration file for EditorConfig: http://editorconfig.org
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# space indentation for JSON and YML
+[*.{json,json5,yml,yaml}]
+indent_size = 2
+
+[*.kt]
+ktlint_standard_enum-entry-name-case = disabled
