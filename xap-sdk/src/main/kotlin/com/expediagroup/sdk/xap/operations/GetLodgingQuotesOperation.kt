@@ -1,35 +1,39 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.expediagroup.sdk.xap.operations
 
-import com.expediagroup.sdk.core.model.Nothing
-import com.expediagroup.sdk.core.model.Operation
+import com.expediagroup.sdk.core.http.Headers
+import com.expediagroup.sdk.rest.trait.operation.HeadersTrait
+import com.expediagroup.sdk.rest.trait.operation.JacksonModelOperationResponseBodyTrait
+import com.expediagroup.sdk.rest.trait.operation.OperationRequestTrait
+import com.expediagroup.sdk.rest.trait.operation.UrlPathTrait
+import com.expediagroup.sdk.rest.trait.operation.UrlQueryParamsTrait
+import com.expediagroup.sdk.xap.models.LodgingQuotesResponse
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 
 /**
  * Get properties price and availability information
  * @property params [GetLodgingQuotesOperationParams]
  */
 class GetLodgingQuotesOperation(
-    params: GetLodgingQuotesOperationParams
-) : Operation<
-        Nothing
-    >(
-        "/lodging/quotes",
-        "GET",
-        "getLodgingQuotes",
-        null,
-        params
-    )
+    private val params: GetLodgingQuotesOperationParams,
+) : OperationRequestTrait,
+    UrlPathTrait,
+    JacksonModelOperationResponseBodyTrait<LodgingQuotesResponse>,
+    UrlQueryParamsTrait,
+    HeadersTrait {
+    override fun getHttpMethod(): String = "GET"
+
+    override fun getRequestInfo(): OperationRequestTrait = this
+
+    override fun getUrlPath(): String {
+        var url = "/lodging/quotes"
+
+        return url
+    }
+
+    override fun getTypeIdentifier(): TypeReference<LodgingQuotesResponse> = jacksonTypeRef()
+
+    override fun getHeaders(): Headers = this.params.getHeaders()
+
+    override fun getUrlQueryParams() = this.params.getQueryParams()
+}

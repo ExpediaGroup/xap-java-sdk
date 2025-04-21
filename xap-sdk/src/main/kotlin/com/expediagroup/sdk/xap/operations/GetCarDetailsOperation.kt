@@ -1,44 +1,46 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.expediagroup.sdk.xap.operations
 
-import com.expediagroup.sdk.core.model.Nothing
-import com.expediagroup.sdk.core.model.Operation
-import org.apache.commons.text.StringSubstitutor
+import com.expediagroup.sdk.core.http.Headers
+import com.expediagroup.sdk.rest.trait.operation.HeadersTrait
+import com.expediagroup.sdk.rest.trait.operation.JacksonModelOperationResponseBodyTrait
+import com.expediagroup.sdk.rest.trait.operation.OperationRequestTrait
+import com.expediagroup.sdk.rest.trait.operation.UrlPathTrait
+import com.expediagroup.sdk.rest.trait.operation.UrlQueryParamsTrait
+import com.expediagroup.sdk.xap.models.CarDetailsResponse
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 
 /**
  * Get Extended information with a single car offer
  * @property params [GetCarDetailsOperationParams]
  */
 class GetCarDetailsOperation(
-    params: GetCarDetailsOperationParams
-) : Operation<
-        Nothing
-    >(
-        url(params),
-        "GET",
-        "getCarDetails",
-        null,
-        params
-    ) {
-    companion object {
-        fun url(params: GetCarDetailsOperationParams): String {
-            val url = "/cars/details/{offerToken}"
-            val substitutor = StringSubstitutor(params.getPathParams(), "{", "}")
-            return substitutor.replace(url)
-        }
+    private val params: GetCarDetailsOperationParams,
+) : OperationRequestTrait,
+    UrlPathTrait,
+    JacksonModelOperationResponseBodyTrait<CarDetailsResponse>,
+    UrlQueryParamsTrait,
+    HeadersTrait {
+    override fun getHttpMethod(): String = "GET"
+
+    override fun getRequestInfo(): OperationRequestTrait = this
+
+    override fun getUrlPath(): String {
+        var url = "/cars/details/{offerToken}"
+
+        url =
+            url.replace(
+                oldValue = "{" + "offerToken" + "}",
+                newValue = this.params.offerToken,
+                ignoreCase = true,
+            )
+
+        return url
     }
+
+    override fun getTypeIdentifier(): TypeReference<CarDetailsResponse> = jacksonTypeRef()
+
+    override fun getHeaders(): Headers = this.params.getHeaders()
+
+    override fun getUrlQueryParams() = this.params.getQueryParams()
 }

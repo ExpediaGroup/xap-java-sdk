@@ -1,35 +1,34 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.expediagroup.sdk.xap.operations
 
-import com.expediagroup.sdk.core.model.Nothing
-import com.expediagroup.sdk.core.model.Operation
+import com.expediagroup.sdk.rest.trait.operation.JacksonModelOperationResponseBodyTrait
+import com.expediagroup.sdk.rest.trait.operation.OperationRequestTrait
+import com.expediagroup.sdk.rest.trait.operation.UrlPathTrait
+import com.expediagroup.sdk.rest.trait.operation.UrlQueryParamsTrait
+import com.expediagroup.sdk.xap.models.PresignedUrlResponse
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 
 /**
  *
  * @property params [GetFeedDownloadUrlOperationParams]
  */
 class GetFeedDownloadUrlOperation(
-    params: GetFeedDownloadUrlOperationParams
-) : Operation<
-        Nothing
-    >(
-        "/feed/v1/download-url",
-        "GET",
-        "getFeedDownloadUrl",
-        null,
-        params
-    )
+    private val params: GetFeedDownloadUrlOperationParams,
+) : OperationRequestTrait,
+    UrlPathTrait,
+    JacksonModelOperationResponseBodyTrait<PresignedUrlResponse>,
+    UrlQueryParamsTrait {
+    override fun getHttpMethod(): String = "GET"
+
+    override fun getRequestInfo(): OperationRequestTrait = this
+
+    override fun getUrlPath(): String {
+        var url = "/feed/v1/download-url"
+
+        return url
+    }
+
+    override fun getTypeIdentifier(): TypeReference<PresignedUrlResponse> = jacksonTypeRef()
+
+    override fun getUrlQueryParams() = this.params.getQueryParams()
+}

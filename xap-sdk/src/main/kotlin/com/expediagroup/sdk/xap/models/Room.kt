@@ -1,23 +1,8 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.expediagroup.sdk.xap.models
 
 data class Room(
     val adults: Long?,
-    val childAges: List<Long>?
+    val childAges: List<Long>?,
 ) {
     companion object {
         @JvmStatic
@@ -26,7 +11,7 @@ data class Room(
 
     class Builder(
         private var adults: Long? = null,
-        private var childAges: List<Long>? = null
+        private var childAges: List<Long>? = null,
     ) {
         fun adults(adults: Long?) = apply { this.adults = adults }
 
@@ -35,7 +20,7 @@ data class Room(
         fun build(): Room =
             Room(
                 adults = this.adults,
-                childAges = this.childAges
+                childAges = this.childAges,
             )
     }
 }

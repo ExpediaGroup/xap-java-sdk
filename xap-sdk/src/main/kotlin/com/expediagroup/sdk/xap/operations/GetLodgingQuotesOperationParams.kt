@@ -1,32 +1,11 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.expediagroup.sdk.xap.operations
 
-import com.expediagroup.sdk.core.model.OperationParams
-import com.expediagroup.sdk.core.model.exception.client.PropertyConstraintViolationException
-import com.expediagroup.sdk.xap.infrastructure.*
-import com.expediagroup.sdk.xap.models.Room
+import com.expediagroup.sdk.core.http.Headers
+import com.expediagroup.sdk.rest.model.UrlQueryParam
+import com.expediagroup.sdk.rest.util.stringifyExplode
+import com.expediagroup.sdk.rest.util.swaggerCollectionFormatStringifier
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import io.ktor.http.Headers
-import io.ktor.http.Parameters
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
  * @property partnerTransactionId The `Partner-Transaction-ID` is a required API request header element that is <u>not</u> consumed by Expedia. It will be required in all XAP v3 API request headers and will be mirrored back to the partner in the corresponding API response header.  The `Partner-Transaction-ID` may be any alphanumeric string of the partner's choosing.
@@ -55,152 +34,133 @@ import javax.validation.constraints.NotNull
  */
 @JsonDeserialize(builder = GetLodgingQuotesOperationParams.Builder::class)
 data class GetLodgingQuotesOperationParams(
-    @field:NotNull
-    @field:Valid
     val partnerTransactionId: kotlin.String,
-    @field:Valid
     val propertyIds: kotlin.collections.Set<
-        kotlin.String
+        kotlin.String,
     >? =
         null,
-    @field:Valid
     val checkIn: java.time.LocalDate? =
         null,
-    @field:Valid
     val checkOut: java.time.LocalDate? =
         null,
-    @field:Valid
     val currency: kotlin.String? =
         null,
     val links: kotlin.collections.List<
-        GetLodgingQuotesOperationParams.Links
+        GetLodgingQuotesOperationParams.Links,
     >? =
         null,
-    @field:Valid
     val travelWithPets: kotlin.Boolean? =
         false,
-    @field:Valid
     val room1Adults: kotlin.Long? =
         null,
-    @field:Valid
     val room1ChildAges: kotlin.collections.List<
-        kotlin.String
+        kotlin.String,
     >? =
         null,
-    @field:Valid
     val room2Adults: kotlin.Long? =
         null,
-    @field:Valid
     val room2ChildAges: kotlin.collections.List<
-        kotlin.String
+        kotlin.String,
     >? =
         null,
-    @field:Valid
     val room3Adults: kotlin.Long? =
         null,
-    @field:Valid
     val room3ChildAges: kotlin.collections.List<
-        kotlin.String
+        kotlin.String,
     >? =
         null,
-    @field:Valid
     val room4Adults: kotlin.Long? =
         null,
-    @field:Valid
     val room4ChildAges: kotlin.collections.List<
-        kotlin.String
+        kotlin.String,
     >? =
         null,
-    @field:Valid
     val room5Adults: kotlin.Long? =
         null,
-    @field:Valid
     val room5ChildAges: kotlin.collections.List<
-        kotlin.String
+        kotlin.String,
     >? =
         null,
-    @field:Valid
     val room6Adults: kotlin.Long? =
         null,
-    @field:Valid
     val room6ChildAges: kotlin.collections.List<
-        kotlin.String
+        kotlin.String,
     >? =
         null,
-    @field:Valid
     val room7Adults: kotlin.Long? =
         null,
-    @field:Valid
     val room7ChildAges: kotlin.collections.List<
-        kotlin.String
+        kotlin.String,
     >? =
         null,
-    @field:Valid
     val room8Adults: kotlin.Long? =
         null,
-    @field:Valid
     val room8ChildAges: kotlin.collections.List<
-        kotlin.String
+        kotlin.String,
     >? =
-        null
-) : OperationParams {
+        null,
+) {
+    init {
+        require(partnerTransactionId != null) { "partnerTransactionId must not be null" }
+    }
+
     companion object {
         @JvmStatic
         fun builder() = Builder()
     }
 
     enum class Links(
-        val value: kotlin.String
+        val value: kotlin.String,
     ) {
         WD("WD"),
         WS("WS"),
-        WEB("WEB")
+        WEB("WEB"),
     }
 
     class Builder(
         @JsonProperty("Partner-Transaction-Id") private var partnerTransactionId: kotlin.String? = null,
         @JsonProperty("propertyIds") private var propertyIds: kotlin.collections.Set<
-            kotlin.String
+            kotlin.String,
         >? = null,
         @JsonProperty("checkIn") private var checkIn: java.time.LocalDate? = null,
         @JsonProperty("checkOut") private var checkOut: java.time.LocalDate? = null,
         @JsonProperty("currency") private var currency: kotlin.String? = null,
         @JsonProperty("links") private var links: kotlin.collections.List<
-            GetLodgingQuotesOperationParams.Links
+            GetLodgingQuotesOperationParams.Links,
         >? = null,
         @JsonProperty("travelWithPets") private var travelWithPets: kotlin.Boolean? = null,
         @JsonProperty("room1.adults") private var room1Adults: kotlin.Long? = null,
         @JsonProperty("room1.childAges") private var room1ChildAges: kotlin.collections.List<
-            kotlin.String
+            kotlin.String,
         >? = null,
         @JsonProperty("room2.adults") private var room2Adults: kotlin.Long? = null,
         @JsonProperty("room2.childAges") private var room2ChildAges: kotlin.collections.List<
-            kotlin.String
+            kotlin.String,
         >? = null,
         @JsonProperty("room3.adults") private var room3Adults: kotlin.Long? = null,
         @JsonProperty("room3.childAges") private var room3ChildAges: kotlin.collections.List<
-            kotlin.String
+            kotlin.String,
         >? = null,
         @JsonProperty("room4.adults") private var room4Adults: kotlin.Long? = null,
         @JsonProperty("room4.childAges") private var room4ChildAges: kotlin.collections.List<
-            kotlin.String
+            kotlin.String,
         >? = null,
         @JsonProperty("room5.adults") private var room5Adults: kotlin.Long? = null,
         @JsonProperty("room5.childAges") private var room5ChildAges: kotlin.collections.List<
-            kotlin.String
+            kotlin.String,
         >? = null,
         @JsonProperty("room6.adults") private var room6Adults: kotlin.Long? = null,
         @JsonProperty("room6.childAges") private var room6ChildAges: kotlin.collections.List<
-            kotlin.String
+            kotlin.String,
         >? = null,
         @JsonProperty("room7.adults") private var room7Adults: kotlin.Long? = null,
         @JsonProperty("room7.childAges") private var room7ChildAges: kotlin.collections.List<
-            kotlin.String
+            kotlin.String,
         >? = null,
         @JsonProperty("room8.adults") private var room8Adults: kotlin.Long? = null,
         @JsonProperty("room8.childAges") private var room8ChildAges: kotlin.collections.List<
-            kotlin.String
-        >? = null
+            kotlin.String,
+        >? = null,
     ) {
         /**
          * @param partnerTransactionId The `Partner-Transaction-ID` is a required API request header element that is <u>not</u> consumed by Expedia. It will be required in all XAP v3 API request headers and will be mirrored back to the partner in the corresponding API response header.  The `Partner-Transaction-ID` may be any alphanumeric string of the partner's choosing.
@@ -212,8 +172,8 @@ data class GetLodgingQuotesOperationParams(
          */
         fun propertyIds(
             propertyIds: kotlin.collections.Set<
-                kotlin.String
-            >
+                kotlin.String,
+            >,
         ) = apply { this.propertyIds = propertyIds }
 
         /**
@@ -236,8 +196,8 @@ data class GetLodgingQuotesOperationParams(
          */
         fun links(
             links: kotlin.collections.List<
-                GetLodgingQuotesOperationParams.Links
-            >
+                GetLodgingQuotesOperationParams.Links,
+            >,
         ) = apply { this.links = links }
 
         /**
@@ -245,11 +205,11 @@ data class GetLodgingQuotesOperationParams(
          */
         fun travelWithPets(travelWithPets: kotlin.Boolean) = apply { this.travelWithPets = travelWithPets }
 
-        fun rooms(rooms: List<Room>) =
+        fun rooms(rooms: List<com.expediagroup.sdk.xap.models.Room>) =
             apply {
                 if (rooms.size > 8) {
-                    throw PropertyConstraintViolationException(
-                        constraintViolations = listOf("rooms: size must be between 0 and 8")
+                    throw com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException(
+                        constraintViolations = listOf("rooms: size must be between 0 and 8"),
                     )
                 }
 
@@ -319,30 +279,10 @@ data class GetLodgingQuotesOperationParams(
                     room7Adults = room7Adults,
                     room7ChildAges = room7ChildAges,
                     room8Adults = room8Adults,
-                    room8ChildAges = room8ChildAges
+                    room8ChildAges = room8ChildAges,
                 )
-
-            validate(params)
 
             return params
-        }
-
-        private fun validate(params: GetLodgingQuotesOperationParams) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(params)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
         }
     }
 
@@ -370,88 +310,350 @@ data class GetLodgingQuotesOperationParams(
             room7Adults = room7Adults,
             room7ChildAges = room7ChildAges,
             room8Adults = room8Adults,
-            room8ChildAges = room8ChildAges
+            room8ChildAges = room8ChildAges,
         )
 
-    override fun getHeaders(): Headers =
-        Headers.build {
-            partnerTransactionId?.let {
-                append("Partner-Transaction-Id", it)
-            }
-            append("Accept", "application/vnd.exp-lodging.v3+json")
-        }
+    fun getHeaders(): Headers =
+        Headers
+            .builder()
+            .apply {
+                partnerTransactionId?.let {
+                    add("Partner-Transaction-Id", it)
+                }
+                add("Accept", "application/vnd.exp-lodging.v3+json")
+            }.build()
 
-    override fun getQueryParams(): Parameters =
-        Parameters.build {
+    fun getQueryParams(): List<UrlQueryParam> =
+        buildList {
             propertyIds?.let {
-                appendAll("propertyIds", toMultiValue(it, "csv"))
+                val key = "propertyIds"
+                val value =
+                    buildList {
+                        addAll(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                    ),
+                )
             }
             checkIn?.let {
-                append("checkIn", it.toString())
+                val key = "checkIn"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             checkOut?.let {
-                append("checkOut", it.toString())
+                val key = "checkOut"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             currency?.let {
-                append("currency", it)
+                val key = "currency"
+                val value =
+                    buildList {
+                        add(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             links?.let {
-                appendAll("links", toMultiValue(it.map { item -> item.value }, "csv"))
+                val key = "links"
+                val value =
+                    buildList {
+                        addAll(it.map { it.value })
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                    ),
+                )
             }
             travelWithPets?.let {
-                append("travelWithPets", it.toString())
+                val key = "travelWithPets"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             room1Adults?.let {
-                append("room1.adults", it.toString())
+                val key = "room1.adults"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             room1ChildAges?.let {
-                appendAll("room1.childAges", toMultiValue(it, "csv"))
+                val key = "room1.childAges"
+                val value =
+                    buildList {
+                        addAll(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                    ),
+                )
             }
             room2Adults?.let {
-                append("room2.adults", it.toString())
+                val key = "room2.adults"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             room2ChildAges?.let {
-                appendAll("room2.childAges", toMultiValue(it, "csv"))
+                val key = "room2.childAges"
+                val value =
+                    buildList {
+                        addAll(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                    ),
+                )
             }
             room3Adults?.let {
-                append("room3.adults", it.toString())
+                val key = "room3.adults"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             room3ChildAges?.let {
-                appendAll("room3.childAges", toMultiValue(it, "csv"))
+                val key = "room3.childAges"
+                val value =
+                    buildList {
+                        addAll(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                    ),
+                )
             }
             room4Adults?.let {
-                append("room4.adults", it.toString())
+                val key = "room4.adults"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             room4ChildAges?.let {
-                appendAll("room4.childAges", toMultiValue(it, "csv"))
+                val key = "room4.childAges"
+                val value =
+                    buildList {
+                        addAll(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                    ),
+                )
             }
             room5Adults?.let {
-                append("room5.adults", it.toString())
+                val key = "room5.adults"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             room5ChildAges?.let {
-                appendAll("room5.childAges", toMultiValue(it, "csv"))
+                val key = "room5.childAges"
+                val value =
+                    buildList {
+                        addAll(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                    ),
+                )
             }
             room6Adults?.let {
-                append("room6.adults", it.toString())
+                val key = "room6.adults"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             room6ChildAges?.let {
-                appendAll("room6.childAges", toMultiValue(it, "csv"))
+                val key = "room6.childAges"
+                val value =
+                    buildList {
+                        addAll(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                    ),
+                )
             }
             room7Adults?.let {
-                append("room7.adults", it.toString())
+                val key = "room7.adults"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             room7ChildAges?.let {
-                appendAll("room7.childAges", toMultiValue(it, "csv"))
+                val key = "room7.childAges"
+                val value =
+                    buildList {
+                        addAll(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                    ),
+                )
             }
             room8Adults?.let {
-                append("room8.adults", it.toString())
+                val key = "room8.adults"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             room8ChildAges?.let {
-                appendAll("room8.childAges", toMultiValue(it, "csv"))
-            }
-        }
+                val key = "room8.childAges"
+                val value =
+                    buildList {
+                        addAll(it)
+                    }
 
-    override fun getPathParams(): Map<String, String> =
-        buildMap {
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                    ),
+                )
+            }
         }
 }
