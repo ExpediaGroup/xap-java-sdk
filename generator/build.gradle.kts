@@ -1,6 +1,3 @@
-import com.expediagroup.sdk.xap.generator.mustache.AllowedMediaTypesLambda
-import org.openapitools.codegen.CodegenConstants
-
 plugins {
     id("com.expediagroup.sdk.openapigenerator") version "0.0.3-beta-SNAPSHOT"
 }

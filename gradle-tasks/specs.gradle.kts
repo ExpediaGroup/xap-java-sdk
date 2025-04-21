@@ -1,10 +1,6 @@
-tasks.register("mergeSpecs") {
-    exec {
-        commandLine(
-            "npx openapi-merge-cli".split(" ")
-        )
-        workingDir = File(rootDir, "specs")
-    }
+tasks.register<Exec>("mergeSpecs") {
+    commandLine("npx", "openapi-merge-cli")
+    workingDir = File(rootDir, "specs")
 }
 
 tasks.register("transformSpecs") {
@@ -24,7 +20,7 @@ tasks.register("prepareSpecs") {
 
     doLast {
         File("$rootDir", "specs/specs.yaml").copyTo(
-            File("$rootDir", "generator/src/main/resources/specs-copied.yaml"),
+            File("$rootDir", "generator/src/main/resources/transformedSpecs.yaml"),
         )
     }
 }
