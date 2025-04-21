@@ -16,7 +16,7 @@
 
 package com.expediagroup.sdk.xap.examples.scenarios.activity;
 
-import com.expediagroup.sdk.core.model.Response;
+import com.expediagroup.sdk.rest.model.Response;
 import com.expediagroup.sdk.xap.client.XapClient;
 import com.expediagroup.sdk.xap.examples.scenarios.XapScenario;
 import com.expediagroup.sdk.xap.models.ActivitiesAddress;
