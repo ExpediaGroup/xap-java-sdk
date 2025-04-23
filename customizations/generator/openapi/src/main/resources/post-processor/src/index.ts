@@ -7,6 +7,7 @@ import {VendorLocationDetailsProcessor} from './processors/vendor-location-detai
 import {GetCarsListingsOperationParamsProcessor} from './processors/get-cars-listings-operation-params-processor';
 import {ActivitiesCancellationPolicyProcessor} from './processors/activities-cancellation-policy-processor';
 import {AvailableTimeSlotProcessor} from './processors/available-time-slot-processor';
+import {GetFlightListingsOperationParamsProcessor} from "./processors/get-flight-listings-operation-params-processor";
 
 import * as path from 'path';
 
@@ -41,5 +42,8 @@ switch (fileName) {
     break;
   case 'AvailableTimeSlot':
     new AvailableTimeSlotProcessor().process(filePath);
+    break;
+  case 'GetFlightListingsOperationParams':
+    new GetFlightListingsOperationParamsProcessor().process(filePath);
     break;
 }

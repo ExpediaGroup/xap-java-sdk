@@ -1,0 +1,14 @@
+utils:
+  segment-builder:
+    kind: 'function_declaration'
+    regex: 'fun segment*'
+    inside:
+      kind: 'class_body'
+      inside:
+        pattern: 'class Builder'
+rule:
+  any:
+    - matches: segment-builder
+    - kind: 'multiline_comment'
+      precedes:
+        matches: segment-builder
