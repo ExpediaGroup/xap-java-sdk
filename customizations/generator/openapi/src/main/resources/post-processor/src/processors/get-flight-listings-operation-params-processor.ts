@@ -28,10 +28,10 @@ export class GetFlightListingsOperationParamsProcessor extends Processor {
     const config = this.readRule('import-segment');
 
     return root.findAll(config).map(node => {
-      const room = 'import com.expediagroup.sdk.xap.models.GetFlightListingsOperationSegmentParam';
+      const segment = 'import com.expediagroup.sdk.xap.models.GetFlightListingsOperationSegmentParam';
       const header = node.getMatch('HEADER')?.text();
 
-      return node.replace(`${room}\n${header}`);
+      return node.replace(`${segment}\n${header}`);
     });
   }
 
