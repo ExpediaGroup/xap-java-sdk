@@ -1,8 +1,0 @@
-rule:
-  kind: user_type
-  inside:
-    kind: parameter
-    regex: freeCancellationEndDateTime
-    stopBy:
-      kind: class_declaration
-      regex: Builder
