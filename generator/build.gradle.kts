@@ -40,7 +40,7 @@ openApiGenerate {
 
 tasks.named("openApiGenerate").configure {
     doLast {
-        exec {
+        project.providers.exec {
             commandLine(
                 "../gradlew ktlintFormat".split(" "),
             )
