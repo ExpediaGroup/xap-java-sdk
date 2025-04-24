@@ -2,7 +2,7 @@ import com.expediagroup.sdk.xap.generator.mustache.AllowedMediaTypesLambda
 import org.openapitools.codegen.CodegenConstants
 
 plugins {
-    id("com.expediagroup.sdk.openapigenerator") version "0.0.3-beta-SNAPSHOT"
+    id("com.expediagroup.sdk.openapigenerator") version "0.0.9-alpha"
 }
 
 group = project.property("GROUP_ID") as String
