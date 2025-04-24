@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+        mavenCentral()
         mavenLocal()
         gradlePluginPortal()
         maven {
@@ -15,4 +16,3 @@ plugins {
 rootProject.name = "xap-java-sdk"
 include("xap-sdk")
 include("generator")
-include("examples")

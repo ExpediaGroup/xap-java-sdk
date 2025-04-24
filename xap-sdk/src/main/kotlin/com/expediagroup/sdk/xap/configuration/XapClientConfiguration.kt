@@ -81,9 +81,7 @@ abstract class ClientBuilder<T : RestClient> {
      * @throws IllegalArgumentException If the credentials type is unsupported
      */
     protected fun buildConfig(): XapClientConfiguration {
-        require(credentials != null) {
-            "credentials is required"
-        }
+        requireNotNull(credentials) { "credentials is required" }
 
         return XapClientConfiguration(
             credentials = credentials!!,
@@ -131,7 +129,7 @@ abstract class AsyncClientBuilder<T : AsyncRestClient> {
      * @throws IllegalArgumentException If the credentials type is unsupported
      */
     protected fun buildConfig(): AsyncXapClientConfiguration {
-        require(credentials != null) {
+        requireNotNull(credentials) {
             "credentials is required"
         }
 
