@@ -99,6 +99,7 @@ class OpenApiSdkGenerator {
 
                     supportingFiles.add("${namespace.replaceFirstChar(Char::titlecase)}Client.kt")
                     supportingFiles.add("Room.kt")
+                    supportingFiles.add("GetFlightListingsOperationSegmentParam.kt")
 
                     addGlobalProperty(CodegenConstants.SUPPORTING_FILES, supportingFiles.joinToString(","))
                     // addGlobalProperty("debugSupportingFiles", "")
@@ -157,6 +158,14 @@ class OpenApiSdkGenerator {
                                     "xap/room.mustache",
                                     "$packagePath/models/",
                                     "Room.kt"
+                                )
+                            )
+
+                            add(
+                                SupportingFile(
+                                    "xap/get_flight_listings_operation_segment_param.mustache",
+                                    "$packagePath/models/",
+                                    "GetFlightListingsOperationSegmentParam.kt"
                                 )
                             )
                         }
