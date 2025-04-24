@@ -3,16 +3,14 @@ tasks.register<Exec>("mergeSpecs") {
     workingDir = File(rootDir, "specs")
 }
 
-tasks.register("transformSpecs") {
+tasks.register<Exec>("transformSpecs") {
     dependsOn("mergeSpecs")
 
-    exec {
-        commandLine(
-            "npx --yes -p @expediagroup/spec-transformer cli --headers --operationIdsToTags --input specs.yaml --output specs.yaml"
-                .split(" ")
-        )
-        workingDir = File(rootDir, "specs")
-    }
+    commandLine(
+        "npx --yes -p @expediagroup/spec-transformer cli --headers --operationIdsToTags -i specs.yaml -o specs.yaml"
+            .split(" ")
+    )
+    workingDir = File(rootDir, "specs")
 }
 
 tasks.register("prepareSpecs") {

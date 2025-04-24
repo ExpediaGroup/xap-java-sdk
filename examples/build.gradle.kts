@@ -1,5 +1,18 @@
 group = project.property("GROUP_ID") as String
 
+plugins {
+    checkstyle
+}
+
+checkstyle {
+    val archive =
+        configurations.checkstyle.get().resolve().filter {
+            it.name.startsWith("checkstyle")
+        }
+
+    config = resources.text.fromArchiveEntry(archive, "google_checks.xml")
+}
+
 dependencies {
     api(project(":xap-sdk"))
 

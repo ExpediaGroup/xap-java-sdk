@@ -12,7 +12,7 @@ plugins {
 
 group = project.property("GROUP_ID") as String
 
-apply("gradle-tasks/specs.gradle.kts")
+apply("$rootDir/gradle-tasks/specs.gradle.kts")
 apply("$rootDir/gradle-tasks/snapshot.gradle")
 
 allprojects {
