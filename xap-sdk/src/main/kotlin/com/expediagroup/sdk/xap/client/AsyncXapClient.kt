@@ -24,7 +24,7 @@ import com.expediagroup.sdk.rest.trait.operation.OperationNoResponseBodyTrait
 import com.expediagroup.sdk.xap.configuration.AsyncClientBuilder
 import com.expediagroup.sdk.xap.configuration.AsyncXapClientConfiguration
 import com.expediagroup.sdk.xap.configuration.Constant.ENDPOINT
-import com.expediagroup.sdk.xap.configuration.XAP_OBJECT_MAPPER
+import com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER
 import com.expediagroup.sdk.xap.core.AsyncRequestExecutor
 import java.util.concurrent.CompletableFuture
 
@@ -38,7 +38,7 @@ class AsyncXapClient private constructor(
 ) : AsyncRestClient() {
     override val restExecutor: AsyncRestExecutor =
         AsyncRestExecutor(
-            mapper = XAP_OBJECT_MAPPER,
+            mapper = OBJECT_MAPPER,
             serverUrl = ENDPOINT,
             requestExecutor = AsyncRequestExecutor(configuration = config),
         )
