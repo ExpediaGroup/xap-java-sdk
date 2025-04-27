@@ -11,19 +11,27 @@ on:
         default: ''
 
 jobs:
-  integration-tests:
-    strategy:
-      matrix:
-        jdk: [ 8, 11, 17, 21 ]
-    uses: ./.github/workflows/integration-tests.yaml
-    secrets: inherit
-    with:
-      branch: ${{ inputs.branch }}
-      jdk: ${{ matrix.jdk }}
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
 
-  release-sdk:
-    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-release-sdk.yaml@v20250304
-    needs: [ integration-tests ]
-    secrets: inherit
-    with:
-      branch: ${{ inputs.branch }}
+      - name: Publish SDK
+        working-directory: xap-sdk
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
+          GPG_SECRET: ${{ secrets.GPG_PRIVATE_KEY }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        run: |
+          version="${{ github.event.inputs.version }}"
+          version="${version// /}"
+          if [[ "$version" == *"-SNAPSHOT" ]]; then
+            gradle publishSnapshot -PVERSION="${version}"
+          else
+            gradle publishToSonatype closeAndReleaseSonatypeStagingRepository -PVERSION="${version}"
+          fi

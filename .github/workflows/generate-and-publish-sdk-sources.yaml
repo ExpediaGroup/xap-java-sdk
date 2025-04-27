@@ -42,19 +42,3 @@ jobs:
           title: "chore: code update on $(date +'%Y%m%d%H%M%S')"
           branch: "xap-sdk-code-update-$(date +'%Y%m%d%H%M%S')"
           add-paths: .
-
-      - name: Publish SDK
-        working-directory: xap-sdk
-        env:
-          GPG_PASSPHRASE: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
-          GPG_SECRET: ${{ secrets.GPG_PRIVATE_KEY }}
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-        run: |
-          version="${{ github.event.inputs.version }}"
-          version="${version// /}"
-          if [[ "$version" == *"-SNAPSHOT" ]]; then
-            gradle publishSnapshot -PVERSION="${version}"
-          else
-            gradle publishToSonatype closeAndReleaseSonatypeStagingRepository -PVERSION="${version}"
-          fi
