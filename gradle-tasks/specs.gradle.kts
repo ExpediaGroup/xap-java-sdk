@@ -7,7 +7,7 @@ tasks.register<Exec>("transformSpecs") {
     dependsOn("mergeSpecs")
 
     commandLine(
-        "npx --yes -p @expediagroup/spec-transformer cli --headers --operationIdsToTags -i specs.yaml -o specs.yaml"
+        "npx --yes -p @expediagroup/spec-transformer cli --headers accept,accept-encoding,key --operationIdsToTags --defaultStringType QUOTE_SINGLE specs.yaml -o specs.yaml"
             .split(" ")
     )
     workingDir = File(rootDir, "specs")
