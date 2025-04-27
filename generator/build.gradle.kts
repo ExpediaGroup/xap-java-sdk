@@ -12,7 +12,7 @@ dependencies {
 }
 
 openApiGenerate {
-    inputSpec = System.getProperty("inputSpec") ?: "$projectDir/src/main/resources/specs.yaml"
+    inputSpec = System.getProperty("inputSpec") ?: "$projectDir/src/main/resources/transformedSpecs.yaml"
 
     packageName = "com.expediagroup.sdk.xap"
     invokerPackage = "com.expediagroup.sdk.xap"
