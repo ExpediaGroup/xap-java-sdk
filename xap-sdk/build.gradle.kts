@@ -1,7 +1,7 @@
 plugins {
     id("signing")
     id("maven-publish")
-    id("com.github.hierynomus.license-base") version "0.16.1"
+    id("com.github.hierynomus.license") version "0.16.1"
 }
 
 license {
