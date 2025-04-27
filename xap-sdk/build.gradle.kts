@@ -2,6 +2,18 @@ plugins {
     id("signing")
     id("maven-publish")
     id("org.jetbrains.dokka") version "2.0.0"
+    id("com.github.hierynomus.license") version "0.16.1"
+}
+
+license {
+    header = rootProject.file("LICENSE-HEADER.txt")
+    skipExistingHeaders = true
+    strictCheck = true
+    includes(
+        listOf(
+            "**/*.kt"
+        )
+    )
 }
 
 group = property("GROUP_ID") as String
