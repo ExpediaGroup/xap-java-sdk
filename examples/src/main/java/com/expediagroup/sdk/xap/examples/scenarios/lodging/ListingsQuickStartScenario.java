@@ -57,10 +57,10 @@ public class ListingsQuickStartScenario implements XapScenario {
         // 6. Order the results by price in ascending order.
 
         LOGGER.info(
-                "========================== Running ListingsQuickStartScenario =========================");
+            "========================== Running ListingsQuickStartScenario =========================");
 
         LOGGER.info(
-                "======================== Executing GetLodgingListingsOperation =======================");
+            "======================== Executing GetLodgingListingsOperation =======================");
 
         // Build the occupancy
         ArrayList<Room> rooms = new ArrayList<>();
@@ -74,37 +74,37 @@ public class ListingsQuickStartScenario implements XapScenario {
 
         // Build the query parameters with GetLodgingListingsOperationParams
         GetLodgingListingsOperationParams getLodgingListingsOperationParams =
-                GetLodgingListingsOperationParams.builder()
-                        .partnerTransactionId(PARTNER_TRANSACTION_ID)
-                        // The location keyword can be a city, address, airport or a landmark.
-                        .locationKeyword("Space Needle, Seattle")
-                        // The radius specifies the size of search area around the location keyword.
-                        // The default value is 25.
-                        .radius(10)
-                        // The unit specifies the unit of the radius. The default value is KM.
-                        .unit(GetLodgingListingsOperationParams.Unit.KM)
-                        // Check-in 5 days from now
-                        .checkIn(LocalDate.now().plusDays(5))
-                        // Check-out 10 days from now
-                        .checkOut(LocalDate.now().plusDays(10))
-                        // The occupancy
-                        .rooms(rooms)
-                        // The links to return, WEB includes WS (Web Search Result Page)
-                        // and WD (Web Details Page)
-                        .links(Collections.singletonList(GetLodgingListingsOperationParams.Links.WEB))
-                        // Limit the results to 5 properties
-                        .limit(5)
-                        // Order the results by price in ascending order
-                        .sortType(GetLodgingListingsOperationParams.SortType.PRICE)
-                        .sortOrder(GetLodgingListingsOperationParams.SortOrder.ASC)
-                        .build();
+            GetLodgingListingsOperationParams.builder()
+                .partnerTransactionId(PARTNER_TRANSACTION_ID)
+                // The location keyword can be a city, address, airport or a landmark.
+                .locationKeyword("Space Needle, Seattle")
+                // The radius specifies the size of search area around the location keyword.
+                // The default value is 25.
+                .radius(10)
+                // The unit specifies the unit of the radius. The default value is KM.
+                .unit(GetLodgingListingsOperationParams.Unit.KM)
+                // Check-in 5 days from now
+                .checkIn(LocalDate.now().plusDays(5))
+                // Check-out 10 days from now
+                .checkOut(LocalDate.now().plusDays(10))
+                // The occupancy
+                .rooms(rooms)
+                // The links to return, WEB includes WS (Web Search Result Page)
+                // and WD (Web Details Page)
+                .links(Collections.singletonList(GetLodgingListingsOperationParams.Links.WEB))
+                // Limit the results to 5 properties
+                .limit(5)
+                // Order the results by price in ascending order
+                .sortType(GetLodgingListingsOperationParams.SortType.PRICE)
+                .sortOrder(GetLodgingListingsOperationParams.SortOrder.ASC)
+                .build();
 
         XapClient xapClient = createClient();
 
         // Execute the operation and get the HotelListingsResponse
         HotelListingsResponse hotelListingsResponse =
-                xapClient.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams))
-                        .getData();
+            xapClient.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams))
+                .getData();
 
         // If you want to use the async method, you can use the following code:
         // ---------------------------------------------------------------
@@ -117,10 +117,10 @@ public class ListingsQuickStartScenario implements XapScenario {
         // ---------------------------------------------------------------
 
         LOGGER.info(
-                "======================== GetLodgingListingsOperation Executed ========================");
+            "======================== GetLodgingListingsOperation Executed ========================");
 
         if (hotelListingsResponse == null || hotelListingsResponse.getHotels() == null
-                || hotelListingsResponse.getHotels().isEmpty()) {
+            || hotelListingsResponse.getHotels().isEmpty()) {
             throw new IllegalStateException("No properties found.");
         }
 
@@ -135,7 +135,7 @@ public class ListingsQuickStartScenario implements XapScenario {
                 return;
             }
             LOGGER.info(
-                    "=================================== Property Start ===================================");
+                "=================================== Property Start ===================================");
             // To get the property name
             if (StringUtils.isNotEmpty(hotel.getName())) {
                 LOGGER.info("Property Name: {}", hotel.getName());
@@ -172,27 +172,27 @@ public class ListingsQuickStartScenario implements XapScenario {
                     // To get the total price of the room type
                     if (roomType.getPrice().getTotalPrice() != null) {
                         LOGGER.info("Price: {}, Currency: {}",
-                                roomType.getPrice().getTotalPrice().getValue(),
-                                roomType.getPrice().getTotalPrice().getCurrency());
+                            roomType.getPrice().getTotalPrice().getValue(),
+                            roomType.getPrice().getTotalPrice().getCurrency());
                     }
                     // To get the average nightly rate of the room type
                     if (roomType.getPrice().getAvgNightlyRate() != null) {
                         LOGGER.info("Average Nightly Rate: {}, Currency: {}",
-                                roomType.getPrice().getAvgNightlyRate().getValue(),
-                                roomType.getPrice().getAvgNightlyRate().getCurrency());
+                            roomType.getPrice().getAvgNightlyRate().getValue(),
+                            roomType.getPrice().getAvgNightlyRate().getCurrency());
                     }
                 }
                 // To get the free cancellation flag of the selected room
                 if (roomType.getRatePlans() != null && !roomType.getRatePlans().isEmpty()
-                        && roomType.getRatePlans().get(0).getCancellationPolicy() != null) {
+                    && roomType.getRatePlans().get(0).getCancellationPolicy() != null) {
                     LOGGER.info("Free Cancellation: {}",
-                            roomType.getRatePlans().get(0).getCancellationPolicy().getFreeCancellation());
+                        roomType.getRatePlans().get(0).getCancellationPolicy().getFreeCancellation());
                 }
                 if (roomType.getLinks() != null) {
                     // To get the deeplink to the Expedia Web Search Result Page
                     if (roomType.getLinks().getWebSearchResult() != null) {
                         LOGGER.info("WebSearchResult Link: {}",
-                                roomType.getLinks().getWebSearchResult().getHref());
+                            roomType.getLinks().getWebSearchResult().getHref());
                     }
                     // To get the deeplink to the Expedia Web Details Page
                     if (roomType.getLinks().getWebDetails() != null) {
@@ -201,10 +201,10 @@ public class ListingsQuickStartScenario implements XapScenario {
                 }
             }
             LOGGER.info(
-                    "==================================== Property End ====================================");
+                "==================================== Property End ====================================");
         });
 
         LOGGER.info(
-                "============================ End ListingsQuickStartScenario ===========================");
+            "============================ End ListingsQuickStartScenario ===========================");
     }
 }

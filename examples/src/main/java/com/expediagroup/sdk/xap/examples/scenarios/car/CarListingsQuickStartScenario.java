@@ -46,10 +46,10 @@ public class CarListingsQuickStartScenario implements XapScenario {
     @Override
     public void run() {
         LOGGER.info(
-                "========================= Running CarListingsQuickStartScenario ========================");
+            "========================= Running CarListingsQuickStartScenario ========================");
 
         LOGGER.info(
-                "======================== Executing GetCarsListingsOperation =======================");
+            "======================== Executing GetCarsListingsOperation =======================");
         // This example will search for properties based on the following criteria:
         // 1. The pickup airport is MCO, and the drop-off airport is MCO;
         // 2. The pickup time is "2025-01-15T11:00", and the drop-off time is "2025-01-19T11:00";
@@ -64,64 +64,64 @@ public class CarListingsQuickStartScenario implements XapScenario {
         linksList.add(GetCarsListingsOperationParams.Links.WD);
 
         GetCarsListingsOperationParams getCarsListingsOperationParams =
-                GetCarsListingsOperationParams.builder().partnerTransactionId("EWSCar_Automation")
-                        //Three letter code for the airport at which the customer would like to pick up the car.
-                        //Supported values: standard 3 letter IATA Airport Code.
-                        //Cannot coexist with other pickup parameters, only one pickup parameter is allowed per
-                        //request.
-                        .pickupAirport("MCO")
-                        //Three letter code for the airport at which the customer would like to drop off the
-                        //car.
-                        //Supported values: standard 3 letter IATA Airport Code.
-                        //Cannot coexist with other drop off parameters, only one drop off parameter is allowed
-                        //per request.
-                        //If no drop off location is specified, it is assumed that the customer will be dropping
-                        //the car off at the same location at which they picked it up.
-                        .dropOffAirport("MCO")
-                        //Requested car pickup date and time.
-                        //Date should be ISO8601 Date format.The supported search window is today to 330 days in
-                        //the future.
-                        //(Note that each rental counter has different hours of operation. If you select a time
-                        //in the middle of the night there may be no inventory available as all locations may be
-                        //closed.)
-                        .pickupTime(
-                                LocalDateTime.now()
-                                        .withNano(0)
-                                        .withSecond(0)
-                                        .withHour(10)
-                                        .plusDays(10)
-                                        .plusMonths(1)
-                        )
-                        //Requested car drop off date and time.
-                        //Date should be ISO8601 Date format.The supported search window is today to 330 days in
-                        //the future.
-                        //The drop-off datetime should occur at least 2 hours after the pickup datetime.
-                        .dropOffTime(
-                                LocalDateTime.now()
-                                        .withNano(0)
-                                        .withSecond(0)
-                                        .withHour(10)
-                                        .plusDays(15)
-                                        .plusMonths(1)
-                        )
-                        .pickupRadius(10)
-                        .dropOffRadius(10)
-                        //The maximum number of search results that will be returned by the query.
-                        .limit(5)
-                        .partnerTransactionId("BestTravel-123456-798101112")
-                        .links(linksList)
-                        .build();
+            GetCarsListingsOperationParams.builder().partnerTransactionId("EWSCar_Automation")
+                //Three letter code for the airport at which the customer would like to pick up the car.
+                //Supported values: standard 3 letter IATA Airport Code.
+                //Cannot coexist with other pickup parameters, only one pickup parameter is allowed per
+                //request.
+                .pickupAirport("MCO")
+                //Three letter code for the airport at which the customer would like to drop off the
+                //car.
+                //Supported values: standard 3 letter IATA Airport Code.
+                //Cannot coexist with other drop off parameters, only one drop off parameter is allowed
+                //per request.
+                //If no drop off location is specified, it is assumed that the customer will be dropping
+                //the car off at the same location at which they picked it up.
+                .dropOffAirport("MCO")
+                //Requested car pickup date and time.
+                //Date should be ISO8601 Date format.The supported search window is today to 330 days in
+                //the future.
+                //(Note that each rental counter has different hours of operation. If you select a time
+                //in the middle of the night there may be no inventory available as all locations may be
+                //closed.)
+                .pickupTime(
+                    LocalDateTime.now()
+                        .withNano(0)
+                        .withSecond(0)
+                        .withHour(10)
+                        .plusDays(10)
+                        .plusMonths(1)
+                )
+                //Requested car drop off date and time.
+                //Date should be ISO8601 Date format.The supported search window is today to 330 days in
+                //the future.
+                //The drop-off datetime should occur at least 2 hours after the pickup datetime.
+                .dropOffTime(
+                    LocalDateTime.now()
+                        .withNano(0)
+                        .withSecond(0)
+                        .withHour(10)
+                        .plusDays(15)
+                        .plusMonths(1)
+                )
+                .pickupRadius(10)
+                .dropOffRadius(10)
+                //The maximum number of search results that will be returned by the query.
+                .limit(5)
+                .partnerTransactionId("BestTravel-123456-798101112")
+                .links(linksList)
+                .build();
 
         XapClient xapClient = createClient();
 
         // Execute the operation and get the CarListingsResponse
         CarListingsResponse carListingsResponse =
-                xapClient.execute(new GetCarsListingsOperation(getCarsListingsOperationParams)).getData();
+            xapClient.execute(new GetCarsListingsOperation(getCarsListingsOperationParams)).getData();
         LOGGER.info(
-                "======================== GetCarsListingsOperation Executed ========================");
+            "======================== GetCarsListingsOperation Executed ========================");
 
         if (carListingsResponse == null || carListingsResponse.getCars() == null
-                || carListingsResponse.getCars().isEmpty()) {
+            || carListingsResponse.getCars().isEmpty()) {
             throw new IllegalStateException("No cars found.");
         }
 
@@ -187,6 +187,6 @@ public class CarListingsQuickStartScenario implements XapScenario {
             LOGGER.info("======================== Property End ========================");
         });
         LOGGER.info(
-                "======================== End CarListingsQuickStartScenario ========================");
+            "======================== End CarListingsQuickStartScenario ========================");
     }
 }

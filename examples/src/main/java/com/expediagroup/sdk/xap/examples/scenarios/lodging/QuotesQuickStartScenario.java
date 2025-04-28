@@ -55,10 +55,10 @@ public class QuotesQuickStartScenario implements VrboScenario {
         // 4. Return web links to Expedia website;
 
         LOGGER.info(
-                "============================ Running QuotesQuickStartScenario ==========================");
+            "============================ Running QuotesQuickStartScenario ==========================");
 
         LOGGER.info(
-                "========================= Executing GetLodgingQuotesOperation =========================");
+            "========================= Executing GetLodgingQuotesOperation =========================");
 
         // Build the occupancy
         ArrayList<Room> rooms = new ArrayList<>();
@@ -67,25 +67,25 @@ public class QuotesQuickStartScenario implements VrboScenario {
 
         // Build the query parameters with GetLodgingQuotesOperationParams
         GetLodgingQuotesOperationParams quotesOperationParams =
-                GetLodgingQuotesOperationParams.builder()
-                        .partnerTransactionId(PARTNER_TRANSACTION_ID)
-                        // Check-in 5 days from now
-                        .checkIn(LocalDate.now().plusDays(5))
-                        // Check-out 10 days from now
-                        .checkOut(LocalDate.now().plusDays(10))
-                        // Set of Expedia Property IDs.
-                        .propertyIds(new HashSet<>(Arrays.asList("87704892", "36960201")))
-                        // The links to return, WEB includes WS (Web Search Result Page) and
-                        // WD (Web Details Page)
-                        .links(Collections.singletonList(GetLodgingQuotesOperationParams.Links.WEB))
-                        .rooms(rooms)
-                        .build();
+            GetLodgingQuotesOperationParams.builder()
+                .partnerTransactionId(PARTNER_TRANSACTION_ID)
+                // Check-in 5 days from now
+                .checkIn(LocalDate.now().plusDays(5))
+                // Check-out 10 days from now
+                .checkOut(LocalDate.now().plusDays(10))
+                // Set of Expedia Property IDs.
+                .propertyIds(new HashSet<>(Arrays.asList("87704892", "36960201")))
+                // The links to return, WEB includes WS (Web Search Result Page) and
+                // WD (Web Details Page)
+                .links(Collections.singletonList(GetLodgingQuotesOperationParams.Links.WEB))
+                .rooms(rooms)
+                .build();
 
         XapClient xapClient = createClient();
 
         // Execute the operation and get the QuotesResponse
         LodgingQuotesResponse quotesResponse =
-                xapClient.execute(new GetLodgingQuotesOperation(quotesOperationParams)).getData();
+            xapClient.execute(new GetLodgingQuotesOperation(quotesOperationParams)).getData();
 
         // If you want to use the async method, you can use the following code:
         // ---------------------------------------------------------------
@@ -98,10 +98,10 @@ public class QuotesQuickStartScenario implements VrboScenario {
         // ---------------------------------------------------------------
 
         LOGGER.info(
-                "========================== GetLodgingQuotesOperation Executed =========================");
+            "========================== GetLodgingQuotesOperation Executed =========================");
 
         if (quotesResponse == null || quotesResponse.getProperties() == null
-                || quotesResponse.getProperties().isEmpty()) {
+            || quotesResponse.getProperties().isEmpty()) {
             throw new IllegalStateException("No properties found.");
         }
 
@@ -123,27 +123,27 @@ public class QuotesQuickStartScenario implements VrboScenario {
                     // To get the total price of the room type
                     if (roomType.getPrice().getTotalPrice() != null) {
                         LOGGER.info("Price: {}, Currency: {}",
-                                roomType.getPrice().getTotalPrice().getValue(),
-                                roomType.getPrice().getTotalPrice().getCurrency());
+                            roomType.getPrice().getTotalPrice().getValue(),
+                            roomType.getPrice().getTotalPrice().getCurrency());
                     }
                     // To get the average nightly rate of the room type
                     if (roomType.getPrice().getAvgNightlyRate() != null) {
                         LOGGER.info("Average Nightly Rate: {}, Currency: {}",
-                                roomType.getPrice().getAvgNightlyRate().getValue(),
-                                roomType.getPrice().getAvgNightlyRate().getCurrency());
+                            roomType.getPrice().getAvgNightlyRate().getValue(),
+                            roomType.getPrice().getAvgNightlyRate().getCurrency());
                     }
                 }
                 // To get the free cancellation flag of the selected room
                 if (roomType.getRatePlans() != null && !roomType.getRatePlans().isEmpty()
-                        && roomType.getRatePlans().get(0).getCancellationPolicy() != null) {
+                    && roomType.getRatePlans().get(0).getCancellationPolicy() != null) {
                     LOGGER.info("Free Cancellation: {}",
-                            roomType.getRatePlans().get(0).getCancellationPolicy().getFreeCancellation());
+                        roomType.getRatePlans().get(0).getCancellationPolicy().getFreeCancellation());
                 }
                 if (roomType.getLinks() != null) {
                     // To get the deeplink to the Expedia Web Search Result Page
                     if (roomType.getLinks().getWebSearchResult() != null) {
                         LOGGER.info("WebSearchResult Link: {}",
-                                roomType.getLinks().getWebSearchResult().getHref());
+                            roomType.getLinks().getWebSearchResult().getHref());
                     }
                     // To get the deeplink to the Expedia Web Details Page
                     if (roomType.getLinks().getWebDetails() != null) {
@@ -152,10 +152,10 @@ public class QuotesQuickStartScenario implements VrboScenario {
                 }
             }
             LOGGER.info(
-                    "=================================== Property End ===================================");
+                "=================================== Property End ===================================");
         });
 
         LOGGER.info(
-                "============================= End QuotesQuickStartScenario ============================");
+            "============================= End QuotesQuickStartScenario ============================");
     }
 }
