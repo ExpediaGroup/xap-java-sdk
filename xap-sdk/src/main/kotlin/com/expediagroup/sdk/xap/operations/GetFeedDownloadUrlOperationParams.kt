@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,11 @@
  */
 package com.expediagroup.sdk.xap.operations
 
-import com.expediagroup.sdk.core.model.OperationParams
-import com.expediagroup.sdk.core.model.exception.client.PropertyConstraintViolationException
-import com.expediagroup.sdk.xap.infrastructure.*
+import com.expediagroup.sdk.rest.model.UrlQueryParam
+import com.expediagroup.sdk.rest.util.stringifyExplode
+import com.expediagroup.sdk.rest.util.swaggerCollectionFormatStringifier
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import io.ktor.http.Headers
-import io.ktor.http.Parameters
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
  * @property type The type of file, used to get files by type.
@@ -36,9 +30,7 @@ import javax.validation.constraints.NotNull
  */
 @JsonDeserialize(builder = GetFeedDownloadUrlOperationParams.Builder::class)
 data class GetFeedDownloadUrlOperationParams(
-    @field:NotNull
     val type: GetFeedDownloadUrlOperationParams.Type,
-    @field:Valid
     val locale: kotlin.String? =
         null,
     val pointOfSupply: GetFeedDownloadUrlOperationParams.PointOfSupply? =
@@ -46,15 +38,19 @@ data class GetFeedDownloadUrlOperationParams(
     val lodgingType: GetFeedDownloadUrlOperationParams.LodgingType? =
         null,
     val brand: GetFeedDownloadUrlOperationParams.Brand? =
-        null
-) : OperationParams {
+        null,
+) {
+    init {
+        require(type != null) { "type must not be null" }
+    }
+
     companion object {
         @JvmStatic
         fun builder() = Builder()
     }
 
     enum class Type(
-        val value: kotlin.String
+        val value: kotlin.String,
     ) {
         DESTINATION("DESTINATION"),
         VENDORLOGO("VENDORLOGO"),
@@ -70,11 +66,11 @@ data class GetFeedDownloadUrlOperationParams(
         ALL_REGIONS("ALL_REGIONS"),
         BOUNDING_POLYGON("BOUNDING_POLYGON"),
         HOTEL_TO_REGION_HIERARCHY("HOTEL_TO_REGION_HIERARCHY"),
-        ROOM_DETAILS("ROOM_DETAILS")
+        ROOM_DETAILS("ROOM_DETAILS"),
     }
 
     enum class PointOfSupply(
-        val value: kotlin.String
+        val value: kotlin.String,
     ) {
         US("US"),
         AT("AT"),
@@ -91,20 +87,20 @@ data class GetFeedDownloadUrlOperationParams(
         ES("ES"),
         TR("TR"),
         AE("AE"),
-        GB("GB")
+        GB("GB"),
     }
 
     enum class LodgingType(
-        val value: kotlin.String
+        val value: kotlin.String,
     ) {
         CL("CL"),
-        VR("VR")
+        VR("VR"),
     }
 
     enum class Brand(
-        val value: kotlin.String
+        val value: kotlin.String,
     ) {
-        VRBO("VRBO")
+        VRBO("VRBO"),
     }
 
     class Builder(
@@ -112,7 +108,7 @@ data class GetFeedDownloadUrlOperationParams(
         @JsonProperty("locale") private var locale: kotlin.String? = null,
         @JsonProperty("pointOfSupply") private var pointOfSupply: GetFeedDownloadUrlOperationParams.PointOfSupply? = null,
         @JsonProperty("lodgingType") private var lodgingType: GetFeedDownloadUrlOperationParams.LodgingType? = null,
-        @JsonProperty("brand") private var brand: GetFeedDownloadUrlOperationParams.Brand? = null
+        @JsonProperty("brand") private var brand: GetFeedDownloadUrlOperationParams.Brand? = null,
     ) {
         /**
          * @param type The type of file, used to get files by type.
@@ -146,30 +142,10 @@ data class GetFeedDownloadUrlOperationParams(
                     locale = locale,
                     pointOfSupply = pointOfSupply,
                     lodgingType = lodgingType,
-                    brand = brand
+                    brand = brand,
                 )
-
-            validate(params)
 
             return params
-        }
-
-        private fun validate(params: GetFeedDownloadUrlOperationParams) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(params)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
         }
     }
 
@@ -179,34 +155,85 @@ data class GetFeedDownloadUrlOperationParams(
             locale = locale,
             pointOfSupply = pointOfSupply,
             lodgingType = lodgingType,
-            brand = brand
+            brand = brand,
         )
 
-    override fun getHeaders(): Headers =
-        Headers.build {
-            append("Accept", "application/vnd.exp-lodging.v1+json")
-        }
-
-    override fun getQueryParams(): Parameters =
-        Parameters.build {
+    fun getQueryParams(): List<UrlQueryParam> =
+        buildList {
             type?.let {
-                append("type", it.value)
+                val key = "type"
+                val value =
+                    buildList {
+                        add(it.value)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             locale?.let {
-                append("locale", it)
+                val key = "locale"
+                val value =
+                    buildList {
+                        add(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             pointOfSupply?.let {
-                append("pointOfSupply", it.value)
+                val key = "pointOfSupply"
+                val value =
+                    buildList {
+                        add(it.value)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             lodgingType?.let {
-                append("lodgingType", it.value)
+                val key = "lodgingType"
+                val value =
+                    buildList {
+                        add(it.value)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             brand?.let {
-                append("brand", it.value)
-            }
-        }
+                val key = "brand"
+                val value =
+                    buildList {
+                        add(it.value)
+                    }
 
-    override fun getPathParams(): Map<String, String> =
-        buildMap {
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
+            }
         }
 }

@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,12 @@
  */
 package com.expediagroup.sdk.xap.operations
 
-import com.expediagroup.sdk.core.model.OperationParams
-import com.expediagroup.sdk.core.model.exception.client.PropertyConstraintViolationException
-import com.expediagroup.sdk.xap.infrastructure.*
+import com.expediagroup.sdk.core.http.Headers
+import com.expediagroup.sdk.rest.model.UrlQueryParam
+import com.expediagroup.sdk.rest.util.stringifyExplode
+import com.expediagroup.sdk.rest.util.swaggerCollectionFormatStringifier
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import io.ktor.http.Headers
-import io.ktor.http.Parameters
-import org.hibernate.validator.messageinterpolation.ParameterMessageInterpolator
-import javax.validation.Valid
-import javax.validation.Validation
-import javax.validation.constraints.NotNull
 
 /**
  * @property partnerTransactionId Partner-generated identifier.
@@ -38,39 +33,36 @@ import javax.validation.constraints.NotNull
  */
 @JsonDeserialize(builder = GetActivityListingsOperationParams.Builder::class)
 data class GetActivityListingsOperationParams(
-    @field:NotNull
-    @field:Valid
     val partnerTransactionId: kotlin.String,
-    @field:Valid
     val location: kotlin.String? =
         null,
-    @field:Valid
     val geoLocation: kotlin.String? =
         null,
-    @field:Valid
     val startDate: java.time.LocalDate? =
         null,
-    @field:Valid
     val endDate: java.time.LocalDate? =
         null,
-    @field:Valid
     val locale: kotlin.String? =
         null,
     val links: kotlin.collections.List<
-        GetActivityListingsOperationParams.Links
+        GetActivityListingsOperationParams.Links,
     >? =
-        null
-) : OperationParams {
+        null,
+) {
+    init {
+        require(partnerTransactionId != null) { "partnerTransactionId must not be null" }
+    }
+
     companion object {
         @JvmStatic
         fun builder() = Builder()
     }
 
     enum class Links(
-        val value: kotlin.String
+        val value: kotlin.String,
     ) {
         WD("WD"),
-        AD("AD")
+        AD("AD"),
     }
 
     class Builder(
@@ -81,8 +73,8 @@ data class GetActivityListingsOperationParams(
         @JsonProperty("endDate") private var endDate: java.time.LocalDate? = null,
         @JsonProperty("locale") private var locale: kotlin.String? = null,
         @JsonProperty("links") private var links: kotlin.collections.List<
-            GetActivityListingsOperationParams.Links
-        >? = null
+            GetActivityListingsOperationParams.Links,
+        >? = null,
     ) {
         /**
          * @param partnerTransactionId Partner-generated identifier.
@@ -119,8 +111,8 @@ data class GetActivityListingsOperationParams(
          */
         fun links(
             links: kotlin.collections.List<
-                GetActivityListingsOperationParams.Links
-            >
+                GetActivityListingsOperationParams.Links,
+            >,
         ) = apply { this.links = links }
 
         fun build(): GetActivityListingsOperationParams {
@@ -132,30 +124,10 @@ data class GetActivityListingsOperationParams(
                     startDate = startDate,
                     endDate = endDate,
                     locale = locale,
-                    links = links
+                    links = links,
                 )
-
-            validate(params)
 
             return params
-        }
-
-        private fun validate(params: GetActivityListingsOperationParams) {
-            val validator =
-                Validation
-                    .byDefaultProvider()
-                    .configure()
-                    .messageInterpolator(ParameterMessageInterpolator())
-                    .buildValidatorFactory()
-                    .validator
-
-            val violations = validator.validate(params)
-
-            if (violations.isNotEmpty()) {
-                throw PropertyConstraintViolationException(
-                    constraintViolations = violations.map { "${it.propertyPath}: ${it.message}" }
-                )
-            }
         }
     }
 
@@ -167,40 +139,110 @@ data class GetActivityListingsOperationParams(
             startDate = startDate,
             endDate = endDate,
             locale = locale,
-            links = links
+            links = links,
         )
 
-    override fun getHeaders(): Headers =
-        Headers.build {
-            partnerTransactionId?.let {
-                append("Partner-Transaction-Id", it)
-            }
-            append("Accept", "application/vnd.exp-activity.v3+json")
-        }
+    fun getHeaders(): Headers =
+        Headers
+            .builder()
+            .apply {
+                partnerTransactionId?.let {
+                    add("Partner-Transaction-Id", it)
+                }
+                add("Accept", "application/vnd.exp-activity.v3+json")
+            }.build()
 
-    override fun getQueryParams(): Parameters =
-        Parameters.build {
+    fun getQueryParams(): List<UrlQueryParam> =
+        buildList {
             location?.let {
-                append("location", it)
+                val key = "location"
+                val value =
+                    buildList {
+                        add(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             geoLocation?.let {
-                append("geoLocation", it)
+                val key = "geoLocation"
+                val value =
+                    buildList {
+                        add(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             startDate?.let {
-                append("startDate", it.toString())
+                val key = "startDate"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             endDate?.let {
-                append("endDate", it.toString())
+                val key = "endDate"
+                val value =
+                    buildList {
+                        add(it.toString())
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             locale?.let {
-                append("locale", it)
+                val key = "locale"
+                val value =
+                    buildList {
+                        add(it)
+                    }
+
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                    ),
+                )
             }
             links?.let {
-                appendAll("links", toMultiValue(it.map { item -> item.value }, "csv"))
-            }
-        }
+                val key = "links"
+                val value =
+                    buildList {
+                        addAll(it.map { it.value })
+                    }
 
-    override fun getPathParams(): Map<String, String> =
-        buildMap {
+                add(
+                    UrlQueryParam(
+                        key = key,
+                        value = value,
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                    ),
+                )
+            }
         }
 }
