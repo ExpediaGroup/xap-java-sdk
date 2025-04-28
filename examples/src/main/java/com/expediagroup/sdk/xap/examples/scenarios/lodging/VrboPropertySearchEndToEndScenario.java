@@ -59,11 +59,8 @@ import org.slf4j.LoggerFactory;
  */
 public class VrboPropertySearchEndToEndScenario implements VrboScenario {
 
-    private final XapClient client = createClient();
-
     private static final Logger LOGGER =
-            LoggerFactory.getLogger(VrboPropertySearchEndToEndScenario.class);
-
+        LoggerFactory.getLogger(VrboPropertySearchEndToEndScenario.class);
     /**
      * This field limits the number of line to read from the SDP DownloadURL API Listings file to
      * reduce time to run the example.
@@ -72,22 +69,95 @@ public class VrboPropertySearchEndToEndScenario implements VrboScenario {
      * you can adjust the property count to get more properties.
      */
     private static final int SAMPLE_ITEMS_RESTRICTION = 20;
-
     /**
      * A property id to location map. This mocks a cache in this example to store the static content
      * of the properties.
      */
     private static final Map<String, String> PROPERTY_ID_AND_LOCATION_CACHE = new HashMap<>();
+    private final XapClient client = createClient();
 
     public static void main(String[] args) {
         new VrboPropertySearchEndToEndScenario().run();
         System.exit(0);
     }
 
+    /**
+     * Display the result of the operations.
+     *
+     * @param lodgingQuotesResponse The response of the Lodging Quotes API.
+     */
+    private static void displayResult(LodgingQuotesResponse lodgingQuotesResponse) {
+        LOGGER.info("======================= Executing Step IV: DisplayResult =======================");
+        if (lodgingQuotesResponse == null || lodgingQuotesResponse.getProperties() == null
+            || lodgingQuotesResponse.getProperties().isEmpty()) {
+            throw new IllegalStateException("No properties found.");
+        }
+
+        // The HotelListingsResponse contains a transaction ID for troubleshooting
+        LOGGER.info("Transaction ID: {}", lodgingQuotesResponse.getTransactionId());
+
+        // To access the properties, iterate through the list of hotel properties
+        lodgingQuotesResponse.getProperties().forEach(property -> {
+            // Check if the property is available
+            if (Property.Status.AVAILABLE != property.getStatus()) {
+                LOGGER.info("Property {} is not available.", property.getId());
+                return;
+            }
+            LOGGER.info(
+                "=================================== Property Start ===================================");
+            String propertyId = property.getId();
+
+            // Get the location content of the property from the cache
+            LOGGER.info("Property Id: {}", propertyId);
+            LOGGER.info("Cached Property Location: {}", PROPERTY_ID_AND_LOCATION_CACHE.get(propertyId));
+
+            // Get the price of the property from the room type
+            if (property.getRoomTypes() != null && !property.getRoomTypes().isEmpty()) {
+                // To get the first room type information
+                LodgingRoomType roomType = property.getRoomTypes().get(0);
+
+                if (roomType.getPrice() != null) {
+                    // To get the total price of the room type
+                    if (roomType.getPrice().getTotalPrice() != null) {
+                        LOGGER.info("Price: {}, Currency: {}",
+                            roomType.getPrice().getTotalPrice().getValue(),
+                            roomType.getPrice().getTotalPrice().getCurrency());
+                    }
+                    // To get the average nightly rate of the room type
+                    if (roomType.getPrice().getAvgNightlyRate() != null) {
+                        LOGGER.info("Average Nightly Rate: {}, Currency: {}",
+                            roomType.getPrice().getAvgNightlyRate().getValue(),
+                            roomType.getPrice().getAvgNightlyRate().getCurrency());
+                    }
+                }
+                // To get the free cancellation flag of the selected room
+                if (roomType.getRatePlans() != null && !roomType.getRatePlans().isEmpty()
+                    && roomType.getRatePlans().get(0).getCancellationPolicy() != null) {
+                    LOGGER.info("Free Cancellation: {}",
+                        roomType.getRatePlans().get(0).getCancellationPolicy().getFreeCancellation());
+                }
+                if (roomType.getLinks() != null) {
+                    // To get the deeplink to the website Search Result Page
+                    if (roomType.getLinks().getWebSearchResult() != null) {
+                        LOGGER.info("WebSearchResult Link: {}",
+                            roomType.getLinks().getWebSearchResult().getHref());
+                    }
+                    // To get the deeplink to the website Details Page
+                    if (roomType.getLinks().getWebDetails() != null) {
+                        LOGGER.info("WebDetails Link: {}", roomType.getLinks().getWebDetails().getHref());
+                    }
+                }
+            }
+            LOGGER.info(
+                "==================================== Property End ====================================");
+        });
+        LOGGER.info("======================= Step IV: DisplayResult Executed ========================");
+    }
+
     @Override
     public void run() {
         LOGGER.info(
-                "====================== Running VrboPropertySearchEndToEndScenario ======================");
+            "====================== Running VrboPropertySearchEndToEndScenario ======================");
 
         List<String> propertyIds = getPropertyIdsFromDownloadUrl();
         cachePropertyLocationFromDownloadUrl(propertyIds);
@@ -95,26 +165,26 @@ public class VrboPropertySearchEndToEndScenario implements VrboScenario {
         displayResult(lodgingQuotesResponse);
 
         LOGGER.info(
-                "======================= End VrboPropertySearchEndToEndScenario =========================");
+            "======================= End VrboPropertySearchEndToEndScenario =========================");
     }
 
     private List<String> getPropertyIdsFromDownloadUrl() {
         LOGGER.info(
-                "==================== Executing Step I: getPropertyIdsFromDownloadUrl ===================");
+            "==================== Executing Step I: getPropertyIdsFromDownloadUrl ===================");
 
         GetFeedDownloadUrlOperationParams getPropertyIdListParams =
-                GetFeedDownloadUrlOperationParams.builder()
-                        // Use the type VACATION_RENTAL to get the list of accessible Vrbo property ids.
-                        .type(GetFeedDownloadUrlOperationParams.Type.VACATION_RENTAL)
-                        // Without any filters, this operation will return the information of all Vrbo
-                        // properties in en_US by default.
-                        .build();
+            GetFeedDownloadUrlOperationParams.builder()
+                // Use the type VACATION_RENTAL to get the list of accessible Vrbo property ids.
+                .type(GetFeedDownloadUrlOperationParams.Type.VACATION_RENTAL)
+                // Without any filters, this operation will return the information of all Vrbo
+                // properties in en_US by default.
+                .build();
 
         Response<PresignedUrlResponse> downloadUrlListingsResponse =
-                client.execute(new GetFeedDownloadUrlOperation(getPropertyIdListParams));
+            client.execute(new GetFeedDownloadUrlOperation(getPropertyIdListParams));
 
         if (downloadUrlListingsResponse.getData() == null
-                || downloadUrlListingsResponse.getData().getBestMatchedFile() == null) {
+            || downloadUrlListingsResponse.getData().getBestMatchedFile() == null) {
             throw new IllegalStateException("No vacation rental file found");
         }
 
@@ -123,8 +193,8 @@ public class VrboPropertySearchEndToEndScenario implements VrboScenario {
         // For demonstration purposes, we will only read a few properties from the file without
         // downloading the entire file.
         String vacationRentalDownloadUrl = downloadUrlListingsResponse.getData()
-                .getBestMatchedFile()
-                .getDownloadUrl();
+            .getBestMatchedFile()
+            .getDownloadUrl();
         LOGGER.info("Vacation Rental Download URL: {}", vacationRentalDownloadUrl);
 
         // Read property ids from the file.
@@ -137,7 +207,7 @@ public class VrboPropertySearchEndToEndScenario implements VrboScenario {
         LOGGER.info("Accessible Vrbo Property Ids: {}", propertyIds);
 
         LOGGER.info(
-                "==================== Step I: getPropertyIdsFromDownloadUrl Executed ====================");
+            "==================== Step I: getPropertyIdsFromDownloadUrl Executed ====================");
         return propertyIds;
     }
 
@@ -148,33 +218,33 @@ public class VrboPropertySearchEndToEndScenario implements VrboScenario {
      */
     private void cachePropertyLocationFromDownloadUrl(List<String> propertyIds) {
         LOGGER.info(
-                "================ Executing Step II: CachePropertyLocationFromDownloadUrl ===============");
+            "================ Executing Step II: CachePropertyLocationFromDownloadUrl ===============");
         GetFeedDownloadUrlOperationParams getPropertyLocationParams =
-                GetFeedDownloadUrlOperationParams.builder()
-                        // Use the type LOCATIONS to get the address of accessible properties.
-                        .type(GetFeedDownloadUrlOperationParams.Type.LOCATIONS)
-                        // Filter the properties by brand.
-                        .brand(GetFeedDownloadUrlOperationParams.Brand.VRBO)
-                        .build();
+            GetFeedDownloadUrlOperationParams.builder()
+                // Use the type LOCATIONS to get the address of accessible properties.
+                .type(GetFeedDownloadUrlOperationParams.Type.LOCATIONS)
+                // Filter the properties by brand.
+                .brand(GetFeedDownloadUrlOperationParams.Brand.VRBO)
+                .build();
 
         Response<PresignedUrlResponse> downloadUrlLocationsResponse =
-                client.execute(new GetFeedDownloadUrlOperation(getPropertyLocationParams));
+            client.execute(new GetFeedDownloadUrlOperation(getPropertyLocationParams));
 
         if (downloadUrlLocationsResponse.getData() == null
-                || downloadUrlLocationsResponse.getData().getBestMatchedFile() == null) {
+            || downloadUrlLocationsResponse.getData().getBestMatchedFile() == null) {
             throw new IllegalStateException("No location file found");
         }
 
         String locationsDownloadUrl = downloadUrlLocationsResponse.getData()
-                .getBestMatchedFile()
-                .getDownloadUrl();
+            .getBestMatchedFile()
+            .getDownloadUrl();
         LOGGER.info("Locations Download URL: {}", locationsDownloadUrl);
 
         // Read and cache property locations from the file.
         cachePropertyLocationFromLocationsFile(locationsDownloadUrl, propertyIds);
 
         LOGGER.info(
-                "================= Step II: CachePropertyLocationFromDownloadUrl Executed ===============");
+            "================= Step II: CachePropertyLocationFromDownloadUrl Executed ===============");
     }
 
     /**
@@ -185,7 +255,7 @@ public class VrboPropertySearchEndToEndScenario implements VrboScenario {
      */
     private LodgingQuotesResponse getPropertyPriceFromLodgingQuotes(List<String> propertyIds) {
         LOGGER.info(
-                "================= Executing Step III: GetPropertyPriceFromLodgingQuotes ================");
+            "================= Executing Step III: GetPropertyPriceFromLodgingQuotes ================");
 
         // Build the occupancy
         ArrayList<Room> rooms = new ArrayList<>();
@@ -194,26 +264,26 @@ public class VrboPropertySearchEndToEndScenario implements VrboScenario {
 
         // Build the query parameters with GetLodgingQuotesOperationParams
         GetLodgingQuotesOperationParams quotesOperationParams =
-                GetLodgingQuotesOperationParams.builder()
-                        .partnerTransactionId(PARTNER_TRANSACTION_ID)
-                        // Check-in 5 days from now
-                        .checkIn(LocalDate.now().plusDays(5))
-                        // Check-out 10 days from now
-                        .checkOut(LocalDate.now().plusDays(10))
-                        // Set of Expedia Property IDs.
-                        .propertyIds(new HashSet<>(propertyIds))
-                        // The links to return, WEB includes WS (Web Search Result Page) and
-                        // WD (Web Details Page)
-                        .links(Collections.singletonList(GetLodgingQuotesOperationParams.Links.WEB))
-                        .rooms(rooms)
-                        .build();
+            GetLodgingQuotesOperationParams.builder()
+                .partnerTransactionId(PARTNER_TRANSACTION_ID)
+                // Check-in 5 days from now
+                .checkIn(LocalDate.now().plusDays(5))
+                // Check-out 10 days from now
+                .checkOut(LocalDate.now().plusDays(10))
+                // Set of Expedia Property IDs.
+                .propertyIds(new HashSet<>(propertyIds))
+                // The links to return, WEB includes WS (Web Search Result Page) and
+                // WD (Web Details Page)
+                .links(Collections.singletonList(GetLodgingQuotesOperationParams.Links.WEB))
+                .rooms(rooms)
+                .build();
 
         LodgingQuotesResponse lodgingQuotesResponse =
-                client.execute(new GetLodgingQuotesOperation(quotesOperationParams))
-                        .getData();
+            client.execute(new GetLodgingQuotesOperation(quotesOperationParams))
+                .getData();
 
         LOGGER.info(
-                "================= Step III: GetPropertyPriceFromLodgingQuotes Executed =================");
+            "================= Step III: GetPropertyPriceFromLodgingQuotes Executed =================");
         return lodgingQuotesResponse;
     }
 
@@ -242,7 +312,7 @@ public class VrboPropertySearchEndToEndScenario implements VrboScenario {
                             String line;
                             ObjectMapper objectMapper = new ObjectMapper();
                             while ((line = reader.readLine()) != null
-                                    && propertyIds.size() < SAMPLE_ITEMS_RESTRICTION) {
+                                && propertyIds.size() < SAMPLE_ITEMS_RESTRICTION) {
                                 // Parse the property id from the json object
                                 // An example json line from the jsonl file:
                 /*
@@ -333,7 +403,7 @@ public class VrboPropertySearchEndToEndScenario implements VrboScenario {
                             String line;
                             ObjectMapper objectMapper = new ObjectMapper();
                             while ((line = reader.readLine()) != null
-                                    && PROPERTY_ID_AND_LOCATION_CACHE.size() < propertyIds.size()) {
+                                && PROPERTY_ID_AND_LOCATION_CACHE.size() < propertyIds.size()) {
                                 // Parse the property location from the json object
                                 // An example json line from the jsonl file:
                 /*
@@ -391,15 +461,15 @@ public class VrboPropertySearchEndToEndScenario implements VrboScenario {
                                 if (propertyIds.contains(jsonNode.get("propertyId").get("expedia").asText())) {
                                     // Get the location content of the property
                                     String location = jsonNode.get("propertyName").asText() + ", "
-                                            + jsonNode.get("city").asText() + ", "
-                                            + jsonNode.get("province").asText() + ", "
-                                            + jsonNode.get("country").asText();
+                                        + jsonNode.get("city").asText() + ", "
+                                        + jsonNode.get("province").asText() + ", "
+                                        + jsonNode.get("country").asText();
                                     // Store the location content in the cache
                                     PROPERTY_ID_AND_LOCATION_CACHE.put(
-                                            jsonNode.get("propertyId")
-                                                    .get("expedia")
-                                                    .asText(),
-                                            location);
+                                        jsonNode.get("propertyId")
+                                            .get("expedia")
+                                            .asText(),
+                                        location);
                                 }
                             }
                         }
@@ -414,78 +484,5 @@ public class VrboPropertySearchEndToEndScenario implements VrboScenario {
                 connection.disconnect();
             }
         }
-    }
-
-    /**
-     * Display the result of the operations.
-     *
-     * @param lodgingQuotesResponse The response of the Lodging Quotes API.
-     */
-    private static void displayResult(LodgingQuotesResponse lodgingQuotesResponse) {
-        LOGGER.info("======================= Executing Step IV: DisplayResult =======================");
-        if (lodgingQuotesResponse == null || lodgingQuotesResponse.getProperties() == null
-                || lodgingQuotesResponse.getProperties().isEmpty()) {
-            throw new IllegalStateException("No properties found.");
-        }
-
-        // The HotelListingsResponse contains a transaction ID for troubleshooting
-        LOGGER.info("Transaction ID: {}", lodgingQuotesResponse.getTransactionId());
-
-        // To access the properties, iterate through the list of hotel properties
-        lodgingQuotesResponse.getProperties().forEach(property -> {
-            // Check if the property is available
-            if (Property.Status.AVAILABLE != property.getStatus()) {
-                LOGGER.info("Property {} is not available.", property.getId());
-                return;
-            }
-            LOGGER.info(
-                    "=================================== Property Start ===================================");
-            String propertyId = property.getId();
-
-            // Get the location content of the property from the cache
-            LOGGER.info("Property Id: {}", propertyId);
-            LOGGER.info("Cached Property Location: {}", PROPERTY_ID_AND_LOCATION_CACHE.get(propertyId));
-
-            // Get the price of the property from the room type
-            if (property.getRoomTypes() != null && !property.getRoomTypes().isEmpty()) {
-                // To get the first room type information
-                LodgingRoomType roomType = property.getRoomTypes().get(0);
-
-                if (roomType.getPrice() != null) {
-                    // To get the total price of the room type
-                    if (roomType.getPrice().getTotalPrice() != null) {
-                        LOGGER.info("Price: {}, Currency: {}",
-                                roomType.getPrice().getTotalPrice().getValue(),
-                                roomType.getPrice().getTotalPrice().getCurrency());
-                    }
-                    // To get the average nightly rate of the room type
-                    if (roomType.getPrice().getAvgNightlyRate() != null) {
-                        LOGGER.info("Average Nightly Rate: {}, Currency: {}",
-                                roomType.getPrice().getAvgNightlyRate().getValue(),
-                                roomType.getPrice().getAvgNightlyRate().getCurrency());
-                    }
-                }
-                // To get the free cancellation flag of the selected room
-                if (roomType.getRatePlans() != null && !roomType.getRatePlans().isEmpty()
-                        && roomType.getRatePlans().get(0).getCancellationPolicy() != null) {
-                    LOGGER.info("Free Cancellation: {}",
-                            roomType.getRatePlans().get(0).getCancellationPolicy().getFreeCancellation());
-                }
-                if (roomType.getLinks() != null) {
-                    // To get the deeplink to the website Search Result Page
-                    if (roomType.getLinks().getWebSearchResult() != null) {
-                        LOGGER.info("WebSearchResult Link: {}",
-                                roomType.getLinks().getWebSearchResult().getHref());
-                    }
-                    // To get the deeplink to the website Details Page
-                    if (roomType.getLinks().getWebDetails() != null) {
-                        LOGGER.info("WebDetails Link: {}", roomType.getLinks().getWebDetails().getHref());
-                    }
-                }
-            }
-            LOGGER.info(
-                    "==================================== Property End ====================================");
-        });
-        LOGGER.info("======================= Step IV: DisplayResult Executed ========================");
     }
 }

@@ -55,11 +55,8 @@ import org.slf4j.LoggerFactory;
  */
 public class HotelIdsSearchEndToEndScenario implements XapScenario {
 
-    private final XapClient client = createClient();
-
     private static final Logger LOGGER =
-            LoggerFactory.getLogger(HotelIdsSearchEndToEndScenario.class);
-
+        LoggerFactory.getLogger(HotelIdsSearchEndToEndScenario.class);
     /**
      * This field limits the number of line to read from the SDP DownloadURL API Listings file to
      * reduce time to run the example.
@@ -68,191 +65,11 @@ public class HotelIdsSearchEndToEndScenario implements XapScenario {
      * you can adjust the property count to get more properties.
      */
     private static final int SAMPLE_ITEMS_RESTRICTION = 20;
+    private final XapClient client = createClient();
 
     public static void main(String[] args) {
         new HotelIdsSearchEndToEndScenario().run();
         System.exit(0);
-    }
-
-    @Override
-    public void run() {
-        LOGGER.info(
-                "======================== Running HotelIdsSearchEndToEndScenario =======================");
-
-        List<String> propertyIds = getPropertyIdsFromDownloadUrl();
-        HotelListingsResponse hotelListingsResponse = getPropertiesFromLodgingListings(propertyIds);
-        displayResult(hotelListingsResponse);
-
-        LOGGER.info(
-                "========================== End HotelIdsSearchEndToEndScenario =========================");
-    }
-
-    /**
-     * Retrieve accessible property ids from SDP DownloadURL API.
-     *
-     * @return property ids
-     */
-    private List<String> getPropertyIdsFromDownloadUrl() {
-        LOGGER.info(
-                "==================== Executing Step I: getPropertyIdsFromDownloadUrl ===================");
-
-        GetFeedDownloadUrlOperationParams getPropertyIdListParams =
-                GetFeedDownloadUrlOperationParams.builder()
-                        // Use the type LISTINGS to get the list of accessible property ids.
-                        .type(GetFeedDownloadUrlOperationParams.Type.LISTINGS)
-                        // Without any filters, this operation will return the information of all lodging
-                        // properties in en_US by default.
-                        .build();
-
-        Response<PresignedUrlResponse> downloadUrlListingsResponse =
-                client.execute(new GetFeedDownloadUrlOperation(getPropertyIdListParams));
-
-        if (downloadUrlListingsResponse.getData() == null
-                || downloadUrlListingsResponse.getData().getBestMatchedFile() == null) {
-            throw new IllegalStateException("No listings file found");
-        }
-
-        // The download URL points to a zip file containing various jsonl files.
-        // Each line in the jsonl files contains a json object representing a property.
-        // For demonstration purposes, we will only read a few properties from the file without
-        // downloading the entire file.
-        String listingsDownloadUrl = downloadUrlListingsResponse.getData()
-                .getBestMatchedFile()
-                .getDownloadUrl();
-        LOGGER.info("Listings Download URL: {}", listingsDownloadUrl);
-
-        // Read property ids from the file.
-        List<String> propertyIds = getPropertyIdsFromListingsFile(listingsDownloadUrl);
-
-        if (propertyIds.isEmpty()) {
-            throw new IllegalStateException("No accessible property ids found.");
-        }
-        LOGGER.info("Accessible Property Ids: {}", propertyIds);
-
-        LOGGER.info(
-                "==================== Step I: getPropertyIdsFromDownloadUrl Executed ====================");
-        return propertyIds;
-    }
-
-    /**
-     * Get prices of the properties using the Lodging Listings API.
-     *
-     * @param propertyIds The property ids to get the prices.
-     * @return The response of the Lodging Listings API.
-     */
-    private HotelListingsResponse getPropertiesFromLodgingListings(List<String> propertyIds) {
-        LOGGER.info(
-                "================ Step II: Executing getPropertiesFromLodgingListings ===============");
-
-        GetLodgingListingsOperationParams getLodgingListingsOperationParams =
-                GetLodgingListingsOperationParams.builder()
-                        .partnerTransactionId(PARTNER_TRANSACTION_ID)
-                        // Use the property ids read from the file
-                        .ecomHotelIds(new HashSet<>(propertyIds))
-                        // The links to return, WEB includes WS (Web Search Result Page)
-                        // and WD (Web Details Page)
-                        .links(Collections.singletonList(GetLodgingListingsOperationParams.Links.WEB))
-                        // Check-in 5 days from now
-                        .checkIn(LocalDate.now().plusDays(5))
-                        // Check-out 10 days from now
-                        .checkOut(LocalDate.now().plusDays(10))
-                        // Filter the properties that are available only
-                        .availOnly(true)
-                        // Use the default occupancy: 2 adults in one room
-                        .build();
-
-        HotelListingsResponse hotelListingsResponse =
-                client.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams))
-                        .getData();
-
-        LOGGER.info(
-                "================ Step II: getPropertiesFromLodgingListings Executed ================");
-        return hotelListingsResponse;
-    }
-
-    /**
-     * Reads given number of property ids from the file pointed by the download URL.
-     *
-     * @param downloadUrl The download URL of the zip file containing the property information.
-     * @return A list of property ids read from the file.
-     */
-    private List<String> getPropertyIdsFromListingsFile(String downloadUrl) {
-        List<String> propertyIds = new ArrayList<>();
-        HttpURLConnection connection = null;
-        try {
-            // Open a connection to the URL
-            URL url = new URL(downloadUrl);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setDoInput(true);
-
-            try (ZipInputStream zipStream = new ZipInputStream(connection.getInputStream())) {
-                ZipEntry entry;
-                while ((entry = zipStream.getNextEntry()) != null) {
-                    if (entry.getName().endsWith(".jsonl")) {
-                        LOGGER.info("Reading property ids from file: {}", entry.getName());
-                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(zipStream))) {
-                            String line;
-                            ObjectMapper objectMapper = new ObjectMapper();
-                            while ((line = reader.readLine()) != null
-                                    && propertyIds.size() < SAMPLE_ITEMS_RESTRICTION) {
-                                // Parse the property id from the json object
-                                // An example json line from the jsonl file:
-                /*
-                {
-                  "propertyId": {
-                    "expedia": "1234567",
-                    "hcom": "123456789",
-                    "vrbo": "123.1234567.7654321"
-                  },
-                  "bookable": {
-                    "expedia": true,
-                    "hcom": true,
-                    "vrbo": true
-                  },
-                  "propertyType": {
-                    "id": 16,
-                    "name": "Apartment"
-                  },
-                  "lastUpdated": "10-27-2024 13:41:16",
-                  "country": "France",
-                  "inventorySource": "vrbo",
-                  "referencePrice": {
-                    "value": "89.52",
-                    "currency": "USD"
-                  },
-                  "vrboPropertyType": {
-                    "instantBook": true
-                  }
-                }
-                */
-                                JsonNode jsonNode = objectMapper.readTree(line);
-                                // Check if the property is accessible from Lodging Listings API
-                                // (Vrbo properties that are not instantBookable are not accessible for now)
-                                if (!jsonNode.get("propertyId").get("vrbo").asText().isEmpty()
-                                        && jsonNode.has("vrboPropertyType")
-                                        && !jsonNode.get("vrboPropertyType").get("instantBook").asBoolean()
-                                ) {
-                                    // Skip the property if it is not an instant bookable Vrbo property
-                                    continue;
-                                } else {
-                                    // Get the Expedia property id for the Lodging Listings API
-                                    propertyIds.add(jsonNode.get("propertyId").get("expedia").asText());
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-        } catch (IOException e) {
-            LOGGER.error("Error reading property ids from download URL", e);
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }
-        return propertyIds;
     }
 
     /**
@@ -263,7 +80,7 @@ public class HotelIdsSearchEndToEndScenario implements XapScenario {
     private static void displayResult(HotelListingsResponse hotelListingsResponse) {
         LOGGER.info("====================== Executing Step III: DisplayResult =======================");
         if (hotelListingsResponse == null || hotelListingsResponse.getHotels() == null
-                || hotelListingsResponse.getHotels().isEmpty()) {
+            || hotelListingsResponse.getHotels().isEmpty()) {
             throw new IllegalStateException("No properties found.");
         }
 
@@ -278,7 +95,7 @@ public class HotelIdsSearchEndToEndScenario implements XapScenario {
                 return;
             }
             LOGGER.info(
-                    "=================================== Property Start ===================================");
+                "=================================== Property Start ===================================");
             // To get the property name
             if (StringUtils.isNotEmpty(hotel.getName())) {
                 LOGGER.info("Property Name: {}", hotel.getName());
@@ -315,27 +132,27 @@ public class HotelIdsSearchEndToEndScenario implements XapScenario {
                     // To get the total price of the room type
                     if (roomType.getPrice().getTotalPrice() != null) {
                         LOGGER.info("Price: {}, Currency: {}",
-                                roomType.getPrice().getTotalPrice().getValue(),
-                                roomType.getPrice().getTotalPrice().getCurrency());
+                            roomType.getPrice().getTotalPrice().getValue(),
+                            roomType.getPrice().getTotalPrice().getCurrency());
                     }
                     // To get the average nightly rate of the room type
                     if (roomType.getPrice().getAvgNightlyRate() != null) {
                         LOGGER.info("Average Nightly Rate: {}, Currency: {}",
-                                roomType.getPrice().getAvgNightlyRate().getValue(),
-                                roomType.getPrice().getAvgNightlyRate().getCurrency());
+                            roomType.getPrice().getAvgNightlyRate().getValue(),
+                            roomType.getPrice().getAvgNightlyRate().getCurrency());
                     }
                 }
                 // To get the free cancellation flag of the selected room
                 if (roomType.getRatePlans() != null && !roomType.getRatePlans().isEmpty()
-                        && roomType.getRatePlans().get(0).getCancellationPolicy() != null) {
+                    && roomType.getRatePlans().get(0).getCancellationPolicy() != null) {
                     LOGGER.info("Free Cancellation: {}",
-                            roomType.getRatePlans().get(0).getCancellationPolicy().getFreeCancellation());
+                        roomType.getRatePlans().get(0).getCancellationPolicy().getFreeCancellation());
                 }
                 if (roomType.getLinks() != null) {
                     // To get the deeplink to the Expedia Web Search Result Page
                     if (roomType.getLinks().getWebSearchResult() != null) {
                         LOGGER.info("WebSearchResult Link: {}",
-                                roomType.getLinks().getWebSearchResult().getHref());
+                            roomType.getLinks().getWebSearchResult().getHref());
                     }
                     // To get the deeplink to the Expedia Web Details Page
                     if (roomType.getLinks().getWebDetails() != null) {
@@ -344,8 +161,189 @@ public class HotelIdsSearchEndToEndScenario implements XapScenario {
                 }
             }
             LOGGER.info(
-                    "==================================== Property End ====================================");
+                "==================================== Property End ====================================");
         });
         LOGGER.info("====================== Step III: DisplayResult Executed ========================");
+    }
+
+    @Override
+    public void run() {
+        LOGGER.info(
+            "======================== Running HotelIdsSearchEndToEndScenario =======================");
+
+        List<String> propertyIds = getPropertyIdsFromDownloadUrl();
+        HotelListingsResponse hotelListingsResponse = getPropertiesFromLodgingListings(propertyIds);
+        displayResult(hotelListingsResponse);
+
+        LOGGER.info(
+            "========================== End HotelIdsSearchEndToEndScenario =========================");
+    }
+
+    /**
+     * Retrieve accessible property ids from SDP DownloadURL API.
+     *
+     * @return property ids
+     */
+    private List<String> getPropertyIdsFromDownloadUrl() {
+        LOGGER.info(
+            "==================== Executing Step I: getPropertyIdsFromDownloadUrl ===================");
+
+        GetFeedDownloadUrlOperationParams getPropertyIdListParams =
+            GetFeedDownloadUrlOperationParams.builder()
+                // Use the type LISTINGS to get the list of accessible property ids.
+                .type(GetFeedDownloadUrlOperationParams.Type.LISTINGS)
+                // Without any filters, this operation will return the information of all lodging
+                // properties in en_US by default.
+                .build();
+
+        Response<PresignedUrlResponse> downloadUrlListingsResponse =
+            client.execute(new GetFeedDownloadUrlOperation(getPropertyIdListParams));
+
+        if (downloadUrlListingsResponse.getData() == null
+            || downloadUrlListingsResponse.getData().getBestMatchedFile() == null) {
+            throw new IllegalStateException("No listings file found");
+        }
+
+        // The download URL points to a zip file containing various jsonl files.
+        // Each line in the jsonl files contains a json object representing a property.
+        // For demonstration purposes, we will only read a few properties from the file without
+        // downloading the entire file.
+        String listingsDownloadUrl = downloadUrlListingsResponse.getData()
+            .getBestMatchedFile()
+            .getDownloadUrl();
+        LOGGER.info("Listings Download URL: {}", listingsDownloadUrl);
+
+        // Read property ids from the file.
+        List<String> propertyIds = getPropertyIdsFromListingsFile(listingsDownloadUrl);
+
+        if (propertyIds.isEmpty()) {
+            throw new IllegalStateException("No accessible property ids found.");
+        }
+        LOGGER.info("Accessible Property Ids: {}", propertyIds);
+
+        LOGGER.info(
+            "==================== Step I: getPropertyIdsFromDownloadUrl Executed ====================");
+        return propertyIds;
+    }
+
+    /**
+     * Get prices of the properties using the Lodging Listings API.
+     *
+     * @param propertyIds The property ids to get the prices.
+     * @return The response of the Lodging Listings API.
+     */
+    private HotelListingsResponse getPropertiesFromLodgingListings(List<String> propertyIds) {
+        LOGGER.info(
+            "================ Step II: Executing getPropertiesFromLodgingListings ===============");
+
+        GetLodgingListingsOperationParams getLodgingListingsOperationParams =
+            GetLodgingListingsOperationParams.builder()
+                .partnerTransactionId(PARTNER_TRANSACTION_ID)
+                // Use the property ids read from the file
+                .ecomHotelIds(new HashSet<>(propertyIds))
+                // The links to return, WEB includes WS (Web Search Result Page)
+                // and WD (Web Details Page)
+                .links(Collections.singletonList(GetLodgingListingsOperationParams.Links.WEB))
+                // Check-in 5 days from now
+                .checkIn(LocalDate.now().plusDays(5))
+                // Check-out 10 days from now
+                .checkOut(LocalDate.now().plusDays(10))
+                // Filter the properties that are available only
+                .availOnly(true)
+                // Use the default occupancy: 2 adults in one room
+                .build();
+
+        HotelListingsResponse hotelListingsResponse =
+            client.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams))
+                .getData();
+
+        LOGGER.info(
+            "================ Step II: getPropertiesFromLodgingListings Executed ================");
+        return hotelListingsResponse;
+    }
+
+    /**
+     * Reads given number of property ids from the file pointed by the download URL.
+     *
+     * @param downloadUrl The download URL of the zip file containing the property information.
+     * @return A list of property ids read from the file.
+     */
+    private List<String> getPropertyIdsFromListingsFile(String downloadUrl) {
+        List<String> propertyIds = new ArrayList<>();
+        HttpURLConnection connection = null;
+        try {
+            // Open a connection to the URL
+            URL url = new URL(downloadUrl);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setDoInput(true);
+
+            try (ZipInputStream zipStream = new ZipInputStream(connection.getInputStream())) {
+                ZipEntry entry;
+                while ((entry = zipStream.getNextEntry()) != null) {
+                    if (entry.getName().endsWith(".jsonl")) {
+                        LOGGER.info("Reading property ids from file: {}", entry.getName());
+                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(zipStream))) {
+                            String line;
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            while ((line = reader.readLine()) != null
+                                && propertyIds.size() < SAMPLE_ITEMS_RESTRICTION) {
+                                // Parse the property id from the json object
+                                // An example json line from the jsonl file:
+                /*
+                {
+                  "propertyId": {
+                    "expedia": "1234567",
+                    "hcom": "123456789",
+                    "vrbo": "123.1234567.7654321"
+                  },
+                  "bookable": {
+                    "expedia": true,
+                    "hcom": true,
+                    "vrbo": true
+                  },
+                  "propertyType": {
+                    "id": 16,
+                    "name": "Apartment"
+                  },
+                  "lastUpdated": "10-27-2024 13:41:16",
+                  "country": "France",
+                  "inventorySource": "vrbo",
+                  "referencePrice": {
+                    "value": "89.52",
+                    "currency": "USD"
+                  },
+                  "vrboPropertyType": {
+                    "instantBook": true
+                  }
+                }
+                */
+                                JsonNode jsonNode = objectMapper.readTree(line);
+                                // Check if the property is accessible from Lodging Listings API
+                                // (Vrbo properties that are not instantBookable are not accessible for now)
+                                if (!jsonNode.get("propertyId").get("vrbo").asText().isEmpty()
+                                    && jsonNode.has("vrboPropertyType")
+                                    && !jsonNode.get("vrboPropertyType").get("instantBook").asBoolean()
+                                ) {
+                                    // Skip the property if it is not an instant bookable Vrbo property
+                                    continue;
+                                } else {
+                                    // Get the Expedia property id for the Lodging Listings API
+                                    propertyIds.add(jsonNode.get("propertyId").get("expedia").asText());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            LOGGER.error("Error reading property ids from download URL", e);
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
+        }
+        return propertyIds;
     }
 }

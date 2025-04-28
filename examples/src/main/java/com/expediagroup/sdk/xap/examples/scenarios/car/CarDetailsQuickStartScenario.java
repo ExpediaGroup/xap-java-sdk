@@ -64,7 +64,7 @@ public class CarDetailsQuickStartScenario implements XapScenario {
         String price = queryParams[0].split("=")[1];
         String currency = queryParams[1].split("=")[1];
 
-        return new String[] {offerToken, price, currency};
+        return new String[]{offerToken, price, currency};
     }
 
     @Override
@@ -81,33 +81,33 @@ public class CarDetailsQuickStartScenario implements XapScenario {
         linksList.add(GetCarsListingsOperationParams.Links.WS);
         linksList.add(GetCarsListingsOperationParams.Links.WD);
         GetCarsListingsOperationParams getCarsListingsOperationParams =
-                GetCarsListingsOperationParams.builder()
-                        .partnerTransactionId("EWSCar_Automation")
-                        .dropOffAirport("MCO")
-                        .pickupAirport("MCO")
-                        .pickupTime(
-                                LocalDateTime.now()
-                                        .withNano(0)
-                                        .withSecond(0)
-                                        .withHour(10)
-                                        .plusDays(10)
-                                        .plusMonths(1)
-                        )
-                        .dropOffTime(
-                                LocalDateTime.now()
-                                        .withNano(0)
-                                        .withSecond(0)
-                                        .withHour(10)
-                                        .plusDays(15)
-                                        .plusMonths(1)
-                        )
-                        .limit(1)
-                        .links(linksList)
-                        .build();
+            GetCarsListingsOperationParams.builder()
+                .partnerTransactionId("EWSCar_Automation")
+                .dropOffAirport("MCO")
+                .pickupAirport("MCO")
+                .pickupTime(
+                    LocalDateTime.now()
+                        .withNano(0)
+                        .withSecond(0)
+                        .withHour(10)
+                        .plusDays(10)
+                        .plusMonths(1)
+                )
+                .dropOffTime(
+                    LocalDateTime.now()
+                        .withNano(0)
+                        .withSecond(0)
+                        .withHour(10)
+                        .plusDays(15)
+                        .plusMonths(1)
+                )
+                .limit(1)
+                .links(linksList)
+                .build();
 
         XapClient xapClient = createClient();
         GetCarsListingsOperation getCarsListingsOperation =
-                new GetCarsListingsOperation(getCarsListingsOperationParams);
+            new GetCarsListingsOperation(getCarsListingsOperationParams);
         Response<CarListingsResponse> carListingsResponse = xapClient.execute(getCarsListingsOperation);
 
         LOGGER.info("========== Car Listing Property End ==========");
@@ -123,13 +123,13 @@ public class CarDetailsQuickStartScenario implements XapScenario {
                 // Retrieve the Car Details information using the Car Details Deep Link, which
                 // includes (offerToken, price, currency)
                 GetCarDetailsOperationParams getCarDetailsOperationParams =
-                        GetCarDetailsOperationParams.builder().partnerTransactionId("EWSCar_Automation")
-                                .offerToken(strings[0]).price(strings[1]).currency(strings[2]).build();
+                    GetCarDetailsOperationParams.builder().partnerTransactionId("EWSCar_Automation")
+                        .offerToken(strings[0]).price(strings[1]).currency(strings[2]).build();
 
                 // Execute the operation and get the CarDetailsResponse
                 LOGGER.info("========== Executing GetCarDetailsOperation ==========");
                 CarDetailsResponse carDetailsResponse = xapClient.execute(
-                        new GetCarDetailsOperation(getCarDetailsOperationParams)).getData();
+                    new GetCarDetailsOperation(getCarDetailsOperationParams)).getData();
                 LOGGER.info("========== GetCarDetailsOperation Executed ==========");
 
                 if (carDetailsResponse == null || carDetailsResponse.getLinks() == null) {

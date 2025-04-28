@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 public class AvailabilityCalendarsQuickStartScenario implements VrboScenario {
 
     private static final Logger LOGGER =
-            LoggerFactory.getLogger(AvailabilityCalendarsQuickStartScenario.class);
+        LoggerFactory.getLogger(AvailabilityCalendarsQuickStartScenario.class);
 
     public static void main(String[] args) {
         new AvailabilityCalendarsQuickStartScenario().run();
@@ -48,26 +48,26 @@ public class AvailabilityCalendarsQuickStartScenario implements VrboScenario {
         // lodging properties.
 
         LOGGER.info(
-                "=================== Running AvailabilityCalendarsQuickStartScenario ===================");
+            "=================== Running AvailabilityCalendarsQuickStartScenario ===================");
 
         LOGGER.info(
-                "================= Executing GetLodgingAvailabilityCalendars Operation ================");
+            "================= Executing GetLodgingAvailabilityCalendars Operation ================");
 
 
         // Build the query parameters with GetLodgingAvailabilityCalendarsOperationParams
         GetLodgingAvailabilityCalendarsOperationParams availabilityCalendarsOperationParams =
-                GetLodgingAvailabilityCalendarsOperationParams.builder()
-                        .partnerTransactionId(PARTNER_TRANSACTION_ID)
-                        // Set of Expedia Property IDs.
-                        .propertyIds(new HashSet<>(Arrays.asList("87704892", "36960201")))
-                        .build();
+            GetLodgingAvailabilityCalendarsOperationParams.builder()
+                .partnerTransactionId(PARTNER_TRANSACTION_ID)
+                // Set of Expedia Property IDs.
+                .propertyIds(new HashSet<>(Arrays.asList("87704892", "36960201")))
+                .build();
 
         XapClient xapClient = createClient();
 
         // Execute the operation and get the AvailabilityCalendarsResponse
         AvailabilityCalendarResponse availabilityCalendarResponse =
-                xapClient.execute(new GetLodgingAvailabilityCalendarsOperation(
-                        availabilityCalendarsOperationParams)).getData();
+            xapClient.execute(new GetLodgingAvailabilityCalendarsOperation(
+                availabilityCalendarsOperationParams)).getData();
 
         // If you want to use the async method, you can use the following code:
         // ---------------------------------------------------------------
@@ -80,11 +80,11 @@ public class AvailabilityCalendarsQuickStartScenario implements VrboScenario {
         // ---------------------------------------------------------------
 
         LOGGER.info(
-                "================== GetLodgingAvailabilityCalendarsOperation Executed =================");
+            "================== GetLodgingAvailabilityCalendarsOperation Executed =================");
 
         if (availabilityCalendarResponse == null
-                || availabilityCalendarResponse.getAvailabilityCalendars() == null
-                || availabilityCalendarResponse.getAvailabilityCalendars().isEmpty()) {
+            || availabilityCalendarResponse.getAvailabilityCalendars() == null
+            || availabilityCalendarResponse.getAvailabilityCalendars().isEmpty()) {
             throw new IllegalStateException("No properties found.");
         }
 
@@ -101,10 +101,10 @@ public class AvailabilityCalendarsQuickStartScenario implements VrboScenario {
             LOGGER.info("Availability: {}", availCalendar.getAvailability());
 
             LOGGER.info(
-                    "==================================== Property End ===================================");
+                "==================================== Property End ===================================");
 
             LOGGER.info(
-                    "===================== End AvailabilityCalendarsQuickStartScenario ====================");
+                "===================== End AvailabilityCalendarsQuickStartScenario ====================");
         });
     }
 }
