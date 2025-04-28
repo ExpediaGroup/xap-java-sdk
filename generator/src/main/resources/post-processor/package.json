@@ -1,0 +1,33 @@
+{
+  "name": "",
+  "version": "0.0.0",
+  "description": "",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "files": [
+    "build/src"
+  ],
+  "license": "Apache-2.0",
+  "keywords": [],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "gts lint",
+    "clean": "gts clean",
+    "compile": "tsc",
+    "fix": "gts fix",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run lint",
+    "process": "node build/src/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "22.13.5",
+    "gts": "6.0.2",
+    "tsc-alias": "1.8.10",
+    "typescript": "5.7.3"
+  },
+  "dependencies": {
+    "@ast-grep/napi": "0.33.1",
+    "yaml": "2.7.0"
+  }
+}

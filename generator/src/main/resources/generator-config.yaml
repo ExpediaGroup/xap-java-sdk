@@ -1,0 +1,8 @@
+files:
+  operation_params.mustache:
+    templateType: API
+    destinationFilename: Params.kt
+  room.mustache:
+    templateType: SupportingFiles
+    destinationFilename: Room.kt
+    folder: com/expediagroup/sdk/xap/models
