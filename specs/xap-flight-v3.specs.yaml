@@ -2,10 +2,6 @@ openapi: 3.0.1
 info:
   title: EWSAir V3 APIs
   description: OpenAPI Spec for EWS Air V3 APIs
-  contact:
-    name: Partner APIs
-    url: 'https://confluence.expedia.biz/display/EWS/EWS+Air'
-    email: EWSTeam@expedia.com
   version: v3
   x-eg-lifecycle: LIVE
   x-eg-api-tags: ["EWS", "XAP", "Flights", "EWSFlights", "Flight List", "Flight Details", "Flight Links", "Flight FlexSearch",
