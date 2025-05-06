@@ -3,10 +3,6 @@ info:
   title: EWS-Feed-Service APIs specification
   version: v1
   description: OpenAPI Spec for EWS Feed Service  APIs
-  contact:
-    name: Partner APIs
-    url: https://confluence.expedia.biz/display/EWS/EWS-feed-service
-    email: skywalker@expedia.com
   x-eg-lifecycle: LIVE
   x-eg-tags: ["ews", "feeds", "presignedurl", "downloadurl", "sdp", "staticInfo"]
 servers:

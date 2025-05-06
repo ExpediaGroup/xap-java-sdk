@@ -2,10 +2,6 @@ openapi: 3.0.1
 info:
   title: EWSCar API
   description: EWSCar API allow users search cars and check car details.
-  contact:
-    name: EWSCar team
-    url: 'https://confluence.expedia.biz/display/EWS/EWS+Car'
-    email: autobots@expedia.com
   version: v3
   x-eg-lifecycle: LIVE
   x-eg-api-tags:
