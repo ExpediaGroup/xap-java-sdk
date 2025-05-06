@@ -1,23 +1,44 @@
-name: Generate and Publish SDK Sources
-
 on:
   workflow_dispatch:
     inputs:
       version:
-        description: |
-          SDK Version.
-          E.g., 1.0.0, 1.0.1, 1.0.0-SNAPSHOT, etc.
-        required: true
         type: string
+        description: "Version to publish. For snapshot releases, add `-SNAPSHOT` suffix to the version. For example, `1.0.0-SNAPSHOT`."
+        required: true
 
 jobs:
-  generate-and-publish-sources:
-    uses: ExpediaGroup/expediagroup-java-sdk/.github/workflows/selfserve-full-workflow.yaml@v20250304
-    secrets: inherit
-    with:
-      name: xap
-      ref: ${{ github.head_ref || github.ref_name }}
-      repository: 'ExpediaGroup/xap-java-sdk'
-      sdk_repo_ref: 'v20250304'
-      transformations: '--headers key --operationIdsToTags'
-      version: ${{ inputs.version }}
+  generate-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '21'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.13"
+
+      - name: Install Post Processor
+        working-directory: generator/src/main/resources/post-processor
+        run: npm ci && npm run clean && npm run compile
+
+      - run: gradle build
+
+      - name: Generate SDK
+        working-directory: generator
+        run: |
+          export KOTLIN_POST_PROCESS_FILE="npm run --prefix src/main/resources/post-processor process"
+          gradle openApiGenerate
+
+      - name: Open PR
+        uses: peter-evans/create-pull-request@v7
+        working-directory: xap-sdk
+        with:
+          token: ${{ secrets.GITHUB_PAT }}
+          commit-message: "chore: publishing code for sdk release $(date +'%Y%m%d%H%M%S')"
+          title: "chore: code update on $(date +'%Y%m%d%H%M%S')"
+          branch: "xap-sdk-code-update-$(date +'%Y%m%d%H%M%S')"
+          add-paths: .
