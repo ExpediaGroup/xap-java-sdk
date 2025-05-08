@@ -18,6 +18,7 @@ package com.expediagroup.sdk.xap.operations
 import com.expediagroup.sdk.core.model.OperationParams
 import com.expediagroup.sdk.core.model.exception.client.PropertyConstraintViolationException
 import com.expediagroup.sdk.xap.infrastructure.*
+import com.expediagroup.sdk.xap.models.GetFlightListingsOperationSegmentParam
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import io.ktor.http.Headers
@@ -376,156 +377,6 @@ data class GetFlightListingsOperationParams(
         fun infantInSeat(infantInSeat: kotlin.Int) = apply { this.infantInSeat = infantInSeat }
 
         /**
-         * @param segment1Origin 3-letter IATA Airport code/Location name from where the passenger is departing.
-         */
-        fun segment1Origin(segment1Origin: kotlin.String) = apply { this.segment1Origin = segment1Origin }
-
-        /**
-         * @param segment1Destination 3-letter IATA Airport code/Location name from where the passenger is arriving.
-         */
-        fun segment1Destination(segment1Destination: kotlin.String) = apply { this.segment1Destination = segment1Destination }
-
-        /**
-         * @param segment1DepartureDate Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
-         */
-        fun segment1DepartureDate(segment1DepartureDate: java.time.LocalDate) = apply { this.segment1DepartureDate = segment1DepartureDate }
-
-        /**
-         * @param segment1DepartureStartTime Lower limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
-         */
-        fun segment1DepartureStartTime(segment1DepartureStartTime: kotlin.String) = apply { this.segment1DepartureStartTime = segment1DepartureStartTime }
-
-        /**
-         * @param segment1DepartureEndTime Upper limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
-         */
-        fun segment1DepartureEndTime(segment1DepartureEndTime: kotlin.String) = apply { this.segment1DepartureEndTime = segment1DepartureEndTime }
-
-        /**
-         * @param segment2Origin 3-letter IATA Airport code/Location name from where the passenger is departing.
-         */
-        fun segment2Origin(segment2Origin: kotlin.String) = apply { this.segment2Origin = segment2Origin }
-
-        /**
-         * @param segment2Destination 3-letter IATA Airport code/Location name from where the passenger is arriving.
-         */
-        fun segment2Destination(segment2Destination: kotlin.String) = apply { this.segment2Destination = segment2Destination }
-
-        /**
-         * @param segment2DepartureDate Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
-         */
-        fun segment2DepartureDate(segment2DepartureDate: java.time.LocalDate) = apply { this.segment2DepartureDate = segment2DepartureDate }
-
-        /**
-         * @param segment2DepartureStartTime Lower limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
-         */
-        fun segment2DepartureStartTime(segment2DepartureStartTime: kotlin.String) = apply { this.segment2DepartureStartTime = segment2DepartureStartTime }
-
-        /**
-         * @param segment2DepartureEndTime Upper limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
-         */
-        fun segment2DepartureEndTime(segment2DepartureEndTime: kotlin.String) = apply { this.segment2DepartureEndTime = segment2DepartureEndTime }
-
-        /**
-         * @param segment3Origin 3-letter IATA Airport code/Location name from where the passenger is departing.
-         */
-        fun segment3Origin(segment3Origin: kotlin.String) = apply { this.segment3Origin = segment3Origin }
-
-        /**
-         * @param segment3Destination 3-letter IATA Airport code/Location name from where the passenger is arriving.
-         */
-        fun segment3Destination(segment3Destination: kotlin.String) = apply { this.segment3Destination = segment3Destination }
-
-        /**
-         * @param segment3DepartureDate Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
-         */
-        fun segment3DepartureDate(segment3DepartureDate: java.time.LocalDate) = apply { this.segment3DepartureDate = segment3DepartureDate }
-
-        /**
-         * @param segment3DepartureStartTime Lower limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
-         */
-        fun segment3DepartureStartTime(segment3DepartureStartTime: kotlin.String) = apply { this.segment3DepartureStartTime = segment3DepartureStartTime }
-
-        /**
-         * @param segment3DepartureEndTime Upper limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
-         */
-        fun segment3DepartureEndTime(segment3DepartureEndTime: kotlin.String) = apply { this.segment3DepartureEndTime = segment3DepartureEndTime }
-
-        /**
-         * @param segment4Origin 3-letter IATA Airport code/Location name from where the passenger is departing.
-         */
-        fun segment4Origin(segment4Origin: kotlin.String) = apply { this.segment4Origin = segment4Origin }
-
-        /**
-         * @param segment4Destination 3-letter IATA Airport code/Location name from where the passenger is arriving.
-         */
-        fun segment4Destination(segment4Destination: kotlin.String) = apply { this.segment4Destination = segment4Destination }
-
-        /**
-         * @param segment4DepartureDate Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
-         */
-        fun segment4DepartureDate(segment4DepartureDate: java.time.LocalDate) = apply { this.segment4DepartureDate = segment4DepartureDate }
-
-        /**
-         * @param segment4DepartureStartTime Lower limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
-         */
-        fun segment4DepartureStartTime(segment4DepartureStartTime: kotlin.String) = apply { this.segment4DepartureStartTime = segment4DepartureStartTime }
-
-        /**
-         * @param segment4DepartureEndTime Upper limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
-         */
-        fun segment4DepartureEndTime(segment4DepartureEndTime: kotlin.String) = apply { this.segment4DepartureEndTime = segment4DepartureEndTime }
-
-        /**
-         * @param segment5Origin 3-letter IATA Airport code/Location name from where the passenger is departing.
-         */
-        fun segment5Origin(segment5Origin: kotlin.String) = apply { this.segment5Origin = segment5Origin }
-
-        /**
-         * @param segment5Destination 3-letter IATA Airport code/Location name from where the passenger is arriving.
-         */
-        fun segment5Destination(segment5Destination: kotlin.String) = apply { this.segment5Destination = segment5Destination }
-
-        /**
-         * @param segment5DepartureDate Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
-         */
-        fun segment5DepartureDate(segment5DepartureDate: java.time.LocalDate) = apply { this.segment5DepartureDate = segment5DepartureDate }
-
-        /**
-         * @param segment5DepartureStartTime Lower limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
-         */
-        fun segment5DepartureStartTime(segment5DepartureStartTime: kotlin.String) = apply { this.segment5DepartureStartTime = segment5DepartureStartTime }
-
-        /**
-         * @param segment5DepartureEndTime Upper limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
-         */
-        fun segment5DepartureEndTime(segment5DepartureEndTime: kotlin.String) = apply { this.segment5DepartureEndTime = segment5DepartureEndTime }
-
-        /**
-         * @param segment6Origin 3-letter IATA Airport code/Location name from where the passenger is departing.
-         */
-        fun segment6Origin(segment6Origin: kotlin.String) = apply { this.segment6Origin = segment6Origin }
-
-        /**
-         * @param segment6Destination 3-letter IATA Airport code/Location name from where the passenger is arriving.
-         */
-        fun segment6Destination(segment6Destination: kotlin.String) = apply { this.segment6Destination = segment6Destination }
-
-        /**
-         * @param segment6DepartureDate Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
-         */
-        fun segment6DepartureDate(segment6DepartureDate: java.time.LocalDate) = apply { this.segment6DepartureDate = segment6DepartureDate }
-
-        /**
-         * @param segment6DepartureStartTime Lower limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
-         */
-        fun segment6DepartureStartTime(segment6DepartureStartTime: kotlin.String) = apply { this.segment6DepartureStartTime = segment6DepartureStartTime }
-
-        /**
-         * @param segment6DepartureEndTime Upper limit of desired departure time window, expressed in the local time of the departure location, in standard ISO format.
-         */
-        fun segment6DepartureEndTime(segment6DepartureEndTime: kotlin.String) = apply { this.segment6DepartureEndTime = segment6DepartureEndTime }
-
-        /**
          * @param locale Indicates the language and country with which the user would like to see any translated information.
          */
         fun locale(locale: kotlin.String) = apply { this.locale = locale }
@@ -616,6 +467,60 @@ data class GetFlightListingsOperationParams(
          * @param enableSplitTicket if set to false, this parameter will filter out all the split ticket solutions from the Flight Offers. If set to true (by default it will be true), API response will include split ticket solutions if split ticket is enabled at key configuration level as well.
          */
         fun enableSplitTicket(enableSplitTicket: kotlin.Boolean) = apply { this.enableSplitTicket = enableSplitTicket }
+
+        fun segment1(segment: GetFlightListingsOperationSegmentParam) =
+            apply {
+                this.segment1Origin = segment.origin
+                this.segment1Destination = segment.destination
+                this.segment1DepartureDate = segment.departureDate
+                this.segment1DepartureStartTime = segment.departureStartTime
+                this.segment1DepartureEndTime = segment.departureEndTime
+            }
+
+        fun segment2(segment: GetFlightListingsOperationSegmentParam) =
+            apply {
+                this.segment2Origin = segment.origin
+                this.segment2Destination = segment.destination
+                this.segment2DepartureDate = segment.departureDate
+                this.segment2DepartureStartTime = segment.departureStartTime
+                this.segment2DepartureEndTime = segment.departureEndTime
+            }
+
+        fun segment3(segment: GetFlightListingsOperationSegmentParam) =
+            apply {
+                this.segment3Origin = segment.origin
+                this.segment3Destination = segment.destination
+                this.segment3DepartureDate = segment.departureDate
+                this.segment3DepartureStartTime = segment.departureStartTime
+                this.segment3DepartureEndTime = segment.departureEndTime
+            }
+
+        fun segment4(segment: GetFlightListingsOperationSegmentParam) =
+            apply {
+                this.segment4Origin = segment.origin
+                this.segment4Destination = segment.destination
+                this.segment4DepartureDate = segment.departureDate
+                this.segment4DepartureStartTime = segment.departureStartTime
+                this.segment4DepartureEndTime = segment.departureEndTime
+            }
+
+        fun segment5(segment: GetFlightListingsOperationSegmentParam) =
+            apply {
+                this.segment5Origin = segment.origin
+                this.segment5Destination = segment.destination
+                this.segment5DepartureDate = segment.departureDate
+                this.segment5DepartureStartTime = segment.departureStartTime
+                this.segment5DepartureEndTime = segment.departureEndTime
+            }
+
+        fun segment6(segment: GetFlightListingsOperationSegmentParam) =
+            apply {
+                this.segment6Origin = segment.origin
+                this.segment6Destination = segment.destination
+                this.segment6DepartureDate = segment.departureDate
+                this.segment6DepartureStartTime = segment.departureStartTime
+                this.segment6DepartureEndTime = segment.departureEndTime
+            }
 
         fun build(): GetFlightListingsOperationParams {
             val params =

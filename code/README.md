@@ -5,7 +5,7 @@
 <dependency>
     <groupId>com.expediagroup</groupId>
     <artifactId>xap-sdk</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.7-SNAPSHOT</version>
 </dependency>
 ```
 
