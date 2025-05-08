@@ -10,10 +10,6 @@ info:
     the XAP Booking API, or both.
 
     '
-  contact:
-    name: 'PartnerAPIs'
-    url: 'https://confluence.expedia.biz/display/EWS/EWSHotel'
-    email: 'dreamweaver@expedia.com'
   version: 'v3'
   x-eg-lifecycle: 'LIVE'
   x-eg-tags:
@@ -14554,6 +14550,7 @@ components:
       properties:
         offerToken:
           type: 'string'
+          nullable: true
           description: 'Unique key to identify each offer.'
           example: 'v5-21c33c9b411f87e895f9dfa8df82b535-38-1-st-v5-7b789d5a41dd7490c9ffbeaead2aa37a-3'
         ReferenceId:
