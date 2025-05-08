@@ -53,8 +53,7 @@ We are continuously adding more scenarios to demonstrate the usage of other XAP 
 ## Requirements
 
 - Ensure you have a valid API key and secret from Expedia Group.
-  Check [Getting started with XAP](https://developers.expediagroup.com/xap/products/xap/set-up/getting-started)
-  for more info.
+  Please refer to Developer Hub for XAP for more info.
 - Java 1.8 or higher
 - Maven
 
