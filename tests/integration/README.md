@@ -7,8 +7,7 @@ _**The following instructions apply if you want to run the integration tests loc
 ## Requirements
 
 - Ensure you have a valid API key and secret from Expedia Group.
-  Check [Getting started with XAP](https://developers.expediagroup.com/xap/products/xap/set-up/getting-started)
-  for more info.
+  Please refer to Developer Hub for XAP for more info.
 - Java 1.8 or higher
 - Maven
 
