@@ -3824,6 +3824,7 @@ components:
       properties:
         offerToken:
           type: string
+          nullable: true
           description: Unique key to identify each offer.
           example: v5-21c33c9b411f87e895f9dfa8df82b535-38-1-st-v5-7b789d5a41dd7490c9ffbeaead2aa37a-3
         ReferenceId:
