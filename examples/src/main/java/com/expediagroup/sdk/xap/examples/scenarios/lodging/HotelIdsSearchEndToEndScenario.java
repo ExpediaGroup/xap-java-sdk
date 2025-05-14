@@ -95,11 +95,11 @@ public class HotelIdsSearchEndToEndScenario implements XapScenario {
         LOGGER.info("==================== Executing Step I: getPropertyIdsFromDownloadUrl ===================");
 
         GetFeedDownloadUrlOperationParams getPropertyIdListParams = GetFeedDownloadUrlOperationParams.builder()
-            // Use the type LISTINGS to get the list of accessible property ids.
-            .type(GetFeedDownloadUrlOperationParams.Type.LISTINGS)
-            // Without any filters, this operation will return the information of all lodging
-            // properties in en_US by default.
-            .build();
+                // Use the type LISTINGS to get the list of accessible property ids.
+                .type(GetFeedDownloadUrlOperationParams.Type.LISTINGS)
+                // Without any filters, this operation will return the information of all lodging
+                // properties in en_US by default.
+                .build();
 
         Response<PresignedUrlResponse> downloadUrlListingsResponse = client.execute(new GetFeedDownloadUrlOperation(getPropertyIdListParams));
 
@@ -136,19 +136,19 @@ public class HotelIdsSearchEndToEndScenario implements XapScenario {
         LOGGER.info("================ Step II: Executing getPropertiesFromLodgingListings ===============");
 
         GetLodgingListingsOperationParams getLodgingListingsOperationParams = GetLodgingListingsOperationParams.builder().partnerTransactionId(PARTNER_TRANSACTION_ID)
-            // Use the property ids read from the file
-            .ecomHotelIds(new HashSet<>(propertyIds))
-            // The links to return, WEB includes WS (Web Search Result Page)
-            // and WD (Web Details Page)
-            .links(Collections.singletonList(GetLodgingListingsOperationParams.Links.WEB))
-            // Check-in 5 days from now
-            .checkIn(LocalDate.now().plusDays(5))
-            // Check-out 10 days from now
-            .checkOut(LocalDate.now().plusDays(10))
-            // Filter the properties that are available only
-            .availOnly(true)
-            // Use the default occupancy: 2 adults in one room
-            .build();
+                // Use the property ids read from the file
+                .ecomHotelIds(new HashSet<>(propertyIds))
+                // The links to return, WEB includes WS (Web Search Result Page)
+                // and WD (Web Details Page)
+                .links(Collections.singletonList(GetLodgingListingsOperationParams.Links.WEB))
+                // Check-in 5 days from now
+                .checkIn(LocalDate.now().plusDays(5))
+                // Check-out 10 days from now
+                .checkOut(LocalDate.now().plusDays(10))
+                // Filter the properties that are available only
+                .availOnly(true)
+                // Use the default occupancy: 2 adults in one room
+                .build();
 
         HotelListingsResponse hotelListingsResponse = client.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams)).getData();
         LOGGER.info("================ Step II: getPropertiesFromLodgingListings Executed ================");

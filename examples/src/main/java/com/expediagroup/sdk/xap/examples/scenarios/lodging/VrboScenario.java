@@ -34,7 +34,11 @@ public interface VrboScenario extends XapScenario {
     default XapClient createClient() {
         String key = System.getProperty("com.expediagroup.xapjavasdk.vrbokey");
         String secret = System.getProperty("com.expediagroup.xapjavasdk.vrbosecret");
-        return XapClient.builder().key(key).secret(secret).build();
+
+        return XapClient.builder()
+                .key(key)
+                .secret(secret)
+                .build();
     }
 
 }
