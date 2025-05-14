@@ -1,5 +1,8 @@
 name: Verify Examples and Integration Tests
 on:
+  push:
+    branches:
+      - "mdwairi/move-integration-tests"
   pull_request:
     branches:
       - 'main'
@@ -19,7 +22,7 @@ jobs:
             examples:
               - 'examples/**'
             integration-tests:
-              - 'tests/integration/**'
+              - 'integration-tests/**'
 
   verify-examples:
     needs: detect-changes
@@ -32,9 +35,8 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: verify examples
-        working-directory: examples
         run: |
-          mvn verify \
+          ./gradlew :examples:run \
             -Dcom.expediagroup.xapjavasdk.apikey="${{ secrets.API_KEY }}" \
             -Dcom.expediagroup.xapjavasdk.apisecret="${{ secrets.API_SECRET }}" \
             -Dcom.expediagroup.xapjavasdk.vrbokey="${{ secrets.VRBO_KEY }}" \
@@ -51,6 +53,5 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: verify integration tests
-        working-directory: tests/integration
         run: |
-          mvn verify
+          ./gradlew :integration-tests:test

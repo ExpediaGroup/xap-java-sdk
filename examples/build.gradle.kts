@@ -1,7 +1,12 @@
 group = project.property("GROUP_ID") as String
 
 plugins {
+    application
     checkstyle
+}
+
+application {
+    mainClass.set("com.expediagroup.sdk.xap.examples.XapSdkDemoTestRun")
 }
 
 checkstyle {
