@@ -32,60 +32,47 @@ import org.slf4j.LoggerFactory;
  * For reference, see the individual scenarios in the scenarios package.
  */
 public class XapSdkDemoTestRun {
-  private static final Logger logger = LoggerFactory.getLogger(XapSdkDemoTestRun.class);
+    private static final Logger logger = LoggerFactory.getLogger(XapSdkDemoTestRun.class);
 
-  /**
-   * Main method.
-   */
-  public static void main(String[] args) {
+    /**
+     * Main method.
+     */
+    public static void main(String[] args) {
 
-    logger.info(
-        "============================== Running Lodging Scenarios =============================");
+        logger.info("============================== Running Lodging Scenarios =============================");
 
-    AvailabilityCalendarsQuickStartScenario availabilityCalendarsQuickStartScenario =
-        new AvailabilityCalendarsQuickStartScenario();
-    availabilityCalendarsQuickStartScenario.run();
+        AvailabilityCalendarsQuickStartScenario availabilityCalendarsQuickStartScenario = new AvailabilityCalendarsQuickStartScenario();
+        availabilityCalendarsQuickStartScenario.run();
 
-    ListingsQuickStartScenario listingsQuickStartScenario = new ListingsQuickStartScenario();
-    listingsQuickStartScenario.run();
+        ListingsQuickStartScenario listingsQuickStartScenario = new ListingsQuickStartScenario();
+        listingsQuickStartScenario.run();
 
-    HotelIdsSearchEndToEndScenario hotelIdsSearchEndToEndScenario =
-        new HotelIdsSearchEndToEndScenario();
-    hotelIdsSearchEndToEndScenario.run();
+        HotelIdsSearchEndToEndScenario hotelIdsSearchEndToEndScenario = new HotelIdsSearchEndToEndScenario();
+        hotelIdsSearchEndToEndScenario.run();
 
-    VrboPropertySearchEndToEndScenario vrboPropertySearchEndToEndScenario =
-        new VrboPropertySearchEndToEndScenario();
-    vrboPropertySearchEndToEndScenario.run();
+        VrboPropertySearchEndToEndScenario vrboPropertySearchEndToEndScenario = new VrboPropertySearchEndToEndScenario();
+        vrboPropertySearchEndToEndScenario.run();
 
-    logger.info(
-        "=============================== End of Lodging Scenarios ==============================");
+        logger.info("=============================== End of Lodging Scenarios ==============================");
+        logger.info("============================== Running Car Scenarios =============================");
 
-    logger.info(
-            "============================== Running Car Scenarios =============================");
-    CarListingsQuickStartScenario carListingsQuickStartScenario =
-        new CarListingsQuickStartScenario();
+        CarListingsQuickStartScenario carListingsQuickStartScenario = new CarListingsQuickStartScenario();
+        carListingsQuickStartScenario.run();
 
-    carListingsQuickStartScenario.run();
+        CarDetailsQuickStartScenario carDetailsQuickStartScenario = new CarDetailsQuickStartScenario();
+        carDetailsQuickStartScenario.run();
 
-    CarDetailsQuickStartScenario carDetailsQuickStartScenario = new CarDetailsQuickStartScenario();
-    carDetailsQuickStartScenario.run();
-    logger.info(
-            "=============================== End of Car Scenarios ==============================");
+        logger.info("=============================== End of Car Scenarios ==============================");
+        logger.info("============================== Running Activity Scenarios =============================");
 
-    logger.info(
-        "============================== Running Activity Scenarios =============================");
-    ActivityListingsQuickStartScenario activityListingsQuickStartScenario =
-        new ActivityListingsQuickStartScenario();
+        ActivityListingsQuickStartScenario activityListingsQuickStartScenario = new ActivityListingsQuickStartScenario();
+        activityListingsQuickStartScenario.run();
 
-    activityListingsQuickStartScenario.run();
+        ActivityDetailsQuickStartScenario activityDetailsQuickStartScenario = new ActivityDetailsQuickStartScenario();
+        activityDetailsQuickStartScenario.run();
 
-    ActivityDetailsQuickStartScenario activityDetailsQuickStartScenario =
-        new ActivityDetailsQuickStartScenario();
-    activityDetailsQuickStartScenario.run();
-    logger.info(
-        "=============================== End of Activity Scenarios ==============================");
+        logger.info("=============================== End of Activity Scenarios ==============================");
 
-
-    System.exit(0);
-  }
+        System.exit(0);
+    }
 }
