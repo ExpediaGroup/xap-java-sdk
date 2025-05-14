@@ -7,26 +7,7 @@ on:
     branches:
       - 'main'
 jobs:
-  detect-changes:
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read
-    outputs:
-      examples: ${{ steps.filter.outputs.examples }}
-      integration-tests: ${{ steps.filter.outputs.integration-tests }}
-    steps:
-      - uses: dorny/paths-filter@v3
-        id: filter
-        with:
-          filters: |
-            examples:
-              - 'examples/**'
-            integration-tests:
-              - 'integration-tests/**'
-
   verify-examples:
-    needs: detect-changes
-    if: ${{ needs.detect-changes.outputs.examples == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -43,8 +24,6 @@ jobs:
             -Dcom.expediagroup.xapjavasdk.vrbosecret="${{ secrets.VRBO_SECRET }}" \
 
   verify-integration-tests:
-    needs: detect-changes
-    if: ${{ needs.detect-changes.outputs.integration-tests == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
