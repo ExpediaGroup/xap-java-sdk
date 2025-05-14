@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param id Amenity id
  * @param name Amenity name
-*/
+ */
 data class RoomTypeAmenitiesInner(
     // Amenity id
     @JsonProperty("Id")

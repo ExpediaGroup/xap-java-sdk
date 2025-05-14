@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for distance information.  Only returned for city/address search or `geoLocation` search or single `regionId` search.
+ * Container for distance information.  Only returned for city/address search or `geoLocation` search or single `regionId` search.
  * @param `value` The distance between the center of the search and the hotel.
  * @param unit The unit of distance.
  * @param direction The direction to the hotel from the center point of the search.
-*/
+ */
 data class Distance(
     // The distance between the center of the search and the hotel.
     @JsonProperty("Value")

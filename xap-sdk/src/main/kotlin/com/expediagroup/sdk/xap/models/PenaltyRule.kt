@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.PenaltyType
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for penalty rules
+ * Container for penalty rules
  * @param penalty
  * @param startDateTime The time when this penalty window starts
  * @param endDateTime The time when this penalty window ends
-*/
+ */
 data class PenaltyRule(
     @JsonProperty("Penalty")
     val penalty: PenaltyType,

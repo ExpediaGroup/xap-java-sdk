@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.Money
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param `value` The value of the element being defined.
  * @param currency The ISO 4217 Currency Code that the value is expressed in.
  * @param localCurrencyPrice
-*/
+ */
 data class RoomRatesBaseRate(
     // The value of the element being defined.
     @JsonProperty("Value")

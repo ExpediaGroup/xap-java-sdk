@@ -19,12 +19,12 @@ import com.expediagroup.sdk.xap.models.CarsMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Description and costs of any optional special equipment that may be rented with the car.
+ * Description and costs of any optional special equipment that may be rented with the car.
  * @param code Special equipment code
  * @param name Special equipment name
  * @param ratePeriod Unit indicating the price of special equipment. Support value:Trip,Daily
  * @param price
-*/
+ */
 data class Equipment(
     // Special equipment code
     @JsonProperty("Code")

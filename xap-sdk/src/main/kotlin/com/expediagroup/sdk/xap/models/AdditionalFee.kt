@@ -20,14 +20,14 @@ import com.expediagroup.sdk.xap.models.Deductible
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* List of additional fees including both mandatory and optional fees.such as young driver fee/drop off fee /CollisionDamageWaiver
+ * List of additional fees including both mandatory and optional fees.such as young driver fee/drop off fee /CollisionDamageWaiver
  * @param isRequired Indicates whether this additional fee is mandatory.
  * @param financeCategory Category of the fee / Coverages
  * @param financeSubCategory Sub category of the fee / Coverages .
  * @param amount
  * @param description Description of the fee.
  * @param deductible
-*/
+ */
 data class AdditionalFee(
     // Indicates whether this additional fee is mandatory.
     @JsonProperty("IsRequired")

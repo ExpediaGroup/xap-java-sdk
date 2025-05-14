@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for the descriptions of the property.
+ * Container for the descriptions of the property.
  * @param locationTeaser A description of the property's location.
  * @param hotelTeaser A description of the features and amenities of the property itself.
  * @param roomTeaser The common description for all of the rooms in the property.
-*/
+ */
 data class Description(
     // A description of the property's location.
     @JsonProperty("LocationTeaser")

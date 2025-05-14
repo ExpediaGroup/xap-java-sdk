@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.expediagroup.sdk.xap.integrations.activity;
+package com.expediagroup.sdk.xap.activity;
 
-import static com.expediagroup.sdk.xap.integrations.common.Constant.ACCEPT_ACTIVITY;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.AUTHORIZATION;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.MOCK_KEY;
+import static com.expediagroup.sdk.xap.common.Constant.ACCEPT_ACTIVITY;
+import static com.expediagroup.sdk.xap.common.Constant.AUTHORIZATION;
+import static com.expediagroup.sdk.xap.common.Constant.MOCK_KEY;
 
-import com.expediagroup.sdk.core.model.Response;
-import com.expediagroup.sdk.xap.integrations.common.Constant;
-import com.expediagroup.sdk.xap.integrations.common.XapIntegrationTests;
+import com.expediagroup.sdk.rest.model.Response;
+import com.expediagroup.sdk.xap.common.Constant;
+import com.expediagroup.sdk.xap.common.XapIntegrationTest;
 import com.expediagroup.sdk.xap.models.ActivitiesLink;
 import com.expediagroup.sdk.xap.models.ActivitiesLocation;
 import com.expediagroup.sdk.xap.models.ActivitiesMedia;
@@ -49,7 +49,7 @@ import org.junit.jupiter.api.Test;
  * This class is used to test the integration of the Lodging Listings API.
  */
 @TestWithResources
-public class ListingsIntegrationTests extends XapIntegrationTests {
+public class ListingsIntegrationTest extends XapIntegrationTest {
   @Test
   public void testRequest(
       @GivenTextResource("activities/GetActivityListingsResponse.json") String mockedResponse) {
@@ -102,7 +102,7 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
       Assertions
           .assertTrue(query.contains("endDate=" + getActivityListingsOperationParams.getEndDate()));
       Assertions.assertTrue(query.contains("locale=en_US"));
-      Assertions.assertTrue(query.contains("links=WD%2CAD"));
+      Assertions.assertTrue(query.contains("links=WD,AD"));
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
@@ -142,12 +142,11 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
 
   private void verifyResponse(Response<ActivityListingsResponse> response) {
     Assertions.assertNotNull(response);
-    Assertions.assertEquals(200, response.getStatusCode());
-    Map<String, List<String>> headers = response.getHeaders();
+    com.expediagroup.sdk.core.http.Headers headers = response.getHeaders();
     Assertions.assertNotNull(headers);
     Assertions.assertEquals(
         Constant.PARTNER_TRANSACTION_ID,
-        headers.get("partner-transaction-id").get(0)
+        headers.get("partner-transaction-id")
     );
     verifyActivityListingsResponse(response.getData());
   }

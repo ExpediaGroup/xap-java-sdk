@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.expediagroup.sdk.xap.integrations.lodging;
+package com.expediagroup.sdk.xap.lodging;
 
-import static com.expediagroup.sdk.xap.integrations.common.Constant.ACCEPT_HOTEL;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.AUTHORIZATION;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.MOCK_KEY;
+import static com.expediagroup.sdk.xap.common.Constant.ACCEPT_HOTEL;
+import static com.expediagroup.sdk.xap.common.Constant.AUTHORIZATION;
+import static com.expediagroup.sdk.xap.common.Constant.MOCK_KEY;
 
-import com.expediagroup.sdk.core.model.Response;
-import com.expediagroup.sdk.xap.integrations.common.Constant;
-import com.expediagroup.sdk.xap.integrations.common.XapIntegrationTests;
+import com.expediagroup.sdk.rest.model.Response;
+import com.expediagroup.sdk.xap.common.Constant;
+import com.expediagroup.sdk.xap.common.XapIntegrationTest;
 import com.expediagroup.sdk.xap.models.AgeClassRestriction;
 import com.expediagroup.sdk.xap.models.BedType;
 import com.expediagroup.sdk.xap.models.CancellationPolicy;
@@ -68,7 +68,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import okhttp3.Headers;
 import okhttp3.mockwebserver.MockResponse;
@@ -81,7 +80,7 @@ import org.junit.jupiter.api.Test;
  * This class is used to test the integration of the Lodging Listings API.
  */
 @TestWithResources
-public class ListingsIntegrationTests extends XapIntegrationTests {
+public class ListingsIntegrationTest extends XapIntegrationTest {
 
   @Test
   public void testRequest() {
@@ -167,11 +166,11 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
       Assertions.assertTrue(path.startsWith("/hotels/listings"));
       String query = path.substring(path.indexOf("?") + 1);
       // hotel selection
-      Assertions.assertTrue(query.contains("ecomHotelIds=123%2C456"));
-      Assertions.assertTrue(query.contains("hcomHotelIds=135%2C246"));
+      Assertions.assertTrue(query.contains("ecomHotelIds=123,456"));
+      Assertions.assertTrue(query.contains("hcomHotelIds=135,246"));
       Assertions.assertTrue(query.contains("geoLocation=47.6062%2C-122.3321"));
       Assertions.assertTrue(query.contains("regionIds=1001"));
-      Assertions.assertTrue(query.contains("locationKeyword=Space+Needle%2C+Seattle"));
+      Assertions.assertTrue(query.contains("locationKeyword=Space%20Needle%2C%20Seattle"));
       Assertions.assertTrue(query.contains("radius=10"));
       Assertions.assertTrue(query.contains("unit=km"));
       // search
@@ -183,16 +182,16 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
       Assertions.assertTrue(query.contains("currency=USD"));
       Assertions.assertTrue(query.contains("room1.adults=1"));
       Assertions.assertTrue(query.contains("room2.adults=2"));
-      Assertions.assertTrue(query.contains("room2.childAges=10%2C12"));
+      Assertions.assertTrue(query.contains("room2.childAges=10,12"));
       Assertions.assertTrue(query.contains("room3.adults=1"));
       Assertions.assertTrue(query.contains("room3.childAges=5"));
       Assertions.assertTrue(query.contains("room4.adults=6"));
       Assertions.assertTrue(query.contains("room5.adults=2"));
-      Assertions.assertTrue(query.contains("room5.childAges=3%2C4"));
+      Assertions.assertTrue(query.contains("room5.childAges=3,4"));
       Assertions.assertTrue(query.contains("room6.adults=3"));
-      Assertions.assertTrue(query.contains("room6.childAges=1%2C2%2C3%2C4%2C5"));
+      Assertions.assertTrue(query.contains("room6.childAges=1,2,3,4,5"));
       Assertions.assertTrue(query.contains("room7.adults=2"));
-      Assertions.assertTrue(query.contains("room7.childAges=1%2C2%2C3%2C4"));
+      Assertions.assertTrue(query.contains("room7.childAges=1,2,3,4"));
       Assertions.assertTrue(query.contains("room8.adults=1"));
       Assertions.assertFalse(query.contains("room9"));
       Assertions.assertTrue(query.contains("source=browser"));
@@ -200,7 +199,7 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
       // content detail
       Assertions.assertTrue(query.contains("contentDetails=high"));
       Assertions.assertTrue(query.contains("allRoomTypes=true"));
-      Assertions.assertTrue(query.contains("links=WEB%2CAPI"));
+      Assertions.assertTrue(query.contains("links=WEB,API"));
       // filtering
       Assertions.assertTrue(query.contains("minStarRating=1.5"));
       Assertions.assertTrue(query.contains("maxStarRating=5.0"));
@@ -211,9 +210,9 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
       Assertions.assertTrue(query.contains("rateType=all"));
       Assertions.assertTrue(query.contains("imageSizes=s"));
       Assertions.assertTrue(query.contains("thumbnailImageSize=t"));
-      Assertions.assertTrue(query.contains("includedPropertyTypeIds=1%2C2"));
-      Assertions.assertTrue(query.contains("excludedPropertyTypeIds=3%2C4"));
-      Assertions.assertTrue(query.contains("includedInventorySourceIds=5%2C6"));
+      Assertions.assertTrue(query.contains("includedPropertyTypeIds=1,2"));
+      Assertions.assertTrue(query.contains("excludedPropertyTypeIds=3,4"));
+      Assertions.assertTrue(query.contains("includedInventorySourceIds=5,6"));
       Assertions.assertTrue(query.contains("freeCancellation=true"));
       Assertions.assertTrue(query.contains("groupedAmenities=true"));
       Assertions.assertTrue(query.contains("blockFullDepositRateplan=true"));
@@ -258,11 +257,9 @@ public class ListingsIntegrationTests extends XapIntegrationTests {
 
   private void verifyResponse(Response<HotelListingsResponse> response) {
     Assertions.assertNotNull(response);
-    Assertions.assertEquals(200, response.getStatusCode());
-    Map<String, List<String>> headers = response.getHeaders();
+    com.expediagroup.sdk.core.http.Headers headers = response.getHeaders();
     Assertions.assertNotNull(headers);
-    Assertions.assertEquals(Constant.PARTNER_TRANSACTION_ID, headers.get("partner-transaction-id")
-        .get(0));
+    Assertions.assertEquals(Constant.PARTNER_TRANSACTION_ID, headers.get("partner-transaction-id"));
     verifyHotelListingsResponse(response.getData());
   }
 

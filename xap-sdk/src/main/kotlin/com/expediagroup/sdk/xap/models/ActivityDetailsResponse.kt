@@ -20,14 +20,14 @@ import com.expediagroup.sdk.xap.models.Activity
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param transactionId A unique identifier for this transaction.
  * @param location The location user searched, translated into the full, unambiguous format.
  * @param warnings Container for all warnings generated during the transaction.
  * @param startDate The startDate of activities in YYY-MM-DD format.
  * @param endDate The endDate of activities in YYY-MM-DD format.
  * @param activityDetails
-*/
+ */
 data class ActivityDetailsResponse(
     // A unique identifier for this transaction.
     @JsonProperty("TransactionId")

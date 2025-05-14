@@ -18,9 +18,9 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param message
-*/
+ */
 data class APIMError(
     @JsonProperty("message")
     val message: kotlin.String? = null,

@@ -18,14 +18,14 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param code The code of the warning.  Available values are: - PRICE_DECREASED: The price decreased after shopping. - PRICE_INCREASED: The price increased after shopping. - CURRENCY_CHANGE: You will be charged in a different currency.
  * @param description A detail information of what happened.
  * @param originalPrice The original price from the Lodging Search API response.
  * @param newPrice The new price.
  * @param changedAmount The difference between `OriginalPrice` and `NewPrice`.
  * @param changedPercentage The changed percentage. In the sample 2.97 means the changed percentage is 2.97%.
-*/
+ */
 data class HotelDetailsResponseWarningsInner(
     // The code of the warning.  Available values are: - PRICE_DECREASED: The price decreased after shopping. - PRICE_INCREASED: The price increased after shopping. - CURRENCY_CHANGE: You will be charged in a different currency.
     @JsonProperty("Code")

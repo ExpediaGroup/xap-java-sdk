@@ -21,10 +21,10 @@ import com.expediagroup.sdk.xap.models.LodgingRoomTypeLinksWebSearchResult
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for list of HATEOAS links to either Expedia website or additional Expedia APIs to complete booking of the selected offer.  Which links are returned in this section are defined by the links parameter in the Search API query. Available links are: - WebDetails (link to web infosite) - WebSearchResult (link to web search result page)
+ * Container for list of HATEOAS links to either Expedia website or additional Expedia APIs to complete booking of the selected offer.  Which links are returned in this section are defined by the links parameter in the Search API query. Available links are: - WebDetails (link to web infosite) - WebSearchResult (link to web search result page)
  * @param webSearchResult
  * @param webDetails
-*/
+ */
 data class LodgingRoomTypeLinks(
     @JsonProperty("WebSearchResult")
     val webSearchResult: LodgingRoomTypeLinksWebSearchResult? = null,

@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.Duration
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Limitations that are part of this rental agreement.
+ * Limitations that are part of this rental agreement.
  * @param minDuration
  * @param maxDuration
-*/
+ */
 data class RentalLimits(
     @JsonProperty("MinDuration")
     val minDuration: Duration,

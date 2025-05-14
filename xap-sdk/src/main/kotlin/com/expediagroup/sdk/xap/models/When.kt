@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Indicate when to pay.
+ * Indicate when to pay.
  * @param type Indicates the time of the deposit collection. Options are: UPON_BOOKING The customer must pay the deposit when booking the property. DAYS_PRIOR The customer must pay the deposit a number of days before arriving at the property. UPON_ARRIVAL The customer must pay the deposit upon arriving at the property.
  * @param `value` This value will only be shown when Deposit Type is DAYS_PRIOR to indicate the number of days prior to check in when the deposit will be collected.
-*/
+ */
 data class When(
     // Indicates the time of the deposit collection. Options are: UPON_BOOKING The customer must pay the deposit when booking the property. DAYS_PRIOR The customer must pay the deposit a number of days before arriving at the property. UPON_ARRIVAL The customer must pay the deposit upon arriving at the property.
     @JsonProperty("Type")

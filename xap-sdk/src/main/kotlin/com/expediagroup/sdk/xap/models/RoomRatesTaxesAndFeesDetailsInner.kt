@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param categoryCode Tax or fee category code.
  * @param amount Tax or fee value.
-*/
+ */
 data class RoomRatesTaxesAndFeesDetailsInner(
     // Tax or fee category code.
     @JsonProperty("CategoryCode")

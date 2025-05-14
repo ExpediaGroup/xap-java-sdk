@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The extra distance information.
+ * The extra distance information.
  * @param `value` The number of miles/kilometers of the distance (specified by the Unit).
  * @param unit The unit (KM or MI) for the distance.
  * @param direction The direction of the location from the search 'center'.Possible values are: N,S,W,E,NW,NE,SW,SE
-*/
+ */
 data class CarsDistance(
     // The number of miles/kilometers of the distance (specified by the Unit).
     @JsonProperty("Value")

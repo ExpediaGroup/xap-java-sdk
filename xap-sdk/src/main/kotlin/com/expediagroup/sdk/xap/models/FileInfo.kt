@@ -21,7 +21,7 @@ import com.expediagroup.sdk.xap.models.SdpLink
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param partner The partner associated with the file. List of partners: `Bing`, `Criteo`, `Facebook`, `Google`, `Retarget`, `Snapchat`.
  * @param brand The brand associated with the file content. List of brand: `Expedia`, `Hotels`, `Hotwire`, `Vrbo`, `HomeAway`, `Abritel`, `Bookabach`, `Stayz`, `Ebbokers`, `Travalocity`, `Orbitz`, `Wotif`.
  * @param fileContentType The type associated with the file content. List of types: `Amenities`, `Descriptions`, `Images`, `Listings`, `Locations`, `Policies`, `Regions`, `Reviews`, `Summary`, `VacationRental`
@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param downloadUrlExpires The time about the download Url expires. The format is uuuu-MM-dd'T'HH:mm:ss.SSSX
  * @param filterConditions
  * @param bestMatchedLink
-*/
+ */
 data class FileInfo(
     // The partner associated with the file. List of partners: `Bing`, `Criteo`, `Facebook`, `Google`, `Retarget`, `Snapchat`.
     @JsonProperty("partner")

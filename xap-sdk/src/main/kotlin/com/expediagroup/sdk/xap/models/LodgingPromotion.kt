@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.LodgingMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param description The description of the promotion.
  * @param amount
-*/
+ */
 data class LodgingPromotion(
     // The description of the promotion.
     @JsonProperty("Description")

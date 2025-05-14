@@ -19,7 +19,7 @@ import com.expediagroup.sdk.xap.models.DateRange
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param propertyId The unique property identifier that designates a single property.
  * @param dateRange
  * @param availability A string of codes that shows property availability, one for every day in the specified date range.  Valid values include Y (available) and N (unavailable).  ***Note**: The first code stands for availability on the `StartDate` in the `DateRange` and the last one stands  for the `EndDate`.*
@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param minPriorNotify A comma-separated list of numbers that shows how many days before a reservation the booking must occur, one for every day in the specified date range. Valid values include 0-999, and 0 indicates no prior notification required for a given day. The unit is always day.  ***Note**: The first number stands for the minimum advance booking days on the `StartDate` in the `DateRange` and the last one stands for the `EndDate`. No limitation if not returned.*
  * @param minStay A comma-separated list of numbers that show the minimum number of days a traveler can stay, one for every day in the specified date range.  Valid values include 0-999, and 0 indicates no minimum for a given day. The unit is always day.  ***Note**: The first number stands for the minimum stay on the `StartDate` in the `DateRange` and the last one stands for the `EndDate`. No limitation if not returned.*
  * @param maxStay A comma-separated list of numbers that show the maximum number of days a traveler can stay, one for every day in the specified date range.  Valid values include 0-999, and 0 indicates no maximum for a given day. The unit is always day.  ***Note**: The first number stands for the maximum stay on the `StartDate` in the `DateRange` and the  last one stands for the `EndDate`. No limitation if not returned.
-*/
+ */
 data class AvailabilityCalendar(
     // The unique property identifier that designates a single property.
     @JsonProperty("PropertyId")

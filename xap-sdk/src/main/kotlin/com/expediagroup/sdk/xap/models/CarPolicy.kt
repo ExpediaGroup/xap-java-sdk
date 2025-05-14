@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* A list of policies that apply to this car rental.
+ * A list of policies that apply to this car rental.
  * @param categoryCode The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements)
  * @param policyText The raw text of the policy.This is generally localized into the requested language, but may be English if no other translations are available.
-*/
+ */
 data class CarPolicy(
     // The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements)
     @JsonProperty("CategoryCode")

@@ -22,7 +22,7 @@ import com.expediagroup.sdk.xap.models.Warning
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param warnings There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
  * @param count The number of hotels actually returned in the response.
  * @param totalHotelCount The number of hotels present in the location.
@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param numberOfRooms The number of the rooms requested on behalf of the user.
  * @param occupants Container of occupants. It is an array including occupants of each room.
  * @param hotels Container for all hotels.
-*/
+ */
 data class HotelListingsResponse(
     // There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
     @JsonProperty("Warnings")

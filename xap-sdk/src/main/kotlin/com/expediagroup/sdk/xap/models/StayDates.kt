@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for information for the stay dates of the rate plan.
+ * Container for information for the stay dates of the rate plan.
  * @param checkInDate The initial day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
  * @param checkOutDate The final day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
-*/
+ */
 data class StayDates(
     // The initial day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
     @JsonProperty("CheckInDate")

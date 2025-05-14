@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for error list.
+ * Container for error list.
  * @param code Error code describing the issue
  * @param description A simple description of what the error is.
-*/
+ */
 data class LodgingError(
     // Error code describing the issue
     @JsonProperty("Code")

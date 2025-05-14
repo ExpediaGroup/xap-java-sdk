@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param id The identification number for a room amenity.
  * @param name The description of a room amenity.
-*/
+ */
 data class HotelRoomAmenitiesInner(
     // The identification number for a room amenity.
     @JsonProperty("Id")

@@ -20,11 +20,11 @@ import com.expediagroup.sdk.xap.models.ExtraCostPerDistance
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* A list of charges to be levied based on the mileage driven.
+ * A list of charges to be levied based on the mileage driven.
  * @param freeDistance
  * @param freeDistanceRatePeriod Rate period for free distance.
  * @param extraCostPerDistance
-*/
+ */
 data class Mileage(
     @JsonProperty("FreeDistance")
     val freeDistance: CarsDistance,

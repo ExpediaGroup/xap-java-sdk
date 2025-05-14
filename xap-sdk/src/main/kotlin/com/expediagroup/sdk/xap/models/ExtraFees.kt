@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.CarsMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* List of ExtraFeesDetails
+ * List of ExtraFeesDetails
  * @param unit Rate period beyond the base rate. Supported values: ExtraHourly, ExtraDaily
  * @param unitCount Numbers of period
  * @param amount
-*/
+ */
 data class ExtraFees(
     // Rate period beyond the base rate. Supported values: ExtraHourly, ExtraDaily
     @JsonProperty("Unit")

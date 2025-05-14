@@ -27,7 +27,7 @@ import com.expediagroup.sdk.xap.models.RoomTypeStandalonePrice
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param description Text description of the room type.
  * @param roomKey An encrypted string which includes the information that could be used to address the current room type.  `RoomKey` has been renamed as `OfferId`.
  * @param offerId An encrypted string which includes the information that could be used to address the current room type.
@@ -44,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param amenities Container for all room amenities.
  * @param descriptiveAmenities Container for all room amenities in group.  The key is amenity category, the values are the amenity information. The category for grouped amenities in room level will be: - ACCESSIBILITY - BATHROOM - BEDROOM - CLUB_EXEC - FAMILY_FRIENDLY - ENTERTAINMENT - FOOD_AND_DRINK - INTERNET - MORE - OUTDOOR_SPACE - SAFETY
  * @param media Container for Media elements.
-*/
+ */
 data class RoomType(
     // Text description of the room type.
     @JsonProperty("Description")

@@ -20,10 +20,10 @@ import com.expediagroup.sdk.xap.models.TimeRange
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* A List of date time periods to indicate the vendor business hours for the pickup time.
+ * A List of date time periods to indicate the vendor business hours for the pickup time.
  * @param dateRange
  * @param timeRanges A list of time range to indicate the operation hours of the date range.
-*/
+ */
 data class DateTimePeriod(
     @JsonProperty("DateRange")
     val dateRange: CarsDateRange,

@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param categoryCode Category ID of this specific tax or fee.
  * @param amount The value of this specific tax or fee.
-*/
+ */
 data class RatePlanPriceTaxesAndFeesDetailsInner(
     // Category ID of this specific tax or fee.
     @JsonProperty("CategoryCode")

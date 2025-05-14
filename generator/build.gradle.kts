@@ -2,7 +2,7 @@ import com.expediagroup.sdk.xap.generator.mustache.AllowedMediaTypesLambda
 import org.openapitools.codegen.CodegenConstants
 
 plugins {
-    id("com.expediagroup.sdk.openapigenerator") version "0.0.9-alpha"
+    id("com.expediagroup.sdk.openapigenerator") version "0.0.10-alpha"
     id("com.github.hierynomus.license-base") version "0.16.1"
 }
 
@@ -13,7 +13,7 @@ dependencies {
 }
 
 openApiGenerate {
-    inputSpec = System.getProperty("inputSpec") ?: "$projectDir/src/main/resources/transformedSpecs.yaml"
+    inputSpec = System.getProperty("inputSpec") ?: "$rootDir/transformedSpecs.yaml"
 
     packageName = "com.expediagroup.sdk.xap"
     invokerPackage = "com.expediagroup.sdk.xap"
@@ -45,8 +45,8 @@ license {
     strictCheck = true
     includes(
         listOf(
-            "$rootDir/xap-sdk/src/main/kotlin/**/*.kt"
-        )
+            "$rootDir/xap-sdk/src/main/kotlin/**/*.kt",
+        ),
     )
 }
 

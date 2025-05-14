@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.CarsError
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param errors Container for error list.
  * @param transactionId A unique identifier for the transaction.
-*/
+ */
 data class DisambiguationResponse(
     // Container for error list.
     @JsonProperty("Errors")

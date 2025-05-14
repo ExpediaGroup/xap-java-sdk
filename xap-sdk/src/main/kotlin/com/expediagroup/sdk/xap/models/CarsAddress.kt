@@ -18,7 +18,7 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Address information
+ * Address information
  * @param address1 Street Number, Street Name, or PO Box
  * @param city The city
  * @param country 3-letter code for the country
@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param suite Suite/apartment number
  * @param province The state or province
  * @param postalCode Zip/postal code
-*/
+ */
 data class CarsAddress(
     // Street Number, Street Name, or PO Box
     @JsonProperty("Address1")

@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param adults Specifies the number of adults staying in each room.
  * @param childAges Specifies the age(s) of each of the children staying in the room, as well as the number of children in the room.
-*/
+ */
 data class HotelDetailsResponseOccupantsInner(
     // Specifies the number of adults staying in each room.
     @JsonProperty("Adults")

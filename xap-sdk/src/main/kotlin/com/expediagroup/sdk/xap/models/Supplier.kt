@@ -18,12 +18,12 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The supplier of the car being offered.
+ * The supplier of the car being offered.
  * @param id Supplier ID.
  * @param name Supplier Name.
  * @param code Supplier Code.
  * @param logoImageUrl Supplier Logo Image Url.
-*/
+ */
 data class Supplier(
     // Supplier ID.
     @JsonProperty("Id")

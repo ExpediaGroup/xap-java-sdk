@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The maximum amount of time for a rental that still qualifies for this rate.This may or may not be the same as the current rental duration.
+ * The maximum amount of time for a rental that still qualifies for this rate.This may or may not be the same as the current rental duration.
  * @param unit The unit for minimum amount of time for a rental.
  * @param count The minimum number of units that qualify for minimum amount of time for a rental.
-*/
+ */
 data class Duration(
     // The unit for minimum amount of time for a rental.
     @JsonProperty("Unit")

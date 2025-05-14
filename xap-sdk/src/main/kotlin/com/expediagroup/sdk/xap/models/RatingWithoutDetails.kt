@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The rating of the car being offered.
+ * The rating of the car being offered.
  * @param ratingPercentage The percentage of rating.
  * @param ratingCount The total count of rating.
-*/
+ */
 data class RatingWithoutDetails(
     // The percentage of rating.
     @JsonProperty("RatingPercentage")

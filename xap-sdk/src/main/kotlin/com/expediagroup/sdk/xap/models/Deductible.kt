@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.CarsMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Indicate whether it is deductible
+ * Indicate whether it is deductible
  * @param excessAmount
  * @param liabilityAmount
  * @param deductibleAmount
-*/
+ */
 data class Deductible(
     @JsonProperty("ExcessAmount")
     val excessAmount: CarsMoney? = null,

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.expediagroup.sdk.xap.integrations.lodging;
+package com.expediagroup.sdk.xap.lodging;
 
-import static com.expediagroup.sdk.xap.integrations.common.Constant.ACCEPT_HOTEL;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.ACCEPT_LODGING;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.AUTHORIZATION;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.MOCK_KEY;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.PARTNER_TRANSACTION_ID;
+import static com.expediagroup.sdk.xap.common.Constant.ACCEPT_HOTEL;
+import static com.expediagroup.sdk.xap.common.Constant.ACCEPT_LODGING;
+import static com.expediagroup.sdk.xap.common.Constant.AUTHORIZATION;
+import static com.expediagroup.sdk.xap.common.Constant.MOCK_KEY;
+import static com.expediagroup.sdk.xap.common.Constant.PARTNER_TRANSACTION_ID;
 
-import com.expediagroup.sdk.core.model.Response;
-import com.expediagroup.sdk.xap.integrations.common.Constant;
-import com.expediagroup.sdk.xap.integrations.common.XapIntegrationTests;
+import com.expediagroup.sdk.rest.model.Response;
+import com.expediagroup.sdk.xap.common.Constant;
+import com.expediagroup.sdk.xap.common.XapIntegrationTest;
 import com.expediagroup.sdk.xap.models.LodgingCancellationPolicy;
 import com.expediagroup.sdk.xap.models.LodgingQuotesResponse;
 import com.expediagroup.sdk.xap.models.LodgingRatePlan;
@@ -42,7 +42,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import okhttp3.Headers;
@@ -55,7 +54,7 @@ import org.junit.jupiter.api.Test;
  * This class is used to test the integration of the Lodging Quotes API.
  */
 @TestWithResources
-public class QuotesIntegrationTests extends XapIntegrationTests {
+public class QuotesIntegrationTest extends XapIntegrationTest {
   @Test
   public void testRequest() {
     ArrayList<Room> rooms = new ArrayList<>();
@@ -103,7 +102,7 @@ public class QuotesIntegrationTests extends XapIntegrationTests {
       Assertions.assertNotNull(path);
       Assertions.assertTrue(path.startsWith("/lodging/quotes"));
       String query = path.substring(path.indexOf("?") + 1);
-      Assertions.assertTrue(query.contains("propertyIds=123%2C456%2C789"));
+      Assertions.assertTrue(query.contains("propertyIds=123,456,789"));
       Assertions.assertTrue(query.contains(
           "checkIn=" + getLodgingQuotesOperationParams.getCheckIn()));
       Assertions.assertTrue(query.contains(
@@ -112,16 +111,16 @@ public class QuotesIntegrationTests extends XapIntegrationTests {
       Assertions.assertTrue(query.contains("links=WEB"));
       Assertions.assertTrue(query.contains("room1.adults=1"));
       Assertions.assertTrue(query.contains("room2.adults=2"));
-      Assertions.assertTrue(query.contains("room2.childAges=10%2C12"));
+      Assertions.assertTrue(query.contains("room2.childAges=10,12"));
       Assertions.assertTrue(query.contains("room3.adults=1"));
       Assertions.assertTrue(query.contains("room3.childAges=5"));
       Assertions.assertTrue(query.contains("room4.adults=6"));
       Assertions.assertTrue(query.contains("room5.adults=2"));
-      Assertions.assertTrue(query.contains("room5.childAges=3%2C4"));
+      Assertions.assertTrue(query.contains("room5.childAges=3,4"));
       Assertions.assertTrue(query.contains("room6.adults=3"));
-      Assertions.assertTrue(query.contains("room6.childAges=1%2C2%2C3%2C4%2C5"));
+      Assertions.assertTrue(query.contains("room6.childAges=1,2,3,4,5"));
       Assertions.assertTrue(query.contains("room7.adults=2"));
-      Assertions.assertTrue(query.contains("room7.childAges=1%2C2%2C3%2C4"));
+      Assertions.assertTrue(query.contains("room7.childAges=1,2,3,4"));
       Assertions.assertTrue(query.contains("room8.adults=1"));
       Assertions.assertFalse(query.contains("room9"));
       Assertions.assertTrue(query.contains("travelWithPets=true"));
@@ -157,11 +156,9 @@ public class QuotesIntegrationTests extends XapIntegrationTests {
 
   private void verifyResponse(Response<LodgingQuotesResponse> response) {
     Assertions.assertNotNull(response);
-    Assertions.assertEquals(200, response.getStatusCode());
-    Map<String, List<String>> headers = response.getHeaders();
+    com.expediagroup.sdk.core.http.Headers headers = response.getHeaders();
     Assertions.assertNotNull(headers);
-    Assertions.assertEquals(Constant.PARTNER_TRANSACTION_ID, headers.get("partner-transaction-id")
-        .get(0));
+    Assertions.assertEquals(Constant.PARTNER_TRANSACTION_ID, headers.get("partner-transaction-id"));
     verifyLodgingQuotesResponse(response.getData());
   }
 

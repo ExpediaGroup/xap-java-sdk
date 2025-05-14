@@ -21,7 +21,7 @@ import com.expediagroup.sdk.xap.models.WaiverPolicy
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for room cancellation policy.
+ * Container for room cancellation policy.
  * @param waiverPolicy
  * @param cancellableOnline Boolean value to identify if the reservation can be cancelled online. If false, the customer will only be able to cancel a refundable room by calling Expedia Customer Service.
  * @param refundable Indicate whether the rate is refundable or not.
@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param cancellationPenaltyRules Container for cancellation penalty details.
  * @param cancelPolicyDescription Additional cancellation policy information available as static text.
  * @param nonRefundableDateRanges A list of dates ranges that are non-refundable.  **Note**: The stay dates in those date ranges will always be charged whenever there is any cancellation  penalty rule.
-*/
+ */
 data class CancellationPolicy(
     @JsonProperty("WaiverPolicy")
     val waiverPolicy: WaiverPolicy? = null,

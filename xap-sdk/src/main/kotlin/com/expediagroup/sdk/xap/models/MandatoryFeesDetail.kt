@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.MandatoryFeesDetailAmount
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The breakdown for the taxes and fees that must be paid at the property.
+ * The breakdown for the taxes and fees that must be paid at the property.
  * @param type Type of mandatory fee.
  * @param amount
-*/
+ */
 data class MandatoryFeesDetail(
     // Type of mandatory fee.
     @JsonProperty("Type")

@@ -20,12 +20,12 @@ import com.expediagroup.sdk.xap.models.Ticket
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The list of available Time Slots for the activity.
+ * The list of available Time Slots for the activity.
  * @param dateTime The date and time when the activity happens.
  * @param allDayActivity Indicates whether the activity is an all-day activity.
  * @param cancellationPolicy
  * @param tickets Container for ticket information.
-*/
+ */
 data class AvailableTimeSlot(
     // The date and time when the activity happens.
     @JsonProperty("DateTime")

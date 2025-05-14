@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* A map of links to other Car APIs. possible link name: ApiBooking
+ * A map of links to other Car APIs. possible link name: ApiBooking
  * @param href HATEOAS URL to fetch details.
  * @param accept Accept header.
  * @param method HTTP method to connect.
-*/
+ */
 data class CarsLink(
     // HATEOAS URL to fetch details.
     @JsonProperty("Href")

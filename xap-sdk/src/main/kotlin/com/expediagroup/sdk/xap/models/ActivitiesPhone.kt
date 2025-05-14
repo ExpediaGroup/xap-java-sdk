@@ -18,12 +18,12 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The phone of the company providing the activity.
+ * The phone of the company providing the activity.
  * @param countryCode Country code of traveler's phone number; only digits allowed.
  * @param number Traveler's phone number; only digits allowed.
  * @param areaCode Area code of traveler's phone number; only digits allowed.
  * @param extensionNumber
-*/
+ */
 data class ActivitiesPhone(
     // Country code of traveler's phone number; only digits allowed.
     @JsonProperty("CountryCode")

@@ -18,14 +18,14 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for Hotel policy information.
+ * Container for Hotel policy information.
  * @param checkInStartTime Beginning of the standard check-in window on the check in date, and in the local time of the hotel.
  * @param checkInEndTime End of the standard check-in window on the check in date, and in the local time of the hotel.
  * @param specialCheckInInstructions Some special instructions needed care by customer when check in.
  * @param checkOutTime Customers must check out before this time on the check out date, expressed in the local time of the hotel.
  * @param petPolicies The policy of the property toward having pets stay with guests.
  * @param childrenAndExtraBedsPolicies The policy of the hotel for having children stay at the hotel, as well as for including extra beds in the room.
-*/
+ */
 data class HotelPolicies(
     // Beginning of the standard check-in window on the check in date, and in the local time of the hotel.
     @JsonProperty("CheckInStartTime")

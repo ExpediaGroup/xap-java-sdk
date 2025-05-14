@@ -21,11 +21,11 @@ import com.expediagroup.sdk.xap.models.LodgingRoomTypePrice
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param ratePlans Container for rate plan information.
  * @param price
  * @param links
-*/
+ */
 data class LodgingRoomType(
     // Container for rate plan information.
     @JsonProperty("RatePlans")

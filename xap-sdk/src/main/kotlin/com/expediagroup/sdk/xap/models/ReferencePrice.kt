@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.ActivitiesMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for the reference price used for strike out display.
+ * Container for the reference price used for strike out display.
  * @param totalRate
  * @param totalFees
  * @param totalTaxesAndFees
-*/
+ */
 data class ReferencePrice(
     @JsonProperty("TotalRate")
     val totalRate: ActivitiesMoney,

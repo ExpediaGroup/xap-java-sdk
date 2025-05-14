@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param startDate Start date of a non-refundable date range.
  * @param endDate End date of a non-refundable date range.
-*/
+ */
 data class NonRefundableDateRange(
     // Start date of a non-refundable date range.
     @JsonProperty("StartDate")

@@ -22,13 +22,13 @@ import com.expediagroup.sdk.xap.models.CarsWarning
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param transactionId A unique identifier for this transaction.
  * @param warnings Container for warning codes
  * @param carDetails
  * @param validFormsOfPayment List of all the forms of payment that will be accepted for the booking of this rental transaction.
  * @param links A map of links to other Car APIs. possible link name: ApiBooking
-*/
+ */
 data class CarDetailsResponse(
     // A unique identifier for this transaction.
     @JsonProperty("TransactionId")

@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* API returned information.
+ * API returned information.
  * @param code Fault code.
  * @param description Fault description.
-*/
+ */
 data class Fault(
     // Fault code.
     @JsonProperty("code")

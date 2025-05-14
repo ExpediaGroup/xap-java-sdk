@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for the discount amount.
+ * Container for the discount amount.
  * @param `value` The value of the element being defined.
  * @param currency The ISO 4217 Currency Code that the value is expressed in.
  * @param localCurrencyPrice
-*/
+ */
 data class ActivitiesMoney(
     // The value of the element being defined.
     @JsonProperty("Value")

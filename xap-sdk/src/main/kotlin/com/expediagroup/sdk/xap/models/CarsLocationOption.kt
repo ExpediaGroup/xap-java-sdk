@@ -21,7 +21,7 @@ import com.expediagroup.sdk.xap.models.CarsLocation
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* List for possible locations from which the customer must choose the best one to be re-submitted in the request.
+ * List for possible locations from which the customer must choose the best one to be re-submitted in the request.
  * @param requestedLocation Location used in partner request.
  * @param locations Container for list of possible locations that could be used to disambiguate the query.
  * @param type Type of the location.
@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param address The address of the location.
  * @param country
  * @param geoLocation
-*/
+ */
 data class CarsLocationOption(
     // Location used in partner request.
     @JsonProperty("RequestedLocation")

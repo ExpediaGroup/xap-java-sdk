@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The actual date range for the shown availability.
+ * The actual date range for the shown availability.
  * @param startDate The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
  * @param endDate The final day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
-*/
+ */
 data class DateRange(
     // The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
     @JsonProperty("StartDate")

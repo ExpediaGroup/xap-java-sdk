@@ -18,9 +18,9 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Error from the APIM.
+ * Error from the APIM.
  * @param message Error from the APIM.
-*/
+ */
 data class SdpAPIMError(
     // Error from the APIM.
     @JsonProperty("message")

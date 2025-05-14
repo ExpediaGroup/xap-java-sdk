@@ -25,7 +25,7 @@ import com.expediagroup.sdk.xap.models.StayDates
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for information on each rate plan.
+ * Container for information on each rate plan.
  * @param roomTypeId The room type identifier.
  * @param ratePlanId The rate plan identifier.
  * @param rateRuleId The identifier of rate rule.
@@ -54,7 +54,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param hcomRewardsBurn Indicate whether the room qualifies for Hcom Rewards Burn. (Hotels.com partners only)
  * @param cancellationPolicy
  * @param amenities The amenities of the `rateplan`.
-*/
+ */
 data class RatePlan(
     // The room type identifier.
     @JsonProperty("RoomTypeId")

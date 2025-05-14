@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* List of all the details of rating.
+ * List of all the details of rating.
  * @param category The category of rating detail.
  * @param percentage The percentage of rating detail category.
-*/
+ */
 data class RatingDetails(
     // The category of rating detail.
     @JsonProperty("Category")

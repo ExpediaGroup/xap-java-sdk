@@ -22,7 +22,7 @@ import com.expediagroup.sdk.xap.models.ActivitiesNeighborhood
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* List of location(s) where the activity will happen.
+ * List of location(s) where the activity will happen.
  * @param type The type of location code (MULTICITY | METROCODE).
  * @param id Expedia Region ID of the specified airport.
  * @param name Location Name
@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param neighborhood
  * @param regionId RegionId the location resides in.
  * @param country
-*/
+ */
 data class ActivitiesLocation(
     // The type of location code (MULTICITY | METROCODE).
     @JsonProperty("Type")

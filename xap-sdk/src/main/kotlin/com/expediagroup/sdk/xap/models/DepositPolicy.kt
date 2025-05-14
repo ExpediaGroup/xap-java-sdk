@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.DepositDetail
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for deposit policy details
+ * Container for deposit policy details
  * @param description
  * @param details Container for deposit policy details
-*/
+ */
 data class DepositPolicy(
     @JsonProperty("Description")
     val description: kotlin.collections.List<kotlin.String>? = null,

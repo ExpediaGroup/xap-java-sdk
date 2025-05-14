@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.RateCalendar
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for all hotel rate calendar data.
+ * Container for all hotel rate calendar data.
  * @param ecomHotelId The unique, Expedia-specific hotel property identifier used to designate a single hotel.
  * @param hcomHotelId The unique, Hotels.com-specific hotel property identifier used to designate a single hotel.  This will be returned if searching via `hcomHotelId` in request or the request is coming from Hcom partner.
  * @param rateCalendar Container for all rate calendar data.
-*/
+ */
 data class HotelRateCalendar(
     // The unique, Expedia-specific hotel property identifier used to designate a single hotel.
     @JsonProperty("EcomHotelId")

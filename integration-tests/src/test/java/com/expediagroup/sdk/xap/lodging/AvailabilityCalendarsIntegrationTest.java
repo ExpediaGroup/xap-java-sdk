@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.expediagroup.sdk.xap.integrations.lodging;
+package com.expediagroup.sdk.xap.lodging;
 
-import static com.expediagroup.sdk.xap.integrations.common.Constant.ACCEPT_HOTEL;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.ACCEPT_LODGING;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.AUTHORIZATION;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.MOCK_KEY;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.PARTNER_TRANSACTION_ID;
+import static com.expediagroup.sdk.xap.common.Constant.ACCEPT_HOTEL;
+import static com.expediagroup.sdk.xap.common.Constant.ACCEPT_LODGING;
+import static com.expediagroup.sdk.xap.common.Constant.AUTHORIZATION;
+import static com.expediagroup.sdk.xap.common.Constant.MOCK_KEY;
+import static com.expediagroup.sdk.xap.common.Constant.PARTNER_TRANSACTION_ID;
 
-import com.expediagroup.sdk.core.model.Response;
-import com.expediagroup.sdk.xap.integrations.common.XapIntegrationTests;
+import com.expediagroup.sdk.rest.model.Response;
+import com.expediagroup.sdk.xap.common.XapIntegrationTest;
 import com.expediagroup.sdk.xap.models.AvailabilityCalendar;
 import com.expediagroup.sdk.xap.models.AvailabilityCalendarResponse;
 import com.expediagroup.sdk.xap.models.DateRange;
@@ -34,7 +34,6 @@ import io.hosuaby.inject.resources.junit.jupiter.TestWithResources;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import okhttp3.Headers;
 import okhttp3.mockwebserver.MockResponse;
@@ -47,7 +46,7 @@ import org.junit.jupiter.api.Test;
  * This class is used to test the integration of the Lodging Availability Calendars API.
  */
 @TestWithResources
-public class AvailabilityCalendarsIntegrationTests extends XapIntegrationTests {
+public class AvailabilityCalendarsIntegrationTest extends XapIntegrationTest {
   @Test
   public void testRequest() {
     GetLodgingAvailabilityCalendarsOperationParams availabilityCalendarsOperationParams =
@@ -80,7 +79,7 @@ public class AvailabilityCalendarsIntegrationTests extends XapIntegrationTests {
       Assertions.assertNotNull(path);
       Assertions.assertTrue(path.startsWith("/lodging/availabilityCalendars"));
       String query = path.substring(path.indexOf("?") + 1);
-      Assertions.assertTrue(query.contains("propertyIds=123%2C456%2C789"));
+      Assertions.assertTrue(query.contains("propertyIds=123,456,789"));
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
@@ -112,11 +111,9 @@ public class AvailabilityCalendarsIntegrationTests extends XapIntegrationTests {
 
   private void verifyResponse(Response<AvailabilityCalendarResponse> response) {
     Assertions.assertNotNull(response);
-    Assertions.assertEquals(200, response.getStatusCode());
-    Map<String, List<String>> headers = response.getHeaders();
+    com.expediagroup.sdk.core.http.Headers headers = response.getHeaders();
     Assertions.assertNotNull(headers);
-    Assertions.assertEquals(PARTNER_TRANSACTION_ID, headers.get("partner-transaction-id")
-        .get(0));
+    Assertions.assertEquals(PARTNER_TRANSACTION_ID, headers.get("partner-transaction-id"));
     verifyAvailabilityCalendarResponse(response.getData());
   }
 

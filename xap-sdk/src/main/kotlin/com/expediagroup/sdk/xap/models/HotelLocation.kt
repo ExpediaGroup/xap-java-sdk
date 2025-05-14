@@ -21,11 +21,11 @@ import com.expediagroup.sdk.xap.models.Neighborhood
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param address
  * @param geoLocation
  * @param neighborhood
-*/
+ */
 data class HotelLocation(
     @JsonProperty("Address")
     val address: Address? = null,

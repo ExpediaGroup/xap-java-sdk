@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container of HATEOAS URL's
+ * Container of HATEOAS URL's
  * @param href HATEOAS URL to fetch details.
  * @param accept Accept header.
  * @param method HTTP method to connect.
-*/
+ */
 data class ActivitiesLink(
     // HATEOAS URL to fetch details.
     @JsonProperty("Href")

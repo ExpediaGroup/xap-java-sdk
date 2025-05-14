@@ -20,11 +20,11 @@ import com.expediagroup.sdk.xap.models.LodgingWarning
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param warnings There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
  * @param transactionId Unique identifier for the transaction.
  * @param availabilityCalendars A list of the calendar entities.
-*/
+ */
 data class AvailabilityCalendarResponse(
     // There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
     @JsonProperty("Warnings")

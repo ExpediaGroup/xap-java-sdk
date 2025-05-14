@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.Money
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param categoryCode
  * @param amount
-*/
+ */
 data class TaxesAndFeesDetail(
     @JsonProperty("CategoryCode")
     val categoryCode: kotlin.String? = null,

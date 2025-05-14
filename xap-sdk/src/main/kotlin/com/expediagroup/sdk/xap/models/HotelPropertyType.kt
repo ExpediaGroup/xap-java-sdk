@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for information on hotel property type.  You can find a complete list of Lodging Property Types in [Lodging Property Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/property-types).
+ * Container for information on hotel property type.  You can find a complete list of Lodging Property Types in [Lodging Property Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/property-types).
  * @param id The id of hotel property type.
  * @param name The name of hotel property type.
-*/
+ */
 data class HotelPropertyType(
     // The id of hotel property type.
     @JsonProperty("Id")

@@ -20,13 +20,13 @@ import com.expediagroup.sdk.xap.models.Restrictions
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The list of Ticket information.
+ * The list of Ticket information.
  * @param id The numerical identifier for the ticket.
  * @param code The code for the ticket. Values supported are: Adult Traveler Child Group Senior Infant Student
  * @param count The number of each ticket type to be booked.
  * @param ticketPrice
  * @param restrictions
-*/
+ */
 data class Ticket(
     // The numerical identifier for the ticket.
     @JsonProperty("Id")

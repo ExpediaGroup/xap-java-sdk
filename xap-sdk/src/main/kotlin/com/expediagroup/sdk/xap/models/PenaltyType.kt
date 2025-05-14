@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for no show penalty element
+ * Container for no show penalty element
  * @param type What the penalty amount is based on. should be one of the following values:AMOUNT : it means the user is charged a fixed amount specified in the value node. Say 50$ for example.PERCENT : it means the user is charged a percentage of the base rate/total rate.PERDAY : it means the user is charged Per Day Price. For eg.., if the value is 2, it means the penalty amount will the Per day price of 2 days.
  * @param `value` Value to indicate how many/much of the type listed above is going to be charged as a penalty.
  * @param currency The currency of the amount, only valid when Type=AMOUNT
-*/
+ */
 data class PenaltyType(
     // What the penalty amount is based on. should be one of the following values:AMOUNT : it means the user is charged a fixed amount specified in the value node. Say 50$ for example.PERCENT : it means the user is charged a percentage of the base rate/total rate.PERDAY : it means the user is charged Per Day Price. For eg.., if the value is 2, it means the penalty amount will the Per day price of 2 days.
     @JsonProperty("Type")

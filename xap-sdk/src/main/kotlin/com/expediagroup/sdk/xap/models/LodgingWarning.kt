@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param code The code of a warning.
  * @param description A description of what caused the issues.
-*/
+ */
 data class LodgingWarning(
     // The code of a warning.
     @JsonProperty("Code")

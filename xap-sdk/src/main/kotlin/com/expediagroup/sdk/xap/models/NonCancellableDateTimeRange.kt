@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for non-cancellable date and time range element
+ * Container for non-cancellable date and time range element
  * @param startDateTime The time of this non-cancellable window starts
  * @param endDateTime The time of this non-cancellable window ends
-*/
+ */
 data class NonCancellableDateTimeRange(
     // The time of this non-cancellable window starts
     @JsonProperty("StartDateTime")

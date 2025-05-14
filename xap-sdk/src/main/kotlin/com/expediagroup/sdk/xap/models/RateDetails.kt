@@ -20,7 +20,7 @@ import com.expediagroup.sdk.xap.models.Mileage
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The rate detail information for a car offer.
+ * The rate detail information for a car offer.
  * @param ratePeriod Rate period. Supported values: Daily,Weekly,Monthly,Trip,Weekend
  * @param prePay Indicates whether this reservation should be paid at the time of booking (true) or at time of rental return (false).
  * @param rateCode Rate plan identifier.
@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param discounts List of discount information.
  * @param mileages A list of charges to be levied based on the mileage driven.
  * @param mobileRate Indicates whether car offer is mobile rate.
-*/
+ */
 data class RateDetails(
     // Rate period. Supported values: Daily,Weekly,Monthly,Trip,Weekend
     @JsonProperty("RatePeriod")

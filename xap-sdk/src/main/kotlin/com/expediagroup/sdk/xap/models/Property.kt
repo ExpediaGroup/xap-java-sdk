@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.LodgingRoomType
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for information on each offered hotel.
+ * Container for information on each offered hotel.
  * @param id The unique property identifier used to designate a single property.
  * @param status Represents whether the offer is currently available.
  * @param roomTypes Container for all of available room types.
-*/
+ */
 data class Property(
     // The unique property identifier used to designate a single property.
     @JsonProperty("Id")

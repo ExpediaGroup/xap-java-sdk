@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Contains link information, including link address, request method. Only provided if FileInfo is in OtherFileOptions.
+ * Contains link information, including link address, request method. Only provided if FileInfo is in OtherFileOptions.
  * @param href a link address.
  * @param method Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc...
-*/
+ */
 data class SdpLink(
     // a link address.
     @JsonProperty("href")

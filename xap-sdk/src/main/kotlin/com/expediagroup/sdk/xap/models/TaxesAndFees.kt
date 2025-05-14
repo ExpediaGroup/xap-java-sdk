@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.CarsMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* List of TaxesAndFees Details
+ * List of TaxesAndFees Details
  * @param description TaxesAndFees description
  * @param amount
-*/
+ */
 data class TaxesAndFees(
     // TaxesAndFees description
     @JsonProperty("Description")

@@ -20,7 +20,7 @@ import com.expediagroup.sdk.xap.models.ActivitiesMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for all warnings generated during the transaction.
+ * Container for all warnings generated during the transaction.
  * @param code Standardized warning code.
  * @param description Standardized warning description message.
  * @param originalPrice
@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param changedAmount
  * @param changedPercentage The changed percentage. In the sample 2.97 means the changed percentage is 2.97%.
  * @param links
-*/
+ */
 data class ActivitiesWarning(
     // Standardized warning code.
     @JsonProperty("Code")

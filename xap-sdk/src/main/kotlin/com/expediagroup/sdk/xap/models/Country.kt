@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for disambiguation country information
+ * Container for disambiguation country information
  * @param name country name
  * @param isoCode2 2-letter code for the country
  * @param isoCode3 3-letter code for the country
-*/
+ */
 data class Country(
     // country name
     @JsonProperty("Name")

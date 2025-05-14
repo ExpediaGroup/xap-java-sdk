@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The information about the file size.
+ * The information about the file size.
  * @param unit The unit about the file size.
  * @param `value` The value about the file size.
-*/
+ */
 data class FileSize(
     // The unit about the file size.
     @JsonProperty("unit")

@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Geography entities which are typically contained within a city. This includes the categories neighborhood and point of interest. Low level regions are not a formally defined concept in the geography model.
+ * Geography entities which are typically contained within a city. This includes the categories neighborhood and point of interest. Low level regions are not a formally defined concept in the geography model.
  * @param id Neighborhood id.
  * @param name Neighborhood name.
-*/
+ */
 data class CarsNeighborhood(
     // Neighborhood id.
     @JsonProperty("Id")

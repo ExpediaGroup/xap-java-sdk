@@ -18,9 +18,9 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param waiverPolicyDescription The localized waiver policy description, which could be put in front of cancellation policy description.
-*/
+ */
 data class WaiverPolicy(
     // The localized waiver policy description, which could be put in front of cancellation policy description.
     @JsonProperty("WaiverPolicyDescription")

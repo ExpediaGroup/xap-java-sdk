@@ -18,12 +18,12 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Capacity for car's properties.
+ * Capacity for car's properties.
  * @param adultCount The typical number of adults that can fit comfortably in the car.
  * @param childCount The typical number of children that can fit comfortably in the car.
  * @param smallLuggageCount The typical number of small pieces of luggage that fit in the cargo space.
  * @param largeLuggageCount The typical number of large pieces of luggage that fit in the cargo space.
-*/
+ */
 data class Capacity(
     // The typical number of adults that can fit comfortably in the car.
     @JsonProperty("AdultCount")

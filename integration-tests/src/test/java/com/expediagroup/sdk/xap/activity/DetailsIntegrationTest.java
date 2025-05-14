@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-package com.expediagroup.sdk.xap.integrations.activity;
+package com.expediagroup.sdk.xap.activity;
 
-import static com.expediagroup.sdk.xap.integrations.common.Constant.ACCEPT_ACTIVITY;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.AUTHORIZATION;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.MOCK_KEY;
-
-import com.expediagroup.sdk.core.model.Response;
-import com.expediagroup.sdk.xap.integrations.common.Constant;
-import com.expediagroup.sdk.xap.integrations.common.XapIntegrationTests;
+import static com.expediagroup.sdk.xap.common.Constant.ACCEPT_ACTIVITY;
+import static com.expediagroup.sdk.xap.common.Constant.AUTHORIZATION;
+import static com.expediagroup.sdk.xap.common.Constant.MOCK_KEY;
+import com.expediagroup.sdk.rest.model.Response;
+import com.expediagroup.sdk.xap.common.Constant;
+import com.expediagroup.sdk.xap.common.XapIntegrationTest;
 import com.expediagroup.sdk.xap.models.ActivitiesCancellationPolicy;
 import com.expediagroup.sdk.xap.models.ActivitiesLink;
 import com.expediagroup.sdk.xap.models.ActivitiesLocation;
@@ -35,7 +34,6 @@ import com.expediagroup.sdk.xap.models.AvailableTimeSlot;
 import com.expediagroup.sdk.xap.models.Offer;
 import com.expediagroup.sdk.xap.models.Restrictions;
 import com.expediagroup.sdk.xap.models.Ticket;
-import com.expediagroup.sdk.xap.models.exception.ExpediaGroupApiActivitiesErrorsException;
 import com.expediagroup.sdk.xap.operations.GetActivityDetailsOperation;
 import com.expediagroup.sdk.xap.operations.GetActivityDetailsOperationParams;
 import io.hosuaby.inject.resources.junit.jupiter.GivenTextResource;
@@ -53,7 +51,7 @@ import org.junit.jupiter.api.Test;
  * This class is used to test the integration of the Lodging Listings API.
  */
 @TestWithResources
-public class DetailsIntegrationTests extends XapIntegrationTests {
+public class DetailsIntegrationTest extends XapIntegrationTest {
 
   @Test
   public void testRequest(
@@ -77,10 +75,13 @@ public class DetailsIntegrationTests extends XapIntegrationTests {
     );
 
     xapClient.execute(new GetActivityDetailsOperation(getActivityDetailsOperationParams));
+
     try {
       RecordedRequest recordedRequest = mockWebServer.takeRequest();
+
       // method
       Assertions.assertEquals("GET", recordedRequest.getMethod());
+
       // headers
       Headers headers = recordedRequest.getHeaders();
       Assertions.assertEquals(
@@ -90,6 +91,7 @@ public class DetailsIntegrationTests extends XapIntegrationTests {
       Assertions.assertEquals(ACCEPT_ACTIVITY, headers.get("Accept"));
       Assertions.assertEquals(MOCK_KEY, headers.get("key"));
       Assertions.assertEquals(AUTHORIZATION, headers.get("Authorization"));
+
       // path and query
       String path = recordedRequest.getPath();
       Assertions.assertNotNull(path);
@@ -128,20 +130,17 @@ public class DetailsIntegrationTests extends XapIntegrationTests {
           xapClient.execute(new GetActivityDetailsOperation(getActivityDetailsOperationParams));
       verifyResponse(detailsResponse);
     } catch (Exception ex) {
-      if (!(ex instanceof ExpediaGroupApiActivitiesErrorsException)) {
         Assertions.fail(ex.getMessage());
-      }
     }
   }
 
   private void verifyResponse(Response<ActivityDetailsResponse> response) {
     Assertions.assertNotNull(response);
-    Assertions.assertEquals(200, response.getStatusCode());
-    Map<String, List<String>> headers = response.getHeaders();
+    com.expediagroup.sdk.core.http.Headers headers = response.getHeaders();
     Assertions.assertNotNull(headers);
     Assertions.assertEquals(
         Constant.PARTNER_TRANSACTION_ID,
-        headers.get("partner-transaction-id").get(0)
+        headers.get("partner-transaction-id")
     );
     verifyActivityDetailsResponse(response.getData());
   }

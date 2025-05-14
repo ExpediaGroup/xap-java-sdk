@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param accept The Accept request header (for API queries only - not included for page URLs).
  * @param method Method of request.
  * @param href The URL of the destination web page or API query.
-*/
+ */
 data class RoomTypeLinksApiDetails(
     // The Accept request header (for API queries only - not included for page URLs).
     @JsonProperty("Accept")

@@ -11,8 +11,8 @@ license {
     strictCheck = true
     includes(
         listOf(
-            "**/*.kt"
-        )
+            "**/*.kt",
+        ),
     )
 }
 
@@ -20,7 +20,7 @@ group = property("GROUP_ID") as String
 version = property("VERSION") as String
 
 dependencies {
-    api("com.expediagroup:expediagroup-sdk-rest:0.0.6-alpha")
+    api("com.expediagroup:expediagroup-sdk-rest:0.0.8-alpha-SNAPSHOT")
 
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.2")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2")

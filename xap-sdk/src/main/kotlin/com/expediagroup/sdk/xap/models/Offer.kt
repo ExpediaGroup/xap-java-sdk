@@ -21,7 +21,7 @@ import com.expediagroup.sdk.xap.models.AvailableTimeSlot
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Offers for the activity.
+ * Offers for the activity.
  * @param id The numerical identifier for the offer.
  * @param title A descriptive title for this offer.
  * @param duration The anticipated time duration for the activity, e xpressed using Java JDK duration format.
@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param offerPrice
  * @param description Description of this offer.
  * @param links Container of HATEOAS URL's
-*/
+ */
 data class Offer(
     // The numerical identifier for the offer.
     @JsonProperty("Id")

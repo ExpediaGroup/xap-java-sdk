@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.expediagroup.sdk.xap.integrations.common;
+package com.expediagroup.sdk.xap.common;
 
 import java.util.Base64;
 import java.util.UUID;

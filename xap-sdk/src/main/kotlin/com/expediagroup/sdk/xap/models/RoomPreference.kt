@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for room preferences.
+ * Container for room preferences.
  * @param type The type of preference. Options are: SmokingPreference Bed
  * @param `value` The value of the room preference.  For SmokingPreference, options are  SmokingOrNonSmoking Smoking NonSmoking For supported Bed Types, please refer to the Related Links section at the bottom of the page.
-*/
+ */
 data class RoomPreference(
     // The type of preference. Options are: SmokingPreference Bed
     @JsonProperty("Type")

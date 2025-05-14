@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package com.expediagroup.sdk.xap.integrations.common;
+package com.expediagroup.sdk.xap.common;
 
-import static com.expediagroup.sdk.xap.integrations.common.Constant.MOCK_KEY;
-import static com.expediagroup.sdk.xap.integrations.common.Constant.MOCK_SECRET;
+import static com.expediagroup.sdk.xap.common.Constant.MOCK_KEY;
+import static com.expediagroup.sdk.xap.common.Constant.MOCK_SECRET;
 
+import com.expediagroup.sdk.core.auth.basic.BasicAuthCredentials;
+import com.expediagroup.sdk.core.auth.common.Credentials;
 import com.expediagroup.sdk.xap.client.XapClient;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterEach;
@@ -29,7 +31,7 @@ import org.junit.jupiter.api.TestInstance;
  * Extension for setting up the required components for testing.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public abstract class XapIntegrationTests {
+public abstract class XapIntegrationTest {
 
   protected XapClient xapClient;
   protected MockWebServer mockWebServer;
@@ -38,10 +40,11 @@ public abstract class XapIntegrationTests {
   void setup() {
     mockWebServer = new MockWebServer();
 
+    Credentials credentials = new BasicAuthCredentials(MOCK_KEY, MOCK_SECRET);
+
     xapClient = XapClient.builder()
-        .key(MOCK_KEY)
-        .secret(MOCK_SECRET)
-        .endpoint(mockWebServer.url("/").toString())
+        .credentials(credentials)
+        .host(mockWebServer.url("/").toString())
         .build();
   }
 

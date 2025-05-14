@@ -21,14 +21,14 @@ import com.expediagroup.sdk.xap.models.Savings
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The price of the offer
+ * The price of the offer
  * @param totalRate
  * @param category Type of passenger. Values supported are: ADULT | SENIOR | CHILD
  * @param totalFees
  * @param totalTaxesAndFees
  * @param referencePrice
  * @param savings
-*/
+ */
 data class ActivitiesPrice(
     @JsonProperty("TotalRate")
     val totalRate: ActivitiesMoney,

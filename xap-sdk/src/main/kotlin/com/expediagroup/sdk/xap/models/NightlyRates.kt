@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.Money
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param stayDate
  * @param baseRate
-*/
+ */
 data class NightlyRates(
     @JsonProperty("StayDate")
     val stayDate: java.time.LocalDate? = null,

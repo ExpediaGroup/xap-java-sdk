@@ -18,6 +18,7 @@ apply("$rootDir/gradle-tasks/snapshot.gradle")
 allprojects {
     repositories {
         mavenCentral()
+        mavenLocal()
         maven {
             url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
         }
@@ -41,6 +42,10 @@ subprojects {
                 jvmTarget.set(JvmTarget.JVM_1_8)
             }
         }
+    }
+
+    tasks.test {
+        useJUnitPlatform()
     }
 
     java {

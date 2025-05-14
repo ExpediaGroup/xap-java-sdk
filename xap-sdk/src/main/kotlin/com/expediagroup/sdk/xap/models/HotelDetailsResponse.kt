@@ -23,7 +23,7 @@ import com.expediagroup.sdk.xap.models.ValidFormsOfPayment
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param warnings There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
  * @param transactionId Unique identifier for the transaction.
  * @param stayDates
@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param occupants Container for the list of rooms requested by the traveler.  Occupancy for each room is specified in this node.
  * @param validFormsOfPayment Container for payment information.
  * @param hotelDetails
-*/
+ */
 data class HotelDetailsResponse(
     // There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
     @JsonProperty("Warnings")

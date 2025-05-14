@@ -23,7 +23,7 @@ import com.expediagroup.sdk.xap.models.TransmissionDrive
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Specific information for a car.
+ * Specific information for a car.
  * @param carClass Car category and type.
  * @param carCategory
  * @param carType
@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param maxDoors Maximal car door count.
  * @param fuelLevel Car fuel information.
  * @param capacity
-*/
+ */
 data class VehicleDetails(
     // Car category and type.
     @JsonProperty("CarClass")

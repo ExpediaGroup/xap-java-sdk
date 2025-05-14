@@ -18,12 +18,12 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for the Cancellation Policy information.
+ * Container for the Cancellation Policy information.
  * @param freeCancellation Indicates whether the activity can be canceled free of charge within the cancellation window or not.
  * @param cancelPolicyDescription The description of Cancellation Policy.
  * @param freeCancellationMinHours The minimum number of hours before activity when the activity can still be cancelled for free.
  * @param freeCancellationEndDateTime The date and time after which the activity will not be able to be cancelled for free, stated in the local time to where the activity takes place.
-*/
+ */
 data class ActivitiesCancellationPolicy(
     // Indicates whether the activity can be canceled free of charge within the cancellation window or not.
     @JsonProperty("FreeCancellation")

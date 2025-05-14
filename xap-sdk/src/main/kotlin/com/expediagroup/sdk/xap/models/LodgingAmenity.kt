@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param id
  * @param name
-*/
+ */
 data class LodgingAmenity(
     @JsonProperty("Id")
     val id: kotlin.String? = null,

@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.ActivitiesPhone
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The details information of company providing the activity.
+ * The details information of company providing the activity.
  * @param name The name of the company providing the activity.
  * @param phone
-*/
+ */
 data class ActivitiesSupplier(
     // The name of the company providing the activity.
     @JsonProperty("Name")

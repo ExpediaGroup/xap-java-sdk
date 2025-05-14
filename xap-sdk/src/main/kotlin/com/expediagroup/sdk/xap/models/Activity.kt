@@ -26,7 +26,7 @@ import com.expediagroup.sdk.xap.models.Redemption
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Detailed information on the Activity.
+ * Detailed information on the Activity.
  * @param id The numerical identifier for this particular activity
  * @param title The display title for this activity.
  * @param description The description of the Activity.
@@ -49,7 +49,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param knowBeforeYouBook Web formatted statement of things that a purchaser should be aware of BEFORE they book this activity.
  * @param knowBeforeYouGo Web formatted statement of things that a purchaser should be aware of BEFORE they go to this activity.
  * @param offers Offers for the activity.
-*/
+ */
 data class Activity(
     // The numerical identifier for this particular activity
     @JsonProperty("Id")

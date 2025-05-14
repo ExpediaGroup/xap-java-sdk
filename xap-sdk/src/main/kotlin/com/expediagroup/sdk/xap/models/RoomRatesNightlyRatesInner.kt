@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param stayDate One date of the property stay
  * @param baseRate Nightly Base Rate for the selected date of stay.
-*/
+ */
 data class RoomRatesNightlyRatesInner(
     // One date of the property stay
     @JsonProperty("StayDate")
