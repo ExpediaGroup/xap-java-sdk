@@ -3,7 +3,6 @@ import org.openapitools.codegen.CodegenConstants
 
 plugins {
     id("com.expediagroup.sdk.openapigenerator") version "0.0.10-alpha"
-    id("com.github.hierynomus.license-base") version "0.16.1"
 }
 
 group = project.property("GROUP_ID") as String
@@ -39,33 +38,9 @@ openApiGenerate {
     globalProperties.put("supportingFiles", "Room.kt")
 }
 
-license {
-    header = rootProject.file("LICENSE-HEADER.txt")
-    skipExistingHeaders = true
-    strictCheck = true
-    includes(
-        listOf(
-            "$rootDir/xap-sdk/src/main/kotlin/**/*.kt",
-        ),
-    )
-}
-
-tasks.named("openApiGenerate").configure {
-    doLast {
-        // Format code
-        project.providers.exec {
-            commandLine(
-                "../gradlew ktlintFormat".split(" "),
-            )
-            workingDir = File("$rootDir/xap-sdk").absoluteFile
-        }
-
-        // Add license headers
-        project.providers.exec {
-            commandLine(
-                "../gradlew licenseFormatMain".split(" "),
-            )
-            workingDir = File("$rootDir/xap-sdk").absoluteFile
-        }
-    }
+tasks.register<Exec>("setPostProcessorEnvVar") {
+    environment("KOTLIN_POST_PROCESS_FILE", "npm run --prefix src/main/resources/post-processor process")
+    commandLine("../gradlew", ":generator:openApiGenerate")
+    commandLine("../gradlew", ":generator:licenseFormatMain")
+    commandLine("../gradlew", ":xap-sdk:ktlintFormat")
 }

@@ -7,11 +7,11 @@ plugins {
 
 license {
     header = rootProject.file("LICENSE-HEADER.txt")
-    skipExistingHeaders = true
     strictCheck = true
     includes(
         listOf(
             "**/*.kt",
+            "**/*.java",
         ),
     )
 }

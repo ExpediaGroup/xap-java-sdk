@@ -8,12 +8,15 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "2.1.10"
     id("org.jlleitschuh.gradle.ktlint") version "12.1.2"
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+//    id("com.github.hierynomus.license-base") version "0.16.1"
 }
 
 group = project.property("GROUP_ID") as String
 
 apply("$rootDir/gradle-tasks/specs.gradle.kts")
 apply("$rootDir/gradle-tasks/snapshot.gradle")
+
+
 
 allprojects {
     repositories {
@@ -29,6 +32,7 @@ subprojects {
     apply(plugin = "java")
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
+//    apply(plugin = "com.github.hierynomus.license-base")
 
     plugins.withId("org.jetbrains.kotlin.jvm") {
         kotlin {
@@ -76,6 +80,16 @@ subprojects {
             ),
         )
     }
+
+//    license {
+//        header = rootProject.file("LICENSE-HEADER.txt")
+//        strictCheck = true
+//        includes(
+//            listOf(
+//                "${rootDir}/**/*.kt",
+//            ),
+//        )
+//    }
 }
 
 nexusPublishing {

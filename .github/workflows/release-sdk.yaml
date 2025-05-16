@@ -1,14 +1,7 @@
-name: Release SDK
+name: Stable Release
 
 on:
   workflow_dispatch:
-    inputs:
-      branch:
-        description: |
-          Branch to release the SDK from.
-          Defaults to the branch the action is being run from.
-        type: string
-        default: ''
 
 jobs:
   release:
@@ -18,20 +11,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.ref_name }}
+          ref: v2-dev # TODO: Update to main
 
       - name: Publish SDK
-        working-directory: xap-sdk
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
           GPG_SECRET: ${{ secrets.GPG_PRIVATE_KEY }}
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         run: |
-          version="${{ github.event.inputs.version }}"
-          version="${version// /}"
-          if [[ "$version" == *"-SNAPSHOT" ]]; then
-            gradle publishSnapshot -PVERSION="${version}"
-          else
-            gradle publishToSonatype closeAndReleaseSonatypeStagingRepository -PVERSION="${version}"
-          fi
+          ./gradlew :xap-sdk:publishToSonatype closeAndReleaseSonatypeStagingRepository
