@@ -34,8 +34,8 @@ public interface XapScenario {
      * @return XapClient
      */
     default XapClient createClient() {
-        String key = System.getProperty("com.expediagroup.xapjavasdk.apikey");
-        String secret = System.getProperty("com.expediagroup.xapjavasdk.apisecret");
+        String key = System.getenv("XAP_KEY");
+        String secret = System.getenv("XAP_SECRET");
 
         BasicAuthCredentials credentials = new BasicAuthCredentials(key, secret);
 

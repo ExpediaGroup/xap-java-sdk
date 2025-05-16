@@ -16,12 +16,13 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
       - name: verify examples
+        env:
+          XAP_KEY: "${{ secrets.API_KEY }}"
+          XAP_SECRET: "${{ secrets.API_SECRET }}"
+          VRBO_KEY: "${{ secrets.VRBO_KEY }}"
+          VRBO_SECRET: "${{ secrets.VRBO_SECRET }}"
         run: |
-          ./gradlew :examples:run \
-            -Dcom.expediagroup.xapjavasdk.apikey="${{ secrets.API_KEY }}" \
-            -Dcom.expediagroup.xapjavasdk.apisecret="${{ secrets.API_SECRET }}" \
-            -Dcom.expediagroup.xapjavasdk.vrbokey="${{ secrets.VRBO_KEY }}" \
-            -Dcom.expediagroup.xapjavasdk.vrbosecret="${{ secrets.VRBO_SECRET }}" \
+          ./gradlew :examples:run
 
   verify-integration-tests:
     runs-on: ubuntu-latest
