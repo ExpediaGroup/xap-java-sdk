@@ -1,0 +1,48 @@
+name: Snapshot Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-e2e-examples:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Run Examples
+        uses: ./.github/workflows/run-examples.yaml
+        with:
+          branch: 'v2-dev' # TODO: Update to main
+          jdk: '8'
+
+  run-integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Run Examples
+        uses: ./.github/workflows/run-integration-tests.yaml
+        with:
+          branch: 'v2-dev' # TODO: Update to main
+          jdk: '8'
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [run-e2e-examples, run-integration-tests]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: v2-dev # TODO: Update to main
+
+      - name: Publish SDK
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}
+          GPG_SECRET: ${{ secrets.GPG_PRIVATE_KEY }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        run: |
+          ./gradlew :xap-sdk:publishToSonatype closeAndReleaseSonatypeStagingRepository

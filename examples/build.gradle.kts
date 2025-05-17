@@ -3,10 +3,22 @@ group = project.property("GROUP_ID") as String
 plugins {
     application
     checkstyle
+    id("com.github.hierynomus.license") version "0.16.1"
 }
 
 application {
     mainClass.set("com.expediagroup.sdk.xap.examples.XapSdkDemoTestRun")
+}
+
+license {
+    header = File("$rootDir/LICENSE-HEADER.txt")
+    strictCheck = true
+    includes(
+        listOf(
+            "**/*.kt",
+            "**/*.java",
+        ),
+    )
 }
 
 checkstyle {

@@ -1,4 +1,4 @@
-name: Run Examples
+name: Integration Tests
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ on:
     inputs: *shared_inputs
 
 jobs:
-  run-examples:
+  integration-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -29,17 +29,12 @@ jobs:
         with:
           ref: ${{ inputs.branch }}
 
-      - name: Setup JDK
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: ${{ inputs.jdk }}
           distribution: ${{ inputs.distribution }}
 
-      - name: Run Examples
-        env:
-          XAP_KEY: "${{ secrets.API_KEY }}"
-          XAP_SECRET: "${{ secrets.API_SECRET }}"
-          VRBO_KEY: "${{ secrets.VRBO_KEY }}"
-          VRBO_SECRET: "${{ secrets.VRBO_SECRET }}"
+      - name: Run Integration Tests
         run: |
-          ./gradlew :examples:run
+          ./gradlew :integration-tests:test
