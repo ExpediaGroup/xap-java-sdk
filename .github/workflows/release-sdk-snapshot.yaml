@@ -45,4 +45,4 @@ jobs:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         run: |
-          ./gradlew :xap-sdk:publishToSonatype closeAndReleaseSonatypeStagingRepository
+          ./gradlew :xap-sdk:publishSnapshots
