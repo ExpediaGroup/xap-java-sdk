@@ -38,17 +38,13 @@ class LocalDateTimeModelProcessor : Serializable, (CodegenModel) -> CodegenModel
     )
 
     /** Applies the rewrite, then returns the (potentially) modified model. */
-    override fun invoke(codegenModel: CodegenModel): CodegenModel = targetedModelsList
-        .find {
-            it.name == codegenModel.name
-        }?.let {
-            codegenModel.allVars
-                .filter { modelVar ->
-                    it.params.contains(modelVar.name)
-                }.forEach { modelVar ->
-                    modelVar.dataType = "java.time.LocalDateTime"
-                }
-        }.let {
-            codegenModel
+    override fun invoke(codegenModel: CodegenModel): CodegenModel = codegenModel.apply {
+        targetedModelsList.firstOrNull { it.name == name }?.params?.let { names ->
+            allVars.filter {
+                it.name in names
+            }.forEach {
+                it.dataType = "java.time.LocalDateTime"
+            }
         }
+    }
 }

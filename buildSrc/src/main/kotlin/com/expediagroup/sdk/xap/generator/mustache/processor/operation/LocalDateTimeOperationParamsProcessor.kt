@@ -34,17 +34,12 @@ class LocalDateTimeOperationParamsProcessor : Serializable, (CodegenOperation) -
 
     /** Applies the rewrite, then returns the (potentially) modified operation. */
     override fun invoke(operation: CodegenOperation): CodegenOperation = operation.apply {
-        targetedOperationsList
-            .firstOrNull {
-                it.name == baseName
-            }?.params?.let { names ->
-                queryParams
-                    .filter {
-                        it.baseName in names
-                    }
-                    .forEach {
-                        it.dataType = "java.time.LocalDateTime"
-                    }
+        targetedOperationsList.firstOrNull { it.name == baseName }?.params?.let { names ->
+            queryParams.filter {
+                it.baseName in names
+            }.forEach {
+                it.dataType = "java.time.LocalDateTime"
             }
+        }
     }
 }
