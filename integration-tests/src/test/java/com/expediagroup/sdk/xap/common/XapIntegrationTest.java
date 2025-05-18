@@ -26,6 +26,7 @@ import com.expediagroup.sdk.core.http.Response;
 import com.expediagroup.sdk.core.transport.Transport;
 import com.expediagroup.sdk.okhttp.OkHttpTransport;
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.configuration.XapClientConfiguration;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockWebServer;
 import org.jetbrains.annotations.NotNull;
@@ -46,11 +47,9 @@ public abstract class XapIntegrationTest {
         mockWebServer = new MockWebServer();
 
         Credentials credentials = new BasicAuthCredentials(MOCK_KEY, MOCK_SECRET);
+        XapClientConfiguration config = new XapClientConfiguration(credentials, new MockTransport());
 
-        xapClient = XapClient.builder()
-            .transport(new MockTransport())
-            .credentials(credentials)
-            .build();
+        xapClient = new XapClient(config);
     }
 
     @AfterEach
