@@ -4,34 +4,57 @@ import org.openapitools.codegen.CodegenOperation
 import java.io.Serializable
 
 /**
- * Finds properties named room1, room2, … and replaces them with
- * a single `rooms: List<Room>` property.
+ * Marks individual `roomN…` query parameters for replacement and injects
+ * a consolidated `rooms(...)` builder helper into targeted operations.
+ *
+ * For each `CodegenOperation` whose `baseName` is in [targetedOperations]:
+ *  1. Finds query parameters matching [roomRegex].
+ *  2. Flags each matched parameter with `x-replacedByBuilderHelper`.
+ *  3. If any were found, sets:
+ *     - `x-needsBuilderHelper` to true, and
+ *     - `x-builderHelpersCode` to the Kotlin implementation returned by [roomsHelperTextImpl].
+ *
+ * Usage: register the processor in the generator's config (`com.expediagroup.sdk.openapigenerator`):
+ * - `additionalProperties.put("operationProcessors", listOf(RoomsOperationParamsProcessor()))`
+ *
+ * **Note: Must be used with the default EG SDK mustache templates**
  */
 class RoomsOperationParamsProcessor : Serializable, (CodegenOperation) -> CodegenOperation {
 
+    /** Regex to identify room parameters like `room1Adult`, `room2ChildAges`, etc. */
     private val roomRegex = Regex("""^room\d+\w*$""", RegexOption.IGNORE_CASE)
+
+    /** List of operation names where the rooms helper should be applied. */
     private val targetedOperations = listOf("GetLodgingQuotes", "GetLodgingListings")
 
-    override fun invoke(operation: CodegenOperation): CodegenOperation {
-        if (targetedOperations.contains(operation.baseName)) {
-            var needsRoomsBuilderHelper = false
+    /**
+     * Scans `queryParams` for matches against [roomRegex].
+     * Flags each match, and if any are found, injects the builder helper code.
+     *
+     * @param operation the operation to inspect and modify
+     * @return the same [CodegenOperation], with vendor extensions set as needed
+     */
 
-            operation.queryParams.forEach {
-                if (roomRegex.matches(it.paramName)) {
-                    needsRoomsBuilderHelper = true
-                    it.vendorExtensions["x-replacedByBuilderHelper"] = true
+    override fun invoke(operation: CodegenOperation): CodegenOperation = operation.apply {
+        if (baseName in targetedOperations) {
+            queryParams.filter {
+                roomRegex.matches(it.paramName)
+            }.takeIf {
+                it.isNotEmpty()
+            }?.also { rooms ->
+                rooms.forEach { p ->
+                    p.vendorExtensions["x-replacedByBuilderHelper"] = true
                 }
-            }
-
-            if (needsRoomsBuilderHelper) {
-                operation.vendorExtensions["x-needsBuilderHelper"] = true
-                operation.vendorExtensions["x-builderHelpersCode"] = "${roomsHelperTextImpl()} \n"
+                vendorExtensions["x-needsBuilderHelper"] = true
+                vendorExtensions["x-builderHelpersCode"] = roomsHelperTextImpl().plus("\n")
             }
         }
-
-        return operation
     }
 
+    /**
+     * Returns the Kotlin code for the `rooms(...)` builder extension.
+     * This snippet replaces individual `roomN…` methods with a loop over a `List<Room>`.
+     */
     private fun roomsHelperTextImpl() = """
         fun rooms(rooms: List<com.expediagroup.sdk.xap.models.Room>) =
             apply {
