@@ -12,11 +12,17 @@ import java.io.Serializable
  *  * every property whose name appears in that entry’s `params` list
  *    has its `dataType` forcibly set to `"java.time.LocalDateTime"`.
  *
- * Usage: register the processor in the generator's config:
+ * Usage: register the processor in the generator's config (`com.expediagroup.sdk.openapigenerator`):
  * - `additionalProperties.put("modelProcessors", listOf(LocalDateTimeModelProcessor()))`
+ *
+ * **Note: Must be used with the default EG SDK mustache templates**
  */
 class LocalDateTimeModelProcessor : Serializable, (CodegenModel) -> CodegenModel {
 
+    /**
+     * Declarative mapping of **model name → list of field names** that must be
+     * generated as `LocalDateTime`.
+     */
     internal data class TargetedModel(
         val name: String,
         val params: List<String>
@@ -31,6 +37,7 @@ class LocalDateTimeModelProcessor : Serializable, (CodegenModel) -> CodegenModel
         TargetedModel("VendorLocationDetails", listOf("dateTime", "endDateTime")),
     )
 
+    /** Applies the rewrite, then returns the (potentially) modified model. */
     override fun invoke(codegenModel: CodegenModel): CodegenModel = targetedModelsList
         .find {
             it.name == codegenModel.name
