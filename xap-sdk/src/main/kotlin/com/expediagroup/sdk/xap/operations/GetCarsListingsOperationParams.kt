@@ -684,7 +684,7 @@ data class GetCarsListingsOperationParams(
                 val key = "suppliers"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -699,7 +699,7 @@ data class GetCarsListingsOperationParams(
                 val key = "carClasses"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -759,7 +759,7 @@ data class GetCarsListingsOperationParams(
                 val key = "transmissions"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -789,7 +789,7 @@ data class GetCarsListingsOperationParams(
                 val key = "carTypes"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -834,7 +834,7 @@ data class GetCarsListingsOperationParams(
                 val key = "links"
                 val value =
                     buildList {
-                        addAll(it.map { it.value })
+                        addAll(it.map { v -> v.value.toString() })
                     }
 
                 add(

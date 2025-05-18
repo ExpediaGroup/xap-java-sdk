@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.expediagroup.sdk.xap.examples.scenarios;
 
 import com.expediagroup.sdk.core.auth.basic.BasicAuthCredentials;
@@ -37,7 +36,7 @@ public interface XapScenario {
         String key = System.getenv("XAP_KEY");
         String secret = System.getenv("XAP_SECRET");
 
-        BasicAuthCredentials credentials = new BasicAuthCredentials(key, secret);
+        BasicAuthCredentials credentials = new BasicAuthCredentials("f80f5b88-0d85-40e2-8a4b-22de242481c7", "MLanvsaAFTmBeLaC");
 
         // Or enable OAuth by passing OAuthCredentials instead:
         // OAuthCredentials credentials = new OAuthCredentials("api-key", "api-secret");

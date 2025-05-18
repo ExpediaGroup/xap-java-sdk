@@ -22,13 +22,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * Container for list of air offers. An offer gives total trip details including flight and pricing information.
- * @param offerToken Unique key to identify each offer.
  * @param splitTicket True if more that one ticket will be issued for this offer per passenger. False if only one ticket will be issued per passenger.
  * @param links Container for deeplink URL information.
  * @param segmentIds Container for list of segment ids in a particular offer. For Opaque flight, no segment will be present.
  * @param offerPrice
  * @param refundable True if flight is refundable, False if it's not refundable.
  * @param international True, if flight is international. False, if flight departs and arrives within the same country
+ * @param offerToken Unique key to identify each offer.
  * @param referenceId Unique key to identify matching private fares.
  * @param metaApiBook To indicate meta partners whether the air product is available for TAAS instant book.
  * @param opaqueFlight Indicate whether the air product is a opaque flight product or not. If true, then there will be no Segments node for this air product.
@@ -38,9 +38,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param ticketType Type of ticket being issued
  */
 data class FlightsV3Offer(
-    // Unique key to identify each offer.
-    @JsonProperty("offerToken")
-    val offerToken: kotlin.String,
     // True if more that one ticket will be issued for this offer per passenger. False if only one ticket will be issued per passenger.
     @JsonProperty("SplitTicket")
     val splitTicket: kotlin.Boolean,
@@ -61,6 +58,9 @@ data class FlightsV3Offer(
     // True, if flight is international. False, if flight departs and arrives within the same country
     @JsonProperty("International")
     val international: kotlin.Boolean,
+    // Unique key to identify each offer.
+    @JsonProperty("offerToken")
+    val offerToken: kotlin.String? = null,
     // Unique key to identify matching private fares.
     @JsonProperty("ReferenceId")
     val referenceId: kotlin.String? = null,
@@ -84,8 +84,6 @@ data class FlightsV3Offer(
     val ticketType: kotlin.String? = null,
 ) {
     init {
-        require(offerToken != null) { "offerToken must not be null" }
-
         require(splitTicket != null) { "splitTicket must not be null" }
 
         require(links != null) { "links must not be null" }
@@ -105,13 +103,13 @@ data class FlightsV3Offer(
     }
 
     class Builder(
-        private var offerToken: kotlin.String? = null,
         private var splitTicket: kotlin.Boolean? = null,
         private var links: kotlin.collections.Map<kotlin.String, FlightsV3Link>? = null,
         private var segmentIds: kotlin.collections.List<kotlin.String>? = null,
         private var offerPrice: OfferPrice? = null,
         private var refundable: kotlin.Boolean? = null,
         private var international: kotlin.Boolean? = null,
+        private var offerToken: kotlin.String? = null,
         private var referenceId: kotlin.String? = null,
         private var metaApiBook: kotlin.Boolean? = null,
         private var opaqueFlight: kotlin.Boolean? = null,
@@ -120,8 +118,6 @@ data class FlightsV3Offer(
         private var refundPenalty: kotlin.collections.List<FlightsV3OfferRefundPenaltyInner>? = null,
         private var ticketType: kotlin.String? = null,
     ) {
-        fun offerToken(offerToken: kotlin.String) = apply { this.offerToken = offerToken }
-
         fun splitTicket(splitTicket: kotlin.Boolean) = apply { this.splitTicket = splitTicket }
 
         fun links(links: kotlin.collections.Map<kotlin.String, FlightsV3Link>) = apply { this.links = links }
@@ -133,6 +129,8 @@ data class FlightsV3Offer(
         fun refundable(refundable: kotlin.Boolean) = apply { this.refundable = refundable }
 
         fun international(international: kotlin.Boolean) = apply { this.international = international }
+
+        fun offerToken(offerToken: kotlin.String?) = apply { this.offerToken = offerToken }
 
         fun referenceId(referenceId: kotlin.String?) = apply { this.referenceId = referenceId }
 
@@ -151,13 +149,13 @@ data class FlightsV3Offer(
         fun build(): FlightsV3Offer {
             val instance =
                 FlightsV3Offer(
-                    offerToken = offerToken!!,
                     splitTicket = splitTicket!!,
                     links = links!!,
                     segmentIds = segmentIds!!,
                     offerPrice = offerPrice!!,
                     refundable = refundable!!,
                     international = international!!,
+                    offerToken = offerToken,
                     referenceId = referenceId,
                     metaApiBook = metaApiBook,
                     opaqueFlight = opaqueFlight,
@@ -173,13 +171,13 @@ data class FlightsV3Offer(
 
     fun toBuilder() =
         Builder(
-            offerToken = offerToken!!,
             splitTicket = splitTicket!!,
             links = links!!,
             segmentIds = segmentIds!!,
             offerPrice = offerPrice!!,
             refundable = refundable!!,
             international = international!!,
+            offerToken = offerToken,
             referenceId = referenceId,
             metaApiBook = metaApiBook,
             opaqueFlight = opaqueFlight,

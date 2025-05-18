@@ -809,7 +809,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "ecomHotelIds"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -824,7 +824,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "hcomHotelIds"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -899,7 +899,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "regionIds"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -1034,7 +1034,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "links"
                 val value =
                     buildList {
-                        addAll(it.map { it.value })
+                        addAll(it.map { v -> v.value.toString() })
                     }
 
                 add(
@@ -1184,7 +1184,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "includedPropertyTypeIds"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -1199,7 +1199,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "excludedPropertyTypeIds"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -1214,7 +1214,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "includedInventorySourceIds"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -1334,7 +1334,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "room1.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -1364,7 +1364,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "room2.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -1394,7 +1394,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "room3.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -1424,7 +1424,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "room4.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -1454,7 +1454,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "room5.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -1484,7 +1484,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "room6.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -1514,7 +1514,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "room7.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
@@ -1544,7 +1544,7 @@ data class GetLodgingListingsOperationParams(
                 val key = "room8.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(

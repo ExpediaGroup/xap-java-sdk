@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.expediagroup.sdk.xap.examples.scenarios.activity;
 
 import com.expediagroup.sdk.rest.model.Response;
@@ -31,7 +30,6 @@ import com.expediagroup.sdk.xap.operations.GetActivityDetailsOperationParams;
 import com.expediagroup.sdk.xap.operations.GetActivityListingsOperation;
 import com.expediagroup.sdk.xap.operations.GetActivityListingsOperationParams;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Collections;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

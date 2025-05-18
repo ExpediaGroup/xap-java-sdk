@@ -233,7 +233,7 @@ data class GetActivityListingsOperationParams(
                 val key = "links"
                 val value =
                     buildList {
-                        addAll(it.map { it.value })
+                        addAll(it.map { v -> v.value.toString() })
                     }
 
                 add(

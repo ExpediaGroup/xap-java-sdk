@@ -26,19 +26,17 @@ import com.fasterxml.jackson.annotation.JsonProperty
 /**
  *
  * @param offer
- * @param lounges
  * @param transactionId Unique identifier for the transaction.
  * @param warnings Container for Warning Codes.
  * @param segments Container for flight segments.
  * @param allOffers Contains list of all the available alternate fare upsell/downsell offers.
  * @param validFormsOfPayment Container for fees that are charged for using certain payment methods.
+ * @param lounges
  * @param crossSell
  */
 data class FlightDetailsResponse(
     @JsonProperty("Offer")
     val offer: FlightDetailsOffer,
-    @JsonProperty("Lounges")
-    val lounges: kotlin.collections.Map<kotlin.String, kotlin.collections.List<Lounge>>,
     // Unique identifier for the transaction.
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
@@ -54,13 +52,13 @@ data class FlightDetailsResponse(
     // Container for fees that are charged for using certain payment methods.
     @JsonProperty("ValidFormsOfPayment")
     val validFormsOfPayment: kotlin.collections.List<AirValidFormsOfPayment>? = null,
+    @JsonProperty("Lounges")
+    val lounges: kotlin.collections.Map<kotlin.String, kotlin.collections.List<Lounge>>? = null,
     @JsonProperty("CrossSell")
     val crossSell: CrossSell? = null,
 ) {
     init {
         require(offer != null) { "offer must not be null" }
-
-        require(lounges != null) { "lounges must not be null" }
 
         require(transactionId != null) { "transactionId must not be null" }
     }
@@ -72,17 +70,15 @@ data class FlightDetailsResponse(
 
     class Builder(
         private var offer: FlightDetailsOffer? = null,
-        private var lounges: kotlin.collections.Map<kotlin.String, kotlin.collections.List<Lounge>>? = null,
         private var transactionId: kotlin.String? = null,
         private var warnings: kotlin.collections.List<FlightDetailsWarning>? = null,
         private var segments: kotlin.collections.List<Segment>? = null,
         private var allOffers: kotlin.collections.List<FlightDetailsOffer>? = null,
         private var validFormsOfPayment: kotlin.collections.List<AirValidFormsOfPayment>? = null,
+        private var lounges: kotlin.collections.Map<kotlin.String, kotlin.collections.List<Lounge>>? = null,
         private var crossSell: CrossSell? = null,
     ) {
         fun offer(offer: FlightDetailsOffer) = apply { this.offer = offer }
-
-        fun lounges(lounges: kotlin.collections.Map<kotlin.String, kotlin.collections.List<Lounge>>) = apply { this.lounges = lounges }
 
         fun transactionId(transactionId: kotlin.String) = apply { this.transactionId = transactionId }
 
@@ -94,18 +90,20 @@ data class FlightDetailsResponse(
 
         fun validFormsOfPayment(validFormsOfPayment: kotlin.collections.List<AirValidFormsOfPayment>?) = apply { this.validFormsOfPayment = validFormsOfPayment }
 
+        fun lounges(lounges: kotlin.collections.Map<kotlin.String, kotlin.collections.List<Lounge>>?) = apply { this.lounges = lounges }
+
         fun crossSell(crossSell: CrossSell?) = apply { this.crossSell = crossSell }
 
         fun build(): FlightDetailsResponse {
             val instance =
                 FlightDetailsResponse(
                     offer = offer!!,
-                    lounges = lounges!!,
                     transactionId = transactionId!!,
                     warnings = warnings,
                     segments = segments,
                     allOffers = allOffers,
                     validFormsOfPayment = validFormsOfPayment,
+                    lounges = lounges,
                     crossSell = crossSell,
                 )
 
@@ -116,12 +114,12 @@ data class FlightDetailsResponse(
     fun toBuilder() =
         Builder(
             offer = offer!!,
-            lounges = lounges!!,
             transactionId = transactionId!!,
             warnings = warnings,
             segments = segments,
             allOffers = allOffers,
             validFormsOfPayment = validFormsOfPayment,
+            lounges = lounges,
             crossSell = crossSell,
         )
 }

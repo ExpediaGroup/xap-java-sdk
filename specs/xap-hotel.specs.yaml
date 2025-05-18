@@ -1,0 +1,3390 @@
+openapi: 3.0.1
+info:
+  title: EWSHotel API
+  description: |
+    The XAP Lodging Search APIs can be used by partners both booking via an Expedia website, or by partners that
+    will be booking via the XAP APIs. Each API also provides pre-configured links to the Expedia website,
+    the XAP Booking API, or both.
+  version: v3
+  x-eg-lifecycle: LIVE
+  x-eg-tags: ["Partner", "EWS", "XAP", "EWSHotel", "Hotel", "Lodging", "LodgingListings", "LodgingDetails", "LodgingRateCalendar"]
+tags:
+  - name: Lodging Listing
+  - name: Lodging Details
+  - name: Lodging Rate Calendar
+servers:
+  - url: 'https://apim.expedia.com'
+    description: Production Server
+paths:
+  /hotels/details/{offerToken}:
+    get:
+      tags:
+        - Lodging Details
+      summary: Get Extended information with a single property offer
+      description: Extended information about the rate, charges, fees, and financial terms associated with booking a single lodging rate plan offer.
+      operationId: get-lodging-details
+      parameters:
+        - name: Key
+          in: header
+          description: |
+            The partner API key is a case-sensitive, alphanumeric string that looks something like this:
+            
+            **X99X9X9-99XX-9XX9-X999-99XX99X9X999X**
+            
+            The API Key is assigned and configured as part of the API on-boarding process.
+            It will be sent to the partner by their Expedia Account Manager or representative.
+          required: true
+          schema:
+            type: string
+        - name: Partner-Transaction-Id
+          in: header
+          description: |
+            The `Partner-Transaction-ID` is a required API request header element that is <u>not</u> consumed
+            by Expedia. It will be required in all XAP v3 API request headers and will be mirrored
+            back to the partner in the corresponding API response header.
+            
+            The `Partner-Transaction-ID` may be any alphanumeric string of the partner's choosing.
+          required: true
+          schema:
+            type: string
+            example: Partner123
+        - name: offerToken
+          in: path
+          description: |
+            A Hotel Natural Key from the Lodging Search API -> Hotels -> RoomTypes -> OfferId. It is a concatenated 
+            string of multiple values that defines a hotel offer.
+          required: true
+          schema:
+            type: string
+        - name: price
+          in: query
+          description: |
+            The total price of the selected property.
+
+            This value will be used to determine if there is a price change between the details and booking request.
+
+            The `price` element will be automatically included in the ApiDetails HATEOAS link which is returned
+            along with the Lodging Details API response.
+          schema:
+            type: string
+        - name: currency
+          in: query
+          description: |
+            Value should be a standard ISO 3 letter currency code.
+            
+            The currency code that is associated to the `TotalPrice` element for the selected property's rate plan from
+            the Lodging Listing API response.
+
+            The `currency` element will be automatically included in the ApiDetails HATEOAS link which is returned
+            along with the Lodging Details response.
+          schema:
+            type: string
+        - name: locale
+          in: query
+          description: |
+            `locale` is composed of language identifier and region identifier, connected by "_" that specifies the
+            language in which the response will be returned.
+
+            The `locale` value used in the Lodging Details API query should match the `locale` value that was used in
+            the Lodging Search API query.
+          schema:
+            type: string
+        - name: imageSizes
+          in: query
+          description: |
+            Indicate what size of image will be returned.
+
+            The available image sizes are:
+            - t : Thumbnail
+            - s : Small
+            - b : Big
+            - y : 500x500v
+            - z : 1000x1000v
+            
+            Resolution from smallest to largest is t < s < b < y < z.
+
+            If no `imageSizes` is specified, the t size images will be returned.
+
+            If an image is missing in one size, we will try to fall back to the same image with lower resolution.
+
+            (If image "_z" is not available, we will try to return image "_y", and if it is also unavailable, we will return image "_b", and so on.)
+
+            Only one image size is allowed.
+          schema:
+            type: string
+            enum:
+              - t
+              - s
+              - b
+              - y
+              - z
+            default: t
+        - name: groupedAmenities
+          in: query
+          description: |
+            Specifies whether to return the grouped amenities. If `groupedAmenities` is true, `DescriptiveAmenities`
+            node will be returned in response, otherwise `Amenities` node will be returned.
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Normal Response
+          content:
+            application/vnd.exp-hotel.v3+json:
+              schema:
+                $ref: '#/components/schemas/HotelDetailsResponse'
+        "400":
+          description: User Fault
+          content:
+            application/vnd.exp-hotel.v3+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+                Errors:
+                  - Code: INVALID_NATURAL_KEY
+                    Description: Invalid natural key. Malformed hotel natural key detected.
+                TransactionId: e883f530-9776-4011-a14d-3cc089feb6cf
+        "500":
+          description: Service Error
+          content:
+            application/vnd.exp-hotel.v3+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+                Errors:
+                  - Code: APPLICATION_ERROR
+                    Description: Application error.
+                TransactionId: 1f497fa0-a996-4796-b97e-3ad269bf7624
+        "401":
+          description: Invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: Unauthorized
+        "403":
+          description: You cannot consume this service.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: You cannot consume this service
+        "429":
+          description: API rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: API rate limit exceeded.
+        "503":
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: Name resolution failed.
+        "504":
+          description: API time out.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: The upstream server is timing out
+      security:
+        - Authorization: []
+  /hotels/listings:
+    get:
+      tags:
+        - Lodging Listing
+      summary: Search lodging inventory
+      description: |
+        Search Expedia lodging inventory by Location Keyword, Region ID, Lat/Long, or Hotel ID(s) and return
+        up to 1,000 offers in response.
+        
+        Provides deeplink to Expedia site to book, or rate plan info to enable API booking.
+      operationId: get-lodging-listings
+      parameters:
+        - name: Key
+          in: header
+          description: |
+            The partner API key is a case-sensitive, alphanumeric string that looks something like this:
+            
+            **X99X9X9-99XX-9XX9-X999-99XX99X9X999X**
+            
+            The API Key is assigned and configured as part of the API on-boarding process.
+            It will be sent to the partner by their Expedia Account Manager or representative.
+          required: true
+          schema:
+            type: string
+        - name: Partner-Transaction-Id
+          in: header
+          description: |
+            The `Partner-Transaction-ID` is a required API request header element that is <u>not</u> consumed
+            by Expedia. It will be required in all XAP v3 API request headers and will be mirrored
+            back to the partner in the corresponding API response header.
+            
+            The `Partner-Transaction-ID` may be any alphanumeric string of the partner's choosing.
+          required: true
+          schema:
+            type: string
+            example: Partner123
+        - name: ecomHotelIds
+          in: query
+          description: Comma-separated list of Expedia hotel IDs. There can be no spaces
+            between parameters.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+            uniqueItems: true
+            example:
+              - 28082
+              - 11133
+        - name: hcomHotelIds
+          in: query
+          description: Comma-separated list of Hotels.com hotel IDs. There can be no spaces
+            between parameters.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+            uniqueItems: true
+        - name: geoLocation
+          in: query
+          description: |
+            The latitude and longitude values identifying the center point of a search radius (circle).
+
+            North latitude will be represented by a positive value. South latitude by a negative value.
+            
+            East longitude will be represented by a positive value. West longitude by a negative value.
+            
+            The latitude and longitude values are joined together with a comma (,) character.
+            There can be no spaces between parameters.
+            
+            This parameter should be used in combination with the radius and unit parameters below.
+          schema:
+            type: string
+        - name: radius
+          in: query
+          description: |
+            The size of the search radius around a specified point when searching by
+            `geoLocation`, `locationKeyword`, or `regionids`.
+            
+            `radius` is optional and the default value is 25 km for `geoLocation` and `locationKeyword`
+            if not specified. `radius` must be less than 200 km or 124 mi.
+            
+            This parameter should be used in combination with the `unit` and `geoLocation`, `locationKeyword`,
+            or `regionids` parameters."
+          schema:
+            type: integer
+            format: int64
+            default: 25
+        - name: unit
+          in: query
+          description: |
+            The unit of measure for searches performed via `geoLocation`, `locationKeyword`, or `regionids`.
+
+            Valid units are `km` and `mi`.
+
+            This parameter should be used in combination with the `radius` and `geoLocation`, `locationKeyword`,
+            or `regionids`.
+          schema:
+            type: string
+            default: km
+            enum:
+              - km
+              - mi
+        - name: locationKeyword
+          in: query
+          description: |
+            A keyword search for a location. The keyword can be a city, address, airport or a landmark.
+
+            This parameter should be used in combination with the `radius` and `unit` parameters above to define
+            a circle around the landmark.
+
+            The default radius value is 25 if not specified.
+
+            Combined search is not supported, if more than one search method is included in the request, an error
+            will be returned.
+          schema:
+            type: string
+        - name: regionIds
+          in: query
+          description: |
+            Comma-separated list of Expedia Region IDs. There can be no spaces between parameters.
+            Search returns set of all hotels in the combined regions.
+
+            You may search using a string of 1 - 10 Region ID's.
+            More than 10 Region ID's are not supported and will generate and error.
+            
+            You can get the complete list of Expedia Region IDs from
+            [Static Data Platform ALL_REGIONS file](https://developers.expediagroup.com/xap/products/xap/static-data-platform/download-url-api/download-url-api-v1).
+            
+            This parameter could be used in combination with the `radius` and `unit` parameters above to define
+            a circle around the `regionIds`. The default radius value is 0 if not specified.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+            uniqueItems: true
+        - name: checkIn
+          in: query
+          description: |
+            Check-in date for hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
+
+            This parameter should be used in combination with the `checkOut` parameter.
+
+            If `checkIn` and `checkOut` are not included, a dateless search will be conducted which returns
+            a `Featured Offer` for each of the hotels found.
+
+            If one of `checkIn` and `checkOut` is not included, an error will be returned. 
+
+            The maximum advanced search window is 500 days in the future, and the maximum length of stay is 28.
+          schema:
+            type: string
+            format: date
+            example: '2023-09-12'
+        - name: checkOut
+          in: query
+          description: |
+            Checkout date for hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
+
+            This parameter should be used in combination with the `checkIn` parameter.
+
+            If `checkIn` and `checkOut` are not included, a dateless search will be conducted which returns
+            a `Featured Offer` for each of the hotels found.
+
+            If one of `checkIn` and `checkOut` is not included, an error will be returned. 
+
+            The maximum advanced search window is 500 days in the future, and the maximum length of stay is 28.
+          schema:
+            type: string
+            format: date
+            example: '2023-09-14'
+        - name: locale
+          in: query
+          description: |
+            `locale` is composed of language identifier and region identifier, connected by "_" that specifies
+            the language in which the response will be returned.
+
+            You can find a link to the complete list of `locales` along with the Point of Sale List in [Supported Points of Sale](https://developers.expediagroup.com/xap/products/xap/lodging/references/supported-points-of-sale). Note that even though the Listings API supports localization for all `locales` listed in the list, all `locales` are not valid for all Points of Sale. 
+
+            For example, Ecom US POS supports `en_US`, `es_MX` and `zh_CN`. For Ecom US POS, the Listings API will respond with content in Spanish for requests with either `locale=es_MX` or `es_US`. However, only the deeplinks for `locale=es_MX` should work properly and switch the website to Spanish, while the ones for locale=es_US will be fallen back to English.
+
+            If not specified in the query, the native language for that POS will be returned.
+            And if more than one language is supported, the response will be returned in the first language
+            depending on the language setting of the POS.
+          schema:
+            type: string
+          example: en_US
+        - name: currency
+          in: query
+          description: Value should be a standard ISO 3 letter currency code.
+          schema:
+            type: string
+          example: USD
+        - name: source
+          in: query
+          description: Indicate the source where the request is coming from.
+          schema:
+            type: string
+            enum:
+              - browser
+              - mobileapp
+            default: browser
+        - name: travelWithPets
+          in: query
+          description: |
+            Indicates if the search should include pet-friendly properties.
+            
+            If set to "True" only properties that allow pets are returned. Pet fees, if available, are included in TaxesAndFees.
+            
+            The parameter is only applicable to the Vrbo brand.
+          schema:
+            type: boolean
+            default: false
+        - name: contentDetails
+          in: query
+          description: |
+            This parameter is optional and can be specified as the following values.
+            - lowest
+            - low (default)
+            - medium
+            - high
+            
+            ### *lowest*
+            Returns the absolute minimum response for up to 1,000 hotels:
+            - Count(Count of hotels that are actually returned)
+            - TotalHotelCount(Count of hotels that are requested)
+            - TransactionId
+            - StayDates
+            - LengthOfStay
+            - NumberOfRooms
+            - Occupants
+            - ***Hotels***
+              - Id
+              - Status
+              - Links
+              - ***RoomTypes***
+                - RoomKey [Deprecated]
+                - OfferId
+                - RatePlanType
+                - ***RatePlans***
+                  - RoomTypeId
+                  - RatePlanId
+                  - RateRuleId
+                  - InventorySourceId
+                  - RemainingCount
+                  - Price
+                  - MemberOnlyDeal
+                  - Promotions
+                  - PaymentMethod
+                  - FullDepositUponBooking
+                  - PaymentSchedule
+                  - CancellationPolicy
+                - Price
+                  - BaseRate
+                  - TaxesAndFees
+                  - TotalPrice
+                  - TotalStrikeOutPrice
+                  - AvgNightlyRate
+                  - AvgNightlyStrikeOutRate
+                  - AvgNightlyRateWithFees
+                  - AvgNightlyStrikeOutRateWithFees
+                  - HotelMandatoryFees
+                  - TotalPriceWithHotelFees
+                  - NightlyRates
+                  - TaxesAndFeesDetails
+                  - RefundableDamageDeposit
+            
+            This minimal response is the best for partners that store static hotel location data locally,
+            and who would like to have the smallest and fastest API response.
+            
+            ### *low*
+            Returns basic hotel information in response for up to 1,000 hotels.
+
+            Includes all elements returned when `contentDetails=lowest` plus:
+            - ***Hotels***
+              - Name
+              - PropertyType
+              - PropertyDetails
+              - LocalCurrencyCode
+              - Location
+              - Distance
+              - Description(may not be localized)
+              - ChainAndBrandInfo
+              - ThumbnailUrl
+              - StarRating
+              - GuestRating
+              - GuestReviewCount
+              - PetFriendly
+              - LgbtqiaFriendly
+              - ImportantNotices
+              - ***RoomTypes***
+                - Description
+                - ***RatePlans***
+                  - InventorySourceCode
+                  - PaymentTime
+                  - ReserveWithDeposit
+                  - FreeInternet
+                  - FreeWiFi
+                  - FreeParking
+                  - FreeBreakfast                  
+            
+            ### *medium*
+            Returns more complete hotel information in response for up to 200 hotels.
+
+            Includes all elements returned when `contentDetails=low` plus:
+            - ***Hotels***
+              - HotelAmenities
+              - RoomAmenities
+              - ***RoomTypes***
+                - ***RatePlans***
+                  - FreeInternetDetails
+                  - FreeBreakfastDetails
+                  - Amenities
+                - Amenities
+            
+            **Note**: Setting the `contentDetails` to `medium` will automatically limit your response size to 200 hotels.
+            
+            ### *high*
+            Returns extended hotel information in response for up to 5 hotels.
+
+            Includes all elements returned when `contentDetails=medium` plus:
+            - ***Hotels***
+              - RenovationsAndClosures
+              - Policies
+              - OptionalExtras
+              - Media
+              - Accessibility
+              - ***RoomTypes***
+                - SmokingOption
+                - BedTypeOptions
+                - RoomOccupancyPolicy
+                - Media
+            
+            **Note**: Setting the `contentDetails` to `high` will automatically limit your response size to 5 hotels.
+          schema:
+            type: string
+            enum:
+              - lowest
+              - low
+              - medium
+              - high
+            default: low
+        - name: allRoomTypes
+          in: query
+          description: |
+            Returns all available rate plans for the selected hotels.
+
+            This parameter requires that a `checkIn` date and `checkOut` date be supplied, as the API cannot return additional room rates on a dateless search.
+
+            Including `allRoomTypes=true` in your query will automatically limit your response size to no more than 200 hotels.
+
+            Including `allRoomTypes=true` and `contentDetails=high` will limit your response size to no more than 5 hotels.
+          schema:
+            type: boolean
+            default: false
+        - name: links
+          in: query
+          description: |
+            
+            Comma-separated list to specify the types of deep links.
+            - WD (link to Web Details site)
+            - WS (link to Web Search Result page)
+            - AD (link for Details API)
+            - RC (link for RateCalendar API)
+            - WEB (include all website links)
+            - API (links for Details and RateCalendar API)
+            
+            There are two level of links returned in the API response: Property-level deeplinks and room-level deeplinks.
+            
+            When requesting API deeplinks you will receive both a RateCalendar API link at the property level,
+            and Details API links at the room level, since the Lodging Details API only displays information
+            on rate plan offers.
+            
+            When requesting AD deeplinks, you will <u>only</u> receive Details API links at the room level.
+            `Links` node in property-level will be omitted.
+
+            If you are looking for more complete details on a single property via the API, you should do another search
+            in the Lodging API for the single Hotel ID, with `contentDetails=high` to get all details back in return
+            (note that you can only get back a maximum of 5 hotels when `contentDetails` is set to `high`).
+
+            **NOTE**: dateless searches will not return Details API links, since the Lodging Details API will only
+            return details on a specific room offer for specific dates.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - WD
+                - WS
+                - AD
+                - RC
+                - WEB
+                - API
+        - name: minStarRating
+          in: query
+          description: The minimum star rating for hotels returned in the response.
+          schema:
+            type: string
+            enum:
+              - "1.0"
+              - "1.5"
+              - "2.0"
+              - "2.5"
+              - "3.0"
+              - "3.5"
+              - "4.0"
+              - "4.5"
+              - "5.0"
+        - name: maxStarRating
+          in: query
+          description: The maximum star rating for hotels returned in the response.
+          schema:
+            type: string
+            enum:
+              - "1.0"
+              - "1.5"
+              - "2.0"
+              - "2.5"
+              - "3.0"
+              - "3.5"
+              - "4.0"
+              - "4.5"
+              - "5.0"
+        - name: limit
+          in: query
+          description: |
+            The maximum number of hotels returned in the response. Must be an integer greater than 0. 
+
+            If the value is greater than 1000, only the first 1000 hotels are returned. 
+
+            Settings on `contentDetails` and `allRoomTypes` parameters may cause this value to be overridden
+            and a lower number of hotels to be returned. 
+
+            The `limit` parameter is intended to be used to control the response size, but partners should be careful
+            about combining it with other filter parameters, as each parameter that you add will shrink the response,
+            even to the point where you may even get a "no hotel found" error if none of the hotels in the base response
+            meet the combined filter requirements. 
+
+            Filters are cumulative in effect, and results must meet all filter requirements to be displayed.
+          schema:
+            type: integer
+            format: int64
+        - name: queryText
+          in: query
+          description: |
+            Query text is used for a full text search of hotel data.
+
+            Text search based on hotel name, description, address, promotion description, amenities description.
+          schema:
+            type: string
+        - name: availOnly
+          in: query
+          description: |
+            Specifies whether to return only available hotels in the search results.
+
+            If the value of this parameter is true, the search results will only return hotels that have availability
+            during the requested dates.
+
+            If there are no hotels with availability in your search then an empty record set will be returned.
+
+            This parameter is ignored for dateless searches.
+          schema:
+            type: boolean
+        - name: smokingPreference
+          in: query
+          description: Specifies smoking preference.
+          schema:
+            type: string
+            enum:
+              - smoking
+              - nonsmoking
+              - both
+        - name: rateType
+          in: query
+          description: Indicate which type of `paymentMethod` for each room will be returned.
+          schema:
+            type: string
+            enum:
+              - payonline
+              - payhotel
+              - all
+        - name: imageSizes
+          in: query
+          description: |
+            Indicates what size images will be displayed for `hotelPhotos` and `roomPhotos` are returned when
+            `contentDetails=high`.
+
+            The available image sizes are:
+            - t : Thumbnail
+            - s : Small
+            - b : Big
+            - y : 500x500v
+            - z : 1000x1000v
+            
+            Resolution from smallest to largest is t < s < b < y < z.
+
+            If no `imageSizes` is specified, the t size images will be returned.
+
+            If an image is missing in one size, we will try to fall back to the same image with lower resolution.
+
+            (If image "_z" is not available, we will try to return image "_y", and if it is also unavailable, we will return image "_b", and so on.)
+
+            Only one image size is allowed.
+          schema:
+            type: string
+            enum:
+              - t
+              - s
+              - b
+              - y
+              - z
+        - name: thumbnailImageSize
+          in: query
+          description: |
+            Indicate what size of image will be used for the single `thumbnail` image that is returned when
+            `contentDetails` is set to `low`, `medium` or `high`.
+
+            The available thumbnail image sizes are:
+            - t : Thumbnail
+            - s : Small
+            - b : Big
+            - y : 500x500v
+            - z : 1000x1000v
+            
+            Resolution from smallest to largest is t < s < b < y < z.
+
+            If no `thumbnailImageSize` is specified, the t size images will be returned.
+
+            if no thumbnail image found, it would not return thumbnail image.
+
+            Only one thumbnail image size is allowed.
+          schema:
+            type: string
+            enum:
+              - t
+              - s
+              - b
+              - y
+              - z
+        - name: includedPropertyTypeIds
+          in: query
+          description: |
+            Only return hotels where the `PropertyType` ID is one of the IDs in the `includedPropertyTypeIds` field.
+
+            If the API query includes the parameter `contentDetail=lowest` the `PropertyType` parameter will not
+            be returned in the response. Even in this case, the filtering is still being applied, even though there is
+            no `PropertyType` parameter in the response with which to validate.
+
+            `includedPropertyTypeIds` and `excludedPropertyTypeIds` fields are mutually exclusive - which means that
+            each query may contain **one** of the parameters, or **neither** of the parameters, but the query may not 
+            contain **both** of the parameters.
+
+            A complete list of supported Expedia Property Types can be found in [Lodging Property Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/property-types).
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+            uniqueItems: true
+        - name: excludedPropertyTypeIds
+          in: query
+          description: |
+            Return all hotels **except** those whose `PropertyType` ID is in the `excludedPropertyTypeIds` field.
+
+            If the API query includes the parameter `contentDetail=lowest` the `PropertyType` parameter will not
+            be returned in the response. Even in this case, the filtering is still being applied, even though there is
+            no `PropertyType` parameter in the response with which to validate.
+
+            `includedPropertyTypeIds` and `excludedPropertyTypeIds` fields are mutually exclusive - which means that
+            each query may contain **one** of the parameters, or **neither** of the parameters, but the query may not 
+            contain **both** of the parameters.
+
+            A complete list of supported Expedia Property Types can be found in [Lodging Property Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/property-types).
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+            uniqueItems: true
+        - name: includedInventorySourceIds
+          in: query
+          description: |
+            Querying with no `includedInventorySourceIds` parameter will return listings from all available inventory
+            sources.
+
+            Query with the `includedInventorySourceIds` parameter included will only return listings from the requested
+            inventory sources. All others will be left out.
+
+            `includedInventorySourceId=24` will return only Expedia lodging inventory.
+
+            `includedInventorySourceId=83` will return only Vrbo lodging inventory.
+
+            `includedInventorySourceId=24,83` will return both Expedia and Vrbo lodging inventory.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+            uniqueItems: true
+        - name: freeCancellation
+          in: query
+          description: |
+            Specifies whether to return only free cancelable room rates in the search results.
+
+            If the value of this parameter is true, the search results will only return hotels that have free cancelable room rates during the requested dates.
+
+            If there are no hotels with free cancelable room rates in your search then an empty record set will be returned.
+
+            Default value is false, if query without this parameter or the value of this parameter is false, all available room rates will be returned.
+
+            This parameter is ignored for dateless searches.
+          schema:
+            type: boolean
+        - name: groupedAmenities
+          in: query
+          description: |
+            Specifies whether to return the grouped amenities. If `groupedAmenities` is true, `DescriptiveAmenities`
+            node will be returned in response, otherwise `Amenities` node will be returned.
+          schema:
+            type: boolean
+        - name: blockFullDepositRateplan
+          in: query
+          description: |
+            Specifies whether to return `rateplan` with `FullDepositUponBooking` as true.
+
+            If `blockFullDepositRateplans` is true, the search results will not return `rateplan` with `FullDepositUponBooking` as true.
+
+            The default value is false, if query without this parameter or the value of this parameter is false, all available rateplan will be returned.
+
+            This parameter is ignored for dateless search.
+          schema:
+            type: boolean
+            default: false
+        - name: ratePlanType
+          in: query
+          description: |
+            **Note**: This parameter is visible to partners only by configuration. Please contact your Expedia Account
+            Manager if you need this parameter.
+            
+            To specify the desired rate plan types. The options are:
+            - standalone : Ask for standalone rates
+            - package : Ask for package rates, but standalone rate also may be returned if available.
+            
+            Otherwise only standalone rate plans will be returned.
+
+            `WebSearchResult` and `WebDetails` links won't be returned for package rate.
+          schema:
+            type: string
+            enum:
+              - standalone
+              - package
+        - name: sortType
+          in: query
+          description: |
+            Specifies the field that the search results will be ordered by.
+            
+            To be used in conjunction with sortOrder parameter below.
+
+            **CMA Compliance Note (UK)**: partners doing business in the UK should be sorting their search results using
+            the `totalpricewithfees` parameter in their query string so that the sorting complies with CMA regulations.
+          schema:
+            type: string
+            enum:
+              - price
+              - starrating
+              - avgrate
+              - deals
+              - guestrating
+              - hotelname
+              - distance
+              - totalpricewithfees
+        - name: sortOrder
+          in: query
+          description: |
+            Specifies the sort order of search results.
+            
+            If no sort order is specified, the default is `asc`. But for deals sorting, it only supports `desc`.
+            
+            To be used in conjunction with the `sortType` parameter above.
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+            default: asc
+        - name: room1.adults
+          in: query
+          description: |
+            Specifies the number of adults staying in a specific room.
+            
+            Default value is one room with 2 adults.
+
+            Example: `room1.adults` is used to specify the number of adults in the first room.
+          schema:
+            type: integer
+            format: int64
+          example: 2
+        - name: room1.childAges
+          in: query
+          description: |
+            Comma-separated list that specifies the age(s) for each of the children in each of the rooms.
+
+            Example: `room2.childAges=1,3` means two children (1-year old and 3-year old) are staying in room #2.
+
+            Children must be accompanied by an adult.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+          example:
+            - 8
+            - 10
+        - name: room2.adults
+          in: query
+          description: Specifies the number of adults staying in second room.
+          schema:
+            type: integer
+            format: int64
+        - name: room2.childAges
+          in: query
+          description: Comma-separated list that specifies the age(s) for each of the
+            children in second room.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: room3.adults
+          in: query
+          description: Specifies the number of adults staying in third room.
+          schema:
+            type: integer
+            format: int64
+        - name: room3.childAges
+          in: query
+          description: Comma-separated list that specifies the age(s) for each of the
+            children in third room.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: room4.adults
+          in: query
+          description: Specifies the number of adults staying in fourth room.
+          schema:
+            type: integer
+            format: int64
+        - name: room4.childAges
+          in: query
+          description: Comma-separated list that specifies the age(s) for each of the
+            children in fourth room.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: room5.adults
+          in: query
+          description: Specifies the number of adults staying in fifth room.
+          schema:
+            type: integer
+            format: int64
+        - name: room5.childAges
+          in: query
+          description: Comma-separated list that specifies the age(s) for each of the
+            children in fifth room.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: room6.adults
+          in: query
+          description: Specifies the number of adults staying in sixth room.
+          schema:
+            type: integer
+            format: int64
+        - name: room6.childAges
+          in: query
+          description: Comma-separated list that specifies the age(s) for each of the
+            children in sixth room.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: room7.adults
+          in: query
+          description: Specifies the number of adults staying in seventh room.
+          schema:
+            type: integer
+            format: int64
+        - name: room7.childAges
+          in: query
+          description: Comma-separated list that specifies the age(s) for each of the
+            children in seventh room.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+        - name: room8.adults
+          in: query
+          description: Specifies the number of adults staying in eighth room.
+          schema:
+            type: integer
+            format: int64
+        - name: room8.childAges
+          in: query
+          description: Comma-separated list that specifies the age(s) for each of the
+            children in eighth room.
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: Normal Response
+          content:
+            application/vnd.exp-hotel.v3+json:
+              schema:
+                $ref: '#/components/schemas/HotelListingsResponse'
+        "400":
+          description: User Fault or DisambiguationResponse Fault
+          content:
+            application/vnd.exp-hotel.v3+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              examples:
+                DisambiguationResponse:
+                  description: DisambiguationResponse
+                  value:
+                    TransactionId: f06edfa3-27f4-44e6-838c-b8dd3d0a3210
+                    Errors:
+                      - Code: AMBIGUOUS_LOCATION
+                        DetailCode: MULTIPLE_AMBIGUOUS_LOCATION
+                        Description: More than one location found
+                        LocationKeyword: dublin
+                        LocationOptions:
+                          - Type: MULTICITY
+                            RegionID: 178256
+                            ShortName: Dublin (and vicinity)
+                            AirportCode: DUB
+                            Address: Dublin (and vicinity), Ireland
+                            Country:
+                              Name: Ireland
+                              IsoCode2: IE
+                              IsoCode3: IRL
+                            GeoLocation:
+                              Latitude: 53.34402
+                              Longitude: -6.26146
+                          - Type: POI
+                            RegionID: 553248621563220238
+                            ShortName: Market On Madison
+                            AirportCode: MCN
+                            Address: Market On Madison, Dublin, Georgia, United States of America
+                            Country:
+                              Name: United States of America
+                              IsoCode2: US
+                              IsoCode3: USA
+                            GeoLocation:
+                              Latitude: 32.539313
+                              Longitude: -82.902537
+                UserFault:
+                  description: UserFault
+                  value:
+                    Errors:
+                      - Code: COMBINED_HOTEL_SELECT_CRITERIA
+                        Description: |
+                          Combined hotel search is not supported. Please specify either one of the following search
+                          criteria: [geoLocation, regionIds, ecomHotelIds, hcomHotelIds, locationKeyword, hnk, offerId].
+                    TransactionId: 242d7a77-4063-439b-a9d0-12da0ff5116e
+        "500":
+          description: Service Error
+          content:
+            application/vnd.exp-hotel.v3+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+                Errors:
+                  - Code: APPLICATION_ERROR
+                    Description: Application error.
+                TransactionId: 1490a74b-4c90-4e78-983d-4ede360ce52a
+        "401":
+          description: Invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: Unauthorized
+        "403":
+          description: You cannot consume this service.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: You cannot consume this service
+        "429":
+          description: API rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: API rate limit exceeded.
+        "503":
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: name resolution failed
+        "504":
+          description: API time out.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: The upstream server is timing out
+      security:
+        - Authorization: []
+  /hotels/rateCalendar:
+    get:
+      tags:
+        - Lodging Rate Calendar
+      summary: Get rate calendar of a property
+      description: The Rate Calendar API will return the lowest rate plan for a range of days for one selected Expedia lodging property.
+      operationId: get-lodging-rate-calendar
+      parameters:
+        - name: Key
+          in: header
+          description: |
+            The partner API key is a case-sensitive, alphanumeric string that looks something like this:
+            
+            **X99X9X9-99XX-9XX9-X999-99XX99X9X999X**
+            
+            The API Key is assigned and configured as part of the API on-boarding process.
+            It will be sent to the partner by their Expedia Account Manager or representative.
+          required: true
+          schema:
+            type: string
+        - name: Partner-Transaction-Id
+          in: header
+          description: |
+            The `Partner-Transaction-ID` is a required API request header element that is <u>not</u> consumed
+            by Expedia. It will be required in all XAP v3 API request headers and will be mirrored
+            back to the partner in the corresponding API response header.
+            
+            The `Partner-Transaction-ID` may be any alphanumeric string of the partner's choosing.
+          required: true
+          schema:
+            type: string
+            example: Partner123
+        - name: ecomHotelId
+          in: query
+          description: |
+            The Expedia hotel ID for which the calendar is being requested.
+
+            **Note**: Either an Expedia Hotel ID or a Hotels.com Hotel ID must be included in the request.
+            You may use one or the other, but not both.
+          schema:
+            type: string
+        - name: hcomHotelId
+          in: query
+          description: |
+            The Hotel.com hotel ID for which the calendar is being requested.
+
+            **Note**: Either an Expedia Hotel ID or a Hotels.com Hotel ID must be included in the request.
+            You may use one or the other, but not both.
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          description: |
+            Start date for check-in search range in an ISO 8601 Date format [YYYY-MM-DD].
+
+            **Note**: The start date may not be in the past.
+          required: true
+          schema:
+            type: string
+            format: date
+            example: 2022-09-12
+        - name: endDate
+          in: query
+          description: |
+            End date for check-in search range in an ISO 8601 Date format [YYYY-MM-DD].
+
+            **Note**: The end date must be after the start date. The maximum supported search range is 180 days.
+          required: true
+          schema:
+            type: string
+            format: date
+            example: 2022-09-14
+        - name: lengthOfStay
+          in: query
+          description: The length of stay to retrieve the lowest price for.
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: currency
+          in: query
+          description: The requested currency expressed according to ISO 4217.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Normal Response
+          content:
+            application/vnd.exp-hotel.v3+json:
+              schema:
+                $ref: '#/components/schemas/RateCalendarResponse'
+        "400":
+          description: User Fault
+          content:
+            application/vnd.exp-hotel.v3+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+                Errors:
+                  - Code: INVALID_HCOMHOTELID
+                    Description: The hcomHotelId is invalid. Please specify correct
+                      Hcom hotel id.
+                TransactionId: 97da7aa5-175e-4fdf-8bbd-32e997b6faa8
+        "409":
+          description: NO_RESULTS_FOUND
+          content:
+            application/vnd.exp-hotel.v3+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+                Errors:
+                  - Code: NO_RESULTS_FOUND
+                    Description: |
+                      Sorry, your query appears to be correctly formatted, but the inventory for which you are seeking
+                      details is now unavailable.
+                TransactionId: 2423025a-916f-4994-972a-68ee2e6b1e92
+        "500":
+          description: Service Error
+          content:
+            application/vnd.exp-hotel.v3+json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+              example:
+                Errors:
+                  - Code: APPLICATION_ERROR
+                    Description: Application error.
+                TransactionId: b2f16375-9fe3-43e3-b524-fb5e0498460b
+        "401":
+          description: Invalid authentication credentials.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: Unauthorized
+        "403":
+          description: You cannot consume this service.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: You cannot consume this service
+        "429":
+          description: API rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: API rate limit exceeded.
+        "503":
+          description: Service unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: Name resolution failed.
+        "504":
+          description: API time out.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIGatewayError'
+              example:
+                message: The upstream server is timing out.
+      security:
+        - Authorization: []
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        Address1:
+          type: string
+          description: Street Number, Street Name, or PO Box
+          example: 724 Pine St
+        Address2:
+          type: string
+          description: Apartment, Floor, Suite, Bldg or more specific information about Address1.
+          example: Second Floor
+        City:
+          type: string
+          description: The city
+          example: New York
+        Province:
+          type: string
+          description: The state or province
+          example: NY
+        Country:
+          type: string
+          description: 3-letter code for the country
+          example: USA
+        PostalCode:
+          type: string
+          description: Zip/postal code
+          example: "98004"
+      description: The address information of the location.
+    AgeClassRestriction:
+      type: object
+      properties:
+        AgeClass:
+          type: string
+          description: Categories for hotel guests, based on age.
+          example: Senior
+          enum:
+            - All Ages
+            - Senior
+            - Adult
+            - Child
+            - Infant
+            - Other
+        AgeMinimum:
+          type: integer
+          description: The minimum age defined in a particular `AgeClass`.
+          format: int32
+          example: 2
+        AgeMaximum:
+          type: integer
+          description: |
+            The maximum age defined in a particular `AgeClass`.
+
+            If not specified, the `AgeClass` has no upper bound.
+          format: int32
+          example: 17
+        MaxGuestCount:
+          type: integer
+          description: The max guest count allowed in a particular `AgeClass`.
+          format: int32
+          example: 3
+      description: Container for room occupancy rules based on the age of the guests.
+    BedType:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: The bed type ID
+          example: "40"
+        Description:
+          type: string
+          description: The bed type description.
+          example: 1 bed
+      description: |
+        Statement of bed types available for this offer. A room may have several bed type options available.
+        
+        **NOTE**: due to the large number of bed type options available, we no longer publish a list of available
+        bed types. More information is available in
+        [Lodging Bed Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/bed-types).
+    CancellationPenaltyRule:
+      type: object
+      properties:
+        PenaltyNightCount:
+          type: integer
+          description: |
+            Specifies the per-stay cancellation fee charged in terms of the cost of the number of nights listed, in
+            addition to any other penalties. The rate charged is based on the earliest night(s) of the stay.
+          format: int32
+          example: 1
+        PenaltyPercentOfStay:
+          type: string
+          description: |
+            Specifies the per-stay cancellation fee charged as a percentage of the total rate, in addition to any other
+            penalties listed.
+          example: "100"
+        PenaltyPrice:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+            - description: Specifies the cancellation fee in terms of a set fee, in addition to any other penalties listed.
+        PenaltyStartDateTime:
+          type: string
+          description: |
+            The beginning of the window of time when the `CancellationPenaltyRule` is in effect.
+
+            The date and time are expressed in ISO 8601 International Date format, and local to the hotel.
+          format: date-time
+          example: 2022-07-23T15:00:00-08:00
+        PenaltyEndDateTime:
+          type: string
+          description: |
+            The end of the window of time when the `CancellationPenaltyRule` is in effect.
+
+            The date and time are expressed in ISO 8601 International Date format, and local to the hotel.
+          format: date-time
+          example: 2022-07-25T15:00:00-08:00
+    WaiverPolicy:
+      type: object
+      properties:
+        WaiverPolicyDescription:
+          type: string
+          description: |
+            The localized waiver policy description, which could be put in front of cancellation policy description.
+          example: |
+            You can cancel for a full refund up to 24 hours after booking (not applicable to bookings made within 72 hours of check-in time). After 24 hours:
+    CancellationPolicy:
+      type: object
+      properties:
+        WaiverPolicy:
+          $ref: '#/components/schemas/WaiverPolicy'
+        CancellableOnline:
+          type: boolean
+          description: "Boolean value to identify if the reservation can be cancelled\
+            \ online.\nIf false, the customer will only be able to cancel a refundable\
+            \ room by calling Expedia Customer Service."
+          example: true
+        Refundable:
+          type: boolean
+          description: Indicate whether the rate is refundable or not.
+          example: true
+        FreeCancellation:
+          type: boolean
+          description: Indicate whether the room can be cancelled free of charge.
+          example: true
+        FreeCancellationEndDateTime:
+          type: string
+          description: |
+            The date and time until which the room can be cancelled free of charge.
+
+            This is expressed in the local time of the Hotel.
+          format: date-time
+        CancellationPenaltyRules:
+          type: array
+          description: Container for cancellation penalty details.
+          items:
+            $ref: '#/components/schemas/CancellationPenaltyRule'
+        CancelPolicyDescription:
+          type: string
+          description: Additional cancellation policy information available as static text.
+          example: Free cancellation available before 2022-07-18T16:00:00-08:00
+        NonRefundableDateRanges:
+          type: array
+          description: |
+            A list of dates ranges that are non-refundable.
+
+            **Note**: The stay dates in those date ranges will always be charged whenever there is any cancellation 
+            penalty rule.
+          items:
+            $ref: '#/components/schemas/NonRefundableDateRange'
+      description: Container for room cancellation policy.
+    ChainAndBrandInfo:
+      type: object
+      properties:
+        ChainId:
+          type: integer
+          description: The chain id.
+          format: int32
+          example: -5
+        ChainName:
+          type: string
+          description: The name of the chain.
+          example: Hilton Worldwide
+        BrandId:
+          type: integer
+          description: The brand id.
+          format: int32
+          example: 33
+        BrandName:
+          type: string
+          description: The name of the brand.
+          example: Doubletree
+      description: |
+        The chain and brand information of hotel.
+        
+        Only visible by configuration. Please contact your Expedia Account Manager if you need this node.
+    Country:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: country name
+          example: Ireland
+        IsoCode2:
+          type: string
+          description: 2-letter code for the country
+          example: IE
+        IsoCode3:
+          type: string
+          description: 3-letter code for the country
+          example: IRL
+      description: Container for disambiguation country information
+    DepositDetail:
+      type: object
+      properties:
+        Type:
+          type: string
+          description: |-
+            Should be one of the following values:
+            PERCENT
+            The deposit amount is calculated as a percentage of the total booking cost.
+            NIGHT
+            The deposit amount is calculated in terms of nights plus tax.
+            AMOUNT
+            The deposit amount in USD.
+            REMAINDER
+            The deposit amount is equal to the booking cost minus any deposits that have been made before this point.
+          example: NIGHT
+          enum:
+            - PERCENT
+            - NIGHT
+            - AMOUNT
+            - REMAINDER
+        Value:
+          type: string
+          description: Value to indicate how many/much of the type listed above is
+            going to be charged as a deposit.
+          example: "1"
+        When:
+          $ref: '#/components/schemas/When'
+      description: Container for deposit policy details
+    DepositPolicy:
+      type: object
+      properties:
+        Description:
+          type: array
+          items:
+            type: string
+        Details:
+          type: array
+          description: Container for deposit policy details
+          items:
+            $ref: '#/components/schemas/DepositDetail'
+      description: Container for deposit policy details
+    Description:
+      type: object
+      properties:
+        LocationTeaser:
+          type: string
+          description: A description of the property's location.
+          example: Built on the original site of the University of Washington
+        HotelTeaser:
+          type: string
+          description: A description of the features and amenities of the property itself.
+          example: A top-notch fitness club and spa features a pool
+        RoomTeaser:
+          type: string
+          description: The common description for all of the rooms in the property.
+          example: "Renovated in May 2016, guest rooms feature upholstered chairs"
+      description: Container for the descriptions of the property.
+    Distance:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: The distance between the center of the search and the hotel.
+          example: "75"
+        Unit:
+          type: string
+          description: The unit of distance.
+          example: km
+          enum:
+            - km
+            - mi
+        Direction:
+          type: string
+          description: The direction to the hotel from the center point of the search.
+          example: "N"
+          enum:
+            - N
+            - S
+            - W
+            - E
+            - NW
+            - NE
+            - SW
+            - SE
+      description: |
+        Container for distance information.
+        
+        Only returned for city/address search or `geoLocation` search or single `regionId` search.
+    GeoLocation:
+      type: object
+      properties:
+        Latitude:
+          type: string
+          description: Latitude of the location.
+          example: "38.184978"
+        Longitude:
+          type: string
+          description: Longitude of the location.
+          example: "85.7412"
+        Obfuscated:
+          type: boolean
+      description: Container for Geo location.
+    Hotel:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: The unique, Expedia-specific hotel property identifier used to designate a single hotel.
+          example: "14747"
+        HcomId:
+          type: string
+          description: |
+            The unique, Hotels.com-specific hotel property identifier used to designate a single hotel.
+
+            This will only be returned if searching via hcomHotelIds in request.
+          example: "10532"
+        Name:
+          type: string
+          description: The common name of the hotel
+          example: Four Seasons Hotel Seattle
+        PropertyType:
+          $ref: '#/components/schemas/HotelPropertyType'
+        PropertyDetails:
+          $ref: '#/components/schemas/PropertyDetails'
+        LocalCurrencyCode:
+          type: string
+          description: The Local Currency Code for Hotel (which will be used for any
+            fees that must be paid at the hotel)
+          example: USD
+        Location:
+          allOf:
+            - $ref: '#/components/schemas/Location'
+            - description: Container for information about the location of the hotel.
+        PhoneInfos:
+          type: array
+          description: |
+            Container for property phone numbers.
+
+            Note: PhoneInfos section will not return for Vrbo Vacation Rental properties.
+          items:
+            $ref: '#/components/schemas/Phone'
+        Distance:
+          $ref: '#/components/schemas/Distance'
+        Description:
+          $ref: '#/components/schemas/Description'
+        Status:
+          type: string
+          description: |
+            Indicates whether there are available offers at the property during the dates requested, as well as
+            information as to why.
+
+            Note that pricing will <u>only</u> be present in the API response for a status of `AVAILABLE`.
+
+            If there are no rooms available at the property for the dates requested, then `NOT_AVAILABLE` will be
+            returned.
+
+            If there are available rooms, but none that meet the specific parameters of the search request,
+            then one of the other messages will be returned.
+          example: AVAILABLE
+          enum:
+            - AVAILABLE
+            - NOT_AVAILABLE
+            - ERROR
+            - NUMBER_OF_ADULTS_NOT_ACCEPTED
+            - NUMBER_OF_CHILDREN_NOT_ACCEPTED
+            - NUMBER_OF_INFANTS_NOT_ACCEPTED
+            - NUMBER_OF_PERSONS_NOT_ACCEPTED
+            - CHECK_IN_AGE_NOT_ACCEPTED
+        RenovationsAndClosures:
+          type: array
+          description: The information about renovations and closures
+          example:
+            - The following facilities are closed seasonally each year...
+          items:
+            type: string
+            description: The information about renovations and closures
+            example: The following facilities are closed seasonally each year...
+        ChainAndBrandInfo:
+          $ref: '#/components/schemas/ChainAndBrandInfo'
+        ThumbnailUrl:
+          type: string
+          description: |
+            URL of the thumbnail image of the hotel.
+            
+            Note that other images sizes are available - You can find a link to the complete list of Supported
+            Hotel Image Sizes in [Lodging Image Captions, IDs, and Sizes](https://developers.expediagroup.com/xap/products/xap/lodging/references/image-captions-ids-and-sizes).
+          example: https://images.trvl-media.com/hotels/3000000/2170000/2163100/2163007/2163007_15_t.jpg
+        StarRating:
+          type: string
+          description: Star rating value of the hotel property.
+          example: "5.0"
+          enum:
+            - "1.0"
+            - "1.5"
+            - "2.0"
+            - "2.5"
+            - "3.0"
+            - "3.5"
+            - "4.0"
+            - "4.5"
+            - "5.0"
+        GuestRating:
+          type: string
+          description: |
+            Average overall guest rating of the hotel.
+            
+            The value is between 1.0 and 5.0 in 0.1 increments.
+            
+            Higher is better.
+          example: "4.5"
+        GuestReviewCount:
+          type: integer
+          description: The total count of guest reviews used to create the average
+            `GuestRating` above.
+          format: int32
+          example: 240
+        PetFriendly:
+          type: boolean
+          description: |
+            Indicates whether the property allows certain pets under certain circumstances.
+
+            Prior to booking, guests should review the PetPolicies information in the Lodging Details API to find out
+            whether a particular pet will be permitted to stay at the property.
+          example: true
+        LgbtqiaFriendly:
+          type: boolean
+          description: This value is returned if the property owner has specifically
+            designated this property as LGBTQIA-friendly.
+          example: true
+        Links:
+          type: object
+          properties:
+            WebSearchResult:
+              allOf:
+                - $ref: '#/components/schemas/Link'
+                - description: Link to web search result page.
+            ApiRateCalendar:
+              allOf:
+                - $ref: '#/components/schemas/Link'
+                - description: Link for Rate Calendar API.
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: |
+            Container for list of **HATEOAS** links to Expedia website to complete booking.
+
+            This links section will only return a deeplink to the Website Search Results page by default.
+
+            If you have selected AD deeplinks they will only <u>appear</u> within the `RoomTypes` section of the 
+            response, as the Lodging Details API returns details at the room offer level, and not at the property level.
+        Policies:
+          $ref: '#/components/schemas/HotelPolicies'
+        CleanlinessAndSafety:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: |
+            Container for all cleanliness and safety measures.
+
+            The key is the measures category, the values are the information. The category will be:
+            - CLEANLINESS
+            - SOCIAL_DISTANCING
+            - SAFETY
+            - DISCLAIMER
+          example:
+            CLEANLINESS:
+              - Disinfectant is used to clean the property
+              - High-touch surfaces are cleaned and disinfected
+              - Sheets and towels are washed at 60°C/140°F or hotter
+            SOCIAL_DISTANCING:
+              - Contactless check-in and check-out
+              - Social distancing measures in place
+        OptionalExtras:
+          type: array
+          description: The optional extras info.
+          items:
+            type: string
+            description: The optional extras info.
+        ImportantNotices:
+          type: array
+          description: The important notices for hotel.
+          example:
+            - >-
+              This property can only accept bookings for essential travel or stays.
+              You may be asked to provide evidence of this on arrival.
+              For more information, check local advisories before you book.
+          items:
+            type: string
+            description: The important notices for hotel.
+            example: >-
+              This property can only accept bookings for essential travel or stays.
+              You may be asked to provide evidence of this on arrival.
+              For more information, check local advisories before you book.
+        Media:
+          type: array
+          description: Container for hotel images
+          items:
+            $ref: '#/components/schemas/Media'
+        HotelAmenities:
+          type: array
+          description: Container for all hotel amenities.
+          items:
+            allOf:
+              - $ref: '#/components/schemas/LodgingAmenity'
+              - description: Container for all hotel amenities.
+              - properties:
+                  Id:
+                    description: The identification number for a hotel amenity.
+                  Name:
+                    description: The description of a hotel amenity.
+        HotelDescriptiveAmenities:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: |
+            Container for all hotel amenities in group.
+
+            The key is amenity category, the values are the amenity information. The category for grouped amenities in hotel level for conventional lodging hotel will be:
+            - PARKING
+            - FOOD_AND_DRINK
+            - INTERNET
+            - THINGS_TO_DO
+            - FAMILY_FRIENDLY
+            - CONVENIENCES
+            - GUEST_SERVICES
+            - BUSINESS_SERVICE
+            - OUTDOOR
+            - ACCESSIBILITY
+            - SPA
+            - ACTIVITIES_NEARBY
+            - LANGS_SPOKEN
+            - MORE
+            
+            The category for grouped amenities in hotel level for Vacation Rental hotel will be:
+            - BEACH
+            - SKI
+            - POOL/SPA
+            - INTERNET
+            - PARKING
+            - FAMILY_FRIENDLY
+            - KITCHEN
+            - DINING
+            - BEDROOM
+            - BATHROOMS
+            - LIVING_SPACES
+            - ENTERTAINMENT
+            - OUTDOORS
+            - LAUNDRY
+            - WORKSPACES
+            - CLIMATE_CONTROL
+            - PETS
+            - SUITABILITY/ACCESSIBILITY
+            - SERVICES_AND_CONVENIENCES
+            - LOCATION_HIGHLIGHTS
+            - THINGS_TO_DO
+            - GENERAL
+            - SAFETY
+          example:
+            FAMILY_FRIENDLY:
+              - Refrigerator
+            GUEST_SERVICES:
+              - 24-hour front desk
+              - Housekeeping (on request)
+              - Luggage storage
+              - Multilingual staff
+            MORE:
+              - At least 80% lighting from LEDs
+              - Communal living room
+              - Comprehensive food waste policy
+        RoomAmenities:
+          type: array
+          description: Container for all room amenities.
+          items:
+            allOf:
+              - $ref: '#/components/schemas/LodgingAmenity'
+              - description: Container for all room amenities.
+              - properties:
+                  Id:
+                    description: The identification number for a room amenity.
+                  Name:
+                    description: The description of a room amenity.
+        RoomDescriptiveAmenities:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: |
+            Container for all common room amenities in group.
+
+            The key is amenity category, the values are the amenity information. The category for grouped amenities in common room level will be:
+            - BEDROOM
+            - BATHROOM
+            - FOOD_AND_DRINK
+            - ENTERTAINMENT
+            - OUTDOOR_SPACE
+            - MORE
+          example:
+            ENTERTAINMENT:
+              - Flat-screen TV
+              - iPad
+              - iPod dock
+              - Satellite channels
+            FOOD_AND_DRINK:
+              - Free bottled water
+              - Refrigerator
+            MORE:
+              - Desk
+              - Eco-friendly cleaning products provided
+              - Energy-saving switches
+        Accessibility:
+          type: array
+          description: |
+            The accessibility options available for the room.
+            
+            Possible accessibility include:
+            - Accessible path of travel
+            - Accessible bathroom
+            - Roll-in shower
+            - Handicapped parking
+            - In-room accessibility
+            - Accessibility equipment for the deaf
+            - Braille or raised signage
+          example:
+            - Wheelchair-accessible on-site restaurant
+            - Wheelchair-accessible lounge
+            - Well-lit path to entrance
+            - Stair-free path to entrance
+            - Wheelchair accessible (may have limitations)
+            - Wheelchair accessible path of travel
+            - Accessible bathroom (in select rooms)
+            - Wheelchair-accessible public washroom
+            - In-room accessibility (in select rooms)
+            - Wheelchair-accessible registration desk
+            - Wheelchair-accessible fitness center
+            - Wheelchair-accessible meeting spaces/business center
+          items:
+            type: string
+            description: The accessibility options available for the room.
+            example: Wheelchair-accessible on-site restaurant
+        MemberOnlyDealAvailable:
+          type: boolean
+          description: Indicates whether the property has member only deal rates available.
+          example: true
+        RoomTypes:
+          type: array
+          description: Container for all of available room types.
+          items:
+            $ref: '#/components/schemas/RoomType'
+      description: Container for information on each offered hotel.
+    HotelDetailsResponse:
+      type: object
+      properties:
+        Warnings:
+          type: array
+          description: |
+            There were some errors or events during the transaction, but the API has still returned a response.
+
+            Container for all warnings.
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Warning'
+              - properties:
+                  Code:
+                    description: |
+                      The code of the warning.
+
+                      Available values are:
+                      - PRICE_DECREASED: The price decreased after shopping.
+                      - PRICE_INCREASED: The price increased after shopping.
+                      - CURRENCY_CHANGE: You will be charged in a different currency.
+                  OriginalPrice:
+                    description: The original price from the Lodging Search API response.
+                  NewPrice:
+                    description: The new price.
+                  ChangedAmount:
+                    description: The difference between `OriginalPrice` and `NewPrice`.
+        TransactionId:
+          type: string
+          description: Unique identifier for the transaction.
+          example: f06edfa3-27f4-44e6-838c-b8dd3d0a3210
+        StayDates:
+          allOf:
+            - $ref: '#/components/schemas/StayDates'
+            - description: Dates of the requested property stay.
+            - properties:
+                CheckInDate:
+                  description: |
+                    Check-in date for property stay in an ISO 8601 Date format [YYYY-MM-DD].
+
+                    This parameter should be used in combination with the `checkOut` parameter.
+
+                    The maximum advanced search window is 330 days in the future.
+
+                    The maximum length of stay is 28 days.
+                CheckOutDate:
+                  description: |
+                    Checkout date for property stay in an ISO 8601 Date format [YYYY-MM-DD].
+
+                    This parameter should be used in combination with the `checkIn` parameter.
+
+                    The maximum advanced search window is 330 days in the future.
+
+                    The maximum length of stay is 28 days.
+        LengthOfStay:
+          type: integer
+          description: The number of stay nights.
+          format: int32
+          example: 3
+        NumberOfRooms:
+          type: integer
+          description: Number of rooms requested.
+          format: int32
+          example: 3
+        Occupants:
+          type: array
+          description: |
+            Container for the list of rooms requested by the traveler.
+
+            Occupancy for each room is specified in this node.
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Occupant'
+              - description: |
+                  Container for the list of rooms requested by the traveler.
+
+                  Occupancy for each room is specified in this node.
+              - properties:
+                  Adults:
+                    description: Specifies the number of adults staying in each room.
+                  ChildAges:
+                    description: Specifies the age(s) of each of the children staying in the room, as well as the number of children in the room.
+        ValidFormsOfPayment:
+          type: array
+          description: Container for payment information.
+          items:
+            $ref: '#/components/schemas/ValidFormsOfPayment'
+        HotelDetails:
+          $ref: '#/components/schemas/Hotel'
+    HotelPolicies:
+      type: object
+      properties:
+        CheckInStartTime:
+          type: string
+          description: Beginning of the standard check-in window on the check in date, and in the local time of the hotel.
+          example: 3 PM
+        CheckInEndTime:
+          type: string
+          description: End of the standard check-in window on the check in date, and in the local time of the hotel.
+          example: 5 PM
+        SpecialCheckInInstructions:
+          type: array
+          description: Some special instructions needed care by customer when check in.
+          example:
+            - "Special Instructions: The check-in location differs from the property location. To check in, go to 301 N Water St."
+          items:
+            type: string
+            description: |
+              Any special instructions that the guest would need to know in order to check in.
+              
+              Particularly important in a vacation rental property, as many of these do not have a hosted front desk as
+              a hotel would.
+            example: "Special Instructions: The check-in location differs from the property location. To check in, go to 301 N Water St."
+        CheckOutTime:
+          type: string
+          description: Customers must check out before this time on the check out date, expressed in the local time of the hotel.
+          example: noon
+        PetPolicies:
+          type: array
+          description: The policy of the property toward having pets stay with guests.
+          example:
+            - Pets allowed, Up to 20 lb
+          items:
+            type: string
+            description: The policy of the property toward having pets stay with guests.
+            example: Pets allowed, Up to 20 lb
+        ChildrenAndExtraBedsPolicies:
+          type: array
+          description: The policy of the hotel for having children stay at the hotel, as well as for including extra beds in the room.
+          example:
+            - Children are welcome, Cribs/infant beds (surcharge)
+          items:
+            type: string
+      description: Container for Hotel policy information.
+    HotelPropertyType:
+      type: object
+      properties:
+        Id:
+          type: integer
+          description: The id of hotel property type.
+          format: int32
+          example: 13
+        Name:
+          type: string
+          description: The name of hotel property type.
+          example: Ranch
+      description: |
+        Container for information on hotel property type.
+
+        You can find a complete list of Lodging Property Types in [Lodging Property Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/property-types).
+    Link:
+      type: object
+      properties:
+        Accept:
+          type: string
+          description: The Accept request header (for API queries only - not included for page URLs).
+        Method:
+          type: string
+          description: Method of request.
+        Href:
+          type: string
+          description: The URL of the destination web page or API query.
+    Location:
+      type: object
+      properties:
+        Address:
+          $ref: '#/components/schemas/Address'
+        GeoLocation:
+          allOf:
+            - $ref: '#/components/schemas/GeoLocation'
+            - description: Container for information on the geographic location of the hotel.
+            - properties:
+                Latitude:
+                  type: string
+                  description: |
+                    The geographic coordinates of the hotel property, based on a horizontal angular measurement relative to The Equator.
+
+                    North latitude will be represented by a positive value.
+                    
+                    South latitude will be represented by a negative value.
+                  example: "38.184978"
+                Longitude:
+                  type: string
+                  description: |
+                    The geographic coordinates of the hotel property, based on a vertical angular measurement relative to the universal Prime Meridian (Royal Observatory, Greenwich).
+
+                    East longitude will be represented by a positive value.
+                    
+                    West longitude will be represented by a negative value.
+                  example: "85.7412"
+                Obfuscated:
+                  type: boolean
+                  description: |
+                    Indicates whether the displayed Latitude/Longitude information is obfuscated.
+
+                    Note: Exact Lat/Long values for Vacation Rental properties will not be shown in either XAPv3 Search
+                    or Details responses to respect the security of the homeowner. Instead an 'obfuscated' Lat/Long
+                    value will be returned that will indicate the general area within which the property is located,
+                    but not the exact location of the property itself.
+        Neighborhood:
+          $ref: '#/components/schemas/Neighborhood'
+      description: Container for list of possible locations that could be used to
+        disambiguate the query.
+    LodgingAmenity:
+      type: object
+      properties:
+        Id:
+          type: string
+          example: "2065"
+        Name:
+          type: string
+          example: Business center
+    MandatoryFeesDetail:
+      type: object
+      properties:
+        Type:
+          type: string
+          description: Type of mandatory fee.
+          enum:
+            - City_LocalTax_Amt
+            - City_LocalTax_Pcnt
+            - CleaningFee_Amt
+            - CleaningFee_Pcnt
+            - ClubCardAdult
+            - ClubCardChild
+            - DestinationFee_Amt
+            - DestinationFee_Pcnt
+            - GalaDinnerAdult
+            - GalaDinnerChild
+            - GalaDinnerChineseNYAdult
+            - GalaDinnerChineseNYChild
+            - GalaDinnerNYDayAdult
+            - GalaDinnerNYDayChild
+            - GalaDinnerNYEveAdult
+            - GalaDinnerNYEveChild
+            - GalaDinnerValentinesDayAdult
+            - GalaDinnerValentinesDayChild
+            - GalaDinnerXMASDayAdult
+            - GalaDinnerXMASDayChild
+            - GalaDinnerXMASEveAdult
+            - GalaDinnerXMASEveChild
+            - ResortFee_Amt
+            - ResortFee_Pcnt
+            - SanitationFee
+            - SeasonalHeatingFee
+            - TourismFee_Amt
+            - TourismFee_Pcnt
+            - TowelSheetsFee_Amt
+            - TransferFee_Amt_Adult
+            - TransferFee_Amt_Child
+            - UtilitySurcharge
+          example: TransferFee_Amt_Child
+        Amount:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+            - description: Value of hotel mandatory fee.
+      description: The breakdown for the taxes and fees that must be paid at the property.
+    Media:
+      type: object
+      properties:
+        Type:
+          type: string
+          description: |
+            Supported type of media.
+
+            1=Image.
+
+            Only 1 is supported now.
+          example: "1"
+          enum:
+            - 1
+        Title:
+          type: string
+          description: Image title
+          example: Guestroom
+        Size:
+          type: string
+          description: |
+            Image size.
+            You can find a link to the complete list of Supported Images Sizes in
+            [Lodging Image Captions, IDs, and Sizes](https://developers.expediagroup.com/xap/products/xap/lodging/references/image-captions-ids-and-sizes).
+          example: t
+        Url:
+          type: string
+          description: Image URL
+          example: https://images.trvl-media.com/hotels/1000000/30000/20300/20230/20230_159_t.jpg
+      description: Container for hotel images
+    Money:
+      type: object
+      properties:
+        Value:
+          type: string
+          description: The value of the element being defined.
+          example: "21.9"
+        Currency:
+          type: string
+          description: The ISO 4217 Currency Code that the value is expressed in.
+          example: USD
+        LocalCurrencyPrice:
+          $ref: '#/components/schemas/Money'
+      description: Pricing information of the stat date
+    Neighborhood:
+      type: object
+      properties:
+        Id:
+          type: string
+          description: Neighborhood id.
+          example: "6160232"
+        Name:
+          type: string
+          description: Neighborhood name.
+          example: Le Pharo
+      description: Geography entities which are typically contained within a city.
+        This includes the categories neighborhood and point of interest. Low level
+        regions are not a formally defined concept in the geography model.
+    NightlyRates:
+      type: object
+      properties:
+        StayDate:
+          type: string
+          format: date
+          example: 2022-07-19
+        BaseRate:
+          $ref: '#/components/schemas/Money'
+    NonRefundableDateRange:
+      type: object
+      properties:
+        StartDate:
+          type: string
+          description: Start date of a non-refundable date range.
+          format: date
+          example: 2022-07-04
+        EndDate:
+          type: string
+          description: End date of a non-refundable date range.
+          format: date
+          example: 2022-07-05
+    Occupant:
+      type: object
+      properties:
+        Adults:
+          type: integer
+          description: |
+            The number of adults in a room.
+          format: int32
+          example: 1
+        ChildAges:
+          type: array
+          description: |
+            The ages of children in a room.
+          example:
+            - 2
+            - 3
+            - 5
+          items:
+            type: integer
+            description: |
+              The age of children in a room.
+            format: int32
+      description: Container for the list of room occupants.
+    PaymentSchedule:
+      type: object
+      properties:
+        Due:
+          type: string
+          description: Date/Time stamp when this installment/deposit should be paid by.
+          format: date
+          example: 2022-09-03
+        Price:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+            - description: The monetary amount of the install/deposit required to book the hotel and product.
+      description: Contains information on the payment schedule.
+    Phone:
+      type: object
+      properties:
+        CountryCode:
+          type: string
+          description: The designated country calling code.
+          example: "1"
+        AreaCode:
+          type: string
+          description: The phone's area code.
+          example: "614"
+        Number:
+          type: string
+          description: The phone's local number.
+          example: "9288472"
+        ExtensionNumber:
+          type: string
+          description: Optional extension number, if required to reach the hotel.
+          example: "3114"
+    Promotion:
+      type: object
+      properties:
+        Description:
+          type: string
+          description: The description of the promotion.
+          example: 20%Off
+        Amount:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+            - description: |
+                The value of the promotion.
+
+                **CMA Compliance Note (UK)**: Both standard room rates and promotional rates are set and managed by the 
+                hoteliers and not Expedia.
+    PropertyDetails:
+      type: object
+      properties:
+        PropertyRegistryNumber:
+          type: string
+          description: The registry number of property.
+          example: P-20131
+        HostLanguages:
+          type: array
+          description: The languages the host of property will speak.
+          example: ["English","Chinese"]
+          items:
+            type: string
+        MaxOccupancy:
+          type: integer
+          description: The maximum number of guests allowed to stay in the property.
+          format: int32
+          example: 12
+        NumberOfBedrooms:
+          type: integer
+          description: The number of bedrooms in the property.
+          format: int32
+          example: 4
+        NumberOfBathrooms:
+          type: integer
+          description: The number of bathrooms in the property.
+          format: int32
+          example: 1
+        SquareFeet:
+          type: string
+          description: Property area in square feet.
+          example: "123.5"
+        PropertyManager:
+          $ref: '#/components/schemas/PropertyManager'
+      description: |
+        Container for information about the hotel property detail. It will be shown for Vacation Rental hotel only.
+    PropertyManager:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: The name of the property manager.
+          example: Mike
+        CalendarLastUpdated:
+          type: string
+          description: The latest updated date.
+          format: date
+        PhotoUrl:
+          type: string
+          description: The URL for property manager's photo.
+          example: https://imagesus-ssl.homeaway.com/mda01/ff30bc14-157c-43fc-ad8c-d2ce36bc7e83.4.1
+      description: Container for information about the property manager. It will be shown for Vacation Rental hotel only.
+    RatePlan:
+      type: object
+      properties:
+        RoomTypeId:
+          type: string
+          description: The room type identifier.
+          example: "200287452"
+        RatePlanId:
+          type: string
+          description: The rate plan identifier.
+          example: "201714191"
+        RateRuleId:
+          type: string
+          description: The identifier of rate rule.
+          example: "213544817"
+        InventorySourceId:
+          type: string
+          description: The identification number of the source that provides the rate plan.
+          example: "24"
+        InventorySourceCode:
+          type: string
+          description: The source name that provided the rate plan.
+          example: JT
+        StayDates:
+          $ref: '#/components/schemas/StayDates'
+        RemainingCount:
+          type: integer
+          description: |
+            The number of rooms remaining through Expedia for this room type.
+
+            **NOTE**: This value does <u>NOT</u> represent the total number of rooms remaining at the hotel property, 
+            only the number of rooms allocated to Expedia for sale by the property that currently remain in Expedia's
+            inventory.
+
+            When a hotel is listed as 'sold out' by Expedia there may still be rooms available for sale by the hotel
+            through other channels.
+
+            Also note that the `RemainingCount` response element has a maximum returned value of 100, even if there are
+            more than 100 rooms available within bookable Expedia inventory.
+
+            **CMA Compliance Note (UK)**: websites in the UK that display `remainingCount` should make it clear to 
+            consumers that this count refers to the number of rooms remaining within Expedia inventory - NOT the number
+            remaining at the property.
+          format: int32
+          example: 3
+        Price:
+          type: object
+          description: Container for all price components of the rate plan.
+          properties:
+            BaseRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The price of the rate plan for all occupants, excluding taxes and fees.
+            TaxesAndFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The total rate of taxes and fees of the rate plan for all occupants.
+            TotalPrice:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The total price of the rate plan, which is equal to the sum of `BaseRate` + `TaxesAndFees`.
+                Hotel mandatory fees are not included in this value as these are paid at the hotel at checkout.
+                Promotion amount have been deducted from the `TotalPrice` value.
+            TotalStrikeOutPrice:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The total amount to strikeout price. This value is the sum of the pre-discount `BaseRate` + the
+                pre-discount `TaxesAndFees`.
+            AvgNightlyRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The average nightly base rate per night per room of the rate plan, which is equal to the `BaseRate`
+                divided by `StayDates` and by `room number`.
+            AvgNightlyStrikeOutRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The average nightly strike out price per night per room of the rate plan, which is equal to the
+                strike out of `BaseRate` divided by `StayDates` and by `room number`.
+            HotelMandatoryFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The total mandatory fees which will be charged at the hotel for the rate plan.
+            RefundableDamageDeposit:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The refundable damage deposit.
+            NightlyRates:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/NightlyRates'
+                  - properties:
+                      StayDate:
+                        description: A single night during the requested stay.
+                      BaseRate:
+                        description: Container for nightly base rate.
+              description: Nightly base rate of the rate plan.
+            TaxesAndFeesDetails:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/TaxesAndFeesDetail'
+                  - properties:
+                      CategoryCode:
+                        description: Category ID of this specific tax or fee.
+                      Amount:
+                        description: The value of this specific tax or fee.
+              description: |
+                Container for taxes and fees detail information.
+                Only visible by configuration. Please contact your Expedia Account Manager if you need this node.
+            RoomRates:
+              type: array
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/RoomRates'
+              description: Container for the rate information of all rooms. This is only returned in Lodging Details API.
+        MemberOnlyDeal:
+          type: boolean
+          description: |
+            Indicates whether the rate is for member only.
+
+            Only visible by configuration. Please contact your Expedia Account Manager if you need this node.
+          example: true
+        Promotions:
+          type: array
+          description: All promotion information of the `ratePlan`.
+          items:
+            $ref: '#/components/schemas/Promotion'
+        StandalonePrice:
+          type: object
+          description: |
+            The corresponded standalone price to the package rate plan (to show the `strikethrough`).
+
+            Only returned when the returned `rateplan` is being used as part of a package.
+          properties:
+            BaseRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The standalone price of the rate plan for all occupants, excluding taxes and fees.
+            StrikeOutBaseRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The base rate strikeout in the standalone shopping path.
+            TaxesAndFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The total standalone rate of taxes and fees of the rate plan for all occupants.
+            StrikeOutTaxesAndFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The taxes and fees strikeout in the standalone shopping path.
+            TotalPrice:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The total standalone price of the rate plan, which is equal to the sum of `BaseRate` and `TaxesAndFees`.
+                Hotel mandatory fees are not included as these are paid at the hotel at checkout.
+            TotalStrikeOutPrice:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The total strikeout in the standalone shopping path, which is equal to the sum of `StrikeOutBaseRate` and `StrikeOutTaxesAndFees`.
+            AvgNightlyRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The average standalone nightly base rate per night per room of the rate plan, which is equal to the
+                `BaseRate` divided by `StayDates` and by `room number`.
+            AvgNightlyStrikeOutRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The average strikeout of the base rate in the standalone shopping path, which is per night per room and is equal to
+                `StrikeOutBaseRate` divided by `StayDates` and by `room number`.
+            HotelMandatoryFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The total standalone mandatory fees.
+            StrikeOutHotelMandatoryFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The strikeout of the mandatory fees in the standalone shopping path.
+        TaxesAndFeesInclusive:
+          type: boolean
+          description: Indicates whether taxes and fees are included in base rate.
+          example: false
+        GuaranteeText:
+          type: string
+          description: Text description for any deposit information provide by the
+            property (if applicable).
+          example: Price Guarantee
+        PaymentMethod:
+          type: string
+          description: |
+            Room payment information. The available options are:
+            - Online: Pay at the time of booking
+            - Hotel: Could either be paid at the hotel during the time of stay or paid at the time indicated by `PaymentTime` and `PaymentSchedule`
+          example: Online
+          enum:
+            - Online
+            - Hotel
+        PaymentTime:
+          type: string
+          description: |
+            The time when the booking amount will be charged on the traveler’s credit card. Valid values are as follows:
+            - UponBooking
+            - PayLater
+            - SupplierDiscretion
+          example: PayLater
+          enum:
+            - UponBooking
+            - PayLater
+            - SupplierDiscretion
+        FullDepositUponBooking:
+          type: boolean
+          description: |
+            It will be true if PaymentSchedule has one installment and the value of "Due" is booking date, otherwise,
+            it will be false.
+          example: true
+        PaymentSchedule:
+          type: array
+          description: Contains information on the payment schedule.
+          items:
+            $ref: '#/components/schemas/PaymentSchedule'
+        ReserveWithDeposit:
+          type: boolean
+          description: Indicates whether this rate plan need deposit to reserve.
+          example: true
+        FreeInternet:
+          type: boolean
+          description: Indicates whether the price of the room includes free Internet. (either wireless or wired)
+          example: true
+        FreeWiFi:
+          type: boolean
+          description: Indicates whether the price of the room includes free wireless Internet access.
+          example: true
+        FreeInternetDetails:
+          type: array
+          description: |
+            The localized details for the free internet amenity (only shown when FreeInternet = true).
+
+            You can find a link to the complete list of Free Internet Details in
+            [Lodging Free Breakfast and Internet Details](https://developers.expediagroup.com/xap/products/xap/lodging/references/free-breakfast-and-internet-details).
+          example:
+            - "Free Wireless Internet, Wired high-speed Internet-comp"
+          items:
+            type: string
+            description: The localized details for the free internet amenity (only shown when FreeInternet = true).
+            example: Free Wireless Internet, Wired high-speed Internet-comp
+        FreeParking:
+          type: boolean
+          description: Indicates whether the price of the room includes free parking.
+          example: true
+        FreeBreakfast:
+          type: boolean
+          description: Indicates whether the price of the room includes free breakfast.
+          example: true
+        FreeBreakfastDetails:
+          type: array
+          description: |
+            The localized details for the free breakfast amenity (only shown when FreeBreakfast = true).
+
+            You can find a link to the complete list of Free Breakfast Details in
+            [Lodging Free Breakfast and Internet Details](https://developers.expediagroup.com/xap/products/xap/lodging/references/free-breakfast-and-internet-details).
+          example:
+            - Full Breakfast
+            - Full Board
+          items:
+            type: string
+            description: The localized details for the free breakfast amenity (only shown when FreeBreakfast = true).
+            example: Full Breakfast
+        HcomRewardsEarn:
+          type: boolean
+          description: Indicate whether the room qualifies for Hcom Rewards Earn. (Hotels.com partners only)
+          example: true
+        HcomRewardsBurn:
+          type: boolean
+          description: Indicate whether the room qualifies for Hcom Rewards Burn. (Hotels.com partners only)
+          example: true
+        CancellationPolicy:
+          $ref: '#/components/schemas/CancellationPolicy'
+        Amenities:
+          type: array
+          description: The amenities of the `rateplan`.
+          items:
+            allOf:
+              - $ref: '#/components/schemas/LodgingAmenity'
+              - description: The amenities of the `rateplan`.
+              - properties:
+                  Id:
+                    description: Amenity ID.
+                  Name:
+                    description: Amenity Name.
+      description: Container for information on each rate plan.
+    RoomOccupancyPolicy:
+      type: object
+      properties:
+        MaxGuestCount:
+          type: integer
+          description: The maximum number of guests allowed to stay in a room.
+          format: int32
+          example: 3
+        MinCheckInAge:
+          type: integer
+          description: The minimum age required for check-in.
+          format: int32
+          example: 19
+        IncludedGuestCount:
+          type: integer
+          description: The number of guests included in base rate.
+          format: int32
+          example: 2
+        MinGuestAge:
+          type: integer
+          description: The minimum age required for any guest staying in the room.
+          format: int32
+          example: 0
+        AgeClassRestrictions:
+          type: array
+          description: Container for room occupancy rules based on the age of the guests.
+          items:
+            $ref: '#/components/schemas/AgeClassRestriction'
+      description: Room occupancy policy.
+    RoomPreference:
+      type: object
+      properties:
+        Type:
+          type: string
+          description: |-
+            The type of preference. Options are:
+            SmokingPreference
+            Bed
+          example: SmokingPreference
+          enum:
+            - SmokingPreference
+            - Bed
+        Value:
+          type: string
+          description: "The value of the room preference.\n\nFor SmokingPreference,\
+            \ options are\n\nSmokingOrNonSmoking\nSmoking\nNonSmoking\nFor supported\
+            \ Bed Types, please refer to the Related Links section at the bottom of\
+            \ the page."
+          example: NonSmoking
+      description: Container for room preferences.
+    RoomRates:
+      type: object
+      properties:
+        RoomIndex:
+          type: integer
+          description: Index of which of the requested rooms this entry refers to.
+          format: int32
+          example: 1
+        BaseRate:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+            - description: The price of the room, excluding taxes and fees.
+        TaxesAndFees:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+            - description: The total rate of taxes and fees of the room.
+        TotalPrice:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+            - description: |
+                The total price of the room, which is equal to the sum of the `BaseRate` and `TaxesAndFees`.
+
+                Hotel mandatory fees are not included as these are paid at the property at checkout.
+        TotalStrikeOutPrice:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+            - description: |
+                The total strike out price of the room, which is equal to the sum of the `BaseRate`'s totalStrikeOut
+                and `TaxesAndFees`'s totalStrikeOut.
+        TaxesAndFeesDetails:
+          type: array
+          description: |
+            The breakdown for taxes and fees for this room for the entire stay.
+            
+            Only visible by configuration. Please contact your Expedia Account Manager if you need this node.
+          items:
+            allOf:
+              - $ref: '#/components/schemas/TaxesAndFeesDetail'
+              - properties:
+                  CategoryCode:
+                    description: Tax or fee category code.
+                  Amount:
+                    description: Tax or fee value.
+        MandatoryFeesDetails:
+          type: array
+          description: The breakdown for the taxes and fees that must be paid at the property.
+          items:
+            $ref: '#/components/schemas/MandatoryFeesDetail'
+        NightlyRates:
+          type: array
+          description: Container for the nightly rate of current room.
+          items:
+            allOf:
+              - $ref: '#/components/schemas/NightlyRates'
+              - description: Container for the nightly rate of current room.
+              - properties:
+                  StayDate:
+                    description: One date of the property stay
+                  BaseRate:
+                    description: Nightly Base Rate for the selected date of stay.
+    RoomType:
+      type: object
+      properties:
+        Description:
+          type: string
+          description: Text description of the room type.
+          example: "Room, 1 King Bed, City View (Seattle V)"
+        RoomKey:
+          type: string
+          description: |
+            An encrypted string which includes the information that could be used to address the current room type.
+
+            `RoomKey` has been renamed as `OfferId`.
+          deprecated: true
+        OfferId:
+          type: string
+          description: An encrypted string which includes the information that could
+            be used to address the current room type.
+          example: wMRoCMjQqCDIwMTcwN
+        MerchantName:
+          type: string
+          description: Name of Merchant that did the initial Authentication.
+          example: EXPEDIA
+        RatePlanType:
+          type: string
+          description: |
+            Indicate the room type is sold as package or standalone.
+          example: package
+          enum:
+            - standalone
+            - package
+            - wholesale
+        RatePlans:
+          type: array
+          description: Container for rate plan information.
+          items:
+            $ref: '#/components/schemas/RatePlan'
+        Price:
+          type: object
+          description: Container of all price components of the room.
+          properties:
+            BaseRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The price of the rate plan for all occupants, excluding taxes and fees.
+            TaxesAndFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The total rate of taxes and fees of the rate plan for all occupants.
+            TotalPrice:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The total price of the rate plan, which is equal to the sum of `BaseRate` and `TaxesAndFees`. Hotel
+                mandatory fees are not included as these are paid at the hotel at checkout.
+            TotalStrikeOutPrice:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The total strike out price of the rate plan, which is equal to the sum of `BaseRate`'s
+                `totalStrikeOut` and `TaxesAndFees`'s `totalStrikeOut`.
+            AvgNightlyRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The average nightly base rate per night per room of the room type, which is equal to the `BaseRate`
+                divided by `StayDates` and by `room number`.
+            AvgNightlyStrikeOutRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The average nightly strike out rate per night per room of the room type, which is equal to the
+                strike out of `BaseRate` divided by `StayDates` and by `room number`.
+            AvgNightlyRateWithFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The average nightly rate per night per room of the room type, including all fees except those imposed by the government.
+            AvgNightlyStrikeoutRateWithFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The average nightly strike out rate per night per room of the room type, including all fees except those imposed by the government.
+            HotelMandatoryFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The total mandatory fees which will be charged at the hotel for the rate plan.
+            TotalPriceWithHotelFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The total combined price that includes `TotalPrice` that will be charged by Expedia (`BaseRate` +
+                `TaxesAndFees`) combined with any `HotelMandatoryFees` that will be charged at hotel.
+                **NOTE**: Since UK regulations require that `HotelMandatoryFees` be included in this price, the 
+                quoted price will <u>only</u> be accurate for the day of quote. This is due to the fact that 
+                currency exchange fluctuations will change the exact amount of any `HotelMandatoryFees` that are to
+                be collected at the hotel during the guest's stay if the cost is converted into any other currency.
+                **CMA Compliance Note (UK)**: Websites doing business in the UK should be displaying this value to 
+                be compliant with CMA requirements.
+            RefundableDamageDeposit:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The refundable damage deposit for the rate plan.
+        StandalonePrice:
+          type: object
+          description: |
+            The corresponded standalone price to the package rate plan (to show the `strikethrough`).
+
+            Only returned when this is a package rate plan.
+          properties:
+            BaseRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The standalone price of the rate plan for all occupants, excluding taxes and fees.
+            StrikeOutBaseRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The base rate strikeout in the standalone shopping path.
+            TaxesAndFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The total standalone rate of taxes and fees of the rate plan for all occupants.
+            StrikeOutTaxesAndFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The taxes and fees strikeout in the standalone shopping path.
+            TotalPrice:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The total standalone price of the rate plan, which is equal to the sum of `BaseRate` and `TaxesAndFees`.
+                Hotel mandatory fees are not included as these are paid at the hotel at checkout.
+            TotalStrikeOutPrice:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The total strikeout in the standalone shopping path, which is equal to the sum of `StrikeOutBaseRate` and `StrikeOutTaxesAndFees`.
+            AvgNightlyRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The average standalone nightly base rate per night per room of the rate plan, which is equal to the
+                `BaseRate` divided by `StayDates` and by `room number`.
+            AvgNightlyStrikeOutRate:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: |
+                The average strikeout of the base rate in the standalone shopping path, which is per night per room and is equal to
+                `StrikeOutBaseRate` divided by `StayDates` and by `room number`.
+            HotelMandatoryFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The total standalone mandatory fees.
+            StrikeOutHotelMandatoryFees:
+              allOf:
+                - $ref: '#/components/schemas/Money'
+              description: The strikeout of the mandatory fees in the standalone shopping path.
+        Promotions [deprecated]:
+          type: array
+          description: |
+            All promotion information of the room.
+            
+            **Note**: The node has been moved to `RatePlan` node, and will be deprecated soon.
+          deprecated: true
+          items:
+            $ref: '#/components/schemas/Promotion'
+        Links:
+          type: object
+          properties:
+            WebSearchResult:
+              allOf:
+                - $ref: '#/components/schemas/Link'
+                - description: Link to web search result page.
+            WebDetails:
+              allOf:
+                - $ref: '#/components/schemas/Link'
+                - description: Link to web infosite.
+            ApiDetails:
+              allOf:
+                - $ref: '#/components/schemas/Link'
+                - description: Link for details API.
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: |
+            Container for list of HATEOAS links to either Expedia website or additional Expedia APIs to complete booking
+            of the selected offer.
+            
+            Which links are returned in this section are defined by the `links` parameter in the Search API query.
+            
+            Available links are:
+            - WebSearchResult (link to web search result page)
+            - WebDetails (link to web infosite)
+            - ApiDetails (link for details API)
+        SmokingOption:
+          type: string
+          description: The smoking options available for the room type.
+          example: SmokingOrNonSmoking
+          enum:
+            - SmokingOrNonSmoking
+            - Smoking
+            - NonSmoking
+        BedTypeOptions:
+          type: array
+          description: |
+            Statement of bed types available for this offer. A room may have several bed type options available.
+
+            **NOTE**: due to the large number of bed type options available, we no longer publish a list of available
+            bed types. More information is available in
+            [Lodging Bed Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/bed-types).
+          items:
+            $ref: '#/components/schemas/BedType'
+        RoomOccupancyPolicy:
+          $ref: '#/components/schemas/RoomOccupancyPolicy'
+        Amenities:
+          type: array
+          description: Container for all room amenities.
+          items:
+            allOf:
+              - $ref: '#/components/schemas/LodgingAmenity'
+              - description: The amenity of the room.
+              - properties:
+                  Id:
+                    description: Amenity id
+                  Name:
+                    description: Amenity name
+        DescriptiveAmenities:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: |
+            Container for all room amenities in group.
+
+            The key is amenity category, the values are the amenity information. The category for grouped amenities in room level will be:
+            - ACCESSIBILITY
+            - BATHROOM
+            - BEDROOM
+            - CLUB_EXEC
+            - FAMILY_FRIENDLY
+            - ENTERTAINMENT
+            - FOOD_AND_DRINK
+            - INTERNET
+            - MORE
+            - OUTDOOR_SPACE
+            - SAFETY
+          example:
+            FOOD_AND_DRINK:
+              - "2 restaurants"
+              - "Coffee/tea in common area(s)"
+        Media:
+          type: array
+          description: Container for Media elements.
+          items:
+            allOf:
+              - $ref: '#/components/schemas/Media'
+              - description: Media elements.
+    StayDates:
+      type: object
+      properties:
+        CheckInDate:
+          type: string
+          description: The initial day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
+          format: date
+        CheckOutDate:
+          type: string
+          description: The final day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
+          format: date
+      description: Container for information for the stay dates of the rate plan.
+    TaxesAndFeesDetail:
+      type: object
+      properties:
+        CategoryCode:
+          type: string
+          example: "401"
+        Amount:
+          $ref: '#/components/schemas/Money'
+    ValidFormsOfPayment:
+      type: object
+      properties:
+        PaymentMethod:
+          type: string
+          description: The payment method.
+          example: DebitCard
+        Name:
+          type: string
+          description: The brand name of the payment sub-method to be displayed to the customer.
+          example: Visa
+        PaymentSubMethod:
+          type: string
+          description: The payment sub-method.
+          example: Visa
+          deprecated: true
+        BrandName:
+          type: string
+          description: |
+            The brand name of the payment sub-method to be displayed to the customer.
+
+            In many cases it will be the same as the payment sub-method, but "Visa/Carte Blanche" and "Visa/Delta" are some of the exceptions.
+          example: Visa
+          deprecated: true
+      description: Container for hotel supported payment information.
+    Warning:
+      type: object
+      properties:
+        Code:
+          type: string
+          description: The code of a warning.
+          example: INVALID_CORPORATE_DISCOUNT_CODE
+        Description:
+          type: string
+          description: A detail information of what happened.
+          example: The Corporate DiscountCode '811490' is unavailable, but we found other rates for you.
+        OriginalPrice:
+          $ref: '#/components/schemas/Money'
+        NewPrice:
+          $ref: '#/components/schemas/Money'
+        ChangedAmount:
+          $ref: '#/components/schemas/Money'
+        ChangedPercentage:
+          type: string
+          description: |-
+            The changed percentage.
+            In the sample 2.97 means the changed percentage is 2.97%.
+          example: "2.97"
+      description: |
+        There were some errors or events during the transaction, but the API has still returned a response.
+
+        Container for all warnings.
+    When:
+      type: object
+      properties:
+        Type:
+          type: string
+          description: |-
+            Indicates the time of the deposit collection.
+            Options are:
+            UPON_BOOKING
+            The customer must pay the deposit when booking the property.
+            DAYS_PRIOR
+            The customer must pay the deposit a number of days before arriving at the property.
+            UPON_ARRIVAL
+            The customer must pay the deposit upon arriving at the property.
+          example: UPON_BOOKING
+          enum:
+            - UPON_BOOKING
+            - DAYS_PRIOR
+            - UPON_ARRIVAL
+        Value:
+          type: string
+          description: This value will only be shown when Deposit Type is DAYS_PRIOR
+            to indicate the number of days prior to check in when the deposit will
+            be collected.
+          example: "1"
+      description: Indicate when to pay.
+    Error:
+      type: object
+      properties:
+        Code:
+          type: string
+          description: Error code describing the issue
+          example: AMBIGUOUS_LOCATION
+        DetailCode:
+          type: string
+          description: Detailed error code describing the issue.
+          example: MULTIPLE_AMBIGUOUS_LOCATION
+        Description:
+          type: string
+          description: A simple description of what the error is.
+          example: More than one location found
+        LocationKeyword:
+          type: string
+          description: The requested location that caused the error.
+          example: Portland
+        LocationOptions:
+          type: array
+          description: Container for possible matches to your ambiguous `locationKeyword` query.
+          items:
+            $ref: '#/components/schemas/LocationOption'
+      description: Container for error list.
+    Errors:
+      type: object
+      properties:
+        Errors:
+          type: array
+          description: Container for error list.
+          items:
+            $ref: '#/components/schemas/Error'
+        TransactionId:
+          type: string
+          description: A unique identifier for the transaction.
+          example: a9e371c4-89d9-4f9c-8df7-df105830e7fe
+    LocationOption:
+      type: object
+      properties:
+        Type:
+          type: string
+          description: Type of the location.
+          example: TRAINSTATION
+        RegionId:
+          type: string
+          description: RegionId the location resides in.
+          example: "6200275"
+        ShortName:
+          type: string
+          description: The name of the location which matches the location keyword.
+          example: Dublin Connolly Station
+        AirportCode:
+          type: string
+          description: Indicates the nearest major airport to the location.
+          example: DUB
+        Address:
+          type: string
+          description: The address of the location.
+          example: "Dublin Connolly Station, Ireland"
+        Country:
+          $ref: '#/components/schemas/Country'
+        GeoLocation:
+          $ref: '#/components/schemas/GeoLocation'
+      description: Container for possible matches to your ambiguous `locationKeyword` query.
+    APIGatewayError:
+      type: object
+      properties:
+        message:
+          type: string
+    HotelListingsResponse:
+      type: object
+      properties:
+        Warnings:
+          type: array
+          description: |
+            There were some errors or events during the transaction, but the API has still returned a response.
+
+            Container for all warnings.
+          items:
+            $ref: '#/components/schemas/Warning'
+        Count:
+          type: integer
+          description: The number of hotels actually returned in the response.
+          format: int32
+          example: 99
+        TotalHotelCount:
+          type: integer
+          description: The number of hotels present in the location.
+          format: int32
+          example: 230
+        TransactionId:
+          type: string
+          description: Unique identifier for the transaction.
+          example: f06edfa3-27f4-44e6-838c-b8dd3d0a3210
+        StayDates:
+          allOf:
+            - $ref: '#/components/schemas/StayDates'
+            - description: Container for requested dates of stay.
+        LengthOfStay:
+          type: integer
+          description: The number of stay nights.
+          format: int32
+          example: 3
+        NumberOfRooms:
+          type: integer
+          description: The number of the rooms requested on behalf of the user.
+          format: int32
+          example: 3
+        Occupants:
+          type: array
+          description: Container of occupants. It is an array including occupants of each room.
+          items:
+            $ref: '#/components/schemas/Occupant'
+        Hotels:
+          type: array
+          description: Container for all hotels.
+          items:
+            $ref: '#/components/schemas/Hotel'
+    HotelRateCalendar:
+      type: object
+      properties:
+        EcomHotelId:
+          type: string
+          description: The unique, Expedia-specific hotel property identifier used to designate a single hotel.
+          example: "14747"
+        HcomHotelId:
+          type: string
+          description: |
+            The unique, Hotels.com-specific hotel property identifier used to designate a single hotel.
+
+            This will be returned if searching via `hcomHotelId` in request or the request is coming from Hcom partner.
+          example: "10532"
+        RateCalendar:
+          type: array
+          description: Container for all rate calendar data.
+          items:
+            $ref: '#/components/schemas/RateCalendar'
+      description: Container for all hotel rate calendar data.
+    RateCalendar:
+      type: object
+      properties:
+        StayDate:
+          type: string
+          description: Stay date for which the price is returned.
+          format: date
+          example: 2022-09-02
+        Price:
+          allOf:
+            - $ref: '#/components/schemas/Money'
+            - description: Container for pricing information.
+            - properties:
+                Value:
+                  description: The total price of the corresponding date.
+                Currency:
+                  description: |
+                    The ISO 4217 Currency Code that the Value is expressed in.
+                    
+                    See [Global Currency Codes](https://developers.expediagroup.com/xap/products/xap/lodging/references/global-currency-codes)
+                    for a full list of supported currencies.
+        PriceLevel:
+          type: string
+          description: |
+            Indicates how that day's price compares to the other lowest price for that hotel over the searched date
+            range. Prices will be bucketed into LOW/MEDIUM/HIGH. Here are the details for each `PriceLevel`:
+            - HIGH: 65th percentile+
+            - MEDIUM: 30th Percentile+
+            - LOW: Anything lower than 30th percentile
+          example: MEDIUM
+          enum:
+            - HIGH
+            - MEDIUM
+            - LOW
+        Status:
+          type: string
+          description: Represents whether the offer is currently available.
+          enum:
+            - AVAILABLE
+            - NOT_AVAILABLE
+          example: AVAILABLE
+      description: The lowest rate information of requested days
+    RateCalendarResponse:
+      type: object
+      properties:
+        Warnings:
+          type: array
+          description: |
+            There were some errors or events during the transaction, but the API has still returned a response.
+
+            Container for all warnings.
+          items:
+            $ref: '#/components/schemas/Warning'
+        TransactionId:
+          type: string
+          description: Unique identifier for the transaction.
+          example: f06edfa3-27f4-44e6-838c-b8dd3d0a3210
+        RateCalendars:
+          type: array
+          description: Container for all hotel rate calendar data.
+          items:
+            $ref: '#/components/schemas/HotelRateCalendar'
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: basic

@@ -23,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * Contains list of all the available alternate fare upsell/downsell offers.
- * @param offerToken Unique key to identify each offer.
  * @param splitTicket True if more that one ticket will be issued for this offer per passenger. False if only one ticket will be issued per passenger.
  * @param opaqueFlight Indicate whether the air product is a opaque flight product or not. If true, then there will be no Segments node for this air product.
  * @param merchantName All Merchant name appending them together with a ?*?
@@ -35,6 +34,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param fareOptions Contains list of fare options
  * @param undisclosedGenderSupported Whether to support undisclosed gender? True = support False = not support
  * @param unspecifiedGenderSupported Whether to support unspecified gender? True = support False = not support
+ * @param offerToken Unique key to identify each offer.
  * @param referenceId Key that allows the user to create a package using this flight.
  * @param metaApiBook To indicate meta partners whether the air product is available for TAAS instant book.
  * @param free24HourCancellation True if Booking can be cancelled  within 24 hours of booking.
@@ -43,9 +43,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param refundPenalty Contains refund penalty information
  */
 data class FlightDetailsOffer(
-    // Unique key to identify each offer.
-    @JsonProperty("offerToken")
-    val offerToken: kotlin.String,
     // True if more that one ticket will be issued for this offer per passenger. False if only one ticket will be issued per passenger.
     @JsonProperty("SplitTicket")
     val splitTicket: kotlin.Boolean,
@@ -81,6 +78,9 @@ data class FlightDetailsOffer(
     // Whether to support unspecified gender? True = support False = not support
     @JsonProperty("UnspecifiedGenderSupported")
     val unspecifiedGenderSupported: kotlin.Boolean,
+    // Unique key to identify each offer.
+    @JsonProperty("offerToken")
+    val offerToken: kotlin.String? = null,
     // Key that allows the user to create a package using this flight.
     @JsonProperty("ReferenceId")
     val referenceId: kotlin.String? = null,
@@ -101,8 +101,6 @@ data class FlightDetailsOffer(
     val refundPenalty: kotlin.collections.List<FlightDetailsRefundPenalty>? = null,
 ) {
     init {
-        require(offerToken != null) { "offerToken must not be null" }
-
         require(splitTicket != null) { "splitTicket must not be null" }
 
         require(opaqueFlight != null) { "opaqueFlight must not be null" }
@@ -132,7 +130,6 @@ data class FlightDetailsOffer(
     }
 
     class Builder(
-        private var offerToken: kotlin.String? = null,
         private var splitTicket: kotlin.Boolean? = null,
         private var opaqueFlight: kotlin.Boolean? = null,
         private var merchantName: kotlin.String? = null,
@@ -144,6 +141,7 @@ data class FlightDetailsOffer(
         private var fareOptions: kotlin.collections.List<FareOptions>? = null,
         private var undisclosedGenderSupported: kotlin.Boolean? = null,
         private var unspecifiedGenderSupported: kotlin.Boolean? = null,
+        private var offerToken: kotlin.String? = null,
         private var referenceId: kotlin.String? = null,
         private var metaApiBook: kotlin.Boolean? = null,
         private var free24HourCancellation: kotlin.Boolean? = null,
@@ -151,8 +149,6 @@ data class FlightDetailsOffer(
         private var vfopKey: kotlin.String? = null,
         private var refundPenalty: kotlin.collections.List<FlightDetailsRefundPenalty>? = null,
     ) {
-        fun offerToken(offerToken: kotlin.String) = apply { this.offerToken = offerToken }
-
         fun splitTicket(splitTicket: kotlin.Boolean) = apply { this.splitTicket = splitTicket }
 
         fun opaqueFlight(opaqueFlight: kotlin.Boolean) = apply { this.opaqueFlight = opaqueFlight }
@@ -175,6 +171,8 @@ data class FlightDetailsOffer(
 
         fun unspecifiedGenderSupported(unspecifiedGenderSupported: kotlin.Boolean) = apply { this.unspecifiedGenderSupported = unspecifiedGenderSupported }
 
+        fun offerToken(offerToken: kotlin.String?) = apply { this.offerToken = offerToken }
+
         fun referenceId(referenceId: kotlin.String?) = apply { this.referenceId = referenceId }
 
         fun metaApiBook(metaApiBook: kotlin.Boolean?) = apply { this.metaApiBook = metaApiBook }
@@ -190,7 +188,6 @@ data class FlightDetailsOffer(
         fun build(): FlightDetailsOffer {
             val instance =
                 FlightDetailsOffer(
-                    offerToken = offerToken!!,
                     splitTicket = splitTicket!!,
                     opaqueFlight = opaqueFlight!!,
                     merchantName = merchantName!!,
@@ -202,6 +199,7 @@ data class FlightDetailsOffer(
                     fareOptions = fareOptions!!,
                     undisclosedGenderSupported = undisclosedGenderSupported!!,
                     unspecifiedGenderSupported = unspecifiedGenderSupported!!,
+                    offerToken = offerToken,
                     referenceId = referenceId,
                     metaApiBook = metaApiBook,
                     free24HourCancellation = free24HourCancellation,
@@ -216,7 +214,6 @@ data class FlightDetailsOffer(
 
     fun toBuilder() =
         Builder(
-            offerToken = offerToken!!,
             splitTicket = splitTicket!!,
             opaqueFlight = opaqueFlight!!,
             merchantName = merchantName!!,
@@ -228,6 +225,7 @@ data class FlightDetailsOffer(
             fareOptions = fareOptions!!,
             undisclosedGenderSupported = undisclosedGenderSupported!!,
             unspecifiedGenderSupported = unspecifiedGenderSupported!!,
+            offerToken = offerToken,
             referenceId = referenceId,
             metaApiBook = metaApiBook,
             free24HourCancellation = free24HourCancellation,

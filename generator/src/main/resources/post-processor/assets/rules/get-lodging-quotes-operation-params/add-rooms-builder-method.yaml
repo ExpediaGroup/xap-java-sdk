@@ -1,8 +1,0 @@
-rule:
-  kind: 'function_declaration'
-  regex: 'fun build'
-  pattern: '$FUNC'
-  inside:
-    kind: 'class_body'
-    inside:
-      pattern: 'class Builder'

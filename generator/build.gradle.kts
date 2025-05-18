@@ -1,4 +1,8 @@
-import com.expediagroup.sdk.xap.generator.mustache.AllowedMediaTypesLambda
+import com.expediagroup.sdk.xap.generator.mustache.lambda.AllowedMediaTypesLambda
+import com.expediagroup.sdk.xap.generator.mustache.processor.model.LocalDateTimeModelProcessor
+import com.expediagroup.sdk.xap.generator.mustache.processor.operation.LocalDateTimeOperationParamsProcessor
+import com.expediagroup.sdk.xap.generator.mustache.processor.operation.RoomsOperationParamsProcessor
+import com.expediagroup.sdk.xap.generator.mustache.processor.operation.SegmentsOperationParamsProcessor
 import org.openapitools.codegen.CodegenConstants
 
 plugins {
@@ -11,7 +15,7 @@ dependencies {
     api("org.openapitools:openapi-generator:7.11.0")
 }
 
-val specsDir = "src/main/resources/specs"
+val specsDir = "$rootDir/specs"
 
 /**
  * Configuration for OpenAPI code generation.
@@ -19,7 +23,7 @@ val specsDir = "src/main/resources/specs"
  */
 openApiGenerate {
     // Path to the transformed OpenAPI specification file
-    inputSpec = "${specsDir}/transformed-specs.yaml"
+    inputSpec = "$specsDir/transformed-specs.yaml"
 
     // Java package configuration
     packageName = "com.expediagroup.sdk.xap"
@@ -43,10 +47,21 @@ openApiGenerate {
     // Additional configuration properties
     additionalProperties.put(CodegenConstants.ENUM_PROPERTY_NAMING, "UPPERCASE")
     additionalProperties.put("allowedMediaTypes", AllowedMediaTypesLambda())
+    additionalProperties.put(
+        "operationProcessors",
+        listOf(
+            RoomsOperationParamsProcessor(),
+            SegmentsOperationParamsProcessor(),
+            LocalDateTimeOperationParamsProcessor(),
+        ),
+    )
+
+    additionalProperties.put("modelProcessors", listOf(LocalDateTimeModelProcessor()))
+
     configOptions.put("sourceFolder", "")
 
     // Additional files to generate beyond the core API/model classes
-    globalProperties.put("supportingFiles", "Room.kt")
+    globalProperties.put("supportingFiles", "Room.kt,GetFlightListingsOperationSegmentParam.kt")
 }
 
 /**
@@ -54,7 +69,6 @@ openApiGenerate {
  * 1. Merges OpenAPI spec files into a single specs.yaml file
  * 2. Transforms the OpenAPI spec files using EG spec transformer
  * 3. Generates the SDK code based on the transformed spec
- * 4. Applies post-processing to the generated code using a custom post-processor
  * 4. Formats license headers in the generated code
  * 5. Applies ktlint formatting to ensure code style consistency
  *
@@ -62,13 +76,14 @@ openApiGenerate {
  */
 tasks.register<Exec>("generateAll") {
     dependsOn(":generator:transformSpecs")
-    environment("KOTLIN_POST_PROCESS_FILE", "npm run --prefix src/main/resources/post-processor process")
     commandLine(
-        "sh", "-c", """
+        "sh",
+        "-c",
+        """
         ../gradlew :generator:openApiGenerate &&
         ../gradlew :xap-sdk:licenseFormatMain &&
         ../gradlew :xap-sdk:ktlintFormat
-    """.trimIndent()
+        """.trimIndent(),
     )
 }
 
@@ -94,11 +109,19 @@ tasks.register<Exec>("transformSpecs") {
     dependsOn("mergeSpecs")
     workingDir = File(specsDir)
     commandLine(
-        "npx", "--yes", "-p", "@expediagroup/spec-transformer", "cli",
-        "--headers", "accept,accept-encoding,key",
+        "npx",
+        "--yes",
+        "-p",
+        "@expediagroup/spec-transformer",
+        "cli",
+        "--headers",
+        "accept,accept-encoding,key",
         "--operationIdsToTags",
-        "--defaultStringType", "QUOTE_SINGLE",
-        "--input", "specs.yaml",
-        "--output", "transformed-specs.yaml"
+        "--defaultStringType",
+        "QUOTE_SINGLE",
+        "--input",
+        "specs.yaml",
+        "--output",
+        "transformed-specs.yaml",
     )
 }

@@ -96,7 +96,7 @@ data class GetLodgingAvailabilityCalendarsOperationParams(
                 val key = "propertyIds"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
