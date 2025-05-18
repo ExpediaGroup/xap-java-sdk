@@ -29,7 +29,6 @@ import com.expediagroup.sdk.rest.RestClient
 data class XapClientConfiguration(
     val credentials: Credentials,
     val transport: Transport? = null,
-    val host: String? = null,
 )
 
 /**
@@ -50,7 +49,6 @@ data class AsyncXapClientConfiguration(
 abstract class ClientBuilder<T : RestClient> {
     private var credentials: Credentials? = null
     private var transport: Transport? = null
-    private var host: String? = null
 
     /**
      * Sets the credentials used to authenticate with the API.
@@ -67,8 +65,6 @@ abstract class ClientBuilder<T : RestClient> {
      * @return The builder instance.
      */
     fun transport(transport: Transport) = apply { this.transport = transport }
-
-    fun host(host: String) = apply { this.host = host }
 
     /**
      * Builds the [RestClient] instance.
@@ -89,7 +85,6 @@ abstract class ClientBuilder<T : RestClient> {
         return XapClientConfiguration(
             credentials = credentials!!,
             transport = transport,
-            host = host,
         )
     }
 }

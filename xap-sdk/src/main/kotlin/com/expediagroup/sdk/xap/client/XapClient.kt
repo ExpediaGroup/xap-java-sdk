@@ -31,13 +31,13 @@ import com.expediagroup.sdk.xap.core.RequestExecutor
  *
  * @property restExecutor The executor for handling REST operations.
  */
-open class XapClient private constructor(
+class XapClient private constructor(
     config: XapClientConfiguration,
 ) : RestClient() {
     override val restExecutor: RestExecutor =
         RestExecutor(
             mapper = OBJECT_MAPPER,
-            serverUrl = config.host ?: ENDPOINT,
+            serverUrl = ENDPOINT,
             requestExecutor = RequestExecutor(config),
         )
 

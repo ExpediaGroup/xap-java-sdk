@@ -21,8 +21,14 @@ import static com.expediagroup.sdk.xap.common.Constant.MOCK_SECRET;
 
 import com.expediagroup.sdk.core.auth.basic.BasicAuthCredentials;
 import com.expediagroup.sdk.core.auth.common.Credentials;
+import com.expediagroup.sdk.core.http.Request;
+import com.expediagroup.sdk.core.http.Response;
+import com.expediagroup.sdk.core.transport.Transport;
+import com.expediagroup.sdk.okhttp.OkHttpTransport;
 import com.expediagroup.sdk.xap.client.XapClient;
+import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockWebServer;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
@@ -32,29 +38,57 @@ import org.junit.jupiter.api.TestInstance;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public abstract class XapIntegrationTest {
+    protected XapClient xapClient;
+    protected MockWebServer mockWebServer;
 
-  protected XapClient xapClient;
-  protected MockWebServer mockWebServer;
+    @BeforeEach
+    void setup() {
+        mockWebServer = new MockWebServer();
 
-  @BeforeEach
-  void setup() {
-    mockWebServer = new MockWebServer();
+        Credentials credentials = new BasicAuthCredentials(MOCK_KEY, MOCK_SECRET);
 
-    Credentials credentials = new BasicAuthCredentials(MOCK_KEY, MOCK_SECRET);
-
-    xapClient = XapClient.builder()
-        .credentials(credentials)
-        .host(mockWebServer.url("/").toString())
-        .build();
-  }
-
-  @AfterEach
-  void tearDown() throws Exception {
-    // Clean everything after each test to ensure clear state
-    if (mockWebServer != null) {
-      mockWebServer.shutdown();
-      mockWebServer = null;
+        xapClient = XapClient.builder()
+            .transport(new MockTransport())
+            .credentials(credentials)
+            .build();
     }
-    xapClient = null;
-  }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        // Clean everything after each test to ensure clear state
+        if (mockWebServer != null) {
+            mockWebServer.shutdown();
+            mockWebServer = null;
+        }
+        xapClient = null;
+    }
+
+    private class MockTransport implements Transport {
+        private final OkHttpTransport okHttpTransport = new OkHttpTransport();
+
+        @Override
+        public @NotNull Response execute(@NotNull Request request) {
+            HttpUrl original = HttpUrl.get(request.getUrl());
+            HttpUrl mockBase = mockWebServer.url("/");
+
+            assert original != null;
+
+            HttpUrl redirected = original.newBuilder()
+                .scheme(mockBase.scheme())
+                .host(mockBase.host())
+                .port(mockBase.port())
+                .build();
+
+            Request redirectedReq = request.newBuilder()
+                .url(redirected.url())
+                .build();
+
+            return okHttpTransport.execute(redirectedReq);
+        }
+
+        @Override
+        public void dispose() {
+            // no-op
+        }
+    }
 }

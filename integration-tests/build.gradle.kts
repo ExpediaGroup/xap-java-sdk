@@ -15,4 +15,6 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.16")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
     testImplementation("org.apache.commons:commons-lang3:3.17.0")
+    testImplementation("org.apache.logging.log4j:log4j-api:2.24.3")
+    testImplementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.24.3")
 }
