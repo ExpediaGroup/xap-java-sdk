@@ -6,7 +6,7 @@ import com.expediagroup.sdk.xap.generator.mustache.processor.operation.SegmentsO
 import org.openapitools.codegen.CodegenConstants
 
 plugins {
-    id("com.expediagroup.sdk.openapigenerator") version "0.0.10-alpha"
+    id("com.expediagroup.sdk.openapigenerator") version "0.0.12-alpha"
 }
 
 group = project.property("GROUP_ID") as String
