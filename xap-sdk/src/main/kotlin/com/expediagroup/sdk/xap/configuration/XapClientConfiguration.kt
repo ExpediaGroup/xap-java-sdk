@@ -24,17 +24,21 @@ import com.expediagroup.sdk.core.transport.Transport
  *
  * @property transport The transport mechanism. Defaults to null.
  */
-data class XapClientConfiguration @JvmOverloads constructor(
-    val credentials: Credentials,
-    val transport: Transport? = null,
-)
+data class XapClientConfiguration
+    @JvmOverloads
+    constructor(
+        val credentials: Credentials,
+        val transport: Transport? = null,
+    )
 
 /**
  * Configuration data class for asynchronous XAP client.
  *
  * @property asyncTransport The asynchronous transport mechanism. Defaults to null.
  */
-data class AsyncXapClientConfiguration @JvmOverloads constructor(
-    val credentials: Credentials,
-    val asyncTransport: AsyncTransport? = null,
-)
+data class AsyncXapClientConfiguration
+    @JvmOverloads
+    constructor(
+        val credentials: Credentials,
+        val asyncTransport: AsyncTransport? = null,
+    )

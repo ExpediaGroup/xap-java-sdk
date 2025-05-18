@@ -30,7 +30,7 @@ import com.expediagroup.sdk.xap.core.RequestExecutor
  *
  * @property restExecutor The executor for handling REST operations.
  */
-class XapClient (
+class XapClient(
     config: XapClientConfiguration,
 ) : RestClient() {
     override val restExecutor: RestExecutor =
