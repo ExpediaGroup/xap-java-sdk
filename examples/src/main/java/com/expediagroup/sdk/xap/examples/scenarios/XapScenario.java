@@ -36,7 +36,7 @@ public interface XapScenario {
         String key = System.getenv("XAP_KEY");
         String secret = System.getenv("XAP_SECRET");
 
-        BasicAuthCredentials credentials = new BasicAuthCredentials("f80f5b88-0d85-40e2-8a4b-22de242481c7", "MLanvsaAFTmBeLaC");
+        BasicAuthCredentials credentials = new BasicAuthCredentials(key, secret);
 
         // Or enable OAuth by passing OAuthCredentials instead:
         // OAuthCredentials credentials = new OAuthCredentials("api-key", "api-secret");

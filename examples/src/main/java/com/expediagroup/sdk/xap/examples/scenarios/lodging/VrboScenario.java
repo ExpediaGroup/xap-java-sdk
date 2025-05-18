@@ -35,7 +35,7 @@ public interface VrboScenario extends XapScenario {
         String key = System.getenv("VRBO_KEY");
         String secret = System.getenv("VRBO_SECRET");
 
-        BasicAuthCredentials credentials = new BasicAuthCredentials("02785157-ea38-4971-96d7-9386a08cfd46", "ipxicqAJgaT5vqcP");
+        BasicAuthCredentials credentials = new BasicAuthCredentials(key, secret);
 
         // Or enable OAuth by passing OAuthCredentials instead:
         // OAuthCredentials credentials = new OAuthCredentials("api-key", "api-secret");
