@@ -12,12 +12,42 @@ You can read more about the XAP API on [Developer Hub for XAP](https://developer
 The XAP SDK makes integrating simple, saving development time so you can focus more on getting your product to market
 and less on the technical details of the API.
 
-### Code Examples
+## Installation
+Make sure you have **Java 8** or higher.
+
+**Gradle**
+```groovy
+// gradle.build
+dependencies {
+    // Add SDK transport dependency
+    implementation 'com.expediagroup:expediagroup-sdk-transport-okhttp:0.0.4-alpha'
+    implementation 'com.expediagroup:xap-sdk:1.0.0-SNAPSHOT'
+}
+```
+
+**Maven**
+```xml
+<!-- pom.xml -->
+
+<!-- Add SDK transport dependency -->
+<dependency>
+    <groupId>com.expediagroup</groupId>
+    <artifactId>expediagroup-sdk-transport</artifactId>
+    <version>0.0.4-alpha</version>
+</dependency>
+<dependency>
+    <groupId>com.expediagroup</groupId>
+    <artifactId>xap-sdk</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+
+## Code Examples
 
 You can find code examples for multiple use cases in the [examples](examples) directory.
 
-### Integration Tests
-Integration tests are placed in the [integrations](tests/integration) directory.
+## Integration Tests
+Integration tests are placed in the [integrations](integration-tests) directory.
 
 ---
 
