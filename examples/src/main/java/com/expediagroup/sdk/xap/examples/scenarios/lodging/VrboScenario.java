@@ -17,6 +17,7 @@ package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
 import com.expediagroup.sdk.core.auth.basic.BasicAuthCredentials;
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.configuration.XapClientConfiguration;
 import com.expediagroup.sdk.xap.examples.scenarios.XapScenario;
 
 /**
@@ -35,15 +36,11 @@ public interface VrboScenario extends XapScenario {
         String key = System.getenv("VRBO_KEY");
         String secret = System.getenv("VRBO_SECRET");
 
-        BasicAuthCredentials credentials = new BasicAuthCredentials(key, secret);
-
         // Or enable OAuth by passing OAuthCredentials instead:
         // OAuthCredentials credentials = new OAuthCredentials("api-key", "api-secret");
+        BasicAuthCredentials credentials = new BasicAuthCredentials(key, secret);
+        XapClientConfiguration config = new XapClientConfiguration(credentials);
 
-        return XapClient
-            .builder()
-            .credentials(credentials)
-            .build();
+        return new XapClient(config);
     }
-
 }
