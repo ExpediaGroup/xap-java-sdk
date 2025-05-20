@@ -15,14 +15,18 @@
  */
 package com.expediagroup.sdk.xap.examples;
 
+import com.expediagroup.sdk.core.auth.basic.BasicAuthCredentials;
+import com.expediagroup.sdk.okhttp.OkHttpClientConfiguration;
+import com.expediagroup.sdk.okhttp.OkHttpTransport;
+import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.configuration.XapClientConfiguration;
 import com.expediagroup.sdk.xap.examples.scenarios.activity.ActivityDetailsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.activity.ActivityListingsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.car.CarDetailsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.car.CarListingsQuickStartScenario;
-import com.expediagroup.sdk.xap.examples.scenarios.lodging.AvailabilityCalendarsQuickStartScenario;
-import com.expediagroup.sdk.xap.examples.scenarios.lodging.HotelIdsSearchEndToEndScenario;
-import com.expediagroup.sdk.xap.examples.scenarios.lodging.ListingsQuickStartScenario;
-import com.expediagroup.sdk.xap.examples.scenarios.lodging.VrboPropertySearchEndToEndScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.flight.FlightDetailsExample;
+import com.expediagroup.sdk.xap.examples.scenarios.flight.FlightListingExample;
+import com.expediagroup.sdk.xap.examples.scenarios.lodging.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,58 +37,56 @@ import org.slf4j.LoggerFactory;
 public class XapSdkDemoTestRun {
     private static final Logger logger = LoggerFactory.getLogger(XapSdkDemoTestRun.class);
 
-    /**
-     * Main method.
-     */
+    private final static XapClient xapScenarioClient = createClient(System.getenv("XAP_KEY"), System.getenv("XAP_SECRET"));
+    private final static XapClient vrboScenarioClient = createClient(System.getenv("VRBO_KEY"), System.getenv("VRBO_SECRET"));
+
     public static void main(String[] args) {
+        logger.info("============================== Running Lodging Scenarios =============================");
+        new AvailabilityCalendarsQuickStartScenario(vrboScenarioClient).run();
+        new ListingsQuickStartScenario(xapScenarioClient).run();
+        new HotelIdsSearchEndToEndScenario(xapScenarioClient).run();
+        new VrboPropertySearchEndToEndScenario(vrboScenarioClient).run();
+        new QuotesQuickStartScenario(vrboScenarioClient).run();
+        logger.info("=============================== End of Lodging Scenarios ==============================");
 
-        logger.info(
-                "============================== Running Lodging Scenarios =============================");
 
-        AvailabilityCalendarsQuickStartScenario availabilityCalendarsQuickStartScenario =
-                new AvailabilityCalendarsQuickStartScenario();
-        availabilityCalendarsQuickStartScenario.run();
+        logger.info("============================== Running Car Scenarios =============================");
+        new CarListingsQuickStartScenario(xapScenarioClient).run();
+        new CarDetailsQuickStartScenario(xapScenarioClient).run();
+        logger.info("=============================== End of Car Scenarios ==============================");
 
-        ListingsQuickStartScenario listingsQuickStartScenario = new ListingsQuickStartScenario();
-        listingsQuickStartScenario.run();
 
-        HotelIdsSearchEndToEndScenario hotelIdsSearchEndToEndScenario =
-                new HotelIdsSearchEndToEndScenario();
-        hotelIdsSearchEndToEndScenario.run();
+        logger.info("============================== Running Activity Scenarios =============================");
+        new ActivityListingsQuickStartScenario(xapScenarioClient).run();
+        new ActivityDetailsQuickStartScenario(xapScenarioClient).run();
+        logger.info("=============================== End of Activity Scenarios ==============================");
 
-        VrboPropertySearchEndToEndScenario vrboPropertySearchEndToEndScenario =
-                new VrboPropertySearchEndToEndScenario();
-        vrboPropertySearchEndToEndScenario.run();
 
-        logger.info(
-                "=============================== End of Lodging Scenarios ==============================");
+        logger.info("============================== Running Flight Scenarios =============================");
+        new FlightListingExample(xapScenarioClient).run();
+        new FlightDetailsExample(xapScenarioClient).run();
+        logger.info("=============================== End of Flight Scenarios ==============================");
 
-        logger.info(
-                "============================== Running Car Scenarios =============================");
-        CarListingsQuickStartScenario carListingsQuickStartScenario =
-                new CarListingsQuickStartScenario();
 
-        carListingsQuickStartScenario.run();
+        logger.info("=============================== Cleaning up resources ==============================");
+        xapScenarioClient.dispose();
+        vrboScenarioClient.dispose();
+    }
 
-        CarDetailsQuickStartScenario carDetailsQuickStartScenario = new CarDetailsQuickStartScenario();
-        carDetailsQuickStartScenario.run();
-        logger.info(
-                "=============================== End of Car Scenarios ==============================");
+    private static XapClient createClient(String key, String secret) {
+        OkHttpTransport transport = new OkHttpTransport(
+            OkHttpClientConfiguration.builder()
+                .callTimeout(100000)
+                .connectTimeout(100000)
+                .readTimeout(100000)
+                .build()
+        );
 
-        logger.info(
-            "============================== Running Activity Scenarios =============================");
+        // Or enable OAuth by passing OAuthCredentials instead:
+        // OAuthCredentials credentials = new OAuthCredentials("api-key", "api-secret");
+        BasicAuthCredentials credentials = new BasicAuthCredentials(key, secret);
+        XapClientConfiguration config = new XapClientConfiguration(credentials, transport);
 
-        ActivityListingsQuickStartScenario activityListingsQuickStartScenario =
-            new ActivityListingsQuickStartScenario();
-
-        activityListingsQuickStartScenario.run();
-
-        ActivityDetailsQuickStartScenario activityDetailsQuickStartScenario =
-            new ActivityDetailsQuickStartScenario();
-        activityDetailsQuickStartScenario.run();
-        logger.info(
-            "=============================== End of Activity Scenarios ==============================");
-
-        System.exit(0);
+        return new XapClient(config);
     }
 }

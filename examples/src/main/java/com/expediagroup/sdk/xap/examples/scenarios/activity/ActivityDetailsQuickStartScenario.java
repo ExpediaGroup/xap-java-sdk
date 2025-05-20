@@ -17,7 +17,7 @@ package com.expediagroup.sdk.xap.examples.scenarios.activity;
 
 import com.expediagroup.sdk.rest.model.Response;
 import com.expediagroup.sdk.xap.client.XapClient;
-import com.expediagroup.sdk.xap.examples.scenarios.XapScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.models.ActivitiesAddress;
 import com.expediagroup.sdk.xap.models.ActivitiesCancellationPolicy;
 import com.expediagroup.sdk.xap.models.ActivitiesGeoLocation;
@@ -38,14 +38,13 @@ import org.slf4j.LoggerFactory;
 /**
  * This example demonstrates how to get Activity details.
  */
-public class ActivityDetailsQuickStartScenario implements XapScenario {
+public class ActivityDetailsQuickStartScenario extends ExampleScenario {
 
     private static final Logger LOGGER =
         LoggerFactory.getLogger(ActivityDetailsQuickStartScenario.class);
 
-    public static void main(String[] args) {
-        new ActivityDetailsQuickStartScenario().run();
-        System.exit(0);
+    public ActivityDetailsQuickStartScenario(XapClient client) {
+        super(client);
     }
 
     @Override
@@ -53,24 +52,19 @@ public class ActivityDetailsQuickStartScenario implements XapScenario {
         // This example demonstrates how to obtain the Activity Details Deep Link from the Activity
         // Listings.
         // For information on using activity search, refer to Activity ListingsQuickStartExample.
-        LOGGER.info(
-            "========================== Running DetailsQuickStartScenario =========================");
-
-        // Execute the operation and get the ActivityListingsRespons
-        XapClient xapClient = createClient();
+        LOGGER.info("========================== Running DetailsQuickStartScenario =========================");
 
         GetActivityListingsOperationParams getActivityListingsOperationParams =
             GetActivityListingsOperationParams.builder()
-                .partnerTransactionId(XapScenario.PARTNER_TRANSACTION_ID).location("seattle")
+                .partnerTransactionId(ExampleScenario.PARTNER_TRANSACTION_ID).location("seattle")
                 .links(Collections.singletonList(GetActivityListingsOperationParams.Links.AD))
                 .startDate(LocalDate.now().plusDays(5)).endDate(LocalDate.now().plusDays(8))
                 .locale("en_US").build();
 
         Response<ActivityListingsResponse> listingsResponse =
-            xapClient.execute(new GetActivityListingsOperation(getActivityListingsOperationParams));
+            client.execute(new GetActivityListingsOperation(getActivityListingsOperationParams));
 
-        if (listingsResponse == null || listingsResponse.getData() == null
-            || listingsResponse.getData().getActivities() == null) {
+        if (listingsResponse.getData() == null || listingsResponse.getData().getActivities() == null) {
             throw new IllegalStateException("No activity details found.");
         }
 
@@ -84,19 +78,17 @@ public class ActivityDetailsQuickStartScenario implements XapScenario {
         // Execute the operation and get the ActivityDetailsResponse
         GetActivityDetailsOperationParams getActivityDetailsOperationParams =
             GetActivityDetailsOperationParams.builder()
-                .partnerTransactionId(XapScenario.PARTNER_TRANSACTION_ID).offerToken(offerToken)
+                .partnerTransactionId(ExampleScenario.PARTNER_TRANSACTION_ID).offerToken(offerToken)
                 .build();
 
         Response<ActivityDetailsResponse> detalisResponse =
-            xapClient.execute(new GetActivityDetailsOperation(getActivityDetailsOperationParams));
+            client.execute(new GetActivityDetailsOperation(getActivityDetailsOperationParams));
 
 
         LOGGER.info(
             "======================== GetActivityDetailsOperation Executed ========================");
 
-        if (detalisResponse == null || detalisResponse.getData() == null
-            || detalisResponse.getData().getActivityDetails() == null
-            || detalisResponse.getData().getActivityDetails() == null) {
+        if (detalisResponse.getData() == null || detalisResponse.getData().getActivityDetails() == null || detalisResponse.getData().getActivityDetails() == null) {
             throw new IllegalStateException("No activity details found.");
         }
 
@@ -123,25 +115,23 @@ public class ActivityDetailsQuickStartScenario implements XapScenario {
 
 
         // To get the activity image
-        if (activity.getMedia() != null) {
-            LOGGER.info(
-                "============================ Activity Images  ============================ ");
-            activity.getMedia().forEach(image -> {
-                LOGGER.info("Image title: {}", image.getTitle());
-                LOGGER.info("Image url: {}", image.getUrl());
-            });
-            LOGGER.info(
-                "============================ Activity Images ============================ ");
-        }
+        activity.getMedia();
+        LOGGER.info(
+            "============================ Activity Images  ============================ ");
+        activity.getMedia().forEach(image -> {
+            LOGGER.info("Image title: {}", image.getTitle());
+            LOGGER.info("Image url: {}", image.getUrl());
+        });
+        LOGGER.info(
+            "============================ Activity Images ============================ ");
 
         // To get the activity free cancellation available
         LOGGER.info("Activity free cancellation available: {}", activity.getFreeCancellation());
 
         // To get the activity price
-        if (activity.getPrice() != null) {
-            LOGGER.info("Activity price currency: {}", activity.getPrice().getTotalRate().getCurrency());
-            LOGGER.info("Activity price value: {}", activity.getPrice().getTotalRate().getValue());
-        }
+        activity.getPrice();
+        LOGGER.info("Activity price currency: {}", activity.getPrice().getTotalRate().getCurrency());
+        LOGGER.info("Activity price value: {}", activity.getPrice().getTotalRate().getValue());
 
 
         // To get the activity redemption

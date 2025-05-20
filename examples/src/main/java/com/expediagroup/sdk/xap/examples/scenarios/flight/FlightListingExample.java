@@ -16,7 +16,7 @@
 package com.expediagroup.sdk.xap.examples.scenarios.flight;
 
 import com.expediagroup.sdk.xap.client.XapClient;
-import com.expediagroup.sdk.xap.examples.scenarios.XapScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.models.FlightSearchResponse;
 import com.expediagroup.sdk.xap.models.GetFlightListingsOperationSegmentParam;
 import com.expediagroup.sdk.xap.operations.GetFlightListingsOperation;
@@ -34,12 +34,11 @@ import org.slf4j.LoggerFactory;
  * round-trip and multi-stop with adults, seniors, and children.
  */
 
-public class FlightListingExample implements XapScenario {
+public class FlightListingExample extends ExampleScenario {
     private static final Logger LOGGER = LoggerFactory.getLogger(FlightListingExample.class);
 
-    public static void main(String[] args) {
-        new FlightListingExample().run();
-        System.exit(0);
+    public FlightListingExample(XapClient client) {
+        super(client);
     }
 
     @Override
@@ -59,9 +58,7 @@ public class FlightListingExample implements XapScenario {
             .childrenAges(Arrays.asList(4, 5))
             .build();
 
-        XapClient xapClient = createClient();
-
-        FlightSearchResponse flightListingsResponse = xapClient.execute(new GetFlightListingsOperation(getFlightListingsOperationParams)).getData();
+        FlightSearchResponse flightListingsResponse = client.execute(new GetFlightListingsOperation(getFlightListingsOperationParams)).getData();
 
         LOGGER.info("========= GetFlightListingsOperation (One-Way) Executed ========");
 
@@ -233,7 +230,7 @@ public class FlightListingExample implements XapScenario {
 
         GetFlightListingsOperationParams roundTripParams = GetFlightListingsOperationParams.builder().partnerTransactionID("txn-123-4").segment1(GetFlightListingsOperationSegmentParam.builder().origin("EWR").destination("LAX").departureDate(now.plusDays(10)).build()).segment2(GetFlightListingsOperationSegmentParam.builder().origin("LAX").destination("EWR").departureDate(now.plusDays(10)).build()).childrenAges(Arrays.asList(4, 5)).adult(1).senior(1).build();
 
-        FlightSearchResponse roundTripResponse = xapClient.execute(new GetFlightListingsOperation(roundTripParams)).getData();
+        FlightSearchResponse roundTripResponse = client.execute(new GetFlightListingsOperation(roundTripParams)).getData();
 
         LOGGER.info("========= GetFlightListingsOperation (Round Trip) Executed ==============");
 
@@ -246,7 +243,7 @@ public class FlightListingExample implements XapScenario {
 
         GetFlightListingsOperationParams multiStopParams = GetFlightListingsOperationParams.builder().partnerTransactionID("txn-123-4").segment1(GetFlightListingsOperationSegmentParam.builder().origin("LAS").destination("ATL").departureDate(now.plusDays(5)).build()).segment2(GetFlightListingsOperationSegmentParam.builder().origin("ORD").destination("SEA").departureDate(now.plusDays(10)).build()).adult(1).senior(1).childrenAges(Arrays.asList(4, 5)).build();
 
-        FlightSearchResponse multiStopResponse = xapClient.execute(new GetFlightListingsOperation(multiStopParams)).getData();
+        FlightSearchResponse multiStopResponse = client.execute(new GetFlightListingsOperation(multiStopParams)).getData();
 
         LOGGER.info("============ GetFlightListingsOperation (Multi-Stop) Executed ===========");
 

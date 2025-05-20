@@ -18,7 +18,7 @@ package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
 import com.expediagroup.sdk.rest.model.Response;
 import com.expediagroup.sdk.xap.client.XapClient;
-import com.expediagroup.sdk.xap.examples.scenarios.XapScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.models.Hotel;
 import com.expediagroup.sdk.xap.models.HotelListingsResponse;
 import com.expediagroup.sdk.xap.models.PresignedUrlResponse;
@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
  * <p>This is a common scenario for meta site partners. In practice, you can build a cache with the
  * property id list, content and prices to improve respond time of your pages.
  */
-public class HotelIdsSearchEndToEndScenario implements XapScenario {
+public class HotelIdsSearchEndToEndScenario extends ExampleScenario {
 
     private static final Logger LOGGER =
         LoggerFactory.getLogger(HotelIdsSearchEndToEndScenario.class);
@@ -64,11 +64,9 @@ public class HotelIdsSearchEndToEndScenario implements XapScenario {
      * you can adjust the property count to get more properties.
      */
     private static final int SAMPLE_ITEMS_RESTRICTION = 20;
-    private final XapClient client = createClient();
 
-    public static void main(String[] args) {
-        new HotelIdsSearchEndToEndScenario().run();
-        System.exit(0);
+    public HotelIdsSearchEndToEndScenario(XapClient client) {
+        super(client);
     }
 
     /**

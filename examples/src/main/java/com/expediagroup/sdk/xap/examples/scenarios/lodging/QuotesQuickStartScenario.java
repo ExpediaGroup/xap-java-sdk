@@ -16,6 +16,7 @@
 package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.models.LodgingQuotesResponse;
 import com.expediagroup.sdk.xap.models.LodgingRoomType;
 import com.expediagroup.sdk.xap.models.Property;
@@ -35,13 +36,12 @@ import org.slf4j.LoggerFactory;
  * Lodging Quotes API.
  * Note: this is a Vrbo scenario. You need a key that is enabled for Vrbo brand to run this.
  */
-public class QuotesQuickStartScenario implements VrboScenario {
+public class QuotesQuickStartScenario extends ExampleScenario {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(QuotesQuickStartScenario.class);
 
-    public static void main(String[] args) {
-        new QuotesQuickStartScenario().run();
-        System.exit(0);
+    public QuotesQuickStartScenario(XapClient client) {
+        super(client);
     }
 
     @Override
@@ -80,11 +80,9 @@ public class QuotesQuickStartScenario implements VrboScenario {
                 .rooms(rooms)
                 .build();
 
-        XapClient xapClient = createClient();
-
         // Execute the operation and get the QuotesResponse
         LodgingQuotesResponse quotesResponse =
-            xapClient.execute(new GetLodgingQuotesOperation(quotesOperationParams)).getData();
+            client.execute(new GetLodgingQuotesOperation(quotesOperationParams)).getData();
 
         // If you want to use the async method, you can use the following code:
         // ---------------------------------------------------------------

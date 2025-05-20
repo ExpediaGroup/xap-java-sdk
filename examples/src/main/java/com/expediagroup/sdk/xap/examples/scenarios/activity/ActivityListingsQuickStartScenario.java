@@ -16,12 +16,14 @@
 package com.expediagroup.sdk.xap.examples.scenarios.activity;
 
 import com.expediagroup.sdk.xap.client.XapClient;
-import com.expediagroup.sdk.xap.examples.scenarios.XapScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.models.ActivityListingsResponse;
 import com.expediagroup.sdk.xap.operations.GetActivityListingsOperation;
 import com.expediagroup.sdk.xap.operations.GetActivityListingsOperationParams;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Objects;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,14 +31,13 @@ import org.slf4j.LoggerFactory;
 /**
  * This example demonstrates how to search for properties with a location applied.
  */
-public class ActivityListingsQuickStartScenario implements XapScenario {
+public class ActivityListingsQuickStartScenario extends ExampleScenario {
 
     private static final Logger LOGGER =
         LoggerFactory.getLogger(ActivityListingsQuickStartScenario.class);
 
-    public static void main(String[] args) {
-        new ActivityListingsQuickStartScenario().run();
-        System.exit(0);
+    public ActivityListingsQuickStartScenario(XapClient client) {
+        super(client);
     }
 
     @Override
@@ -55,15 +56,13 @@ public class ActivityListingsQuickStartScenario implements XapScenario {
         // Build the query parameters with GetActivityListingsOperationParams
         GetActivityListingsOperationParams getActivityListingsOperationParams =
             GetActivityListingsOperationParams.builder()
-                .partnerTransactionId(XapScenario.PARTNER_TRANSACTION_ID).location("seattle")
+                .partnerTransactionId(ExampleScenario.PARTNER_TRANSACTION_ID).location("seattle")
                 .links(Arrays.asList(GetActivityListingsOperationParams.Links.WD,
                     GetActivityListingsOperationParams.Links.AD))
                 .startDate(LocalDate.now().plusDays(5)).endDate(LocalDate.now().plusDays(8)).build();
 
-        XapClient xapClient = createClient();
-
         // Execute the operation and get the HotelListingsResponse
-        ActivityListingsResponse activityListingsResponse = xapClient
+        ActivityListingsResponse activityListingsResponse = client
             .execute(new GetActivityListingsOperation(getActivityListingsOperationParams)).getData();
 
         // If you want to use the async method, you can use the following code:
@@ -79,8 +78,7 @@ public class ActivityListingsQuickStartScenario implements XapScenario {
         LOGGER.info(
             "======================== GetActivityListingsOperation Executed ========================");
 
-        if (activityListingsResponse == null || activityListingsResponse.getActivities() == null
-            || activityListingsResponse.getActivities().isEmpty()) {
+        if (activityListingsResponse.getActivities() == null || activityListingsResponse.getActivities().isEmpty()) {
             throw new IllegalStateException("No activities found.");
         }
 
@@ -107,9 +105,8 @@ public class ActivityListingsQuickStartScenario implements XapScenario {
 
 
             // To get the activity image
-            if (activity.getMedia() != null) {
-                LOGGER.info("Activity image: {}", activity.getMedia().get(0).getUrl());
-            }
+            activity.getMedia();
+            LOGGER.info("Activity image: {}", activity.getMedia().get(0).getUrl());
 
             // To get the activity review count
             if (activity.getReviewCount() != null) {
@@ -125,14 +122,13 @@ public class ActivityListingsQuickStartScenario implements XapScenario {
             LOGGER.info("Activity free cancellation available: {}", activity.getFreeCancellation());
 
             // To get the activity price
-            if (activity.getPrice() != null) {
-                LOGGER.info("Activity price currency: {}",
-                    activity.getPrice().getTotalRate().getCurrency());
-                LOGGER.info("Activity price value: {}", activity.getPrice().getTotalRate().getValue());
-            }
+            activity.getPrice();
+            LOGGER.info("Activity price currency: {}",
+                activity.getPrice().getTotalRate().getCurrency());
+            LOGGER.info("Activity price value: {}", activity.getPrice().getTotalRate().getValue());
 
             // Get the API details link and web details link from the links collection.
-            if (!activity.getLinks().isEmpty()) {
+            if (!Objects.requireNonNull(activity.getLinks()).isEmpty()) {
                 if (activity.getLinks().get("ApiDetails") != null) {
                     LOGGER.info("ApiDetails Link: {}", activity.getLinks().get("ApiDetails"));
                 }

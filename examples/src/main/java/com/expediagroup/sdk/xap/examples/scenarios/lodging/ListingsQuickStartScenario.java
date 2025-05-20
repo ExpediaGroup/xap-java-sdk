@@ -17,7 +17,7 @@ package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
 
 import com.expediagroup.sdk.xap.client.XapClient;
-import com.expediagroup.sdk.xap.examples.scenarios.XapScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.models.Hotel;
 import com.expediagroup.sdk.xap.models.HotelListingsResponse;
 import com.expediagroup.sdk.xap.models.Room;
@@ -35,13 +35,12 @@ import org.slf4j.LoggerFactory;
  * This example demonstrates how to search for properties with a location keyword with filters
  * applied.
  */
-public class ListingsQuickStartScenario implements XapScenario {
+public class ListingsQuickStartScenario extends ExampleScenario {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ListingsQuickStartScenario.class);
 
-    public static void main(String[] args) {
-        new ListingsQuickStartScenario().run();
-        System.exit(0);
+    public ListingsQuickStartScenario(XapClient client) {
+        super(client);
     }
 
     @Override
@@ -98,11 +97,9 @@ public class ListingsQuickStartScenario implements XapScenario {
                 .sortOrder(GetLodgingListingsOperationParams.SortOrder.ASC)
                 .build();
 
-        XapClient xapClient = createClient();
-
         // Execute the operation and get the HotelListingsResponse
         HotelListingsResponse hotelListingsResponse =
-            xapClient.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams))
+            client.execute(new GetLodgingListingsOperation(getLodgingListingsOperationParams))
                 .getData();
 
         // If you want to use the async method, you can use the following code:
@@ -118,8 +115,7 @@ public class ListingsQuickStartScenario implements XapScenario {
         LOGGER.info(
             "======================== GetLodgingListingsOperation Executed ========================");
 
-        if (hotelListingsResponse == null || hotelListingsResponse.getHotels() == null
-            || hotelListingsResponse.getHotels().isEmpty()) {
+        if (hotelListingsResponse.getHotels() == null || hotelListingsResponse.getHotels().isEmpty()) {
             throw new IllegalStateException("No properties found.");
         }
 

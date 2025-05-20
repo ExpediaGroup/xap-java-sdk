@@ -16,7 +16,7 @@
 package com.expediagroup.sdk.xap.examples.scenarios.flight;
 
 import com.expediagroup.sdk.xap.client.XapClient;
-import com.expediagroup.sdk.xap.examples.scenarios.XapScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.models.FlightDetailsResponse;
 import com.expediagroup.sdk.xap.operations.GetFlightDetailsOperation;
 import com.expediagroup.sdk.xap.operations.GetFlightDetailsOperationParams;
@@ -29,15 +29,13 @@ import org.slf4j.LoggerFactory;
  * fare, charges, fees, other terms associated with booking an airline ticket.
  */
 
-public class FlightDetailsExample implements XapScenario {
+public class FlightDetailsExample extends ExampleScenario {
 
     private static final Logger LOGGER =
             LoggerFactory.getLogger(FlightDetailsExample.class);
 
-
-    public static void main(String[] args) {
-        new FlightDetailsExample().run();
-        System.exit(0);
+    public FlightDetailsExample(XapClient client) {
+        super(client);
     }
 
     @Override
@@ -58,10 +56,9 @@ public class FlightDetailsExample implements XapScenario {
                 .price("123.31")
                 .locale("en_US")
                 .build();
-        XapClient xapClient = createClient();
 
         FlightDetailsResponse flightDetailsResponse =
-                xapClient.execute(new GetFlightDetailsOperation(detailsOperationParams))
+                client.execute(new GetFlightDetailsOperation(detailsOperationParams))
                         .getData();
 
         LOGGER.info("========= GetFlightDetailsOperation Executed ========");

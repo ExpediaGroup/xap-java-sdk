@@ -17,7 +17,7 @@ package com.expediagroup.sdk.xap.examples.scenarios.car;
 
 import com.expediagroup.sdk.rest.model.Response;
 import com.expediagroup.sdk.xap.client.XapClient;
-import com.expediagroup.sdk.xap.examples.scenarios.XapScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.models.CarDetails;
 import com.expediagroup.sdk.xap.models.CarDetailsResponse;
 import com.expediagroup.sdk.xap.models.CarListingsResponse;
@@ -37,17 +37,12 @@ import org.slf4j.LoggerFactory;
  * This example demonstrates how to retrieve CarDetails information using the Car Details DeepLink
  * obtained from the car listing.
  */
-public class CarDetailsQuickStartScenario implements XapScenario {
+public class CarDetailsQuickStartScenario extends ExampleScenario {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CarDetailsQuickStartScenario.class);
 
-    /**
-     * Summary: main function.
-     */
-    public static void main(String[] args) {
-        new CarListingsQuickStartScenario().run();
-        new CarDetailsQuickStartScenario().run();
-        System.exit(0);
+    public CarDetailsQuickStartScenario(XapClient client) {
+        super(client);
     }
 
     /**
@@ -104,17 +99,16 @@ public class CarDetailsQuickStartScenario implements XapScenario {
                 .links(linksList)
                 .build();
 
-        XapClient xapClient = createClient();
         GetCarsListingsOperation getCarsListingsOperation =
             new GetCarsListingsOperation(getCarsListingsOperationParams);
-        Response<CarListingsResponse> carListingsResponse = xapClient.execute(getCarsListingsOperation);
+        Response<CarListingsResponse> carListingsResponse = client.execute(getCarsListingsOperation);
 
         LOGGER.info("========== Car Listing Property End ==========");
 
         // Iterate through the car listings and retrieve the Car Details Deep Link.
         LOGGER.info("========== Car Details Start ==========");
         Objects.requireNonNull(carListingsResponse.getData().getCars()).forEach(car -> {
-            if (!car.getLinks().get("ApiDetails").getHref().isEmpty()) {
+            if (!Objects.requireNonNull(car.getLinks()).get("ApiDetails").getHref().isEmpty()) {
                 // Retrieve the Car Details Deep Link from the car listing.
                 LOGGER.info("Car Details Deep Link: " + car.getLinks().get("ApiDetails").getHref());
                 String[] strings = splitUrl(car.getLinks().get("ApiDetails").getHref());
@@ -127,11 +121,11 @@ public class CarDetailsQuickStartScenario implements XapScenario {
 
                 // Execute the operation and get the CarDetailsResponse
                 LOGGER.info("========== Executing GetCarDetailsOperation ==========");
-                CarDetailsResponse carDetailsResponse = xapClient.execute(
+                CarDetailsResponse carDetailsResponse = client.execute(
                     new GetCarDetailsOperation(getCarDetailsOperationParams)).getData();
                 LOGGER.info("========== GetCarDetailsOperation Executed ==========");
 
-                if (carDetailsResponse == null || carDetailsResponse.getLinks() == null) {
+                if (carDetailsResponse.getLinks() == null) {
                     throw new IllegalStateException("No car found.");
                 }
 

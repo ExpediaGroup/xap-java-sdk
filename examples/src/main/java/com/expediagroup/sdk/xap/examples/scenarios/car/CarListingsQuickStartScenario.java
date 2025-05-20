@@ -16,13 +16,15 @@
 package com.expediagroup.sdk.xap.examples.scenarios.car;
 
 import com.expediagroup.sdk.xap.client.XapClient;
-import com.expediagroup.sdk.xap.examples.scenarios.XapScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.models.CarListingsResponse;
 import com.expediagroup.sdk.xap.operations.GetCarsListingsOperation;
 import com.expediagroup.sdk.xap.operations.GetCarsListingsOperationParams;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,16 +32,12 @@ import org.slf4j.LoggerFactory;
  * This example demonstrates how to search for car properties with an Airport keyword with filters
  * applied.
  */
-public class CarListingsQuickStartScenario implements XapScenario {
+public class CarListingsQuickStartScenario extends ExampleScenario {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CarListingsQuickStartScenario.class);
 
-    /**
-     * Summary: main function.
-     */
-    public static void main(String[] args) {
-        new CarListingsQuickStartScenario().run();
-        System.exit(0);
+    public CarListingsQuickStartScenario(XapClient client) {
+        super(client);
     }
 
     @Override
@@ -111,16 +109,13 @@ public class CarListingsQuickStartScenario implements XapScenario {
                 .links(linksList)
                 .build();
 
-        XapClient xapClient = createClient();
-
         // Execute the operation and get the CarListingsResponse
         CarListingsResponse carListingsResponse =
-            xapClient.execute(new GetCarsListingsOperation(getCarsListingsOperationParams)).getData();
+            client.execute(new GetCarsListingsOperation(getCarsListingsOperationParams)).getData();
         LOGGER.info(
             "======================== GetCarsListingsOperation Executed ========================");
 
-        if (carListingsResponse == null || carListingsResponse.getCars() == null
-            || carListingsResponse.getCars().isEmpty()) {
+        if (carListingsResponse.getCars() == null || carListingsResponse.getCars().isEmpty()) {
             throw new IllegalStateException("No cars found.");
         }
 
@@ -149,7 +144,7 @@ public class CarListingsQuickStartScenario implements XapScenario {
             LOGGER.info("Drop Off Details: {}", car.getDropOffDetails());
 
             // Get the API details link, web search link, and web details link from the links collection.
-            if (!car.getLinks().isEmpty()) {
+            if (!Objects.requireNonNull(car.getLinks()).isEmpty()) {
                 if (car.getLinks().get("ApiDetails") != null) {
                     LOGGER.info("ApiDetails Link: {}", car.getLinks().get("ApiDetails"));
                 }

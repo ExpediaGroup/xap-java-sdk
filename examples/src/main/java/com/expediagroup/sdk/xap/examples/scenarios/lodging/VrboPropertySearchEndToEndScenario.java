@@ -17,6 +17,7 @@ package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
 import com.expediagroup.sdk.rest.model.Response;
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.models.LodgingQuotesResponse;
 import com.expediagroup.sdk.xap.models.LodgingRoomType;
 import com.expediagroup.sdk.xap.models.PresignedUrlResponse;
@@ -56,7 +57,7 @@ import org.slf4j.LoggerFactory;
  *
  * <p>Note: this is a Vrbo scenario. You need a key that is enabled for Vrbo brand to run this.
  */
-public class VrboPropertySearchEndToEndScenario implements VrboScenario {
+public class VrboPropertySearchEndToEndScenario extends ExampleScenario {
 
     private static final Logger LOGGER =
         LoggerFactory.getLogger(VrboPropertySearchEndToEndScenario.class);
@@ -73,11 +74,9 @@ public class VrboPropertySearchEndToEndScenario implements VrboScenario {
      * of the properties.
      */
     private static final Map<String, String> PROPERTY_ID_AND_LOCATION_CACHE = new HashMap<>();
-    private final XapClient client = createClient();
 
-    public static void main(String[] args) {
-        new VrboPropertySearchEndToEndScenario().run();
-        System.exit(0);
+    public VrboPropertySearchEndToEndScenario(XapClient client) {
+        super(client);
     }
 
     /**

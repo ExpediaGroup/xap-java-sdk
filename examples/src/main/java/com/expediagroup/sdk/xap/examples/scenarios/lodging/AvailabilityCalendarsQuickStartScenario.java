@@ -17,11 +17,14 @@ package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
 
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.models.AvailabilityCalendarResponse;
 import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperation;
 import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperationParams;
+
 import java.util.Arrays;
 import java.util.HashSet;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,15 +34,13 @@ import org.slf4j.LoggerFactory;
  *
  * <p>Note: this is a Vrbo scenario. You need a key that is enabled for Vrbo brand to run this.
  */
-public class AvailabilityCalendarsQuickStartScenario implements VrboScenario {
+public class AvailabilityCalendarsQuickStartScenario extends ExampleScenario {
 
-    private static final Logger LOGGER =
-        LoggerFactory.getLogger(AvailabilityCalendarsQuickStartScenario.class);
-
-    public static void main(String[] args) {
-        new AvailabilityCalendarsQuickStartScenario().run();
-        System.exit(0);
+    public AvailabilityCalendarsQuickStartScenario(XapClient client) {
+        super(client);
     }
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AvailabilityCalendarsQuickStartScenario.class);
 
     @Override
     public void run() {
@@ -61,11 +62,9 @@ public class AvailabilityCalendarsQuickStartScenario implements VrboScenario {
                 .propertyIds(new HashSet<>(Arrays.asList("87704892", "36960201")))
                 .build();
 
-        XapClient xapClient = createClient();
-
         // Execute the operation and get the AvailabilityCalendarsResponse
         AvailabilityCalendarResponse availabilityCalendarResponse =
-            xapClient.execute(new GetLodgingAvailabilityCalendarsOperation(
+            client.execute(new GetLodgingAvailabilityCalendarsOperation(
                 availabilityCalendarsOperationParams)).getData();
 
         // If you want to use the async method, you can use the following code:
@@ -81,9 +80,7 @@ public class AvailabilityCalendarsQuickStartScenario implements VrboScenario {
         LOGGER.info(
             "================== GetLodgingAvailabilityCalendarsOperation Executed =================");
 
-        if (availabilityCalendarResponse == null
-            || availabilityCalendarResponse.getAvailabilityCalendars() == null
-            || availabilityCalendarResponse.getAvailabilityCalendars().isEmpty()) {
+        if (availabilityCalendarResponse.getAvailabilityCalendars() == null || availabilityCalendarResponse.getAvailabilityCalendars().isEmpty()) {
             throw new IllegalStateException("No properties found.");
         }
 
