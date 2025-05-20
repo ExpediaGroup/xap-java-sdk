@@ -5,8 +5,8 @@ files:
   room.mustache:
     templateType: SupportingFiles
     destinationFilename: Room.kt
-    folder: com/expediagroup/sdk/xap/models
+    folder: com/expediagroup/sdk/xap/model
   get_flight_listings_operation_segment_param.mustache:
     templateType: SupportingFiles
     destinationFilename: GetFlightListingsOperationSegmentParam.kt
-    folder: com/expediagroup/sdk/xap/models
+    folder: com/expediagroup/sdk/xap/model

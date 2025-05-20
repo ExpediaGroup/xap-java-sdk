@@ -28,8 +28,8 @@ openApiGenerate {
     // Java package configuration
     packageName = "com.expediagroup.sdk.xap"
     invokerPackage = "com.expediagroup.sdk.xap"
-    apiPackage = "com.expediagroup.sdk.xap.operations"
-    modelPackage = "com.expediagroup.sdk.xap.models"
+    apiPackage = "com.expediagroup.sdk.xap.operation"
+    modelPackage = "com.expediagroup.sdk.xap.model"
 
     // Generation behavior settings
     dryRun = false
