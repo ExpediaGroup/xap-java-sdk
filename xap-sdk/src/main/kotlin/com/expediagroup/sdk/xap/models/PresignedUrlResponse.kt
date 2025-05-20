@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@ import com.expediagroup.sdk.xap.models.FileInfo
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param transactionId Unique identifier for each API response.
  * @param error
  * @param warning
  * @param bestMatchedFile
  * @param otherFileOptions Container for file Pre-signed download URL and informations.
-*/
+ */
 data class PresignedUrlResponse(
     // Unique identifier for each API response.
     @JsonProperty("transactionId")

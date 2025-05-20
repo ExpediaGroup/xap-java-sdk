@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* A list of time range to indicate the operation hours of the date range.
+ * A list of time range to indicate the operation hours of the date range.
  * @param startTime Start time at pickup location of the date range.
  * @param endTime End time at pickup location of the date range.
-*/
+ */
 data class TimeRange(
     // Start time at pickup location of the date range.
     @JsonProperty("StartTime")

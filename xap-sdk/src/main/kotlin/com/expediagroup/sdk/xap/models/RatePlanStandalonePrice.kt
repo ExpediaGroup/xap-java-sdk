@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import com.expediagroup.sdk.xap.models.Money
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The corresponded standalone price to the package rate plan (to show the `strikethrough`).  Only returned when the returned `rateplan` is being used as part of a package.
+ * The corresponded standalone price to the package rate plan (to show the `strikethrough`).  Only returned when the returned `rateplan` is being used as part of a package.
  * @param baseRate The standalone price of the rate plan for all occupants, excluding taxes and fees.
  * @param strikeOutBaseRate The base rate strikeout in the standalone shopping path.
  * @param taxesAndFees The total standalone rate of taxes and fees of the rate plan for all occupants.
@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param avgNightlyStrikeOutRate The average strikeout of the base rate in the standalone shopping path, which is per night per room and is equal to `StrikeOutBaseRate` divided by `StayDates` and by `room number`.
  * @param hotelMandatoryFees The total standalone mandatory fees.
  * @param strikeOutHotelMandatoryFees The strikeout of the mandatory fees in the standalone shopping path.
-*/
+ */
 data class RatePlanStandalonePrice(
     // The standalone price of the rate plan for all occupants, excluding taxes and fees.
     @JsonProperty("BaseRate")

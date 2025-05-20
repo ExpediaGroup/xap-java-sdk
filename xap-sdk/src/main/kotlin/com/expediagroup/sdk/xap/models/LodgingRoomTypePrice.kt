@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import com.expediagroup.sdk.xap.models.LodgingMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for Price information.
+ * Container for Price information.
  * @param baseRate The price of the rate plan for all occupants, excluding taxes and fees.
  * @param taxesAndFees The total amount of taxes and fees of the rate plan for all occupants.
  * @param totalPrice The total price of the rate plan, which is equal to the sum of `BaseRate` + `TaxesAndFees`. Property mandatory fees are <u>not</u> included in this value as these are paid at the property at checkout.
@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param propertyMandatoryFees The total mandatory fees which will be charged at the property for the rate plan.
  * @param totalPriceWithPropertyFees The total price of the rate plan include property mandatory fees, which is equal to the sum of `BaseRate` + `TaxesAndFees` + `PropertyMandatoryFees`. **NOTE**: Since UK regulations require that `PropertyMandatoryFees` be included in this price, the quoted price will <u>only</u> be accurate for the day of quote. This is due to the fact that currency exchange fluctuations will change the exact amount of any `PropertyMandatoryFees` that are to be collected at the hotel during the guest's stay if the cost is converted into any other currency. **CMA Compliance Note (UK)**: Websites doing business in the UK should be displaying this value to be compliant with CMA requirements.
  * @param refundableDamageDeposit The refundable damage deposit.
-*/
+ */
 data class LodgingRoomTypePrice(
     // The price of the rate plan for all occupants, excluding taxes and fees.
     @JsonProperty("BaseRate")

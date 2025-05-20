@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@ import com.expediagroup.sdk.xap.models.TimeRange
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* A List of date time periods to indicate the vendor business hours for the pickup time.
+ * A List of date time periods to indicate the vendor business hours for the pickup time.
  * @param dateRange
  * @param timeRanges A list of time range to indicate the operation hours of the date range.
-*/
+ */
 data class DateTimePeriod(
     @JsonProperty("DateRange")
     val dateRange: CarsDateRange,

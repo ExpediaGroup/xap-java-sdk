@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,13 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for a breakdown of how many of each type of Activity have been returned in the API response.
+ * Container for a breakdown of how many of each type of Activity have been returned in the API response.
  * @param count The count of the number of categories the returned set of activities map to.
  * @param groupName The group which the category belongs Possible value is: Recommendations Tours Activities Transportation Promotions Duration
  * @param groupDisplayName The localized value for category name.
  * @param categoryName The name of one of the categories.
  * @param categoryDisplayName
-*/
+ */
 data class CategoryGroup(
     // The count of the number of categories the returned set of activities map to.
     @JsonProperty("Count")

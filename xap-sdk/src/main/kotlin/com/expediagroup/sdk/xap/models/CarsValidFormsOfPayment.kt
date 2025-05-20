@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* List of all the forms of payment that will be accepted for the booking of this rental transaction.
+ * List of all the forms of payment that will be accepted for the booking of this rental transaction.
  * @param paymentMethod Method of payment
  * @param paymentSubMethod Sub method of payment
  * @param brandName The brand name of the payment sub-method to be displayed to the customer. In many cases it will be the same as the payment sub-method, but \"Visa/Carte Bleue\" and \"Visa/Delta are some of the exceptions.
-*/
+ */
 data class CarsValidFormsOfPayment(
     // Method of payment
     @JsonProperty("PaymentMethod")

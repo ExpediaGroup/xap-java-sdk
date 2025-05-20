@@ -16,7 +16,7 @@
 package com.expediagroup.sdk.xap.operations
 
 import com.expediagroup.sdk.rest.model.UrlQueryParam
-import com.expediagroup.sdk.rest.util.stringifyExplode
+import com.expediagroup.sdk.rest.util.UrlQueryParamStringifier.explode
 import com.expediagroup.sdk.rest.util.swaggerCollectionFormatStringifier
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
@@ -171,7 +171,7 @@ data class GetFeedDownloadUrlOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -186,7 +186,7 @@ data class GetFeedDownloadUrlOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -201,7 +201,7 @@ data class GetFeedDownloadUrlOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -216,7 +216,7 @@ data class GetFeedDownloadUrlOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -231,7 +231,7 @@ data class GetFeedDownloadUrlOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }

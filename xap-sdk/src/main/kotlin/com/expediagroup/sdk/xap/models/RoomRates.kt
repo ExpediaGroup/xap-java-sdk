@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import com.expediagroup.sdk.xap.models.RoomRatesTotalStrikeOutPrice
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param roomIndex Index of which of the requested rooms this entry refers to.
  * @param baseRate
  * @param taxesAndFees
@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param taxesAndFeesDetails The breakdown for taxes and fees for this room for the entire stay.  Only visible by configuration. Please contact your Expedia Account Manager if you need this node.
  * @param mandatoryFeesDetails The breakdown for the taxes and fees that must be paid at the property.
  * @param nightlyRates Container for the nightly rate of current room.
-*/
+ */
 data class RoomRates(
     // Index of which of the requested rooms this entry refers to.
     @JsonProperty("RoomIndex")

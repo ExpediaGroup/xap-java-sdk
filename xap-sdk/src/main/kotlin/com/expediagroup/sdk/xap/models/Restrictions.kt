@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,12 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container of the Restrictions associated to this ticket.
+ * Container of the Restrictions associated to this ticket.
  * @param type Type of the Restriction.
  * @param max Maximum value allowed for the restriction type.
  * @param min Minimum value allowed for the restriction type.
  * @param description The text to describe the restriction.
-*/
+ */
 data class Restrictions(
     // Type of the Restriction.
     @JsonProperty("Type")

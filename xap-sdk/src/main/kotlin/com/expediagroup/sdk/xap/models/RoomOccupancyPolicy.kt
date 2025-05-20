@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@ import com.expediagroup.sdk.xap.models.AgeClassRestriction
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Room occupancy policy.
+ * Room occupancy policy.
  * @param maxGuestCount The maximum number of guests allowed to stay in a room.
  * @param minCheckInAge The minimum age required for check-in.
  * @param includedGuestCount The number of guests included in base rate.
  * @param minGuestAge The minimum age required for any guest staying in the room.
  * @param ageClassRestrictions Container for room occupancy rules based on the age of the guests.
-*/
+ */
 data class RoomOccupancyPolicy(
     // The maximum number of guests allowed to stay in a room.
     @JsonProperty("MaxGuestCount")

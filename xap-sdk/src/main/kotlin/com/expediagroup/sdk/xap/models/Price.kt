@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@ import com.expediagroup.sdk.xap.models.CarsMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Pricing information for the rental.
+ * Pricing information for the rental.
  * @param totalPrice
  * @param ratePeriodUnitPrice
  * @param basePrice
  * @param taxesAndFees
  * @param totalPriceDueAtBooking
-*/
+ */
 data class Price(
     @JsonProperty("TotalPrice")
     val totalPrice: CarsMoney,

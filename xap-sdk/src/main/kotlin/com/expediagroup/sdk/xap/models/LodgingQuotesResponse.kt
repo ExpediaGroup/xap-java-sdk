@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import com.expediagroup.sdk.xap.models.Property
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param warnings There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
  * @param count The number of properties actually returned in the response.
  * @param totalPropertyCount The number of properties requested.
@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param lengthOfStay The number of stay nights.
  * @param occupants Container for the list of room occupants.
  * @param properties Container for all properties.
-*/
+ */
 data class LodgingQuotesResponse(
     // There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
     @JsonProperty("Warnings")

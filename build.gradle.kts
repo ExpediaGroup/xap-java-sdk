@@ -12,12 +12,12 @@ plugins {
 
 group = project.property("GROUP_ID") as String
 
-apply("$rootDir/gradle-tasks/specs.gradle.kts")
 apply("$rootDir/gradle-tasks/snapshot.gradle")
 
 allprojects {
     repositories {
         mavenCentral()
+        mavenLocal()
         maven {
             url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
         }
@@ -28,6 +28,7 @@ subprojects {
     apply(plugin = "java")
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
+//    apply(plugin = "com.github.hierynomus.license-base")
 
     plugins.withId("org.jetbrains.kotlin.jvm") {
         kotlin {
@@ -41,6 +42,10 @@ subprojects {
                 jvmTarget.set(JvmTarget.JVM_1_8)
             }
         }
+    }
+
+    tasks.test {
+        useJUnitPlatform()
     }
 
     java {

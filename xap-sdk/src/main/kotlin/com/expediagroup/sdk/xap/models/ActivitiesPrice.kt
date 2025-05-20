@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,14 @@ import com.expediagroup.sdk.xap.models.Savings
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The price of the offer
+ * The price of the offer
  * @param totalRate
  * @param category Type of passenger. Values supported are: ADULT | SENIOR | CHILD
  * @param totalFees
  * @param totalTaxesAndFees
  * @param referencePrice
  * @param savings
-*/
+ */
 data class ActivitiesPrice(
     @JsonProperty("TotalRate")
     val totalRate: ActivitiesMoney,

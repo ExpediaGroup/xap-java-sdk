@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,12 @@ import com.expediagroup.sdk.xap.models.CarsWarning
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param transactionId A unique identifier for this transaction.
  * @param carCount The number of cars offers returned in the response.
  * @param warnings Container for warning codes
  * @param cars List of cars matching the search criteria.
-*/
+ */
 data class CarListingsResponse(
     // A unique identifier for this transaction.
     @JsonProperty("TransactionId")

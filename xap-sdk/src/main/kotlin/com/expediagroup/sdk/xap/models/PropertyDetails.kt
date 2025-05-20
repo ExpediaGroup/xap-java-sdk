@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import com.expediagroup.sdk.xap.models.PropertyManager
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for information about the hotel property detail. It will be shown for Vacation Rental hotel only.
+ * Container for information about the hotel property detail. It will be shown for Vacation Rental hotel only.
  * @param propertyRegistryNumber The registry number of property.
  * @param hostLanguages The languages the host of property will speak.
  * @param maxOccupancy The maximum number of guests allowed to stay in the property.
@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param numberOfBathrooms The number of bathrooms in the property.
  * @param squareFeet Property area in square feet.
  * @param propertyManager
-*/
+ */
 data class PropertyDetails(
     // The registry number of property.
     @JsonProperty("PropertyRegistryNumber")

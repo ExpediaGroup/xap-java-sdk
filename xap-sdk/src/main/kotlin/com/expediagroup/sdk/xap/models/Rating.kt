@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.RatingDetails
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The rating of the car being offered.
+ * The rating of the car being offered.
  * @param ratingPercentage The percentage of rating.
  * @param ratingCount The total count of rating.
  * @param ratingDetails List of all the details of rating.
-*/
+ */
 data class Rating(
     // The percentage of rating.
     @JsonProperty("RatingPercentage")

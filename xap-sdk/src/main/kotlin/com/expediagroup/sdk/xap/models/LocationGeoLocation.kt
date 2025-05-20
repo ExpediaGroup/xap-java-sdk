@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param latitude The geographic coordinates of the hotel property, based on a horizontal angular measurement relative to The Equator.  North latitude will be represented by a positive value.  South latitude will be represented by a negative value.
  * @param longitude The geographic coordinates of the hotel property, based on a vertical angular measurement relative to the universal Prime Meridian (Royal Observatory, Greenwich).  East longitude will be represented by a positive value.  West longitude will be represented by a negative value.
  * @param obfuscated Indicates whether the displayed Latitude/Longitude information is obfuscated.  Note: Exact Lat/Long values for Vacation Rental properties will not be shown in either XAPv3 Search or Details responses to respect the security of the homeowner. Instead an 'obfuscated' Lat/Long value will be returned that will indicate the general area within which the property is located, but not the exact location of the property itself.
-*/
+ */
 data class LocationGeoLocation(
     // The geographic coordinates of the hotel property, based on a horizontal angular measurement relative to The Equator.  North latitude will be represented by a positive value.  South latitude will be represented by a negative value.
     @JsonProperty("Latitude")

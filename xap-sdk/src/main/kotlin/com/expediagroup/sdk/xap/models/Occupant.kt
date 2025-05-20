@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for the list of room occupants.
+ * Container for the list of room occupants.
  * @param adults The number of adults in a room.
  * @param childAges The ages of children in a room.
-*/
+ */
 data class Occupant(
     // The number of adults in a room.
     @JsonProperty("Adults")

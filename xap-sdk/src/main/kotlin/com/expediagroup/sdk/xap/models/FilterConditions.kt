@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container filter condition for the filtered file. [Filters](https://confluence.expedia.biz/display/EWS/Filtered+Feed+File+Generation+Schedule+and+Access#FilteredFeedFileGenerationScheduleandAccess-Filters)
+ * Container filter condition for the filtered file. [Filters](https://confluence.expedia.biz/display/EWS/Filtered+Feed+File+Generation+Schedule+and+Access#FilteredFeedFileGenerationScheduleandAccess-Filters)
  * @param pointOfSupply List of filter condition for PointOfSupplies: `US`, `AT`,`BR`,`CA`,`FR`,`DE`,`GR`,`IT`, `JP`,`KR`,`MX`,`PT`,`ES`,`TR`, `AE`,`GB`.
  * @param brand List of filter condition for Brands: `VRBO`.
  * @param structureType List of filter condition for StructureTypes: `VR`, `CONVENTIONAL`.
-*/
+ */
 data class FilterConditions(
     // List of filter condition for PointOfSupplies: `US`, `AT`,`BR`,`CA`,`FR`,`DE`,`GR`,`IT`, `JP`,`KR`,`MX`,`PT`,`ES`,`TR`, `AE`,`GB`.
     @JsonProperty("pointOfSupply")

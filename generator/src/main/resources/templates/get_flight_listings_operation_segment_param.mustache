@@ -1,0 +1,41 @@
+package com.expediagroup.sdk.xap.models
+
+data class GetFlightListingsOperationSegmentParam(
+    val origin: String,
+    val destination: String,
+    val departureDate: java.time.LocalDate,
+    val departureStartTime: String?,
+    val departureEndTime: String?
+) {
+    companion object {
+        @JvmStatic
+        fun builder() = Builder()
+    }
+
+    class Builder(
+        private var origin: String? = null,
+        private var destination: String? = null,
+        private var departureDate: java.time.LocalDate? = null,
+        private var departureStartTime: String? = null,
+        private var departureEndTime: String? = null
+    ) {
+        fun origin(origin: String?) = apply { this.origin = origin }
+
+        fun destination(destination: String?) = apply { this.destination = destination }
+
+        fun departureDate(departureDate: java.time.LocalDate?) = apply { this.departureDate = departureDate }
+
+        fun departureStartTime(departureStartTime: String?) = apply { this.departureStartTime = departureStartTime }
+
+        fun departureEndTime(departureEndTime: String?) = apply { this.departureEndTime = departureEndTime }
+
+        fun build(): GetFlightListingsOperationSegmentParam =
+            GetFlightListingsOperationSegmentParam(
+                origin = this.origin!!,
+                destination = this.destination!!,
+                departureDate = this.departureDate!!,
+                departureStartTime = this.departureStartTime,
+                departureEndTime = this.departureEndTime
+            )
+    }
+}

@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@ import com.expediagroup.sdk.xap.models.LodgingRoomTypePrice
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param ratePlans Container for rate plan information.
  * @param price
  * @param links
-*/
+ */
 data class LodgingRoomType(
     // Container for rate plan information.
     @JsonProperty("RatePlans")

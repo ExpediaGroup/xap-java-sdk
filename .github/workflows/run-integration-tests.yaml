@@ -1,0 +1,40 @@
+name: Integration Tests
+
+on:
+  workflow_dispatch:
+    inputs: &shared_inputs
+      jdk:
+        description: 'JDK version to use'
+        required: true
+        type: string
+      distribution:
+        description: 'JDK distribution to use'
+        required: false
+        type: string
+        default: 'corretto'
+      branch:
+        description: 'Branch to build SDK and run examples from'
+        required: true
+        type: string
+
+  workflow_call:
+    inputs: *shared_inputs
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ inputs.jdk }}
+          distribution: ${{ inputs.distribution }}
+
+      - name: Run Integration Tests
+        run: |
+          ./gradlew :integration-tests:test

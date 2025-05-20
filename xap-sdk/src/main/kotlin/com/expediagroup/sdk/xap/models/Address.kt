@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +18,14 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The address information of the location.
+ * The address information of the location.
  * @param address1 Street Number, Street Name, or PO Box
  * @param address2 Apartment, Floor, Suite, Bldg or more specific information about Address1.
  * @param city The city
  * @param province The state or province
  * @param country 3-letter code for the country
  * @param postalCode Zip/postal code
-*/
+ */
 data class Address(
     // Street Number, Street Name, or PO Box
     @JsonProperty("Address1")

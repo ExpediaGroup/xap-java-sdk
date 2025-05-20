@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import com.expediagroup.sdk.xap.models.RoomType
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for information on each offered hotel.
+ * Container for information on each offered hotel.
  * @param id The unique, Expedia-specific hotel property identifier used to designate a single hotel.
  * @param hcomId The unique, Hotels.com-specific hotel property identifier used to designate a single hotel.  This will only be returned if searching via hcomHotelIds in request.
  * @param name The common name of the hotel
@@ -64,7 +64,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param accessibility The accessibility options available for the room.  Possible accessibility include: - Accessible path of travel - Accessible bathroom - Roll-in shower - Handicapped parking - In-room accessibility - Accessibility equipment for the deaf - Braille or raised signage
  * @param memberOnlyDealAvailable Indicates whether the property has member only deal rates available.
  * @param roomTypes Container for all of available room types.
-*/
+ */
 data class Hotel(
     // The unique, Expedia-specific hotel property identifier used to designate a single hotel.
     @JsonProperty("Id")

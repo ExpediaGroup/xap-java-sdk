@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,10 @@ import com.expediagroup.sdk.xap.models.LodgingPromotion
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for rate plan information.
+ * Container for rate plan information.
  * @param cancellationPolicy
  * @param promotions All promotion information of the ratePlan.
-*/
+ */
 data class LodgingRatePlan(
     @JsonProperty("CancellationPolicy")
     val cancellationPolicy: LodgingCancellationPolicy? = null,

@@ -17,3 +17,4 @@ rootProject.name = "xap-java-sdk"
 include("xap-sdk")
 include("generator")
 include("examples")
+include("integration-tests")

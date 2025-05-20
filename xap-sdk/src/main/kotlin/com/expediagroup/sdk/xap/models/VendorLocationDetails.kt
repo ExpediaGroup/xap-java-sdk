@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,13 @@ import com.expediagroup.sdk.xap.models.DateTimePeriod
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Drop off information
+ * Drop off information
  * @param dateTime Pickup date and time.
  * @param location
  * @param shuttleCategory The category of shuttle from the terminal to the rental car counter. Please find list of Shuttle Categories in the Related Links Section below.
  * @param distance
  * @param openSchedule A List of date time periods to indicate the vendor business hours for the pickup time.
-*/
+ */
 data class VendorLocationDetails(
     // Pickup date and time.
     @JsonProperty("DateTime")

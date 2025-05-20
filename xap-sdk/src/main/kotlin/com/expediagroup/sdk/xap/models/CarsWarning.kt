@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import com.expediagroup.sdk.xap.models.CarsMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for warning codes
+ * Container for warning codes
  * @param code Standardized warning code.
  * @param description Standardized warning description message.
  * @param originalPrice
@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param changedAmount
  * @param changedPercentage The changed percentage. In the sample 2.97 means the changed percentage is 2.97%.
  * @param links
-*/
+ */
 data class CarsWarning(
     // Standardized warning code.
     @JsonProperty("Code")

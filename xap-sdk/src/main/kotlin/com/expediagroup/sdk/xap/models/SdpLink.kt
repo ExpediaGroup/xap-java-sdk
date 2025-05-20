@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Contains link information, including link address, request method. Only provided if FileInfo is in OtherFileOptions.
+ * Contains link information, including link address, request method. Only provided if FileInfo is in OtherFileOptions.
  * @param href a link address.
  * @param method Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc...
-*/
+ */
 data class SdpLink(
     // a link address.
     @JsonProperty("href")

@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ import com.expediagroup.sdk.xap.models.VendorLocationDetails
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Details of requested car.
+ * Details of requested car.
  * @param vehicleDetails
  * @param supplier
  * @param pickupDetails
@@ -54,7 +54,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param carPolicies A list of policies that apply to this car rental.
  * @param images List of image resources of the car product.
  * @param rating
-*/
+ */
 data class CarDetails(
     @JsonProperty("VehicleDetails")
     val vehicleDetails: VehicleDetails,

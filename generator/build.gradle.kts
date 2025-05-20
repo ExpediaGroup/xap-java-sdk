@@ -1,9 +1,12 @@
-import com.expediagroup.sdk.xap.generator.mustache.AllowedMediaTypesLambda
+import com.expediagroup.sdk.xap.generator.mustache.lambda.AllowedMediaTypesLambda
+import com.expediagroup.sdk.xap.generator.mustache.processor.model.LocalDateTimeModelProcessor
+import com.expediagroup.sdk.xap.generator.mustache.processor.operation.LocalDateTimeOperationParamsProcessor
+import com.expediagroup.sdk.xap.generator.mustache.processor.operation.RoomsOperationParamsProcessor
+import com.expediagroup.sdk.xap.generator.mustache.processor.operation.SegmentsOperationParamsProcessor
 import org.openapitools.codegen.CodegenConstants
 
 plugins {
-    id("com.expediagroup.sdk.openapigenerator") version "0.0.9-alpha"
-    id("com.github.hierynomus.license-base") version "0.16.1"
+    id("com.expediagroup.sdk.openapigenerator") version "0.0.12-alpha"
 }
 
 group = project.property("GROUP_ID") as String
@@ -12,14 +15,23 @@ dependencies {
     api("org.openapitools:openapi-generator:7.11.0")
 }
 
-openApiGenerate {
-    inputSpec = System.getProperty("inputSpec") ?: "$projectDir/src/main/resources/transformedSpecs.yaml"
+val specsDir = "$rootDir/specs"
 
+/**
+ * Configuration for OpenAPI code generation.
+ * This configures how the OpenAPI Generator will create the SDK code from the API specs.
+ */
+openApiGenerate {
+    // Path to the transformed OpenAPI specification file
+    inputSpec = "$specsDir/transformed-specs.yaml"
+
+    // Java package configuration
     packageName = "com.expediagroup.sdk.xap"
     invokerPackage = "com.expediagroup.sdk.xap"
     apiPackage = "com.expediagroup.sdk.xap.operations"
     modelPackage = "com.expediagroup.sdk.xap.models"
 
+    // Generation behavior settings
     dryRun = false
     cleanupOutput = false
     generateApiDocumentation = false
@@ -27,45 +39,89 @@ openApiGenerate {
     generateModelTests = false
     enablePostProcessFile = true
 
+    // Paths to resources needed for generation
     templateDir = "$projectDir/src/main/resources/templates"
     configFile = "$projectDir/src/main/resources/generator-config.yaml"
     outputDir = "$rootDir/xap-sdk/src/main/kotlin"
 
+    // Additional configuration properties
     additionalProperties.put(CodegenConstants.ENUM_PROPERTY_NAMING, "UPPERCASE")
     additionalProperties.put("allowedMediaTypes", AllowedMediaTypesLambda())
+    additionalProperties.put(
+        "operationProcessors",
+        listOf(
+            RoomsOperationParamsProcessor(),
+            SegmentsOperationParamsProcessor(),
+            LocalDateTimeOperationParamsProcessor(),
+        ),
+    )
+
+    additionalProperties.put("modelProcessors", listOf(LocalDateTimeModelProcessor()))
 
     configOptions.put("sourceFolder", "")
 
-    globalProperties.put("supportingFiles", "Room.kt")
+    // Additional files to generate beyond the core API/model classes
+    globalProperties.put("supportingFiles", "Room.kt,GetFlightListingsOperationSegmentParam.kt")
 }
 
-license {
-    header = rootProject.file("LICENSE-HEADER.txt")
-    skipExistingHeaders = true
-    strictCheck = true
-    includes(
-        listOf(
-            "$rootDir/xap-sdk/src/main/kotlin/**/*.kt"
-        )
+/**
+ * Runs the entire code generation process in a single command:
+ * 1. Merges OpenAPI spec files into a single specs.yaml file
+ * 2. Transforms the OpenAPI spec files using EG spec transformer
+ * 3. Generates the SDK code based on the transformed spec
+ * 4. Formats license headers in the generated code
+ * 5. Applies ktlint formatting to ensure code style consistency
+ *
+ * This task is the main entry point for the SDK generation workflow.
+ */
+tasks.register<Exec>("generateAll") {
+    dependsOn(":generator:transformSpecs")
+    commandLine(
+        "sh",
+        "-c",
+        """
+        ../gradlew :generator:openApiGenerate &&
+        ../gradlew :xap-sdk:licenseFormatMain &&
+        ../gradlew :xap-sdk:ktlintFormat
+        """.trimIndent(),
     )
 }
 
-tasks.named("openApiGenerate").configure {
-    doLast {
-        // Format code
-        project.providers.exec {
-            commandLine(
-                "../gradlew ktlintFormat".split(" "),
-            )
-            workingDir = File("$rootDir/xap-sdk").absoluteFile
-        }
+/**
+ * Merges all OpenAPI spec files into a single specs.yaml file.
+ * This is done using the openapi-merge-cli tool.
+ * The merged specs.yaml is used as input for the spec transformer.
+ */
+tasks.register<Exec>("mergeSpecs") {
+    commandLine("npx", "openapi-merge-cli")
+    workingDir = File(specsDir)
+}
 
-        // Add license headers
-        project.providers.exec {
-            commandLine(
-                "../gradlew licenseFormatMain".split(" "),
-            )
-            workingDir = File("$rootDir/xap-sdk").absoluteFile
-        }
-    }
+/**
+ * Transforms the merged OpenAPI spec file using the Expedia Group spec transformer.
+ * This transformation:
+ * - Adds required headers
+ * - Converts operation IDs to tags
+ * - Sets default string type to single quotes
+ * - Processes the merged specs.yaml and outputs transformed-specs.yaml
+ */
+tasks.register<Exec>("transformSpecs") {
+    dependsOn("mergeSpecs")
+    workingDir = File(specsDir)
+    commandLine(
+        "npx",
+        "--yes",
+        "-p",
+        "@expediagroup/spec-transformer",
+        "cli",
+        "--headers",
+        "accept,accept-encoding,key",
+        "--operationIdsToTags",
+        "--defaultStringType",
+        "QUOTE_SINGLE",
+        "--input",
+        "specs.yaml",
+        "--output",
+        "transformed-specs.yaml",
+    )
 }

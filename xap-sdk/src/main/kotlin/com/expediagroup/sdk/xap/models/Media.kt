@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,12 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for hotel images
+ * Container for hotel images
  * @param type Supported type of media.  1=Image.  Only 1 is supported now.
  * @param title Image title
  * @param propertySize Image size. You can find a link to the complete list of Supported Images Sizes in [Lodging Image Captions, IDs, and Sizes](https://developers.expediagroup.com/xap/products/xap/lodging/references/image-captions-ids-and-sizes).
  * @param url Image URL
-*/
+ */
 data class Media(
     // Supported type of media.  1=Image.  Only 1 is supported now.
     @JsonProperty("Type")

@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@ import com.expediagroup.sdk.xap.models.CancellationPenaltyRulePenaltyPrice
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param penaltyNightCount Specifies the per-stay cancellation fee charged in terms of the cost of the number of nights listed, in addition to any other penalties. The rate charged is based on the earliest night(s) of the stay.
  * @param penaltyPercentOfStay Specifies the per-stay cancellation fee charged as a percentage of the total rate, in addition to any other penalties listed.
  * @param penaltyPrice
  * @param penaltyStartDateTime The beginning of the window of time when the `CancellationPenaltyRule` is in effect.  The date and time are expressed in ISO 8601 International Date format, and local to the hotel.
  * @param penaltyEndDateTime The end of the window of time when the `CancellationPenaltyRule` is in effect.  The date and time are expressed in ISO 8601 International Date format, and local to the hotel.
-*/
+ */
 data class CancellationPenaltyRule(
     // Specifies the per-stay cancellation fee charged in terms of the cost of the number of nights listed, in addition to any other penalties. The rate charged is based on the earliest night(s) of the stay.
     @JsonProperty("PenaltyNightCount")

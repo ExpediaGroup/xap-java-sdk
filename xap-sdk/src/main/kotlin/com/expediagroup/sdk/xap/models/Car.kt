@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import com.expediagroup.sdk.xap.models.VendorLocationDetails
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* List of cars matching the search criteria.
+ * List of cars matching the search criteria.
  * @param id Uniquely identifies a Car Offer.Note: since pay-online and pay-at-the-counter Car Offers have the same associated Rate Code, the Offer ID is the only unique identifier to differentiate between the two offers when referencing or booking.
  * @param vehicleDetails
  * @param supplier
@@ -48,7 +48,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param noShowPenalty
  * @param images List of image resources of the car product.
  * @param rating
-*/
+ */
 data class Car(
     // Uniquely identifies a Car Offer.Note: since pay-online and pay-at-the-counter Car Offers have the same associated Rate Code, the Offer ID is the only unique identifier to differentiate between the two offers when referencing or booking.
     @JsonProperty("Id")

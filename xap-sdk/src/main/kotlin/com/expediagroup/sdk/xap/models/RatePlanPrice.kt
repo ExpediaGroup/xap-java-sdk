@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import com.expediagroup.sdk.xap.models.RoomRates
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for all price components of the rate plan.
+ * Container for all price components of the rate plan.
  * @param baseRate The price of the rate plan for all occupants, excluding taxes and fees.
  * @param taxesAndFees The total rate of taxes and fees of the rate plan for all occupants.
  * @param totalPrice The total price of the rate plan, which is equal to the sum of `BaseRate` + `TaxesAndFees`. Hotel mandatory fees are not included in this value as these are paid at the hotel at checkout. Promotion amount have been deducted from the `TotalPrice` value.
@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param nightlyRates Nightly base rate of the rate plan.
  * @param taxesAndFeesDetails Container for taxes and fees detail information. Only visible by configuration. Please contact your Expedia Account Manager if you need this node.
  * @param roomRates Container for the rate information of all rooms. This is only returned in Lodging Details API.
-*/
+ */
 data class RatePlanPrice(
     // The price of the rate plan for all occupants, excluding taxes and fees.
     @JsonProperty("BaseRate")

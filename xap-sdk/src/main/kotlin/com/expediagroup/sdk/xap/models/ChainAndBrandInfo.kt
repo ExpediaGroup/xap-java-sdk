@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,12 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The chain and brand information of hotel.  Only visible by configuration. Please contact your Expedia Account Manager if you need this node.
+ * The chain and brand information of hotel.  Only visible by configuration. Please contact your Expedia Account Manager if you need this node.
  * @param chainId The chain id.
  * @param chainName The name of the chain.
  * @param brandId The brand id.
  * @param brandName The name of the brand.
-*/
+ */
 data class ChainAndBrandInfo(
     // The chain id.
     @JsonProperty("ChainId")

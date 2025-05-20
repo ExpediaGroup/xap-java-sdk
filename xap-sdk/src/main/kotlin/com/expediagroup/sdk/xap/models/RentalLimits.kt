@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.Duration
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Limitations that are part of this rental agreement.
+ * Limitations that are part of this rental agreement.
  * @param minDuration
  * @param maxDuration
-*/
+ */
 data class RentalLimits(
     @JsonProperty("MinDuration")
     val minDuration: Duration,

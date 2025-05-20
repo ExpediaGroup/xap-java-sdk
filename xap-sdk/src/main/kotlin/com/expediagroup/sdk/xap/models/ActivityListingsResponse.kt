@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import com.expediagroup.sdk.xap.models.CategoryGroup
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param transactionId A unique identifier for this transaction.
  * @param count The number of activities returned in the response.
  * @param location The location that the user searched, expressed in the exact format that the inventory system uses to designate the location.
@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param endDate The endDate of returned group of activities in YYYY-MM-DD format.
  * @param activities List of activities matching the search criteria.
  * @param categories Container for a breakdown of how many of each type of Activity have been returned in the API response.
-*/
+ */
 data class ActivityListingsResponse(
     // A unique identifier for this transaction.
     @JsonProperty("TransactionId")

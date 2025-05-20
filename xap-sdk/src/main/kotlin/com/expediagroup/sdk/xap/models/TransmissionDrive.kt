@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Car transmission and drive. Please find list of Car Transmission Drive Codes in https://expediaintegration.zendesk.com/hc/en-us/articles/115005380028
+ * Car transmission and drive. Please find list of Car Transmission Drive Codes in https://expediaintegration.zendesk.com/hc/en-us/articles/115005380028
  * @param code Car transmission and drive code.
  * @param `value` Car transmission and drive value.
-*/
+ */
 data class TransmissionDrive(
     // Car transmission and drive code.
     @JsonProperty("Code")

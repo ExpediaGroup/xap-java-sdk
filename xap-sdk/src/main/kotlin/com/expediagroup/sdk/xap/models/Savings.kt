@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.ActivitiesMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container of savings information.
+ * Container of savings information.
  * @param percentage The percentage of the price that has been discounted off the regular price for the current activity.
  * @param amount
-*/
+ */
 data class Savings(
     // The percentage of the price that has been discounted off the regular price for the current activity.
     @JsonProperty("Percentage")

@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.Money
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param `value` The total price of the corresponding date.
  * @param currency The ISO 4217 Currency Code that the Value is expressed in.  See [Global Currency Codes](https://developers.expediagroup.com/xap/products/xap/lodging/references/global-currency-codes) for a full list of supported currencies.
  * @param localCurrencyPrice
-*/
+ */
 data class RateCalendarPrice(
     // The total price of the corresponding date.
     @JsonProperty("Value")

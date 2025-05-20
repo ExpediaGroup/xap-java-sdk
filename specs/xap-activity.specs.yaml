@@ -2,10 +2,6 @@ openapi: 3.0.1
 info:
   title: EWSActivity Apis specification
   description: OpenAPI Spec for EWS Activity APIs
-  contact:
-    name: Partner APIs
-    url: https://confluence.expedia.biz/pages/viewpage.action?pageId=833040081
-    email: autobots@expedia.com
   version: v3
   x-eg-lifecycle: LIVE
   x-eg-tags: ["Partner", "Activities", "EWS", "ActivitySearch", "ActivityDetails", "ActivityLinks"]

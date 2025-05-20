@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@ import com.expediagroup.sdk.xap.models.Link
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for list of **HATEOAS** links to Expedia website to complete booking.  This links section will only return a deeplink to the Website Search Results page by default.  If you have selected AD deeplinks they will only <u>appear</u> within the `RoomTypes` section of the  response, as the Lodging Details API returns details at the room offer level, and not at the property level.
+ * Container for list of **HATEOAS** links to Expedia website to complete booking.  This links section will only return a deeplink to the Website Search Results page by default.  If you have selected AD deeplinks they will only <u>appear</u> within the `RoomTypes` section of the  response, as the Lodging Details API returns details at the room offer level, and not at the property level.
  * @param webSearchResult
  * @param apiRateCalendar
-*/
+ */
 data class HotelLinks(
     @JsonProperty("WebSearchResult")
     val webSearchResult: HotelLinksWebSearchResult? = null,

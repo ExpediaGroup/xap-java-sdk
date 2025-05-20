@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import com.expediagroup.sdk.xap.models.GeoLocation
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for possible matches to your ambiguous `locationKeyword` query.
+ * Container for possible matches to your ambiguous `locationKeyword` query.
  * @param type Type of the location.
  * @param regionId RegionId the location resides in.
  * @param shortName The name of the location which matches the location keyword.
@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param address The address of the location.
  * @param country
  * @param geoLocation
-*/
+ */
 data class LocationOption(
     // Type of the location.
     @JsonProperty("Type")

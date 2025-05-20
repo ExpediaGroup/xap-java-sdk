@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,12 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for hotel supported payment information.
+ * Container for hotel supported payment information.
  * @param paymentMethod The payment method.
  * @param name The brand name of the payment sub-method to be displayed to the customer.
  * @param paymentSubMethod The payment sub-method.
  * @param brandName The brand name of the payment sub-method to be displayed to the customer.  In many cases it will be the same as the payment sub-method, but \"Visa/Carte Blanche\" and \"Visa/Delta\" are some of the exceptions.
-*/
+ */
 data class ValidFormsOfPayment(
     // The payment method.
     @JsonProperty("PaymentMethod")

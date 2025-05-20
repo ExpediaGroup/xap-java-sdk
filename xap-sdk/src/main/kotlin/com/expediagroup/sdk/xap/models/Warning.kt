@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,14 @@ import com.expediagroup.sdk.xap.models.Money
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
+ * There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
  * @param code The code of a warning.
  * @param description A detail information of what happened.
  * @param originalPrice
  * @param newPrice
  * @param changedAmount
  * @param changedPercentage The changed percentage. In the sample 2.97 means the changed percentage is 2.97%.
-*/
+ */
 data class Warning(
     // The code of a warning.
     @JsonProperty("Code")

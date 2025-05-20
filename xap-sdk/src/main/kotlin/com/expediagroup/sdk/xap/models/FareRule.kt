@@ -1,0 +1,72 @@
+/**
+ * Copyright (C) 2025 Expedia, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.expediagroup.sdk.xap.models
+
+import com.expediagroup.sdk.xap.models.Rule
+import com.fasterxml.jackson.annotation.JsonProperty
+
+/**
+ * Contains the list of fare rule details
+ * @param fareBasisCode Fare Basis Code to which the rules are applied.
+ * @param rules Container for fare rules.
+ */
+data class FareRule(
+    // Fare Basis Code to which the rules are applied.
+    @JsonProperty("FareBasisCode")
+    val fareBasisCode: kotlin.String,
+    // Container for fare rules.
+    @JsonProperty("Rules")
+    val rules: kotlin.collections
+        .List<
+            Rule,
+        >,
+) {
+    init {
+        require(fareBasisCode != null) { "fareBasisCode must not be null" }
+
+        require(rules != null) { "rules must not be null" }
+    }
+
+    companion object {
+        @JvmStatic
+        fun builder() = Builder()
+    }
+
+    class Builder(
+        private var fareBasisCode: kotlin.String? = null,
+        private var rules: kotlin.collections.List<Rule>? = null,
+    ) {
+        fun fareBasisCode(fareBasisCode: kotlin.String) = apply { this.fareBasisCode = fareBasisCode }
+
+        fun rules(rules: kotlin.collections.List<Rule>) = apply { this.rules = rules }
+
+        fun build(): FareRule {
+            val instance =
+                FareRule(
+                    fareBasisCode = fareBasisCode!!,
+                    rules = rules!!,
+                )
+
+            return instance
+        }
+    }
+
+    fun toBuilder() =
+        Builder(
+            fareBasisCode = fareBasisCode!!,
+            rules = rules!!,
+        )
+}

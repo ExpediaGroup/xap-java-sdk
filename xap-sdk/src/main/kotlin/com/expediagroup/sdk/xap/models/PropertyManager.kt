@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for information about the property manager. It will be shown for Vacation Rental hotel only.
+ * Container for information about the property manager. It will be shown for Vacation Rental hotel only.
  * @param name The name of the property manager.
  * @param calendarLastUpdated The latest updated date.
  * @param photoUrl The URL for property manager's photo.
-*/
+ */
 data class PropertyManager(
     // The name of the property manager.
     @JsonProperty("Name")

@@ -17,7 +17,7 @@ package com.expediagroup.sdk.xap.operations
 
 import com.expediagroup.sdk.core.http.Headers
 import com.expediagroup.sdk.rest.model.UrlQueryParam
-import com.expediagroup.sdk.rest.util.stringifyExplode
+import com.expediagroup.sdk.rest.util.UrlQueryParamStringifier.explode
 import com.expediagroup.sdk.rest.util.swaggerCollectionFormatStringifier
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
@@ -344,14 +344,14 @@ data class GetLodgingQuotesOperationParams(
                 val key = "propertyIds"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
                     ),
                 )
             }
@@ -366,7 +366,7 @@ data class GetLodgingQuotesOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -381,7 +381,7 @@ data class GetLodgingQuotesOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -396,7 +396,7 @@ data class GetLodgingQuotesOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -404,14 +404,14 @@ data class GetLodgingQuotesOperationParams(
                 val key = "links"
                 val value =
                     buildList {
-                        addAll(it.map { it.value })
+                        addAll(it.map { v -> v.value.toString() })
                     }
 
                 add(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
                     ),
                 )
             }
@@ -426,7 +426,7 @@ data class GetLodgingQuotesOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -441,7 +441,7 @@ data class GetLodgingQuotesOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -449,14 +449,14 @@ data class GetLodgingQuotesOperationParams(
                 val key = "room1.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
                     ),
                 )
             }
@@ -471,7 +471,7 @@ data class GetLodgingQuotesOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -479,14 +479,14 @@ data class GetLodgingQuotesOperationParams(
                 val key = "room2.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
                     ),
                 )
             }
@@ -501,7 +501,7 @@ data class GetLodgingQuotesOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -509,14 +509,14 @@ data class GetLodgingQuotesOperationParams(
                 val key = "room3.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
                     ),
                 )
             }
@@ -531,7 +531,7 @@ data class GetLodgingQuotesOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -539,14 +539,14 @@ data class GetLodgingQuotesOperationParams(
                 val key = "room4.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
                     ),
                 )
             }
@@ -561,7 +561,7 @@ data class GetLodgingQuotesOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -569,14 +569,14 @@ data class GetLodgingQuotesOperationParams(
                 val key = "room5.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
                     ),
                 )
             }
@@ -591,7 +591,7 @@ data class GetLodgingQuotesOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -599,14 +599,14 @@ data class GetLodgingQuotesOperationParams(
                 val key = "room6.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
                     ),
                 )
             }
@@ -621,7 +621,7 @@ data class GetLodgingQuotesOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -629,14 +629,14 @@ data class GetLodgingQuotesOperationParams(
                 val key = "room7.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
                     ),
                 )
             }
@@ -651,7 +651,7 @@ data class GetLodgingQuotesOperationParams(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
                     ),
                 )
             }
@@ -659,14 +659,14 @@ data class GetLodgingQuotesOperationParams(
                 val key = "room8.childAges"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
                     ),
                 )
             }

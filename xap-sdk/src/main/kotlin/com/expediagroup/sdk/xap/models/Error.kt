@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@ import com.expediagroup.sdk.xap.models.LocationOption
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for error list.
+ * Container for error list.
  * @param code Error code describing the issue
  * @param detailCode Detailed error code describing the issue.
  * @param description A simple description of what the error is.
  * @param locationKeyword The requested location that caused the error.
  * @param locationOptions Container for possible matches to your ambiguous `locationKeyword` query.
-*/
+ */
 data class Error(
     // Error code describing the issue
     @JsonProperty("Code")

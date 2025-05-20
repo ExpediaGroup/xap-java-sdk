@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for the descriptions of the property.
+ * Container for the descriptions of the property.
  * @param locationTeaser A description of the property's location.
  * @param hotelTeaser A description of the features and amenities of the property itself.
  * @param roomTeaser The common description for all of the rooms in the property.
-*/
+ */
 data class Description(
     // A description of the property's location.
     @JsonProperty("LocationTeaser")

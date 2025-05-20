@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.ActivitiesLocation
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container of redemption information.
+ * Container of redemption information.
  * @param type The type of redemption process associated to the activity.
  * @param redemptionLocations List of redemption locations where the activity will take place, please refer to Location Section below.
-*/
+ */
 data class Redemption(
     // The type of redemption process associated to the activity.
     @JsonProperty("Type")

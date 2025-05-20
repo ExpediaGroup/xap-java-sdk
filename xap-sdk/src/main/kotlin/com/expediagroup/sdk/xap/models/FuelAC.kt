@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Car fuel type and whether Air Conditioning is included. Please find list of Car Fuel AC Codes in https://expediaintegration.zendesk.com/hc/en-us/articles/115005378328
+ * Car fuel type and whether Air Conditioning is included. Please find list of Car Fuel AC Codes in https://expediaintegration.zendesk.com/hc/en-us/articles/115005378328
  * @param code Car FuelAC code.
  * @param `value` Car FuelAC value.
-*/
+ */
 data class FuelAC(
     // Car FuelAC code.
     @JsonProperty("Code")

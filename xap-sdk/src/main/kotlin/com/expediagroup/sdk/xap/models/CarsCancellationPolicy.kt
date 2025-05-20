@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,13 @@ import com.expediagroup.sdk.xap.models.PenaltyRule
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Cancellation Policy Container.
+ * Cancellation Policy Container.
  * @param cancellable Indicates if this car can be cancelled (free cancel or penalty cancel)
  * @param freeCancellation Indicates if this car may be cancelled without a penalty.
  * @param freeCancellationEndDateTime Indicates the latest time that the car can be cancelled for free.
  * @param penaltyRules Container for penalty rules
  * @param nonCancellableDateTimeRange
-*/
+ */
 data class CarsCancellationPolicy(
     // Indicates if this car can be cancelled (free cancel or penalty cancel)
     @JsonProperty("Cancellable")

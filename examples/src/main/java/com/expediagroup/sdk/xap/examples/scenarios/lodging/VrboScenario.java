@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
 import com.expediagroup.sdk.core.auth.basic.BasicAuthCredentials;
@@ -33,8 +32,8 @@ public interface VrboScenario extends XapScenario {
      */
     @Override
     default XapClient createClient() {
-        String key = System.getProperty("com.expediagroup.xapjavasdk.vrbokey");
-        String secret = System.getProperty("com.expediagroup.xapjavasdk.vrbosecret");
+        String key = System.getenv("VRBO_KEY");
+        String secret = System.getenv("VRBO_SECRET");
 
         BasicAuthCredentials credentials = new BasicAuthCredentials(key, secret);
 

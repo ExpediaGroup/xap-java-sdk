@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param checkInDate The initial day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
  * @param checkOutDate The final day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
-*/
+ */
 data class HotelListingsResponseStayDates(
     // The initial day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
     @JsonProperty("CheckInDate")

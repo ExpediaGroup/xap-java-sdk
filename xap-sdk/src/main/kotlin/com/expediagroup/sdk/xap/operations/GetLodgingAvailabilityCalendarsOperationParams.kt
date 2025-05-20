@@ -17,7 +17,7 @@ package com.expediagroup.sdk.xap.operations
 
 import com.expediagroup.sdk.core.http.Headers
 import com.expediagroup.sdk.rest.model.UrlQueryParam
-import com.expediagroup.sdk.rest.util.stringifyExplode
+import com.expediagroup.sdk.rest.util.UrlQueryParamStringifier.explode
 import com.expediagroup.sdk.rest.util.swaggerCollectionFormatStringifier
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
@@ -96,14 +96,14 @@ data class GetLodgingAvailabilityCalendarsOperationParams(
                 val key = "propertyIds"
                 val value =
                     buildList {
-                        addAll(it)
+                        addAll(it.map { v -> v.toString() })
                     }
 
                 add(
                     UrlQueryParam(
                         key = key,
                         value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", stringifyExplode),
+                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
                     ),
                 )
             }

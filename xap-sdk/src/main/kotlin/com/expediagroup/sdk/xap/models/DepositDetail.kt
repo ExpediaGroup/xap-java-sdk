@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.When
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for deposit policy details
+ * Container for deposit policy details
  * @param type Should be one of the following values: PERCENT The deposit amount is calculated as a percentage of the total booking cost. NIGHT The deposit amount is calculated in terms of nights plus tax. AMOUNT The deposit amount in USD. REMAINDER The deposit amount is equal to the booking cost minus any deposits that have been made before this point.
  * @param `value` Value to indicate how many/much of the type listed above is going to be charged as a deposit.
  * @param `when`
-*/
+ */
 data class DepositDetail(
     // Should be one of the following values: PERCENT The deposit amount is calculated as a percentage of the total booking cost. NIGHT The deposit amount is calculated in terms of nights plus tax. AMOUNT The deposit amount in USD. REMAINDER The deposit amount is equal to the booking cost minus any deposits that have been made before this point.
     @JsonProperty("Type")

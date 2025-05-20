@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.CarsMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Indicate whether it is deductible
+ * Indicate whether it is deductible
  * @param excessAmount
  * @param liabilityAmount
  * @param deductibleAmount
-*/
+ */
 data class Deductible(
     @JsonProperty("ExcessAmount")
     val excessAmount: CarsMoney? = null,

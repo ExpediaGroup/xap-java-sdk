@@ -1,6 +1,9 @@
 .gradle
 .idea
 
+**/node_modules/**
+**/build/**
+
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/

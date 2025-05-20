@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import com.expediagroup.sdk.xap.models.CarsNeighborhood
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for list of possible locations that could be used to disambiguate the query.
+ * Container for list of possible locations that could be used to disambiguate the query.
  * @param locationId Location id.
  * @param type The type of location code (MULTICITY | METROCODE).
  * @param id Expedia Region ID of the specified airport.
@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param neighborhood
  * @param regionId RegionId the location resides in.
  * @param country
-*/
+ */
 data class CarsLocation(
     // Location id.
     @JsonProperty("LocationId")

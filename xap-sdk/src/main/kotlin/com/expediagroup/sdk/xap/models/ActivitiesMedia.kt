@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,12 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* List of activity Media.
+ * List of activity Media.
  * @param type type of the media. So far there is only one option: 1: Image
  * @param propertySize Image size You can find a link to the complete list of Supported Images Sizes in the Related Links section at the bottom of the page.
  * @param url Image URL
  * @param title Image title
-*/
+ */
 data class ActivitiesMedia(
     // type of the media. So far there is only one option: 1: Image
     @JsonProperty("Type")

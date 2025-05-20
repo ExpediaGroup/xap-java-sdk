@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,10 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param checkInDate Check-in date for property stay in an ISO 8601 Date format [YYYY-MM-DD].  This parameter should be used in combination with the `checkOut` parameter.  The maximum advanced search window is 330 days in the future.  The maximum length of stay is 28 days.
  * @param checkOutDate Checkout date for property stay in an ISO 8601 Date format [YYYY-MM-DD].  This parameter should be used in combination with the `checkIn` parameter.  The maximum advanced search window is 330 days in the future.  The maximum length of stay is 28 days.
-*/
+ */
 data class HotelDetailsResponseStayDates(
     // Check-in date for property stay in an ISO 8601 Date format [YYYY-MM-DD].  This parameter should be used in combination with the `checkOut` parameter.  The maximum advanced search window is 330 days in the future.  The maximum length of stay is 28 days.
     @JsonProperty("CheckInDate")

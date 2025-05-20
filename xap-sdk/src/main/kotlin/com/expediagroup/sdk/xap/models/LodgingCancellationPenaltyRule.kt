@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for cancellation penalty details.
+ * Container for cancellation penalty details.
  * @param penaltyPercentOfStay Specifies the per-stay cancellation fee charged as a percentage of the total rate, in addition to any other penalties listed.
  * @param penaltyStartDateTime The beginning of the window of time when the `CancellationPenaltyRule` is in effect.  The date and time are expressed in ISO 8601 International Date format, and local to the property.
  * @param penaltyEndDateTime The end of the window of time when the `CancellationPenaltyRule` is in effect.  The date and time are expressed in ISO 8601 International Date format, and local to the property.
-*/
+ */
 data class LodgingCancellationPenaltyRule(
     // Specifies the per-stay cancellation fee charged as a percentage of the total rate, in addition to any other penalties listed.
     @JsonProperty("PenaltyPercentOfStay")

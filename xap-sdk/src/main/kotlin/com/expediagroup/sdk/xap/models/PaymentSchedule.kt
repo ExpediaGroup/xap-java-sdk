@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@ import com.expediagroup.sdk.xap.models.PaymentSchedulePrice
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Contains information on the payment schedule.
+ * Contains information on the payment schedule.
  * @param due Date/Time stamp when this installment/deposit should be paid by.
  * @param price
-*/
+ */
 data class PaymentSchedule(
     // Date/Time stamp when this installment/deposit should be paid by.
     @JsonProperty("Due")

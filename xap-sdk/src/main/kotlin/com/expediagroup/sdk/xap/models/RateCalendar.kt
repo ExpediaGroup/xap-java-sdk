@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,12 @@ import com.expediagroup.sdk.xap.models.RateCalendarPrice
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* The lowest rate information of requested days
+ * The lowest rate information of requested days
  * @param stayDate Stay date for which the price is returned.
  * @param price
  * @param priceLevel Indicates how that day's price compares to the other lowest price for that hotel over the searched date range. Prices will be bucketed into LOW/MEDIUM/HIGH. Here are the details for each `PriceLevel`: - HIGH: 65th percentile+ - MEDIUM: 30th Percentile+ - LOW: Anything lower than 30th percentile
  * @param status Represents whether the offer is currently available.
-*/
+ */
 data class RateCalendar(
     // Stay date for which the price is returned.
     @JsonProperty("StayDate")

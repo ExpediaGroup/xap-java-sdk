@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.Money
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-*
+ *
  * @param `value` The value of the element being defined.
  * @param currency The ISO 4217 Currency Code that the value is expressed in.
  * @param localCurrencyPrice
-*/
+ */
 data class MandatoryFeesDetailAmount(
     // The value of the element being defined.
     @JsonProperty("Value")

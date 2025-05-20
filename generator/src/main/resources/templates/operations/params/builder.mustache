@@ -1,0 +1,49 @@
+class Builder(
+{{#nonBodyParams}}
+    {{#params}}
+        @JsonProperty("{{{baseName}}}") private var {{{paramName}}}: {{>partials/datatype}}? = null
+        {{^-last}},{{/-last}}
+    {{/params}}
+{{/nonBodyParams}}
+) {
+{{#nonBodyParams}}
+    {{#params}}
+        {{^vendorExtensions.x-replacedByBuilderHelper}}
+            /**
+            * @param {{{paramName}}} {{{description}}}
+            */
+            fun {{{paramName}}}({{{paramName}}}: {{>partials/datatype}}) =
+            apply { this.{{{paramName}}} = {{{paramName}}} }
+        {{/vendorExtensions.x-replacedByBuilderHelper}}
+    {{/params}}
+
+    {{#vendorExtensions.x-needsBuilderHelper}}
+        {{{vendorExtensions.x-builderHelpersCode}}}
+    {{/vendorExtensions.x-needsBuilderHelper}}
+{{/nonBodyParams}}
+
+    fun build(): {{classname}}Params {
+        val params = {{classname}}Params(
+        {{#nonBodyParams}}
+            {{#params}}
+                {{{paramName}}} = {{{paramName}}}{{#required}}!!{{/required}}{{^-last}},{{/-last}}
+            {{/params}}
+        {{/nonBodyParams}}
+        )
+
+        return params
+    }
+
+    {{#link}}
+        {{>operations/params/link_builder_method}}
+    {{/link}}
+
+}
+
+fun toBuilder() = Builder(
+{{#nonBodyParams}}
+    {{#params}}
+        {{{paramName}}} = {{{paramName}}}{{^-last}},{{/-last}}
+    {{/params}}
+{{/nonBodyParams}}
+)

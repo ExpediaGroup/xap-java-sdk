@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.expediagroup.sdk.xap.client
 
 import com.expediagroup.sdk.rest.RestClient
@@ -21,7 +20,6 @@ import com.expediagroup.sdk.rest.RestExecutor
 import com.expediagroup.sdk.rest.model.Response
 import com.expediagroup.sdk.rest.trait.operation.JacksonModelOperationResponseBodyTrait
 import com.expediagroup.sdk.rest.trait.operation.OperationNoResponseBodyTrait
-import com.expediagroup.sdk.xap.configuration.ClientBuilder
 import com.expediagroup.sdk.xap.configuration.Constant.ENDPOINT
 import com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER
 import com.expediagroup.sdk.xap.configuration.XapClientConfiguration
@@ -32,7 +30,7 @@ import com.expediagroup.sdk.xap.core.RequestExecutor
  *
  * @property restExecutor The executor for handling REST operations.
  */
-class XapClient private constructor(
+class XapClient(
     config: XapClientConfiguration,
 ) : RestClient() {
     override val restExecutor: RestExecutor =
@@ -58,21 +56,4 @@ class XapClient private constructor(
      * @return The response of the operation.
      */
     fun <T : Any> execute(operation: JacksonModelOperationResponseBodyTrait<T>): Response<T> = restExecutor.execute(operation)
-
-    companion object {
-        /**
-         * Builder for creating an instance of [XapClient].
-         */
-        class Builder : ClientBuilder<XapClient>() {
-            override fun build(): XapClient = XapClient(buildConfig())
-        }
-
-        /**
-         * Creates a new builder for [XapClient].
-         *
-         * @return A new [Builder] instance.
-         */
-        @JvmStatic
-        fun builder() = Builder()
-    }
 }

@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ import com.expediagroup.sdk.xap.models.ActivitiesMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for the reference price used for strike out display.
+ * Container for the reference price used for strike out display.
  * @param totalRate
  * @param totalFees
  * @param totalTaxesAndFees
-*/
+ */
 data class ReferencePrice(
     @JsonProperty("TotalRate")
     val totalRate: ActivitiesMoney,

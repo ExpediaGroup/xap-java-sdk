@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,12 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for room occupancy rules based on the age of the guests.
+ * Container for room occupancy rules based on the age of the guests.
  * @param ageClass Categories for hotel guests, based on age.
  * @param ageMinimum The minimum age defined in a particular `AgeClass`.
  * @param ageMaximum The maximum age defined in a particular `AgeClass`.  If not specified, the `AgeClass` has no upper bound.
  * @param maxGuestCount The max guest count allowed in a particular `AgeClass`.
-*/
+ */
 data class AgeClassRestriction(
     // Categories for hotel guests, based on age.
     @JsonProperty("AgeClass")

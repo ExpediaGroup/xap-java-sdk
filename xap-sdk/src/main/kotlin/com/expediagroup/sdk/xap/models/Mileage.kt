@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,11 @@ import com.expediagroup.sdk.xap.models.ExtraCostPerDistance
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* A list of charges to be levied based on the mileage driven.
+ * A list of charges to be levied based on the mileage driven.
  * @param freeDistance
  * @param freeDistanceRatePeriod Rate period for free distance.
  * @param extraCostPerDistance
-*/
+ */
 data class Mileage(
     @JsonProperty("FreeDistance")
     val freeDistance: CarsDistance,

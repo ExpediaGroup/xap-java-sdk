@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,11 @@ package com.expediagroup.sdk.xap.models
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for Geo location.
+ * Container for Geo location.
  * @param latitude Latitude of the location.
  * @param longitude Longitude of the location.
  * @param obfuscated
-*/
+ */
 data class CarsGeoLocation(
     // Latitude of the location.
     @JsonProperty("Latitude")

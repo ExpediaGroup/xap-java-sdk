@@ -1,5 +1,5 @@
-/*
- * Copyright (C) 2022 Expedia, Inc.
+/**
+ * Copyright (C) 2025 Expedia, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,11 +21,11 @@ import com.expediagroup.sdk.xap.models.Neighborhood
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
-* Container for list of possible locations that could be used to disambiguate the query.
+ * Container for list of possible locations that could be used to disambiguate the query.
  * @param address
  * @param geoLocation
  * @param neighborhood
-*/
+ */
 data class Location(
     @JsonProperty("Address")
     val address: Address? = null,
