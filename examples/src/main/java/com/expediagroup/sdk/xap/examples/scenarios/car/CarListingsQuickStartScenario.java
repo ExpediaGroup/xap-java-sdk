@@ -17,7 +17,7 @@ package com.expediagroup.sdk.xap.examples.scenarios.car;
 
 import com.expediagroup.sdk.xap.client.XapClient;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
-import com.expediagroup.sdk.xap.models.CarListingsResponse;
+import com.expediagroup.sdk.xap.model.CarListingsResponse;
 import com.expediagroup.sdk.xap.operations.GetCarsListingsOperation;
 import com.expediagroup.sdk.xap.operations.GetCarsListingsOperationParams;
 import java.time.LocalDateTime;

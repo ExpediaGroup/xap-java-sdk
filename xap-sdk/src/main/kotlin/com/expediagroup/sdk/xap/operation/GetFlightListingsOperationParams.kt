@@ -419,7 +419,7 @@ data class GetFlightListingsOperationParams(
          */
         fun enableSplitTicket(enableSplitTicket: kotlin.Boolean) = apply { this.enableSplitTicket = enableSplitTicket }
 
-        fun segment1(segment: com.expediagroup.sdk.xap.models.GetFlightListingsOperationSegmentParam) =
+        fun segment1(segment: com.expediagroup.sdk.xap.model.GetFlightListingsOperationSegmentParam) =
             apply {
                 this.segment1Origin = segment.origin
                 this.segment1Destination = segment.destination
@@ -428,7 +428,7 @@ data class GetFlightListingsOperationParams(
                 this.segment1DepartureEndTime = segment.departureEndTime
             }
 
-        fun segment2(segment: com.expediagroup.sdk.xap.models.GetFlightListingsOperationSegmentParam) =
+        fun segment2(segment: com.expediagroup.sdk.xap.model.GetFlightListingsOperationSegmentParam) =
             apply {
                 this.segment2Origin = segment.origin
                 this.segment2Destination = segment.destination
@@ -437,7 +437,7 @@ data class GetFlightListingsOperationParams(
                 this.segment2DepartureEndTime = segment.departureEndTime
             }
 
-        fun segment3(segment: com.expediagroup.sdk.xap.models.GetFlightListingsOperationSegmentParam) =
+        fun segment3(segment: com.expediagroup.sdk.xap.model.GetFlightListingsOperationSegmentParam) =
             apply {
                 this.segment3Origin = segment.origin
                 this.segment3Destination = segment.destination
@@ -446,7 +446,7 @@ data class GetFlightListingsOperationParams(
                 this.segment3DepartureEndTime = segment.departureEndTime
             }
 
-        fun segment4(segment: com.expediagroup.sdk.xap.models.GetFlightListingsOperationSegmentParam) =
+        fun segment4(segment: com.expediagroup.sdk.xap.model.GetFlightListingsOperationSegmentParam) =
             apply {
                 this.segment4Origin = segment.origin
                 this.segment4Destination = segment.destination
@@ -455,7 +455,7 @@ data class GetFlightListingsOperationParams(
                 this.segment4DepartureEndTime = segment.departureEndTime
             }
 
-        fun segment5(segment: com.expediagroup.sdk.xap.models.GetFlightListingsOperationSegmentParam) =
+        fun segment5(segment: com.expediagroup.sdk.xap.model.GetFlightListingsOperationSegmentParam) =
             apply {
                 this.segment5Origin = segment.origin
                 this.segment5Destination = segment.destination
@@ -464,7 +464,7 @@ data class GetFlightListingsOperationParams(
                 this.segment5DepartureEndTime = segment.departureEndTime
             }
 
-        fun segment6(segment: com.expediagroup.sdk.xap.models.GetFlightListingsOperationSegmentParam) =
+        fun segment6(segment: com.expediagroup.sdk.xap.model.GetFlightListingsOperationSegmentParam) =
             apply {
                 this.segment6Origin = segment.origin
                 this.segment6Destination = segment.destination

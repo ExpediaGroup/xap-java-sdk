@@ -16,6 +16,9 @@ dependencies {
 }
 
 val specsDir = "$rootDir/specs"
+val basePackageStr = "${project.property("GROUP_ID")}.sdk.${project.property("namespace")}"
+val apiPackageStr = "$basePackageStr.operation"
+val modelPackageStr = "$basePackageStr.model"
 
 /**
  * Configuration for OpenAPI code generation.
@@ -26,10 +29,9 @@ openApiGenerate {
     inputSpec = "$specsDir/transformed-specs.yaml"
 
     // Java package configuration
-    packageName = "com.expediagroup.sdk.xap"
-    invokerPackage = "com.expediagroup.sdk.xap"
-    apiPackage = "com.expediagroup.sdk.xap.operation"
-    modelPackage = "com.expediagroup.sdk.xap.model"
+    packageName = basePackageStr
+    apiPackage = apiPackageStr
+    modelPackage = modelPackageStr
 
     // Generation behavior settings
     dryRun = false
@@ -50,13 +52,14 @@ openApiGenerate {
     additionalProperties.put(
         "operationProcessors",
         listOf(
-            RoomsOperationParamsProcessor(),
-            SegmentsOperationParamsProcessor(),
+            RoomsOperationParamsProcessor(modelPackageStr),
+            SegmentsOperationParamsProcessor(modelPackageStr),
             LocalDateTimeOperationParamsProcessor(),
         ),
     )
 
     additionalProperties.put("modelProcessors", listOf(LocalDateTimeModelProcessor()))
+    additionalProperties.put("modelPackage", modelPackage)
 
     configOptions.put("sourceFolder", "")
 

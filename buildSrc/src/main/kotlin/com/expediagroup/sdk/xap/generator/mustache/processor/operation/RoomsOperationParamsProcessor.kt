@@ -19,7 +19,9 @@ import java.io.Serializable
  *
  * **Note: Must be used with the default EG SDK mustache templates**
  */
-class RoomsOperationParamsProcessor : Serializable, (CodegenOperation) -> CodegenOperation {
+class RoomsOperationParamsProcessor(
+    private val modelPackage: String
+) : Serializable, (CodegenOperation) -> CodegenOperation {
 
     /** Regex to identify room parameters like `room1Adult`, `room2ChildAges`, etc. */
     private val roomRegex = Regex("""^room\d+\w*$""", RegexOption.IGNORE_CASE)
@@ -56,7 +58,7 @@ class RoomsOperationParamsProcessor : Serializable, (CodegenOperation) -> Codege
      * This snippet replaces individual `roomN…` methods with a loop over a `List<Room>`.
      */
     private fun roomsHelperTextImpl() = """
-        fun rooms(rooms: List<com.expediagroup.sdk.xap.models.Room>) =
+        fun rooms(rooms: List<${modelPackage}.Room>) =
             apply {
                 if (rooms.size > 8) {
                     throw com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException(

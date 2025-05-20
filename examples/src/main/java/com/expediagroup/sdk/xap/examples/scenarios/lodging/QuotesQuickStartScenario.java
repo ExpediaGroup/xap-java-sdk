@@ -17,10 +17,10 @@ package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
 import com.expediagroup.sdk.xap.client.XapClient;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
-import com.expediagroup.sdk.xap.models.LodgingQuotesResponse;
-import com.expediagroup.sdk.xap.models.LodgingRoomType;
-import com.expediagroup.sdk.xap.models.Property;
-import com.expediagroup.sdk.xap.models.Room;
+import com.expediagroup.sdk.xap.model.LodgingQuotesResponse;
+import com.expediagroup.sdk.xap.model.LodgingRoomType;
+import com.expediagroup.sdk.xap.model.Property;
+import com.expediagroup.sdk.xap.model.Room;
 import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperation;
 import com.expediagroup.sdk.xap.operations.GetLodgingQuotesOperationParams;
 import java.time.LocalDate;

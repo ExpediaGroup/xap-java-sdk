@@ -629,7 +629,7 @@ data class GetLodgingListingsOperationParams(
          */
         fun sortOrder(sortOrder: GetLodgingListingsOperationParams.SortOrder) = apply { this.sortOrder = sortOrder }
 
-        fun rooms(rooms: List<com.expediagroup.sdk.xap.models.Room>) =
+        fun rooms(rooms: List<com.expediagroup.sdk.xap.model.Room>) =
             apply {
                 if (rooms.size > 8) {
                     throw com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException(

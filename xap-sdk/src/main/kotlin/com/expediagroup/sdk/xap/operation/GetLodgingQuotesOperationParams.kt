@@ -220,7 +220,7 @@ data class GetLodgingQuotesOperationParams(
          */
         fun travelWithPets(travelWithPets: kotlin.Boolean) = apply { this.travelWithPets = travelWithPets }
 
-        fun rooms(rooms: List<com.expediagroup.sdk.xap.models.Room>) =
+        fun rooms(rooms: List<com.expediagroup.sdk.xap.model.Room>) =
             apply {
                 if (rooms.size > 8) {
                     throw com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException(

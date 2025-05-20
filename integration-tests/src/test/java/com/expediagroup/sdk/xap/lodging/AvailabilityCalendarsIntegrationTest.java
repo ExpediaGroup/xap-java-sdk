@@ -24,9 +24,9 @@ import static com.expediagroup.sdk.xap.common.Constant.PARTNER_TRANSACTION_ID;
 
 import com.expediagroup.sdk.rest.model.Response;
 import com.expediagroup.sdk.xap.common.XapIntegrationTest;
-import com.expediagroup.sdk.xap.models.AvailabilityCalendar;
-import com.expediagroup.sdk.xap.models.AvailabilityCalendarResponse;
-import com.expediagroup.sdk.xap.models.DateRange;
+import com.expediagroup.sdk.xap.model.AvailabilityCalendar;
+import com.expediagroup.sdk.xap.model.AvailabilityCalendarResponse;
+import com.expediagroup.sdk.xap.model.DateRange;
 import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperation;
 import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperationParams;
 import io.hosuaby.inject.resources.junit.jupiter.GivenTextResource;

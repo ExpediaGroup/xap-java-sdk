@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.expediagroup.sdk.xap.models
+package com.expediagroup.sdk.xap.model
 
 data class GetFlightListingsOperationSegmentParam(
     val origin: String,

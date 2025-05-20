@@ -17,7 +17,7 @@ package com.expediagroup.sdk.xap.examples.scenarios.flight;
 
 import com.expediagroup.sdk.xap.client.XapClient;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
-import com.expediagroup.sdk.xap.models.FlightDetailsResponse;
+import com.expediagroup.sdk.xap.model.FlightDetailsResponse;
 import com.expediagroup.sdk.xap.operations.GetFlightDetailsOperation;
 import com.expediagroup.sdk.xap.operations.GetFlightDetailsOperationParams;
 

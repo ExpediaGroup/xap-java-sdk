@@ -18,7 +18,7 @@ package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
 import com.expediagroup.sdk.xap.client.XapClient;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
-import com.expediagroup.sdk.xap.models.AvailabilityCalendarResponse;
+import com.expediagroup.sdk.xap.model.AvailabilityCalendarResponse;
 import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperation;
 import com.expediagroup.sdk.xap.operations.GetLodgingAvailabilityCalendarsOperationParams;
 
