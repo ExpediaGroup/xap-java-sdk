@@ -10,25 +10,20 @@ class SegmentsOperationParamsProcessor(
     private val segmentsRegex = Regex("""^segment\d+\w*$""", RegexOption.IGNORE_CASE)
     private val targetedOperations = listOf("GetFlightListings")
 
-    override fun invoke(operation: CodegenOperation): CodegenOperation {
-
-        if (targetedOperations.contains(operation.baseName)) {
-            var needsSegmentsHelperMethod = false
-
-            operation.queryParams.forEach {
-                if (segmentsRegex.matches(it.paramName)) {
-                    it.vendorExtensions["x-replacedByBuilderHelper"] = true
-                    needsSegmentsHelperMethod = true
+    override fun invoke(operation: CodegenOperation): CodegenOperation = operation.apply {
+        if (baseName in targetedOperations) {
+            queryParams.filter {
+                segmentsRegex.matches(it.paramName)
+            }.takeIf {
+                it.isNotEmpty()
+            }?.also { rooms ->
+                rooms.forEach { p ->
+                    p.vendorExtensions["x-replacedByBuilderHelper"] = true
                 }
-            }
-
-            if (needsSegmentsHelperMethod) {
-                operation.vendorExtensions["x-needsBuilderHelper"] = true
-                operation.vendorExtensions["x-builderHelpersCode"] = "${segmentsHelperTextImpl()} \n"
+                vendorExtensions["x-needsBuilderHelper"] = true
+                vendorExtensions["x-builderHelpersCode"] = segmentsHelperTextImpl().plus("\n")
             }
         }
-
-        return operation
     }
 
     private fun segmentsHelperTextImpl() = (1..6).joinToString("\n\n") { i ->
@@ -36,11 +31,11 @@ class SegmentsOperationParamsProcessor(
         fun segment$i(
             segment: ${modelPackage}.GetFlightListingsOperationSegmentParam
         ) = apply {
-            this.segment${i}Origin           = segment.origin
-            this.segment${i}Destination      = segment.destination
-            this.segment${i}DepartureDate    = segment.departureDate
+            this.segment${i}Origin = segment.origin
+            this.segment${i}Destination = segment.destination
+            this.segment${i}DepartureDate = segment.departureDate
             this.segment${i}DepartureStartTime = segment.departureStartTime
-            this.segment${i}DepartureEndTime   = segment.departureEndTime
+            this.segment${i}DepartureEndTime = segment.departureEndTime
         }
         """.trimIndent()
     }
