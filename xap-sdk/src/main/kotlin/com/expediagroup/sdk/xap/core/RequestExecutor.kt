@@ -17,7 +17,6 @@ package com.expediagroup.sdk.xap.core
 
 import com.expediagroup.sdk.core.auth.basic.BasicAuthCredentials
 import com.expediagroup.sdk.core.auth.basic.BasicAuthManager
-import com.expediagroup.sdk.core.auth.oauth.OAuthCredentials
 import com.expediagroup.sdk.core.auth.oauth.OAuthManager
 import com.expediagroup.sdk.core.exception.client.ExpediaGroupConfigurationException
 import com.expediagroup.sdk.core.logging.LoggerDecorator
@@ -62,13 +61,13 @@ class RequestExecutor(
                 ),
             )
 
-        is OAuthCredentials ->
+        is XapOAuthCredentials ->
             listOf(
                 RequestHeadersStep(),
-                ApiKeyHeaderStep(configuration.credentials.key),
+                ApiKeyHeaderStep(configuration.credentials.xapApiKey),
                 OAuthStep(
                     OAuthManager(
-                        credentials = configuration.credentials,
+                        credentials = configuration.credentials.oAuthCredentials,
                         transport = transport,
                         authUrl = AUTH_ENDPOINT,
                     ),

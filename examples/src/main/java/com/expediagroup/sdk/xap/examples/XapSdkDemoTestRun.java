@@ -16,6 +16,7 @@
 package com.expediagroup.sdk.xap.examples;
 
 import com.expediagroup.sdk.core.auth.basic.BasicAuthCredentials;
+import com.expediagroup.sdk.core.auth.common.Credentials;
 import com.expediagroup.sdk.okhttp.OkHttpClientConfiguration;
 import com.expediagroup.sdk.okhttp.OkHttpTransport;
 import com.expediagroup.sdk.xap.client.XapClient;
@@ -37,8 +38,15 @@ import org.slf4j.LoggerFactory;
 public class XapSdkDemoTestRun {
     private static final Logger logger = LoggerFactory.getLogger(XapSdkDemoTestRun.class);
 
-    private final static XapClient xapScenarioClient = createClient(System.getenv("XAP_KEY"), System.getenv("XAP_SECRET"));
-    private final static XapClient vrboScenarioClient = createClient(System.getenv("VRBO_KEY"), System.getenv("VRBO_SECRET"));
+    // Or enable OAuth by passing XapOAuthCredentials instead:
+    // Credentials credentials = new XapOAuthCredentials("xap-api-key", new OAuthCredentials("api-key", "api-secret"));
+    // XapOAuthCredentials with builder style:
+    // Credentials credentials = XapOAuthCredentials.builder().xapApiKey("xapKey").key("key).secret("secret").build();
+    private static final Credentials xapCredentials = new BasicAuthCredentials(System.getenv("XAP_KEY"), System.getenv("XAP_SECRET"));
+    private static final Credentials vrboCredentials = new BasicAuthCredentials(System.getenv("VRBO_KEY"), System.getenv("VRBO_SECRET"));
+
+    private final static XapClient xapScenarioClient = createClient(xapCredentials);
+    private final static XapClient vrboScenarioClient = createClient(vrboCredentials);
 
     public static void main(String[] args) {
         logger.info("============================== Running Lodging Scenarios =============================");
@@ -73,7 +81,7 @@ public class XapSdkDemoTestRun {
         vrboScenarioClient.dispose();
     }
 
-    private static XapClient createClient(String key, String secret) {
+    private static XapClient createClient(Credentials credentials) {
         OkHttpTransport transport = new OkHttpTransport(
             OkHttpClientConfiguration.builder()
                 .callTimeout(100000)
@@ -82,9 +90,6 @@ public class XapSdkDemoTestRun {
                 .build()
         );
 
-        // Or enable OAuth by passing OAuthCredentials instead:
-        // OAuthCredentials credentials = new OAuthCredentials("api-key", "api-secret");
-        BasicAuthCredentials credentials = new BasicAuthCredentials(key, secret);
         XapClientConfiguration config = new XapClientConfiguration(credentials, transport);
 
         return new XapClient(config);
