@@ -62,6 +62,9 @@ public abstract class XapIntegrationTest {
         xapClient = null;
     }
 
+    /**
+     * Mock transport implementation that redirects requests to the mock web server.
+     */
     private class MockTransport implements Transport {
         private final OkHttpTransport okHttpTransport = new OkHttpTransport();
 
