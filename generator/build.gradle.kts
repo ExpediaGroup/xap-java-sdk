@@ -99,6 +99,6 @@ tasks.register<Exec>("transformSpecs") {
         "--input",
         "specs.yaml",
         "--output",
-        "transformed-specs.yaml",
+        "transformed-spec.yaml",
     )
 }
