@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.expediagroup.sdk.xap.operations
+package com.expediagroup.sdk.xap.operation
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.core.http.Headers
 import com.expediagroup.sdk.rest.model.UrlQueryParam
 import com.expediagroup.sdk.rest.util.UrlQueryParamStringifier.explode
@@ -33,7 +34,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
  * @property includeSegmentDetails If included, the response will included all segment and leg details. By default, the value of this parameter will be false.
  */
 @JsonDeserialize(builder = GetFlightFlexsearchOperationParams.Builder::class)
-data class GetFlightFlexsearchOperationParams(
+@ConsistentCopyVisibility
+data class GetFlightFlexsearchOperationParams private constructor(
     val partnerTransactionID: kotlin.String,
     val segment1Origin: kotlin.String,
     val segment1Destination: kotlin.String,
@@ -46,16 +48,8 @@ data class GetFlightFlexsearchOperationParams(
         null,
     val includeSegmentDetails: kotlin.Boolean? =
         null,
+
 ) {
-    init {
-        require(partnerTransactionID != null) { "partnerTransactionID must not be null" }
-
-        require(segment1Origin != null) { "segment1Origin must not be null" }
-
-        require(segment1Destination != null) { "segment1Destination must not be null" }
-
-        require(segment1DepartureDate != null) { "segment1DepartureDate must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -71,192 +65,209 @@ data class GetFlightFlexsearchOperationParams(
         @JsonProperty("segment2.destination") private var segment2Destination: kotlin.String? = null,
         @JsonProperty("segment2.departureDate") private var segment2DepartureDate: java.time.LocalDate? = null,
         @JsonProperty("includeSegmentDetails") private var includeSegmentDetails: kotlin.Boolean? = null,
+
     ) {
         /**
          * @param partnerTransactionID Partner-generated identifier.
          */
-        fun partnerTransactionID(partnerTransactionID: kotlin.String) = apply { this.partnerTransactionID = partnerTransactionID }
+        fun partnerTransactionID(
+            partnerTransactionID: kotlin.String,
+        ) = apply { this.partnerTransactionID = partnerTransactionID }
 
         /**
          * @param segment1Origin 3-letter IATA Airport code or location name from where the passenger is departing.
          */
-        fun segment1Origin(segment1Origin: kotlin.String) = apply { this.segment1Origin = segment1Origin }
+        fun segment1Origin(
+            segment1Origin: kotlin.String,
+        ) = apply { this.segment1Origin = segment1Origin }
 
         /**
          * @param segment1Destination 3-letter IATA Airport code or location name to where the passenger is arriving.
          */
-        fun segment1Destination(segment1Destination: kotlin.String) = apply { this.segment1Destination = segment1Destination }
+        fun segment1Destination(
+            segment1Destination: kotlin.String,
+        ) = apply { this.segment1Destination = segment1Destination }
 
         /**
          * @param segment1DepartureDate Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
          */
-        fun segment1DepartureDate(segment1DepartureDate: java.time.LocalDate) = apply { this.segment1DepartureDate = segment1DepartureDate }
+        fun segment1DepartureDate(
+            segment1DepartureDate: java.time.LocalDate,
+        ) = apply { this.segment1DepartureDate = segment1DepartureDate }
 
         /**
          * @param segment2Origin 3-letter IATA Airport code or location name from where the passenger is departing.
          */
-        fun segment2Origin(segment2Origin: kotlin.String) = apply { this.segment2Origin = segment2Origin }
+        fun segment2Origin(
+            segment2Origin: kotlin.String,
+        ) = apply { this.segment2Origin = segment2Origin }
 
         /**
          * @param segment2Destination 3-letter IATA Airport code or location name to where the passenger is arriving.
          */
-        fun segment2Destination(segment2Destination: kotlin.String) = apply { this.segment2Destination = segment2Destination }
+        fun segment2Destination(
+            segment2Destination: kotlin.String,
+        ) = apply { this.segment2Destination = segment2Destination }
 
         /**
          * @param segment2DepartureDate Date, in ISO format [YYYY-MM-DD], on which customer wants to depart.
          */
-        fun segment2DepartureDate(segment2DepartureDate: java.time.LocalDate) = apply { this.segment2DepartureDate = segment2DepartureDate }
+        fun segment2DepartureDate(
+            segment2DepartureDate: java.time.LocalDate,
+        ) = apply { this.segment2DepartureDate = segment2DepartureDate }
 
         /**
          * @param includeSegmentDetails If included, the response will included all segment and leg details. By default, the value of this parameter will be false.
          */
-        fun includeSegmentDetails(includeSegmentDetails: kotlin.Boolean) = apply { this.includeSegmentDetails = includeSegmentDetails }
+        fun includeSegmentDetails(
+            includeSegmentDetails: kotlin.Boolean,
+        ) = apply { this.includeSegmentDetails = includeSegmentDetails }
 
         fun build(): GetFlightFlexsearchOperationParams {
-            val params =
-                GetFlightFlexsearchOperationParams(
-                    partnerTransactionID = partnerTransactionID!!,
-                    segment1Origin = segment1Origin!!,
-                    segment1Destination = segment1Destination!!,
-                    segment1DepartureDate = segment1DepartureDate!!,
-                    segment2Origin = segment2Origin,
-                    segment2Destination = segment2Destination,
-                    segment2DepartureDate = segment2DepartureDate,
-                    includeSegmentDetails = includeSegmentDetails,
-                )
+            val partnerTransactionID = this.partnerTransactionID.getOrThrow {
+                IllegalArgumentException("partnerTransactionID must not be null")
+            }
 
+            val segment1Origin = this.segment1Origin.getOrThrow {
+                IllegalArgumentException("segment1Origin must not be null")
+            }
+
+            val segment1Destination = this.segment1Destination.getOrThrow {
+                IllegalArgumentException("segment1Destination must not be null")
+            }
+
+            val segment1DepartureDate = this.segment1DepartureDate.getOrThrow {
+                IllegalArgumentException("segment1DepartureDate must not be null")
+            }
+
+            val params = GetFlightFlexsearchOperationParams(
+                partnerTransactionID = partnerTransactionID,
+                segment1Origin = segment1Origin,
+                segment1Destination = segment1Destination,
+                segment1DepartureDate = segment1DepartureDate,
+                segment2Origin = segment2Origin,
+                segment2Destination = segment2Destination,
+                segment2DepartureDate = segment2DepartureDate,
+                includeSegmentDetails = includeSegmentDetails,
+            )
             return params
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            partnerTransactionID = partnerTransactionID,
-            segment1Origin = segment1Origin,
-            segment1Destination = segment1Destination,
-            segment1DepartureDate = segment1DepartureDate,
-            segment2Origin = segment2Origin,
-            segment2Destination = segment2Destination,
-            segment2DepartureDate = segment2DepartureDate,
-            includeSegmentDetails = includeSegmentDetails,
-        )
+    fun toBuilder() = Builder(
+        partnerTransactionID = partnerTransactionID,
+        segment1Origin = segment1Origin,
+        segment1Destination = segment1Destination,
+        segment1DepartureDate = segment1DepartureDate,
+        segment2Origin = segment2Origin,
+        segment2Destination = segment2Destination,
+        segment2DepartureDate = segment2DepartureDate,
+        includeSegmentDetails = includeSegmentDetails,
+    )
 
-    fun getHeaders(): Headers =
-        Headers
-            .builder()
-            .apply {
-                partnerTransactionID?.let {
-                    add("Partner-Transaction-ID", it)
-                }
-                add("Accept", "application/vnd.exp-flight.v3+json")
-            }.build()
+    fun getHeaders(): Headers = Headers.builder().apply {
+        add("Partner-Transaction-ID", partnerTransactionID)
+        add("Accept", "application/vnd.exp-flight.v3+json")
+    }.build()
 
-    fun getQueryParams(): List<UrlQueryParam> =
-        buildList {
-            segment1Origin?.let {
-                val key = "segment1.origin"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
+    fun getQueryParams(): List<UrlQueryParam> = buildList {
+        segment1Origin.let {
+            val key = "segment1.origin"
+            val value = buildList {
+                add(it)
             }
-            segment1Destination?.let {
-                val key = "segment1.destination"
-                val value =
-                    buildList {
-                        add(it)
-                    }
 
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            segment1DepartureDate?.let {
-                val key = "segment1.departureDate"
-                val value =
-                    buildList {
-                        add(it.toString())
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            segment2Origin?.let {
-                val key = "segment2.origin"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            segment2Destination?.let {
-                val key = "segment2.destination"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            segment2DepartureDate?.let {
-                val key = "segment2.departureDate"
-                val value =
-                    buildList {
-                        add(it.toString())
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            includeSegmentDetails?.let {
-                val key = "includeSegmentDetails"
-                val value =
-                    buildList {
-                        add(it.toString())
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
         }
+        segment1Destination.let {
+            val key = "segment1.destination"
+            val value = buildList {
+                add(it)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        segment1DepartureDate.let {
+            val key = "segment1.departureDate"
+            val value = buildList {
+                add(it.toString())
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        segment2Origin?.let {
+            val key = "segment2.origin"
+            val value = buildList {
+                add(it)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        segment2Destination?.let {
+            val key = "segment2.destination"
+            val value = buildList {
+                add(it)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        segment2DepartureDate?.let {
+            val key = "segment2.departureDate"
+            val value = buildList {
+                add(it.toString())
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        includeSegmentDetails?.let {
+            val key = "includeSegmentDetails"
+            val value = buildList {
+                add(it.toString())
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+    }
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FareCalendarResponseOffersInner
 import com.expediagroup.sdk.xap.model.FlightsV3Warning
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -25,25 +26,22 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param transactionId Unique identifier for the transaction.
  * @param warnings Container for Warning Codes.
  */
-data class FareCalendarResponse(
-    // Container for list of air offers. An offer gives total trip details including flight and pricing information.
+@ConsistentCopyVisibility data class FareCalendarResponse private constructor(
+    /* Container for list of air offers. An offer gives total trip details including flight and pricing information. */
     @JsonProperty("Offers")
     val offers: kotlin.collections
         .List<
             FareCalendarResponseOffersInner,
-        >,
-    // Unique identifier for the transaction.
+            >,
+
+    /* Unique identifier for the transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
-    // Container for Warning Codes.
+
+    /* Container for Warning Codes. */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<FlightsV3Warning>? = null,
 ) {
-    init {
-        require(offers != null) { "offers must not be null" }
-
-        require(transactionId != null) { "transactionId must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -62,21 +60,27 @@ data class FareCalendarResponse(
         fun warnings(warnings: kotlin.collections.List<FlightsV3Warning>?) = apply { this.warnings = warnings }
 
         fun build(): FareCalendarResponse {
-            val instance =
-                FareCalendarResponse(
-                    offers = offers!!,
-                    transactionId = transactionId!!,
-                    warnings = warnings,
-                )
+            val offers = this.offers.getOrThrow {
+                IllegalArgumentException("offers must not be null")
+            }
+
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val instance = FareCalendarResponse(
+                offers = offers,
+                transactionId = transactionId,
+                warnings = warnings,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            offers = offers!!,
-            transactionId = transactionId!!,
-            warnings = warnings,
-        )
+    fun toBuilder() = Builder(
+        offers = offers,
+        transactionId = transactionId,
+        warnings = warnings,
+    )
 }

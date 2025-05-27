@@ -23,15 +23,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param type Type of mandatory fee.
  * @param amount
  */
-data class MandatoryFeesDetail(
-    // Type of mandatory fee.
+@ConsistentCopyVisibility data class MandatoryFeesDetail private constructor(
+    /* Type of mandatory fee. */
     @JsonProperty("Type")
     val type: MandatoryFeesDetail.Type? = null,
+
     @JsonProperty("Amount")
     val amount: MandatoryFeesDetailAmount? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,29 +46,25 @@ data class MandatoryFeesDetail(
         fun amount(amount: MandatoryFeesDetailAmount?) = apply { this.amount = amount }
 
         fun build(): MandatoryFeesDetail {
-            val instance =
-                MandatoryFeesDetail(
-                    type = type,
-                    amount = amount,
-                )
+            val instance = MandatoryFeesDetail(
+                type = type,
+                amount = amount,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type,
-            amount = amount,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        amount = amount,
+    )
 
     /**
      * Type of mandatory fee.
      * Values: CITY_LOCAL_TAX_AMT,CITY_LOCAL_TAX_PCNT,CLEANING_FEE_AMT,CLEANING_FEE_PCNT,CLUB_CARD_ADULT,CLUB_CARD_CHILD,DESTINATION_FEE_AMT,DESTINATION_FEE_PCNT,GALA_DINNER_ADULT,GALA_DINNER_CHILD,GALA_DINNER_CHINESE_NY_ADULT,GALA_DINNER_CHINESE_NY_CHILD,GALA_DINNER_NY_DAY_ADULT,GALA_DINNER_NY_DAY_CHILD,GALA_DINNER_NY_EVE_ADULT,GALA_DINNER_NY_EVE_CHILD,GALA_DINNER_VALENTINES_DAY_ADULT,GALA_DINNER_VALENTINES_DAY_CHILD,GALA_DINNER_XMAS_DAY_ADULT,GALA_DINNER_XMAS_DAY_CHILD,GALA_DINNER_XMAS_EVE_ADULT,GALA_DINNER_XMAS_EVE_CHILD,RESORT_FEE_AMT,RESORT_FEE_PCNT,SANITATION_FEE,SEASONAL_HEATING_FEE,TOURISM_FEE_AMT,TOURISM_FEE_PCNT,TOWEL_SHEETS_FEE_AMT,TRANSFER_FEE_AMT_ADULT,TRANSFER_FEE_AMT_CHILD,UTILITY_SURCHARGE
      */
-    enum class Type(
-        val value: kotlin.String,
-    ) {
+    enum class Type(val value: kotlin.String) {
         @JsonProperty("City_LocalTax_Amt")
         CITY_LOCAL_TAX_AMT("City_LocalTax_Amt"),
 

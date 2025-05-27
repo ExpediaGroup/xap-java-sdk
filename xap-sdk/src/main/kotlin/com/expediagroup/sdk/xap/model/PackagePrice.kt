@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Fee
 import com.expediagroup.sdk.xap.model.FlightsV3Money
 import com.expediagroup.sdk.xap.model.PackageSavings
@@ -31,43 +32,35 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param averageCostPerPerson
  * @param totalHotelMandatoryFees
  */
-data class PackagePrice(
+@ConsistentCopyVisibility data class PackagePrice private constructor(
     @JsonProperty("PackageBasePrice")
     val packageBasePrice: FlightsV3Money,
+
     @JsonProperty("PackageTotalPrice")
     val packageTotalPrice: FlightsV3Money,
+
     @JsonProperty("PackageTaxesAndFees")
     val packageTaxesAndFees: FlightsV3Money,
+
     @JsonProperty("StandAloneTotalPrice")
     val standAloneTotalPrice: FlightsV3Money,
-    // Special fees attached to the package (for example, Air Service Fees). This amount is not included in PackageTaxesAndFees.
+
+    /* Special fees attached to the package (for example, Air Service Fees). This amount is not included in PackageTaxesAndFees. */
     @JsonProperty("Fees")
     val fees: kotlin.collections
         .List<
             Fee,
-        >,
+            >,
+
     @JsonProperty("Savings")
     val savings: PackageSavings,
+
     @JsonProperty("AverageCostPerPerson")
     val averageCostPerPerson: FlightsV3Money,
+
     @JsonProperty("TotalHotelMandatoryFees")
     val totalHotelMandatoryFees: Fee? = null,
 ) {
-    init {
-        require(packageBasePrice != null) { "packageBasePrice must not be null" }
-
-        require(packageTotalPrice != null) { "packageTotalPrice must not be null" }
-
-        require(packageTaxesAndFees != null) { "packageTaxesAndFees must not be null" }
-
-        require(standAloneTotalPrice != null) { "standAloneTotalPrice must not be null" }
-
-        require(fees != null) { "fees must not be null" }
-
-        require(savings != null) { "savings must not be null" }
-
-        require(averageCostPerPerson != null) { "averageCostPerPerson must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -101,31 +94,57 @@ data class PackagePrice(
         fun totalHotelMandatoryFees(totalHotelMandatoryFees: Fee?) = apply { this.totalHotelMandatoryFees = totalHotelMandatoryFees }
 
         fun build(): PackagePrice {
-            val instance =
-                PackagePrice(
-                    packageBasePrice = packageBasePrice!!,
-                    packageTotalPrice = packageTotalPrice!!,
-                    packageTaxesAndFees = packageTaxesAndFees!!,
-                    standAloneTotalPrice = standAloneTotalPrice!!,
-                    fees = fees!!,
-                    savings = savings!!,
-                    averageCostPerPerson = averageCostPerPerson!!,
-                    totalHotelMandatoryFees = totalHotelMandatoryFees,
-                )
+            val packageBasePrice = this.packageBasePrice.getOrThrow {
+                IllegalArgumentException("packageBasePrice must not be null")
+            }
+
+            val packageTotalPrice = this.packageTotalPrice.getOrThrow {
+                IllegalArgumentException("packageTotalPrice must not be null")
+            }
+
+            val packageTaxesAndFees = this.packageTaxesAndFees.getOrThrow {
+                IllegalArgumentException("packageTaxesAndFees must not be null")
+            }
+
+            val standAloneTotalPrice = this.standAloneTotalPrice.getOrThrow {
+                IllegalArgumentException("standAloneTotalPrice must not be null")
+            }
+
+            val fees = this.fees.getOrThrow {
+                IllegalArgumentException("fees must not be null")
+            }
+
+            val savings = this.savings.getOrThrow {
+                IllegalArgumentException("savings must not be null")
+            }
+
+            val averageCostPerPerson = this.averageCostPerPerson.getOrThrow {
+                IllegalArgumentException("averageCostPerPerson must not be null")
+            }
+
+            val instance = PackagePrice(
+                packageBasePrice = packageBasePrice,
+                packageTotalPrice = packageTotalPrice,
+                packageTaxesAndFees = packageTaxesAndFees,
+                standAloneTotalPrice = standAloneTotalPrice,
+                fees = fees,
+                savings = savings,
+                averageCostPerPerson = averageCostPerPerson,
+                totalHotelMandatoryFees = totalHotelMandatoryFees,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            packageBasePrice = packageBasePrice!!,
-            packageTotalPrice = packageTotalPrice!!,
-            packageTaxesAndFees = packageTaxesAndFees!!,
-            standAloneTotalPrice = standAloneTotalPrice!!,
-            fees = fees!!,
-            savings = savings!!,
-            averageCostPerPerson = averageCostPerPerson!!,
-            totalHotelMandatoryFees = totalHotelMandatoryFees,
-        )
+    fun toBuilder() = Builder(
+        packageBasePrice = packageBasePrice,
+        packageTotalPrice = packageTotalPrice,
+        packageTaxesAndFees = packageTaxesAndFees,
+        standAloneTotalPrice = standAloneTotalPrice,
+        fees = fees,
+        savings = savings,
+        averageCostPerPerson = averageCostPerPerson,
+        totalHotelMandatoryFees = totalHotelMandatoryFees,
+    )
 }

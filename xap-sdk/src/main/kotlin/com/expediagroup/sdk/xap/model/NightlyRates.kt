@@ -23,14 +23,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param stayDate
  * @param baseRate
  */
-data class NightlyRates(
+@ConsistentCopyVisibility data class NightlyRates private constructor(
     @JsonProperty("StayDate")
     val stayDate: java.time.LocalDate? = null,
+
     @JsonProperty("BaseRate")
     val baseRate: Money? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -46,19 +45,17 @@ data class NightlyRates(
         fun baseRate(baseRate: Money?) = apply { this.baseRate = baseRate }
 
         fun build(): NightlyRates {
-            val instance =
-                NightlyRates(
-                    stayDate = stayDate,
-                    baseRate = baseRate,
-                )
+            val instance = NightlyRates(
+                stayDate = stayDate,
+                baseRate = baseRate,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            stayDate = stayDate,
-            baseRate = baseRate,
-        )
+    fun toBuilder() = Builder(
+        stayDate = stayDate,
+        baseRate = baseRate,
+    )
 }

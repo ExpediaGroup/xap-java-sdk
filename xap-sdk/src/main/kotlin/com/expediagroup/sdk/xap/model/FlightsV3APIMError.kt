@@ -21,12 +21,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Container for error responses from APIM
  * @param message
  */
-data class FlightsV3APIMError(
+@ConsistentCopyVisibility data class FlightsV3APIMError private constructor(
     @JsonProperty("message")
     val message: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -39,17 +37,15 @@ data class FlightsV3APIMError(
         fun message(message: kotlin.String?) = apply { this.message = message }
 
         fun build(): FlightsV3APIMError {
-            val instance =
-                FlightsV3APIMError(
-                    message = message,
-                )
+            val instance = FlightsV3APIMError(
+                message = message,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            message = message,
-        )
+    fun toBuilder() = Builder(
+        message = message,
+    )
 }

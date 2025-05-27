@@ -25,25 +25,27 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param petPolicies The policy of the property toward having pets stay with guests.
  * @param childrenAndExtraBedsPolicies The policy of the property for having children stay at the property, as well as for including extra beds in the room.
  */
-data class FlightsV3HotelPolicies(
-    // Beginning of the standard check-in window on the check in date, stated in the local time of the property.
+@ConsistentCopyVisibility data class FlightsV3HotelPolicies private constructor(
+    /* Beginning of the standard check-in window on the check in date, stated in the local time of the property. */
     @JsonProperty("CheckInStartTime")
     val checkInStartTime: kotlin.String? = null,
-    // End of the standard check-in window on the check in date, stated in the local time of the property.
+
+    /* End of the standard check-in window on the check in date, stated in the local time of the property. */
     @JsonProperty("CheckInEndTime")
     val checkInEndTime: kotlin.String? = null,
-    // Customers must check out before this time on the check out date, expressed in the local time of the property.
+
+    /* Customers must check out before this time on the check out date, expressed in the local time of the property. */
     @JsonProperty("CheckOutTime")
     val checkOutTime: kotlin.String? = null,
-    // The policy of the property toward having pets stay with guests.
+
+    /* The policy of the property toward having pets stay with guests. */
     @JsonProperty("PetPolicies")
     val petPolicies: kotlin.collections.List<kotlin.String>? = null,
-    // The policy of the property for having children stay at the property, as well as for including extra beds in the room.
+
+    /* The policy of the property for having children stay at the property, as well as for including extra beds in the room. */
     @JsonProperty("ChildrenAndExtraBedsPolicies")
     val childrenAndExtraBedsPolicies: kotlin.collections.List<kotlin.String>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -68,25 +70,23 @@ data class FlightsV3HotelPolicies(
         fun childrenAndExtraBedsPolicies(childrenAndExtraBedsPolicies: kotlin.collections.List<kotlin.String>?) = apply { this.childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies }
 
         fun build(): FlightsV3HotelPolicies {
-            val instance =
-                FlightsV3HotelPolicies(
-                    checkInStartTime = checkInStartTime,
-                    checkInEndTime = checkInEndTime,
-                    checkOutTime = checkOutTime,
-                    petPolicies = petPolicies,
-                    childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies,
-                )
+            val instance = FlightsV3HotelPolicies(
+                checkInStartTime = checkInStartTime,
+                checkInEndTime = checkInEndTime,
+                checkOutTime = checkOutTime,
+                petPolicies = petPolicies,
+                childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            checkInStartTime = checkInStartTime,
-            checkInEndTime = checkInEndTime,
-            checkOutTime = checkOutTime,
-            petPolicies = petPolicies,
-            childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies,
-        )
+    fun toBuilder() = Builder(
+        checkInStartTime = checkInStartTime,
+        checkInEndTime = checkInEndTime,
+        checkOutTime = checkOutTime,
+        petPolicies = petPolicies,
+        childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies,
+    )
 }

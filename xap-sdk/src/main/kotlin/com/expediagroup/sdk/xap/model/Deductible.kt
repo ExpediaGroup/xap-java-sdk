@@ -24,16 +24,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param liabilityAmount
  * @param deductibleAmount
  */
-data class Deductible(
+@ConsistentCopyVisibility data class Deductible private constructor(
     @JsonProperty("ExcessAmount")
     val excessAmount: CarsMoney? = null,
+
     @JsonProperty("LiabilityAmount")
     val liabilityAmount: CarsMoney? = null,
+
     @JsonProperty("DeductibleAmount")
     val deductibleAmount: CarsMoney? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -52,21 +52,19 @@ data class Deductible(
         fun deductibleAmount(deductibleAmount: CarsMoney?) = apply { this.deductibleAmount = deductibleAmount }
 
         fun build(): Deductible {
-            val instance =
-                Deductible(
-                    excessAmount = excessAmount,
-                    liabilityAmount = liabilityAmount,
-                    deductibleAmount = deductibleAmount,
-                )
+            val instance = Deductible(
+                excessAmount = excessAmount,
+                liabilityAmount = liabilityAmount,
+                deductibleAmount = deductibleAmount,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            excessAmount = excessAmount,
-            liabilityAmount = liabilityAmount,
-            deductibleAmount = deductibleAmount,
-        )
+    fun toBuilder() = Builder(
+        excessAmount = excessAmount,
+        liabilityAmount = liabilityAmount,
+        deductibleAmount = deductibleAmount,
+    )
 }

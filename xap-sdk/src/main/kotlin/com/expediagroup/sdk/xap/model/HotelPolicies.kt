@@ -26,28 +26,31 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param petPolicies The policy of the property toward having pets stay with guests.
  * @param childrenAndExtraBedsPolicies The policy of the hotel for having children stay at the hotel, as well as for including extra beds in the room.
  */
-data class HotelPolicies(
-    // Beginning of the standard check-in window on the check in date, and in the local time of the hotel.
+@ConsistentCopyVisibility data class HotelPolicies private constructor(
+    /* Beginning of the standard check-in window on the check in date, and in the local time of the hotel. */
     @JsonProperty("CheckInStartTime")
     val checkInStartTime: kotlin.String? = null,
-    // End of the standard check-in window on the check in date, and in the local time of the hotel.
+
+    /* End of the standard check-in window on the check in date, and in the local time of the hotel. */
     @JsonProperty("CheckInEndTime")
     val checkInEndTime: kotlin.String? = null,
-    // Some special instructions needed care by customer when check in.
+
+    /* Some special instructions needed care by customer when check in. */
     @JsonProperty("SpecialCheckInInstructions")
     val specialCheckInInstructions: kotlin.collections.List<kotlin.String>? = null,
-    // Customers must check out before this time on the check out date, expressed in the local time of the hotel.
+
+    /* Customers must check out before this time on the check out date, expressed in the local time of the hotel. */
     @JsonProperty("CheckOutTime")
     val checkOutTime: kotlin.String? = null,
-    // The policy of the property toward having pets stay with guests.
+
+    /* The policy of the property toward having pets stay with guests. */
     @JsonProperty("PetPolicies")
     val petPolicies: kotlin.collections.List<kotlin.String>? = null,
-    // The policy of the hotel for having children stay at the hotel, as well as for including extra beds in the room.
+
+    /* The policy of the hotel for having children stay at the hotel, as well as for including extra beds in the room. */
     @JsonProperty("ChildrenAndExtraBedsPolicies")
     val childrenAndExtraBedsPolicies: kotlin.collections.List<kotlin.String>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -75,27 +78,25 @@ data class HotelPolicies(
         fun childrenAndExtraBedsPolicies(childrenAndExtraBedsPolicies: kotlin.collections.List<kotlin.String>?) = apply { this.childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies }
 
         fun build(): HotelPolicies {
-            val instance =
-                HotelPolicies(
-                    checkInStartTime = checkInStartTime,
-                    checkInEndTime = checkInEndTime,
-                    specialCheckInInstructions = specialCheckInInstructions,
-                    checkOutTime = checkOutTime,
-                    petPolicies = petPolicies,
-                    childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies,
-                )
+            val instance = HotelPolicies(
+                checkInStartTime = checkInStartTime,
+                checkInEndTime = checkInEndTime,
+                specialCheckInInstructions = specialCheckInInstructions,
+                checkOutTime = checkOutTime,
+                petPolicies = petPolicies,
+                childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            checkInStartTime = checkInStartTime,
-            checkInEndTime = checkInEndTime,
-            specialCheckInInstructions = specialCheckInInstructions,
-            checkOutTime = checkOutTime,
-            petPolicies = petPolicies,
-            childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies,
-        )
+    fun toBuilder() = Builder(
+        checkInStartTime = checkInStartTime,
+        checkInEndTime = checkInEndTime,
+        specialCheckInInstructions = specialCheckInInstructions,
+        checkOutTime = checkOutTime,
+        petPolicies = petPolicies,
+        childrenAndExtraBedsPolicies = childrenAndExtraBedsPolicies,
+    )
 }

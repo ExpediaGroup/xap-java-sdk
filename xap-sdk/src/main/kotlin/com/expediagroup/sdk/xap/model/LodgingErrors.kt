@@ -23,16 +23,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param errors Container for error list.
  * @param transactionId A unique identifier for the transaction.
  */
-data class LodgingErrors(
-    // Container for error list.
+@ConsistentCopyVisibility data class LodgingErrors private constructor(
+    /* Container for error list. */
     @JsonProperty("Errors")
     val errors: kotlin.collections.List<LodgingError>? = null,
-    // A unique identifier for the transaction.
+
+    /* A unique identifier for the transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -48,19 +47,17 @@ data class LodgingErrors(
         fun transactionId(transactionId: kotlin.String?) = apply { this.transactionId = transactionId }
 
         fun build(): LodgingErrors {
-            val instance =
-                LodgingErrors(
-                    errors = errors,
-                    transactionId = transactionId,
-                )
+            val instance = LodgingErrors(
+                errors = errors,
+                transactionId = transactionId,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            errors = errors,
-            transactionId = transactionId,
-        )
+    fun toBuilder() = Builder(
+        errors = errors,
+        transactionId = transactionId,
+    )
 }

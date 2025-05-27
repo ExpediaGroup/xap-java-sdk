@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.RatingDetails
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -24,22 +25,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param ratingCount The total count of rating.
  * @param ratingDetails List of all the details of rating.
  */
-data class Rating(
-    // The percentage of rating.
+@ConsistentCopyVisibility data class Rating private constructor(
+    /* The percentage of rating. */
     @JsonProperty("RatingPercentage")
     val ratingPercentage: kotlin.String,
-    // The total count of rating.
+
+    /* The total count of rating. */
     @JsonProperty("RatingCount")
     val ratingCount: kotlin.String,
-    // List of all the details of rating.
+
+    /* List of all the details of rating. */
     @JsonProperty("RatingDetails")
     val ratingDetails: kotlin.collections.List<RatingDetails>? = null,
 ) {
-    init {
-        require(ratingPercentage != null) { "ratingPercentage must not be null" }
-
-        require(ratingCount != null) { "ratingCount must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -58,21 +56,27 @@ data class Rating(
         fun ratingDetails(ratingDetails: kotlin.collections.List<RatingDetails>?) = apply { this.ratingDetails = ratingDetails }
 
         fun build(): Rating {
-            val instance =
-                Rating(
-                    ratingPercentage = ratingPercentage!!,
-                    ratingCount = ratingCount!!,
-                    ratingDetails = ratingDetails,
-                )
+            val ratingPercentage = this.ratingPercentage.getOrThrow {
+                IllegalArgumentException("ratingPercentage must not be null")
+            }
+
+            val ratingCount = this.ratingCount.getOrThrow {
+                IllegalArgumentException("ratingCount must not be null")
+            }
+
+            val instance = Rating(
+                ratingPercentage = ratingPercentage,
+                ratingCount = ratingCount,
+                ratingDetails = ratingDetails,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            ratingPercentage = ratingPercentage!!,
-            ratingCount = ratingCount!!,
-            ratingDetails = ratingDetails,
-        )
+    fun toBuilder() = Builder(
+        ratingPercentage = ratingPercentage,
+        ratingCount = ratingCount,
+        ratingDetails = ratingDetails,
+    )
 }

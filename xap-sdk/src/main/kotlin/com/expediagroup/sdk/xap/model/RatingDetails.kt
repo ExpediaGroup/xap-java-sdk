@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param category The category of rating detail.
  * @param percentage The percentage of rating detail category.
  */
-data class RatingDetails(
-    // The category of rating detail.
+@ConsistentCopyVisibility data class RatingDetails private constructor(
+    /* The category of rating detail. */
     @JsonProperty("Category")
     val category: kotlin.String,
-    // The percentage of rating detail category.
+
+    /* The percentage of rating detail category. */
     @JsonProperty("Percentage")
     val percentage: kotlin.String,
-) {
-    init {
-        require(category != null) { "category must not be null" }
 
-        require(percentage != null) { "percentage must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class RatingDetails(
         fun percentage(percentage: kotlin.String) = apply { this.percentage = percentage }
 
         fun build(): RatingDetails {
-            val instance =
-                RatingDetails(
-                    category = category!!,
-                    percentage = percentage!!,
-                )
+            val category = this.category.getOrThrow {
+                IllegalArgumentException("category must not be null")
+            }
+
+            val percentage = this.percentage.getOrThrow {
+                IllegalArgumentException("percentage must not be null")
+            }
+
+            val instance = RatingDetails(
+                category = category,
+                percentage = percentage,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            category = category!!,
-            percentage = percentage!!,
-        )
+    fun toBuilder() = Builder(
+        category = category,
+        percentage = percentage,
+    )
 }

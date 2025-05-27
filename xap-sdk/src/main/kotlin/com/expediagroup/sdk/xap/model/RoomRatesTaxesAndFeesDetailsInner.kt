@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param categoryCode Tax or fee category code.
  * @param amount Tax or fee value.
  */
-data class RoomRatesTaxesAndFeesDetailsInner(
-    // Tax or fee category code.
+@ConsistentCopyVisibility data class RoomRatesTaxesAndFeesDetailsInner private constructor(
+    /* Tax or fee category code. */
     @JsonProperty("CategoryCode")
     val categoryCode: kotlin.Any? = null,
-    // Tax or fee value.
+
+    /* Tax or fee value. */
     @JsonProperty("Amount")
     val amount: kotlin.Any? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class RoomRatesTaxesAndFeesDetailsInner(
         fun amount(amount: kotlin.Any?) = apply { this.amount = amount }
 
         fun build(): RoomRatesTaxesAndFeesDetailsInner {
-            val instance =
-                RoomRatesTaxesAndFeesDetailsInner(
-                    categoryCode = categoryCode,
-                    amount = amount,
-                )
+            val instance = RoomRatesTaxesAndFeesDetailsInner(
+                categoryCode = categoryCode,
+                amount = amount,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            categoryCode = categoryCode,
-            amount = amount,
-        )
+    fun toBuilder() = Builder(
+        categoryCode = categoryCode,
+        amount = amount,
+    )
 }

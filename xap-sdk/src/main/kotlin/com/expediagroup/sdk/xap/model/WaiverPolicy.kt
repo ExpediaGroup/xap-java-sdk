@@ -21,13 +21,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @param waiverPolicyDescription The localized waiver policy description, which could be put in front of cancellation policy description.
  */
-data class WaiverPolicy(
-    // The localized waiver policy description, which could be put in front of cancellation policy description.
+@ConsistentCopyVisibility data class WaiverPolicy private constructor(
+    /* The localized waiver policy description, which could be put in front of cancellation policy description.  */
     @JsonProperty("WaiverPolicyDescription")
     val waiverPolicyDescription: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,17 +38,15 @@ data class WaiverPolicy(
         fun waiverPolicyDescription(waiverPolicyDescription: kotlin.String?) = apply { this.waiverPolicyDescription = waiverPolicyDescription }
 
         fun build(): WaiverPolicy {
-            val instance =
-                WaiverPolicy(
-                    waiverPolicyDescription = waiverPolicyDescription,
-                )
+            val instance = WaiverPolicy(
+                waiverPolicyDescription = waiverPolicyDescription,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            waiverPolicyDescription = waiverPolicyDescription,
-        )
+    fun toBuilder() = Builder(
+        waiverPolicyDescription = waiverPolicyDescription,
+    )
 }

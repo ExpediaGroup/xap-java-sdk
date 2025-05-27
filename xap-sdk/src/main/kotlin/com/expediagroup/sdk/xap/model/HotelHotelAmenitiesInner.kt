@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param id The identification number for a hotel amenity.
  * @param name The description of a hotel amenity.
  */
-data class HotelHotelAmenitiesInner(
-    // The identification number for a hotel amenity.
+@ConsistentCopyVisibility data class HotelHotelAmenitiesInner private constructor(
+    /* The identification number for a hotel amenity. */
     @JsonProperty("Id")
     val id: kotlin.Any? = null,
-    // The description of a hotel amenity.
+
+    /* The description of a hotel amenity. */
     @JsonProperty("Name")
     val name: kotlin.Any? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class HotelHotelAmenitiesInner(
         fun name(name: kotlin.Any?) = apply { this.name = name }
 
         fun build(): HotelHotelAmenitiesInner {
-            val instance =
-                HotelHotelAmenitiesInner(
-                    id = id,
-                    name = name,
-                )
+            val instance = HotelHotelAmenitiesInner(
+                id = id,
+                name = name,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id,
-            name = name,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        name = name,
+    )
 }

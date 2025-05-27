@@ -33,32 +33,37 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param validFormsOfPayment Container for payment information.
  * @param hotelDetails
  */
-data class HotelDetailsResponse(
-    // There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
+@ConsistentCopyVisibility data class HotelDetailsResponse private constructor(
+    /* There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.  */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<HotelDetailsResponseWarningsInner>? = null,
-    // Unique identifier for the transaction.
+
+    /* Unique identifier for the transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String? = null,
+
     @JsonProperty("StayDates")
     val stayDates: HotelDetailsResponseStayDates? = null,
-    // The number of stay nights.
+
+    /* The number of stay nights. */
     @JsonProperty("LengthOfStay")
     val lengthOfStay: kotlin.Int? = null,
-    // Number of rooms requested.
+
+    /* Number of rooms requested. */
     @JsonProperty("NumberOfRooms")
     val numberOfRooms: kotlin.Int? = null,
-    // Container for the list of rooms requested by the traveler.  Occupancy for each room is specified in this node.
+
+    /* Container for the list of rooms requested by the traveler.  Occupancy for each room is specified in this node.  */
     @JsonProperty("Occupants")
     val occupants: kotlin.collections.List<HotelDetailsResponseOccupantsInner>? = null,
-    // Container for payment information.
+
+    /* Container for payment information. */
     @JsonProperty("ValidFormsOfPayment")
     val validFormsOfPayment: kotlin.collections.List<ValidFormsOfPayment>? = null,
+
     @JsonProperty("HotelDetails")
     val hotelDetails: Hotel? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -92,31 +97,29 @@ data class HotelDetailsResponse(
         fun hotelDetails(hotelDetails: Hotel?) = apply { this.hotelDetails = hotelDetails }
 
         fun build(): HotelDetailsResponse {
-            val instance =
-                HotelDetailsResponse(
-                    warnings = warnings,
-                    transactionId = transactionId,
-                    stayDates = stayDates,
-                    lengthOfStay = lengthOfStay,
-                    numberOfRooms = numberOfRooms,
-                    occupants = occupants,
-                    validFormsOfPayment = validFormsOfPayment,
-                    hotelDetails = hotelDetails,
-                )
+            val instance = HotelDetailsResponse(
+                warnings = warnings,
+                transactionId = transactionId,
+                stayDates = stayDates,
+                lengthOfStay = lengthOfStay,
+                numberOfRooms = numberOfRooms,
+                occupants = occupants,
+                validFormsOfPayment = validFormsOfPayment,
+                hotelDetails = hotelDetails,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            warnings = warnings,
-            transactionId = transactionId,
-            stayDates = stayDates,
-            lengthOfStay = lengthOfStay,
-            numberOfRooms = numberOfRooms,
-            occupants = occupants,
-            validFormsOfPayment = validFormsOfPayment,
-            hotelDetails = hotelDetails,
-        )
+    fun toBuilder() = Builder(
+        warnings = warnings,
+        transactionId = transactionId,
+        stayDates = stayDates,
+        lengthOfStay = lengthOfStay,
+        numberOfRooms = numberOfRooms,
+        occupants = occupants,
+        validFormsOfPayment = validFormsOfPayment,
+        hotelDetails = hotelDetails,
+    )
 }

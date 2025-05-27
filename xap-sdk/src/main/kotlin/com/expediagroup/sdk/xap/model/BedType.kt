@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param id The bed type ID
  * @param description The bed type description.
  */
-data class BedType(
-    // The bed type ID
+@ConsistentCopyVisibility data class BedType private constructor(
+    /* The bed type ID */
     @JsonProperty("Id")
     val id: kotlin.String? = null,
-    // The bed type description.
+
+    /* The bed type description. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class BedType(
         fun description(description: kotlin.String?) = apply { this.description = description }
 
         fun build(): BedType {
-            val instance =
-                BedType(
-                    id = id,
-                    description = description,
-                )
+            val instance = BedType(
+                id = id,
+                description = description,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id,
-            description = description,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        description = description,
+    )
 }

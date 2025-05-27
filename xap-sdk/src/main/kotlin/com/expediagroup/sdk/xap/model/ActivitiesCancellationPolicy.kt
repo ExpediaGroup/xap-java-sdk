@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -24,23 +25,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param freeCancellationMinHours The minimum number of hours before activity when the activity can still be cancelled for free.
  * @param freeCancellationEndDateTime The date and time after which the activity will not be able to be cancelled for free, stated in the local time to where the activity takes place.
  */
-data class ActivitiesCancellationPolicy(
-    // Indicates whether the activity can be canceled free of charge within the cancellation window or not.
+@ConsistentCopyVisibility data class ActivitiesCancellationPolicy private constructor(
+    /* Indicates whether the activity can be canceled free of charge within the cancellation window or not. */
     @JsonProperty("FreeCancellation")
     val freeCancellation: kotlin.Boolean,
-    // The description of Cancellation Policy.
+
+    /* The description of Cancellation Policy. */
     @JsonProperty("CancelPolicyDescription")
     val cancelPolicyDescription: kotlin.String? = null,
-    // The minimum number of hours before activity when the activity can still be cancelled for free.
+
+    /* The minimum number of hours before activity when the activity can still be cancelled for free. */
     @JsonProperty("FreeCancellationMinHours")
     val freeCancellationMinHours: kotlin.Int? = null,
-    // The date and time after which the activity will not be able to be cancelled for free, stated in the local time to where the activity takes place.
+
+    /* The date and time after which the activity will not be able to be cancelled for free, stated in the local time to where the activity takes place. */
     @JsonProperty("FreeCancellationEndDateTime")
     val freeCancellationEndDateTime: java.time.LocalDateTime? = null,
 ) {
-    init {
-        require(freeCancellation != null) { "freeCancellation must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -62,23 +63,25 @@ data class ActivitiesCancellationPolicy(
         fun freeCancellationEndDateTime(freeCancellationEndDateTime: java.time.LocalDateTime?) = apply { this.freeCancellationEndDateTime = freeCancellationEndDateTime }
 
         fun build(): ActivitiesCancellationPolicy {
-            val instance =
-                ActivitiesCancellationPolicy(
-                    freeCancellation = freeCancellation!!,
-                    cancelPolicyDescription = cancelPolicyDescription,
-                    freeCancellationMinHours = freeCancellationMinHours,
-                    freeCancellationEndDateTime = freeCancellationEndDateTime,
-                )
+            val freeCancellation = this.freeCancellation.getOrThrow {
+                IllegalArgumentException("freeCancellation must not be null")
+            }
+
+            val instance = ActivitiesCancellationPolicy(
+                freeCancellation = freeCancellation,
+                cancelPolicyDescription = cancelPolicyDescription,
+                freeCancellationMinHours = freeCancellationMinHours,
+                freeCancellationEndDateTime = freeCancellationEndDateTime,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            freeCancellation = freeCancellation!!,
-            cancelPolicyDescription = cancelPolicyDescription,
-            freeCancellationMinHours = freeCancellationMinHours,
-            freeCancellationEndDateTime = freeCancellationEndDateTime,
-        )
+    fun toBuilder() = Builder(
+        freeCancellation = freeCancellation,
+        cancelPolicyDescription = cancelPolicyDescription,
+        freeCancellationMinHours = freeCancellationMinHours,
+        freeCancellationEndDateTime = freeCancellationEndDateTime,
+    )
 }

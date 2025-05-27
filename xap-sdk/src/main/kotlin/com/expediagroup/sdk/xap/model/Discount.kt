@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param type Discount type. Supported values : CorpDiscount | Coupon.
  * @param code Discount code.
  */
-data class Discount(
-    // Discount type. Supported values : CorpDiscount | Coupon.
+@ConsistentCopyVisibility data class Discount private constructor(
+    /* Discount type. Supported values : CorpDiscount | Coupon. */
     @JsonProperty("Type")
     val type: kotlin.String,
-    // Discount code.
+
+    /* Discount code. */
     @JsonProperty("Code")
     val code: kotlin.String,
-) {
-    init {
-        require(type != null) { "type must not be null" }
 
-        require(code != null) { "code must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class Discount(
         fun code(code: kotlin.String) = apply { this.code = code }
 
         fun build(): Discount {
-            val instance =
-                Discount(
-                    type = type!!,
-                    code = code!!,
-                )
+            val type = this.type.getOrThrow {
+                IllegalArgumentException("type must not be null")
+            }
+
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val instance = Discount(
+                type = type,
+                code = code,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type!!,
-            code = code!!,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        code = code,
+    )
 }

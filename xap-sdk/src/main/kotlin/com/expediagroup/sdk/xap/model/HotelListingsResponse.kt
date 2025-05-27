@@ -33,36 +33,42 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param occupants Container of occupants. It is an array including occupants of each room.
  * @param hotels Container for all hotels.
  */
-data class HotelListingsResponse(
-    // There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
+@ConsistentCopyVisibility data class HotelListingsResponse private constructor(
+    /* There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.  */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<Warning>? = null,
-    // The number of hotels actually returned in the response.
+
+    /* The number of hotels actually returned in the response. */
     @JsonProperty("Count")
     val count: kotlin.Int? = null,
-    // The number of hotels present in the location.
+
+    /* The number of hotels present in the location. */
     @JsonProperty("TotalHotelCount")
     val totalHotelCount: kotlin.Int? = null,
-    // Unique identifier for the transaction.
+
+    /* Unique identifier for the transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String? = null,
+
     @JsonProperty("StayDates")
     val stayDates: HotelListingsResponseStayDates? = null,
-    // The number of stay nights.
+
+    /* The number of stay nights. */
     @JsonProperty("LengthOfStay")
     val lengthOfStay: kotlin.Int? = null,
-    // The number of the rooms requested on behalf of the user.
+
+    /* The number of the rooms requested on behalf of the user. */
     @JsonProperty("NumberOfRooms")
     val numberOfRooms: kotlin.Int? = null,
-    // Container of occupants. It is an array including occupants of each room.
+
+    /* Container of occupants. It is an array including occupants of each room. */
     @JsonProperty("Occupants")
     val occupants: kotlin.collections.List<Occupant>? = null,
-    // Container for all hotels.
+
+    /* Container for all hotels. */
     @JsonProperty("Hotels")
     val hotels: kotlin.collections.List<Hotel>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -99,33 +105,31 @@ data class HotelListingsResponse(
         fun hotels(hotels: kotlin.collections.List<Hotel>?) = apply { this.hotels = hotels }
 
         fun build(): HotelListingsResponse {
-            val instance =
-                HotelListingsResponse(
-                    warnings = warnings,
-                    count = count,
-                    totalHotelCount = totalHotelCount,
-                    transactionId = transactionId,
-                    stayDates = stayDates,
-                    lengthOfStay = lengthOfStay,
-                    numberOfRooms = numberOfRooms,
-                    occupants = occupants,
-                    hotels = hotels,
-                )
+            val instance = HotelListingsResponse(
+                warnings = warnings,
+                count = count,
+                totalHotelCount = totalHotelCount,
+                transactionId = transactionId,
+                stayDates = stayDates,
+                lengthOfStay = lengthOfStay,
+                numberOfRooms = numberOfRooms,
+                occupants = occupants,
+                hotels = hotels,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            warnings = warnings,
-            count = count,
-            totalHotelCount = totalHotelCount,
-            transactionId = transactionId,
-            stayDates = stayDates,
-            lengthOfStay = lengthOfStay,
-            numberOfRooms = numberOfRooms,
-            occupants = occupants,
-            hotels = hotels,
-        )
+    fun toBuilder() = Builder(
+        warnings = warnings,
+        count = count,
+        totalHotelCount = totalHotelCount,
+        transactionId = transactionId,
+        stayDates = stayDates,
+        lengthOfStay = lengthOfStay,
+        numberOfRooms = numberOfRooms,
+        occupants = occupants,
+        hotels = hotels,
+    )
 }

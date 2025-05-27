@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlexSearchResponseOffersInnerOfferOfferPrice
 import com.expediagroup.sdk.xap.model.FlexSearchResponseOffersInnerOfferSegmentsInner
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -25,24 +26,21 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param offerPrice
  * @param segments Container of information about each flight offer Segments (the trip from one stopping place to another) are made up of Legs. This will be given back in response if includeSegmentDetails=true
  */
-data class FlexSearchResponseOffersInnerOffer(
-    // Container for the list of departure dates for the first Leg in each segment in chronological order.
+@ConsistentCopyVisibility data class FlexSearchResponseOffersInnerOffer private constructor(
+    /* Container for the list of departure dates for the first Leg in each segment in chronological order. */
     @JsonProperty("DepartureDates")
     val departureDates: kotlin.collections
         .List<
             java.time.OffsetDateTime,
-        >,
+            >,
+
     @JsonProperty("OfferPrice")
     val offerPrice: FlexSearchResponseOffersInnerOfferOfferPrice,
-    // Container of information about each flight offer Segments (the trip from one stopping place to another) are made up of Legs. This will be given back in response if includeSegmentDetails=true
+
+    /* Container of information about each flight offer Segments (the trip from one stopping place to another) are made up of Legs. This will be given back in response if includeSegmentDetails=true */
     @JsonProperty("Segments")
     val segments: kotlin.collections.List<FlexSearchResponseOffersInnerOfferSegmentsInner>? = null,
 ) {
-    init {
-        require(departureDates != null) { "departureDates must not be null" }
-
-        require(offerPrice != null) { "offerPrice must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -61,21 +59,27 @@ data class FlexSearchResponseOffersInnerOffer(
         fun segments(segments: kotlin.collections.List<FlexSearchResponseOffersInnerOfferSegmentsInner>?) = apply { this.segments = segments }
 
         fun build(): FlexSearchResponseOffersInnerOffer {
-            val instance =
-                FlexSearchResponseOffersInnerOffer(
-                    departureDates = departureDates!!,
-                    offerPrice = offerPrice!!,
-                    segments = segments,
-                )
+            val departureDates = this.departureDates.getOrThrow {
+                IllegalArgumentException("departureDates must not be null")
+            }
+
+            val offerPrice = this.offerPrice.getOrThrow {
+                IllegalArgumentException("offerPrice must not be null")
+            }
+
+            val instance = FlexSearchResponseOffersInnerOffer(
+                departureDates = departureDates,
+                offerPrice = offerPrice,
+                segments = segments,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            departureDates = departureDates!!,
-            offerPrice = offerPrice!!,
-            segments = segments,
-        )
+    fun toBuilder() = Builder(
+        departureDates = departureDates,
+        offerPrice = offerPrice,
+        segments = segments,
+    )
 }

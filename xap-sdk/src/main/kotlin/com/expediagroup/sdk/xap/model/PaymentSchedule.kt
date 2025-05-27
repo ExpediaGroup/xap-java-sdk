@@ -23,15 +23,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param due Date/Time stamp when this installment/deposit should be paid by.
  * @param price
  */
-data class PaymentSchedule(
-    // Date/Time stamp when this installment/deposit should be paid by.
+@ConsistentCopyVisibility data class PaymentSchedule private constructor(
+    /* Date/Time stamp when this installment/deposit should be paid by. */
     @JsonProperty("Due")
     val due: java.time.LocalDate? = null,
+
     @JsonProperty("Price")
     val price: PaymentSchedulePrice? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class PaymentSchedule(
         fun price(price: PaymentSchedulePrice?) = apply { this.price = price }
 
         fun build(): PaymentSchedule {
-            val instance =
-                PaymentSchedule(
-                    due = due,
-                    price = price,
-                )
+            val instance = PaymentSchedule(
+                due = due,
+                price = price,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            due = due,
-            price = price,
-        )
+    fun toBuilder() = Builder(
+        due = due,
+        price = price,
+    )
 }

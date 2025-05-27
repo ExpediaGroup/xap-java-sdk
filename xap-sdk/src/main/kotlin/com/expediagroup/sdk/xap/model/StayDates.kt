@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param checkInDate The initial day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
  * @param checkOutDate The final day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
  */
-data class StayDates(
-    // The initial day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
+@ConsistentCopyVisibility data class StayDates private constructor(
+    /* The initial day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD]. */
     @JsonProperty("CheckInDate")
     val checkInDate: java.time.LocalDate? = null,
-    // The final day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD].
+
+    /* The final day of the hotel stay in an ISO 8601 Date format [YYYY-MM-DD]. */
     @JsonProperty("CheckOutDate")
     val checkOutDate: java.time.LocalDate? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class StayDates(
         fun checkOutDate(checkOutDate: java.time.LocalDate?) = apply { this.checkOutDate = checkOutDate }
 
         fun build(): StayDates {
-            val instance =
-                StayDates(
-                    checkInDate = checkInDate,
-                    checkOutDate = checkOutDate,
-                )
+            val instance = StayDates(
+                checkInDate = checkInDate,
+                checkOutDate = checkOutDate,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            checkInDate = checkInDate,
-            checkOutDate = checkOutDate,
-        )
+    fun toBuilder() = Builder(
+        checkInDate = checkInDate,
+        checkOutDate = checkOutDate,
+    )
 }

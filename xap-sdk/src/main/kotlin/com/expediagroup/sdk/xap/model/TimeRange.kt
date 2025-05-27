@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param startTime Start time at pickup location of the date range.
  * @param endTime End time at pickup location of the date range.
  */
-data class TimeRange(
-    // Start time at pickup location of the date range.
+@ConsistentCopyVisibility data class TimeRange private constructor(
+    /* Start time at pickup location of the date range. */
     @JsonProperty("StartTime")
     val startTime: kotlin.String,
-    // End time at pickup location of the date range.
+
+    /* End time at pickup location of the date range. */
     @JsonProperty("EndTime")
     val endTime: kotlin.String,
-) {
-    init {
-        require(startTime != null) { "startTime must not be null" }
 
-        require(endTime != null) { "endTime must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class TimeRange(
         fun endTime(endTime: kotlin.String) = apply { this.endTime = endTime }
 
         fun build(): TimeRange {
-            val instance =
-                TimeRange(
-                    startTime = startTime!!,
-                    endTime = endTime!!,
-                )
+            val startTime = this.startTime.getOrThrow {
+                IllegalArgumentException("startTime must not be null")
+            }
+
+            val endTime = this.endTime.getOrThrow {
+                IllegalArgumentException("endTime must not be null")
+            }
+
+            val instance = TimeRange(
+                startTime = startTime,
+                endTime = endTime,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            startTime = startTime!!,
-            endTime = endTime!!,
-        )
+    fun toBuilder() = Builder(
+        startTime = startTime,
+        endTime = endTime,
+    )
 }

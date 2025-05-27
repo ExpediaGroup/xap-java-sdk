@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3Hotel
 import com.expediagroup.sdk.xap.model.FlightsV3Occupant
 import com.expediagroup.sdk.xap.model.FlightsV3StayDates
@@ -31,53 +32,45 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param hotels Container for information on each hotel offer.
  * @param offers Container for information about the hotel used in this package offer.
  */
-data class CrossSell(
-    // Number of hotels available.
+@ConsistentCopyVisibility data class CrossSell private constructor(
+    /* Number of hotels available.  */
     @JsonProperty("HotelCount")
     val hotelCount: kotlin.Int,
+
     @JsonProperty("StayDates")
     val stayDates: FlightsV3StayDates,
-    // Number of rooms requested.
+
+    /* Number of rooms requested.  */
     @JsonProperty("NumberOfRooms")
     val numberOfRooms: kotlin.Int =
         1,
-    // Number of nights guest staying in the hotel.
+
+    /* Number of nights guest staying in the hotel.  */
     @JsonProperty("NumberOfNights")
     val numberOfNights: kotlin.Int,
-    // Container for occupants list.
+
+    /* Container for occupants list.  */
     @JsonProperty("Occupants")
     val occupants: kotlin.collections
         .List<
             FlightsV3Occupant,
-        >,
-    // Container for information on each hotel offer.
+            >,
+
+    /* Container for information on each hotel offer.  */
     @JsonProperty("Hotels")
     val hotels: kotlin.collections
         .List<
             FlightsV3Hotel,
-        >,
-    // Container for information about the hotel used in this package offer.
+            >,
+
+    /* Container for information about the hotel used in this package offer.  */
     @JsonProperty("Offers")
     val offers: kotlin.collections
         .List<
             PackageOffers,
-        >,
+            >,
+
 ) {
-    init {
-        require(hotelCount != null) { "hotelCount must not be null" }
-
-        require(stayDates != null) { "stayDates must not be null" }
-
-        require(numberOfRooms != null) { "numberOfRooms must not be null" }
-
-        require(numberOfNights != null) { "numberOfNights must not be null" }
-
-        require(occupants != null) { "occupants must not be null" }
-
-        require(hotels != null) { "hotels must not be null" }
-
-        require(offers != null) { "offers must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -108,29 +101,55 @@ data class CrossSell(
         fun offers(offers: kotlin.collections.List<PackageOffers>) = apply { this.offers = offers }
 
         fun build(): CrossSell {
-            val instance =
-                CrossSell(
-                    hotelCount = hotelCount!!,
-                    stayDates = stayDates!!,
-                    numberOfRooms = numberOfRooms!!,
-                    numberOfNights = numberOfNights!!,
-                    occupants = occupants!!,
-                    hotels = hotels!!,
-                    offers = offers!!,
-                )
+            val hotelCount = this.hotelCount.getOrThrow {
+                IllegalArgumentException("hotelCount must not be null")
+            }
+
+            val stayDates = this.stayDates.getOrThrow {
+                IllegalArgumentException("stayDates must not be null")
+            }
+
+            val numberOfRooms = this.numberOfRooms.getOrThrow {
+                IllegalArgumentException("numberOfRooms must not be null")
+            }
+
+            val numberOfNights = this.numberOfNights.getOrThrow {
+                IllegalArgumentException("numberOfNights must not be null")
+            }
+
+            val occupants = this.occupants.getOrThrow {
+                IllegalArgumentException("occupants must not be null")
+            }
+
+            val hotels = this.hotels.getOrThrow {
+                IllegalArgumentException("hotels must not be null")
+            }
+
+            val offers = this.offers.getOrThrow {
+                IllegalArgumentException("offers must not be null")
+            }
+
+            val instance = CrossSell(
+                hotelCount = hotelCount,
+                stayDates = stayDates,
+                numberOfRooms = numberOfRooms,
+                numberOfNights = numberOfNights,
+                occupants = occupants,
+                hotels = hotels,
+                offers = offers,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            hotelCount = hotelCount!!,
-            stayDates = stayDates!!,
-            numberOfRooms = numberOfRooms!!,
-            numberOfNights = numberOfNights!!,
-            occupants = occupants!!,
-            hotels = hotels!!,
-            offers = offers!!,
-        )
+    fun toBuilder() = Builder(
+        hotelCount = hotelCount,
+        stayDates = stayDates,
+        numberOfRooms = numberOfRooms,
+        numberOfNights = numberOfNights,
+        occupants = occupants,
+        hotels = hotels,
+        offers = offers,
+    )
 }

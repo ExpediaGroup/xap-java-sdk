@@ -23,15 +23,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param description
  * @param details Container for deposit policy details
  */
-data class DepositPolicy(
+@ConsistentCopyVisibility data class DepositPolicy private constructor(
     @JsonProperty("Description")
     val description: kotlin.collections.List<kotlin.String>? = null,
-    // Container for deposit policy details
+
+    /* Container for deposit policy details */
     @JsonProperty("Details")
     val details: kotlin.collections.List<DepositDetail>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class DepositPolicy(
         fun details(details: kotlin.collections.List<DepositDetail>?) = apply { this.details = details }
 
         fun build(): DepositPolicy {
-            val instance =
-                DepositPolicy(
-                    description = description,
-                    details = details,
-                )
+            val instance = DepositPolicy(
+                description = description,
+                details = details,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            description = description,
-            details = details,
-        )
+    fun toBuilder() = Builder(
+        description = description,
+        details = details,
+    )
 }

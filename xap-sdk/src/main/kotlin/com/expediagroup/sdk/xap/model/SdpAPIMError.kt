@@ -21,13 +21,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Error from the APIM.
  * @param message Error from the APIM.
  */
-data class SdpAPIMError(
-    // Error from the APIM.
+@ConsistentCopyVisibility data class SdpAPIMError private constructor(
+    /* Error from the APIM. */
     @JsonProperty("message")
     val message: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,17 +38,15 @@ data class SdpAPIMError(
         fun message(message: kotlin.String?) = apply { this.message = message }
 
         fun build(): SdpAPIMError {
-            val instance =
-                SdpAPIMError(
-                    message = message,
-                )
+            val instance = SdpAPIMError(
+                message = message,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            message = message,
-        )
+    fun toBuilder() = Builder(
+        message = message,
+    )
 }

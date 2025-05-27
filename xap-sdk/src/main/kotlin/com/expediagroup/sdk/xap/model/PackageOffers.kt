@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3Link
 import com.expediagroup.sdk.xap.model.PackagePrice
 import com.expediagroup.sdk.xap.model.PackagedOffer
@@ -26,22 +27,18 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param links Container for HATEOAS links to websites and/or API's.
  * @param packagedOffer
  */
-data class PackageOffers(
+@ConsistentCopyVisibility data class PackageOffers private constructor(
     @JsonProperty("Price")
     val price: PackagePrice,
-    // Container for HATEOAS links to websites and/or API's.
+
+    /* Container for HATEOAS links to websites and/or API's. */
     @JsonProperty("Links")
     val links: kotlin.collections.Map<kotlin.String, FlightsV3Link>,
+
     @JsonProperty("PackagedOffer")
     val packagedOffer: PackagedOffer,
+
 ) {
-    init {
-        require(price != null) { "price must not be null" }
-
-        require(links != null) { "links must not be null" }
-
-        require(packagedOffer != null) { "packagedOffer must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -60,21 +57,31 @@ data class PackageOffers(
         fun packagedOffer(packagedOffer: PackagedOffer) = apply { this.packagedOffer = packagedOffer }
 
         fun build(): PackageOffers {
-            val instance =
-                PackageOffers(
-                    price = price!!,
-                    links = links!!,
-                    packagedOffer = packagedOffer!!,
-                )
+            val price = this.price.getOrThrow {
+                IllegalArgumentException("price must not be null")
+            }
+
+            val links = this.links.getOrThrow {
+                IllegalArgumentException("links must not be null")
+            }
+
+            val packagedOffer = this.packagedOffer.getOrThrow {
+                IllegalArgumentException("packagedOffer must not be null")
+            }
+
+            val instance = PackageOffers(
+                price = price,
+                links = links,
+                packagedOffer = packagedOffer,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            price = price!!,
-            links = links!!,
-            packagedOffer = packagedOffer!!,
-        )
+    fun toBuilder() = Builder(
+        price = price,
+        links = links,
+        packagedOffer = packagedOffer,
+    )
 }

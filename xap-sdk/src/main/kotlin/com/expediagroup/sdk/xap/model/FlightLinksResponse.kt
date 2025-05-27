@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightLinksResponseLinksInner
 import com.expediagroup.sdk.xap.model.FlightLinksResponseWarningsInner
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -25,17 +26,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param warnings
  * @param links
  */
-data class FlightLinksResponse(
+@ConsistentCopyVisibility data class FlightLinksResponse private constructor(
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
+
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<FlightLinksResponseWarningsInner>? = null,
+
     @JsonProperty("Links")
     val links: kotlin.collections.List<FlightLinksResponseLinksInner>? = null,
 ) {
-    init {
-        require(transactionId != null) { "transactionId must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -54,21 +54,23 @@ data class FlightLinksResponse(
         fun links(links: kotlin.collections.List<FlightLinksResponseLinksInner>?) = apply { this.links = links }
 
         fun build(): FlightLinksResponse {
-            val instance =
-                FlightLinksResponse(
-                    transactionId = transactionId!!,
-                    warnings = warnings,
-                    links = links,
-                )
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val instance = FlightLinksResponse(
+                transactionId = transactionId,
+                warnings = warnings,
+                links = links,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            transactionId = transactionId!!,
-            warnings = warnings,
-            links = links,
-        )
+    fun toBuilder() = Builder(
+        transactionId = transactionId,
+        warnings = warnings,
+        links = links,
+    )
 }

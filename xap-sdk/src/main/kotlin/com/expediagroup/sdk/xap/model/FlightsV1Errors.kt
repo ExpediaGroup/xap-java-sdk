@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV1Error
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,22 +24,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param errors Container for error list.
  * @param transactionId A unique identifier for the transaction.
  */
-data class FlightsV1Errors(
-    // Container for error list.
+@ConsistentCopyVisibility data class FlightsV1Errors private constructor(
+    /* Container for error list. */
     @JsonProperty("Errors")
     val errors: kotlin.collections
         .List<
             FlightsV1Error,
-        >,
-    // A unique identifier for the transaction.
+            >,
+
+    /* A unique identifier for the transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
-) {
-    init {
-        require(errors != null) { "errors must not be null" }
 
-        require(transactionId != null) { "transactionId must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -54,19 +52,25 @@ data class FlightsV1Errors(
         fun transactionId(transactionId: kotlin.String) = apply { this.transactionId = transactionId }
 
         fun build(): FlightsV1Errors {
-            val instance =
-                FlightsV1Errors(
-                    errors = errors!!,
-                    transactionId = transactionId!!,
-                )
+            val errors = this.errors.getOrThrow {
+                IllegalArgumentException("errors must not be null")
+            }
+
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val instance = FlightsV1Errors(
+                errors = errors,
+                transactionId = transactionId,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            errors = errors!!,
-            transactionId = transactionId!!,
-        )
+    fun toBuilder() = Builder(
+        errors = errors,
+        transactionId = transactionId,
+    )
 }

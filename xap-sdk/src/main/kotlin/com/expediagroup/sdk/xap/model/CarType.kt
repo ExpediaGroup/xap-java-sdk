@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code Car type code.
  * @param `value` Car type value.
  */
-data class CarType(
-    // Car type code.
+@ConsistentCopyVisibility data class CarType private constructor(
+    /* Car type code. */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // Car type value.
+
+    /* Car type value. */
     @JsonProperty("Value")
     val `value`: kotlin.String,
-) {
-    init {
-        require(code != null) { "code must not be null" }
 
-        require(`value` != null) { "`value` must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class CarType(
         fun `value`(`value`: kotlin.String) = apply { this.`value` = `value` }
 
         fun build(): CarType {
-            val instance =
-                CarType(
-                    code = code!!,
-                    `value` = `value`!!,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val `value` = this.`value`.getOrThrow {
+                IllegalArgumentException("`value` must not be null")
+            }
+
+            val instance = CarType(
+                code = code,
+                `value` = `value`,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            `value` = `value`!!,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        `value` = `value`,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,17 +23,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code
  * @param description
  */
-data class ErrorResponseErrorsInner(
+@ConsistentCopyVisibility data class ErrorResponseErrorsInner private constructor(
     @JsonProperty("Code")
     val code: kotlin.String,
+
     @JsonProperty("Description")
     val description: kotlin.String,
-) {
-    init {
-        require(code != null) { "code must not be null" }
 
-        require(description != null) { "description must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -48,19 +46,25 @@ data class ErrorResponseErrorsInner(
         fun description(description: kotlin.String) = apply { this.description = description }
 
         fun build(): ErrorResponseErrorsInner {
-            val instance =
-                ErrorResponseErrorsInner(
-                    code = code!!,
-                    description = description!!,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val description = this.description.getOrThrow {
+                IllegalArgumentException("description must not be null")
+            }
+
+            val instance = ErrorResponseErrorsInner(
+                code = code,
+                description = description,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            description = description!!,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        description = description,
+    )
 }

@@ -22,12 +22,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @param leg
  */
-data class FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInner(
+@ConsistentCopyVisibility data class FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInner private constructor(
     @JsonProperty("Leg")
     val leg: FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInnerLeg? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,17 +38,15 @@ data class FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInner(
         fun leg(leg: FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInnerLeg?) = apply { this.leg = leg }
 
         fun build(): FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInner {
-            val instance =
-                FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInner(
-                    leg = leg,
-                )
+            val instance = FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInner(
+                leg = leg,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            leg = leg,
-        )
+    fun toBuilder() = Builder(
+        leg = leg,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.ActivitiesMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -24,17 +25,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param totalFees
  * @param totalTaxesAndFees
  */
-data class ReferencePrice(
+@ConsistentCopyVisibility data class ReferencePrice private constructor(
     @JsonProperty("TotalRate")
     val totalRate: ActivitiesMoney,
+
     @JsonProperty("TotalFees")
     val totalFees: ActivitiesMoney? = null,
+
     @JsonProperty("TotalTaxesAndFees")
     val totalTaxesAndFees: ActivitiesMoney? = null,
 ) {
-    init {
-        require(totalRate != null) { "totalRate must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -53,21 +53,23 @@ data class ReferencePrice(
         fun totalTaxesAndFees(totalTaxesAndFees: ActivitiesMoney?) = apply { this.totalTaxesAndFees = totalTaxesAndFees }
 
         fun build(): ReferencePrice {
-            val instance =
-                ReferencePrice(
-                    totalRate = totalRate!!,
-                    totalFees = totalFees,
-                    totalTaxesAndFees = totalTaxesAndFees,
-                )
+            val totalRate = this.totalRate.getOrThrow {
+                IllegalArgumentException("totalRate must not be null")
+            }
+
+            val instance = ReferencePrice(
+                totalRate = totalRate,
+                totalFees = totalFees,
+                totalTaxesAndFees = totalTaxesAndFees,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            totalRate = totalRate!!,
-            totalFees = totalFees,
-            totalTaxesAndFees = totalTaxesAndFees,
-        )
+    fun toBuilder() = Builder(
+        totalRate = totalRate,
+        totalFees = totalFees,
+        totalTaxesAndFees = totalTaxesAndFees,
+    )
 }

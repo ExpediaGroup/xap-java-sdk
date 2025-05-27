@@ -31,33 +31,38 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param cancelPolicyDescription Additional cancellation policy information available as static text.
  * @param nonRefundableDateRanges A list of dates ranges that are non-refundable.  **Note**: The stay dates in those date ranges will always be charged whenever there is any cancellation  penalty rule.
  */
-data class CancellationPolicy(
+@ConsistentCopyVisibility data class CancellationPolicy private constructor(
     @JsonProperty("WaiverPolicy")
     val waiverPolicy: WaiverPolicy? = null,
-    // Boolean value to identify if the reservation can be cancelled online. If false, the customer will only be able to cancel a refundable room by calling Expedia Customer Service.
+
+    /* Boolean value to identify if the reservation can be cancelled online. If false, the customer will only be able to cancel a refundable room by calling Expedia Customer Service. */
     @JsonProperty("CancellableOnline")
     val cancellableOnline: kotlin.Boolean? = null,
-    // Indicate whether the rate is refundable or not.
+
+    /* Indicate whether the rate is refundable or not. */
     @JsonProperty("Refundable")
     val refundable: kotlin.Boolean? = null,
-    // Indicate whether the room can be cancelled free of charge.
+
+    /* Indicate whether the room can be cancelled free of charge. */
     @JsonProperty("FreeCancellation")
     val freeCancellation: kotlin.Boolean? = null,
-    // The date and time until which the room can be cancelled free of charge.  This is expressed in the local time of the Hotel.
+
+    /* The date and time until which the room can be cancelled free of charge.  This is expressed in the local time of the Hotel.  */
     @JsonProperty("FreeCancellationEndDateTime")
     val freeCancellationEndDateTime: java.time.OffsetDateTime? = null,
-    // Container for cancellation penalty details.
+
+    /* Container for cancellation penalty details. */
     @JsonProperty("CancellationPenaltyRules")
     val cancellationPenaltyRules: kotlin.collections.List<CancellationPenaltyRule>? = null,
-    // Additional cancellation policy information available as static text.
+
+    /* Additional cancellation policy information available as static text. */
     @JsonProperty("CancelPolicyDescription")
     val cancelPolicyDescription: kotlin.String? = null,
-    // A list of dates ranges that are non-refundable.  **Note**: The stay dates in those date ranges will always be charged whenever there is any cancellation  penalty rule.
+
+    /* A list of dates ranges that are non-refundable.  **Note**: The stay dates in those date ranges will always be charged whenever there is any cancellation  penalty rule.  */
     @JsonProperty("NonRefundableDateRanges")
     val nonRefundableDateRanges: kotlin.collections.List<NonRefundableDateRange>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -91,31 +96,29 @@ data class CancellationPolicy(
         fun nonRefundableDateRanges(nonRefundableDateRanges: kotlin.collections.List<NonRefundableDateRange>?) = apply { this.nonRefundableDateRanges = nonRefundableDateRanges }
 
         fun build(): CancellationPolicy {
-            val instance =
-                CancellationPolicy(
-                    waiverPolicy = waiverPolicy,
-                    cancellableOnline = cancellableOnline,
-                    refundable = refundable,
-                    freeCancellation = freeCancellation,
-                    freeCancellationEndDateTime = freeCancellationEndDateTime,
-                    cancellationPenaltyRules = cancellationPenaltyRules,
-                    cancelPolicyDescription = cancelPolicyDescription,
-                    nonRefundableDateRanges = nonRefundableDateRanges,
-                )
+            val instance = CancellationPolicy(
+                waiverPolicy = waiverPolicy,
+                cancellableOnline = cancellableOnline,
+                refundable = refundable,
+                freeCancellation = freeCancellation,
+                freeCancellationEndDateTime = freeCancellationEndDateTime,
+                cancellationPenaltyRules = cancellationPenaltyRules,
+                cancelPolicyDescription = cancelPolicyDescription,
+                nonRefundableDateRanges = nonRefundableDateRanges,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            waiverPolicy = waiverPolicy,
-            cancellableOnline = cancellableOnline,
-            refundable = refundable,
-            freeCancellation = freeCancellation,
-            freeCancellationEndDateTime = freeCancellationEndDateTime,
-            cancellationPenaltyRules = cancellationPenaltyRules,
-            cancelPolicyDescription = cancelPolicyDescription,
-            nonRefundableDateRanges = nonRefundableDateRanges,
-        )
+    fun toBuilder() = Builder(
+        waiverPolicy = waiverPolicy,
+        cancellableOnline = cancellableOnline,
+        refundable = refundable,
+        freeCancellation = freeCancellation,
+        freeCancellationEndDateTime = freeCancellationEndDateTime,
+        cancellationPenaltyRules = cancellationPenaltyRules,
+        cancelPolicyDescription = cancelPolicyDescription,
+        nonRefundableDateRanges = nonRefundableDateRanges,
+    )
 }

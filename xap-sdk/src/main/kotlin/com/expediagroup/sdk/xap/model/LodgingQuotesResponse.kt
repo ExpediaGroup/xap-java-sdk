@@ -32,33 +32,38 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param occupants Container for the list of room occupants.
  * @param properties Container for all properties.
  */
-data class LodgingQuotesResponse(
-    // There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
+@ConsistentCopyVisibility data class LodgingQuotesResponse private constructor(
+    /* There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.  */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<LodgingWarning>? = null,
-    // The number of properties actually returned in the response.
+
+    /* The number of properties actually returned in the response. */
     @JsonProperty("Count")
     val count: kotlin.Int? = null,
-    // The number of properties requested.
+
+    /* The number of properties requested. */
     @JsonProperty("TotalPropertyCount")
     val totalPropertyCount: kotlin.Int? = null,
-    // Unique identifier for the API transaction.
+
+    /* Unique identifier for the API transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String? = null,
+
     @JsonProperty("StayDates")
     val stayDates: LodgingStayDates? = null,
-    // The number of stay nights.
+
+    /* The number of stay nights. */
     @JsonProperty("LengthOfStay")
     val lengthOfStay: kotlin.Int? = null,
-    // Container for the list of room occupants.
+
+    /* Container for the list of room occupants. */
     @JsonProperty("Occupants")
     val occupants: kotlin.collections.List<LodgingOccupant>? = null,
-    // Container for all properties.
+
+    /* Container for all properties. */
     @JsonProperty("Properties")
     val properties: kotlin.collections.List<Property>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -92,31 +97,29 @@ data class LodgingQuotesResponse(
         fun properties(properties: kotlin.collections.List<Property>?) = apply { this.properties = properties }
 
         fun build(): LodgingQuotesResponse {
-            val instance =
-                LodgingQuotesResponse(
-                    warnings = warnings,
-                    count = count,
-                    totalPropertyCount = totalPropertyCount,
-                    transactionId = transactionId,
-                    stayDates = stayDates,
-                    lengthOfStay = lengthOfStay,
-                    occupants = occupants,
-                    properties = properties,
-                )
+            val instance = LodgingQuotesResponse(
+                warnings = warnings,
+                count = count,
+                totalPropertyCount = totalPropertyCount,
+                transactionId = transactionId,
+                stayDates = stayDates,
+                lengthOfStay = lengthOfStay,
+                occupants = occupants,
+                properties = properties,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            warnings = warnings,
-            count = count,
-            totalPropertyCount = totalPropertyCount,
-            transactionId = transactionId,
-            stayDates = stayDates,
-            lengthOfStay = lengthOfStay,
-            occupants = occupants,
-            properties = properties,
-        )
+    fun toBuilder() = Builder(
+        warnings = warnings,
+        count = count,
+        totalPropertyCount = totalPropertyCount,
+        transactionId = transactionId,
+        stayDates = stayDates,
+        lengthOfStay = lengthOfStay,
+        occupants = occupants,
+        properties = properties,
+    )
 }

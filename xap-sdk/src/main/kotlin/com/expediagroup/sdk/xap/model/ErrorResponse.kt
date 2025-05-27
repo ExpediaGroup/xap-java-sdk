@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.ErrorResponseErrorsInner
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,20 +24,17 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param transactionId
  * @param errors
  */
-data class ErrorResponse(
+@ConsistentCopyVisibility data class ErrorResponse private constructor(
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
+
     @JsonProperty("Errors")
     val errors: kotlin.collections
         .List<
             ErrorResponseErrorsInner,
-        >,
-) {
-    init {
-        require(transactionId != null) { "transactionId must not be null" }
+            >,
 
-        require(errors != null) { "errors must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -52,19 +50,25 @@ data class ErrorResponse(
         fun errors(errors: kotlin.collections.List<ErrorResponseErrorsInner>) = apply { this.errors = errors }
 
         fun build(): ErrorResponse {
-            val instance =
-                ErrorResponse(
-                    transactionId = transactionId!!,
-                    errors = errors!!,
-                )
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val errors = this.errors.getOrThrow {
+                IllegalArgumentException("errors must not be null")
+            }
+
+            val instance = ErrorResponse(
+                transactionId = transactionId,
+                errors = errors,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            transactionId = transactionId!!,
-            errors = errors!!,
-        )
+    fun toBuilder() = Builder(
+        transactionId = transactionId,
+        errors = errors,
+    )
 }

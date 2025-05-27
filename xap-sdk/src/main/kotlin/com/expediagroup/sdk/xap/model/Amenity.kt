@@ -32,31 +32,37 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param upgrade
  * @param boardingGroup List of available BoardingGroup Amenity.
  */
-data class Amenity(
+@ConsistentCopyVisibility data class Amenity private constructor(
     @JsonProperty("SeatChoice")
     val seatChoice: SeatChoice? = null,
+
     @JsonProperty("CarryOnBag")
     val carryOnBag: Bag? = null,
-    // List of Checked Bag Amenity.
+
+    /* List of Checked Bag Amenity. */
     @JsonProperty("CheckedBag")
     val checkedBag: kotlin.collections.List<Bag>? = null,
+
     @JsonProperty("Change")
     val change: AmenityInfo? = null,
-    // True if booking can be cancelled with in 24 hours after booking.
+
+    /* True if booking can be cancelled with in 24 hours after booking. */
     @JsonProperty("Free24HrCancellation")
     val free24HrCancellation: kotlin.Boolean? = null,
+
     @JsonProperty("Refund")
     val refund: AmenityInfo? = null,
+
     @JsonProperty("PersonalItem")
     val personalItem: AmenityInfo? = null,
+
     @JsonProperty("Upgrade")
     val upgrade: AmenityInfo? = null,
-    // List of available BoardingGroup Amenity.
+
+    /* List of available BoardingGroup Amenity. */
     @JsonProperty("BoardingGroup")
     val boardingGroup: kotlin.collections.List<Amenity.BoardingGroup>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -93,43 +99,39 @@ data class Amenity(
         fun boardingGroup(boardingGroup: kotlin.collections.List<Amenity.BoardingGroup>?) = apply { this.boardingGroup = boardingGroup }
 
         fun build(): Amenity {
-            val instance =
-                Amenity(
-                    seatChoice = seatChoice,
-                    carryOnBag = carryOnBag,
-                    checkedBag = checkedBag,
-                    change = change,
-                    free24HrCancellation = free24HrCancellation,
-                    refund = refund,
-                    personalItem = personalItem,
-                    upgrade = upgrade,
-                    boardingGroup = boardingGroup,
-                )
+            val instance = Amenity(
+                seatChoice = seatChoice,
+                carryOnBag = carryOnBag,
+                checkedBag = checkedBag,
+                change = change,
+                free24HrCancellation = free24HrCancellation,
+                refund = refund,
+                personalItem = personalItem,
+                upgrade = upgrade,
+                boardingGroup = boardingGroup,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            seatChoice = seatChoice,
-            carryOnBag = carryOnBag,
-            checkedBag = checkedBag,
-            change = change,
-            free24HrCancellation = free24HrCancellation,
-            refund = refund,
-            personalItem = personalItem,
-            upgrade = upgrade,
-            boardingGroup = boardingGroup,
-        )
+    fun toBuilder() = Builder(
+        seatChoice = seatChoice,
+        carryOnBag = carryOnBag,
+        checkedBag = checkedBag,
+        change = change,
+        free24HrCancellation = free24HrCancellation,
+        refund = refund,
+        personalItem = personalItem,
+        upgrade = upgrade,
+        boardingGroup = boardingGroup,
+    )
 
     /**
      * List of available BoardingGroup Amenity.
      * Values: LAST,PRIORITY,BASED_ON_SEAT_LOCATION,PAY_TO_UPGRADE
      */
-    enum class BoardingGroup(
-        val value: kotlin.String,
-    ) {
+    enum class BoardingGroup(val value: kotlin.String) {
         @JsonProperty("LAST")
         LAST("LAST"),
 

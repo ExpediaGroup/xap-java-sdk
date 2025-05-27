@@ -23,19 +23,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param longitude The geographic coordinates of the hotel property, based on a vertical angular measurement relative to the universal Prime Meridian (Royal Observatory, Greenwich).  East longitude will be represented by a positive value.  West longitude will be represented by a negative value.
  * @param obfuscated Indicates whether the displayed Latitude/Longitude information is obfuscated.  Note: Exact Lat/Long values for Vacation Rental properties will not be shown in either XAPv3 Search or Details responses to respect the security of the homeowner. Instead an 'obfuscated' Lat/Long value will be returned that will indicate the general area within which the property is located, but not the exact location of the property itself.
  */
-data class LocationGeoLocation(
-    // The geographic coordinates of the hotel property, based on a horizontal angular measurement relative to The Equator.  North latitude will be represented by a positive value.  South latitude will be represented by a negative value.
+@ConsistentCopyVisibility data class LocationGeoLocation private constructor(
+    /* The geographic coordinates of the hotel property, based on a horizontal angular measurement relative to The Equator.  North latitude will be represented by a positive value.  South latitude will be represented by a negative value.  */
     @JsonProperty("Latitude")
     val latitude: kotlin.String? = null,
-    // The geographic coordinates of the hotel property, based on a vertical angular measurement relative to the universal Prime Meridian (Royal Observatory, Greenwich).  East longitude will be represented by a positive value.  West longitude will be represented by a negative value.
+
+    /* The geographic coordinates of the hotel property, based on a vertical angular measurement relative to the universal Prime Meridian (Royal Observatory, Greenwich).  East longitude will be represented by a positive value.  West longitude will be represented by a negative value.  */
     @JsonProperty("Longitude")
     val longitude: kotlin.String? = null,
-    // Indicates whether the displayed Latitude/Longitude information is obfuscated.  Note: Exact Lat/Long values for Vacation Rental properties will not be shown in either XAPv3 Search or Details responses to respect the security of the homeowner. Instead an 'obfuscated' Lat/Long value will be returned that will indicate the general area within which the property is located, but not the exact location of the property itself.
+
+    /* Indicates whether the displayed Latitude/Longitude information is obfuscated.  Note: Exact Lat/Long values for Vacation Rental properties will not be shown in either XAPv3 Search or Details responses to respect the security of the homeowner. Instead an 'obfuscated' Lat/Long value will be returned that will indicate the general area within which the property is located, but not the exact location of the property itself.  */
     @JsonProperty("Obfuscated")
     val obfuscated: kotlin.Boolean? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -54,21 +54,19 @@ data class LocationGeoLocation(
         fun obfuscated(obfuscated: kotlin.Boolean?) = apply { this.obfuscated = obfuscated }
 
         fun build(): LocationGeoLocation {
-            val instance =
-                LocationGeoLocation(
-                    latitude = latitude,
-                    longitude = longitude,
-                    obfuscated = obfuscated,
-                )
+            val instance = LocationGeoLocation(
+                latitude = latitude,
+                longitude = longitude,
+                obfuscated = obfuscated,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            latitude = latitude,
-            longitude = longitude,
-            obfuscated = obfuscated,
-        )
+    fun toBuilder() = Builder(
+        latitude = latitude,
+        longitude = longitude,
+        obfuscated = obfuscated,
+    )
 }

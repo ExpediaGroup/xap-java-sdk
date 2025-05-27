@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3LodgingAmenity
 import com.expediagroup.sdk.xap.model.FlightsV3StayDates
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -36,56 +37,62 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param freeBreakfastDetails The localized details for the free breakfast amenity (only shown when FreeBreakfast = true).
  * @param amenities The amenities of the rateplan.
  */
-data class FlightsV3RatePlan(
-    // The room type identifier.
+@ConsistentCopyVisibility data class FlightsV3RatePlan private constructor(
+    /* The room type identifier. */
     @JsonProperty("RoomTypeId")
     val roomTypeId: kotlin.String,
-    // The rate plan identifier.
+
+    /* The rate plan identifier. */
     @JsonProperty("RatePlanId")
     val ratePlanId: kotlin.String,
-    // The identification number of the source that provides the rate plan.
+
+    /* The identification number of the source that provides the rate plan. */
     @JsonProperty("InventorySourceId")
     val inventorySourceId: kotlin.String,
-    // The identifier of rate rule.
+
+    /* The identifier of rate rule. */
     @JsonProperty("RateRuleId")
     val rateRuleId: kotlin.String? = null,
-    // The source name that provided the rate plan.
+
+    /* The source name that provided the rate plan. */
     @JsonProperty("InventorySourceCode")
     val inventorySourceCode: kotlin.String? = null,
+
     @JsonProperty("StayDates")
     val stayDates: FlightsV3StayDates? = null,
-    // The number of rooms remaining through Expedia for this room type. NOTE: This value does NOT represent the total number of rooms remaining at the hotel property, only the number of rooms allocated to Expedia for sale by the property that currently remain in Expedia's inventory. When a hotel is listed as 'sold out' by Expedia there may still be rooms available for sale by the hotel through other channels. CMA Compliance Note (UK): websites in the UK that display remainingCount should make it clear to consumers that this count refers to the number of rooms remaining within Expedia inventory - NOT the number remaining at the property.
+
+    /* The number of rooms remaining through Expedia for this room type. NOTE: This value does NOT represent the total number of rooms remaining at the hotel property, only the number of rooms allocated to Expedia for sale by the property that currently remain in Expedia's inventory. When a hotel is listed as 'sold out' by Expedia there may still be rooms available for sale by the hotel through other channels. CMA Compliance Note (UK): websites in the UK that display remainingCount should make it clear to consumers that this count refers to the number of rooms remaining within Expedia inventory - NOT the number remaining at the property. */
     @JsonProperty("RemainingCount")
     val remainingCount: kotlin.Int? = null,
-    // Indicates whether the price of the room includes free Internet. (either wireless or wired)
+
+    /* Indicates whether the price of the room includes free Internet. (either wireless or wired) */
     @JsonProperty("FreeInternet")
     val freeInternet: kotlin.Boolean? = null,
-    // Indicates whether the price of the room includes free wireless Internet access.
+
+    /* Indicates whether the price of the room includes free wireless Internet access. */
     @JsonProperty("FreeWiFi")
     val freeWiFi: kotlin.Boolean? = null,
-    // The localized details for the free internet amenity (only shown when FreeInternet = true).
+
+    /* The localized details for the free internet amenity (only shown when FreeInternet = true). */
     @JsonProperty("FreeInternetDetails")
     val freeInternetDetails: kotlin.collections.List<kotlin.String>? = null,
-    // Indicates whether the price of the room includes free parking.
+
+    /* Indicates whether the price of the room includes free parking. */
     @JsonProperty("FreeParking")
     val freeParking: kotlin.Boolean? = null,
-    // Indicates whether the price of the room includes free breakfast.
+
+    /* Indicates whether the price of the room includes free breakfast. */
     @JsonProperty("FreeBreakfast")
     val freeBreakfast: kotlin.Boolean? = null,
-    // The localized details for the free breakfast amenity (only shown when FreeBreakfast = true).
+
+    /* The localized details for the free breakfast amenity (only shown when FreeBreakfast = true). */
     @JsonProperty("FreeBreakfastDetails")
     val freeBreakfastDetails: kotlin.collections.List<kotlin.String>? = null,
-    // The amenities of the rateplan.
+
+    /* The amenities of the rateplan. */
     @JsonProperty("Amenities")
     val amenities: kotlin.collections.List<FlightsV3LodgingAmenity>? = null,
 ) {
-    init {
-        require(roomTypeId != null) { "roomTypeId must not be null" }
-
-        require(ratePlanId != null) { "ratePlanId must not be null" }
-
-        require(inventorySourceId != null) { "inventorySourceId must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -137,43 +144,53 @@ data class FlightsV3RatePlan(
         fun amenities(amenities: kotlin.collections.List<FlightsV3LodgingAmenity>?) = apply { this.amenities = amenities }
 
         fun build(): FlightsV3RatePlan {
-            val instance =
-                FlightsV3RatePlan(
-                    roomTypeId = roomTypeId!!,
-                    ratePlanId = ratePlanId!!,
-                    inventorySourceId = inventorySourceId!!,
-                    rateRuleId = rateRuleId,
-                    inventorySourceCode = inventorySourceCode,
-                    stayDates = stayDates,
-                    remainingCount = remainingCount,
-                    freeInternet = freeInternet,
-                    freeWiFi = freeWiFi,
-                    freeInternetDetails = freeInternetDetails,
-                    freeParking = freeParking,
-                    freeBreakfast = freeBreakfast,
-                    freeBreakfastDetails = freeBreakfastDetails,
-                    amenities = amenities,
-                )
+            val roomTypeId = this.roomTypeId.getOrThrow {
+                IllegalArgumentException("roomTypeId must not be null")
+            }
+
+            val ratePlanId = this.ratePlanId.getOrThrow {
+                IllegalArgumentException("ratePlanId must not be null")
+            }
+
+            val inventorySourceId = this.inventorySourceId.getOrThrow {
+                IllegalArgumentException("inventorySourceId must not be null")
+            }
+
+            val instance = FlightsV3RatePlan(
+                roomTypeId = roomTypeId,
+                ratePlanId = ratePlanId,
+                inventorySourceId = inventorySourceId,
+                rateRuleId = rateRuleId,
+                inventorySourceCode = inventorySourceCode,
+                stayDates = stayDates,
+                remainingCount = remainingCount,
+                freeInternet = freeInternet,
+                freeWiFi = freeWiFi,
+                freeInternetDetails = freeInternetDetails,
+                freeParking = freeParking,
+                freeBreakfast = freeBreakfast,
+                freeBreakfastDetails = freeBreakfastDetails,
+                amenities = amenities,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            roomTypeId = roomTypeId!!,
-            ratePlanId = ratePlanId!!,
-            inventorySourceId = inventorySourceId!!,
-            rateRuleId = rateRuleId,
-            inventorySourceCode = inventorySourceCode,
-            stayDates = stayDates,
-            remainingCount = remainingCount,
-            freeInternet = freeInternet,
-            freeWiFi = freeWiFi,
-            freeInternetDetails = freeInternetDetails,
-            freeParking = freeParking,
-            freeBreakfast = freeBreakfast,
-            freeBreakfastDetails = freeBreakfastDetails,
-            amenities = amenities,
-        )
+    fun toBuilder() = Builder(
+        roomTypeId = roomTypeId,
+        ratePlanId = ratePlanId,
+        inventorySourceId = inventorySourceId,
+        rateRuleId = rateRuleId,
+        inventorySourceCode = inventorySourceCode,
+        stayDates = stayDates,
+        remainingCount = remainingCount,
+        freeInternet = freeInternet,
+        freeWiFi = freeWiFi,
+        freeInternetDetails = freeInternetDetails,
+        freeParking = freeParking,
+        freeBreakfast = freeBreakfast,
+        freeBreakfastDetails = freeBreakfastDetails,
+        amenities = amenities,
+    )
 }

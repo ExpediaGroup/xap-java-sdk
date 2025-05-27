@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code Fault code.
  * @param description Fault description.
  */
-data class Fault(
-    // Fault code.
+@ConsistentCopyVisibility data class Fault private constructor(
+    /* Fault code. */
     @JsonProperty("code")
     val code: kotlin.String? = null,
-    // Fault description.
+
+    /* Fault description. */
     @JsonProperty("description")
     val description: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class Fault(
         fun description(description: kotlin.String?) = apply { this.description = description }
 
         fun build(): Fault {
-            val instance =
-                Fault(
-                    code = code,
-                    description = description,
-                )
+            val instance = Fault(
+                code = code,
+                description = description,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code,
-            description = description,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        description = description,
+    )
 }

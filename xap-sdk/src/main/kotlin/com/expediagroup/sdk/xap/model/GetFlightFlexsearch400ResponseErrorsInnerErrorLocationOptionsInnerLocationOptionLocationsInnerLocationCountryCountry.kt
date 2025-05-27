@@ -21,13 +21,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Container for disambiguation country information
  * @param code 3-letter code for the country
  */
-data class GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocationCountryCountry(
-    // 3-letter code for the country
+@ConsistentCopyVisibility data class GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocationCountryCountry private constructor(
+    /* 3-letter code for the country */
     @JsonProperty("Code")
     val code: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,17 +38,15 @@ data class GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLoc
         fun code(code: kotlin.String?) = apply { this.code = code }
 
         fun build(): GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocationCountryCountry {
-            val instance =
-                GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocationCountryCountry(
-                    code = code,
-                )
+            val instance = GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocationCountryCountry(
+                code = code,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+    )
 }

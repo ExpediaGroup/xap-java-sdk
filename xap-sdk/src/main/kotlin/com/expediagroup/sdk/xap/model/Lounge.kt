@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -24,23 +25,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param phoneNumber Phone number of the lounge (if available)
  * @param description Free text field with any extra information about the lounge
  */
-data class Lounge(
-    // Name of the lounge corresponding to a lounge key
+@ConsistentCopyVisibility data class Lounge private constructor(
+    /* Name of the lounge corresponding to a lounge key */
     @JsonProperty("Name")
     val name: kotlin.String,
-    // Indicates whether the lounge has a conference room.
+
+    /* Indicates whether the lounge has a conference room. */
     @JsonProperty("IsConferenceRoomAvailable")
     val isConferenceRoomAvailable: kotlin.Boolean? = null,
-    // Phone number of the lounge (if available)
+
+    /* Phone number of the lounge (if available) */
     @JsonProperty("PhoneNumber")
     val phoneNumber: kotlin.String? = null,
-    // Free text field with any extra information about the lounge
+
+    /* Free text field with any extra information about the lounge */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
 ) {
-    init {
-        require(name != null) { "name must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -62,23 +63,25 @@ data class Lounge(
         fun description(description: kotlin.String?) = apply { this.description = description }
 
         fun build(): Lounge {
-            val instance =
-                Lounge(
-                    name = name!!,
-                    isConferenceRoomAvailable = isConferenceRoomAvailable,
-                    phoneNumber = phoneNumber,
-                    description = description,
-                )
+            val name = this.name.getOrThrow {
+                IllegalArgumentException("name must not be null")
+            }
+
+            val instance = Lounge(
+                name = name,
+                isConferenceRoomAvailable = isConferenceRoomAvailable,
+                phoneNumber = phoneNumber,
+                description = description,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            name = name!!,
-            isConferenceRoomAvailable = isConferenceRoomAvailable,
-            phoneNumber = phoneNumber,
-            description = description,
-        )
+    fun toBuilder() = Builder(
+        name = name,
+        isConferenceRoomAvailable = isConferenceRoomAvailable,
+        phoneNumber = phoneNumber,
+        description = description,
+    )
 }

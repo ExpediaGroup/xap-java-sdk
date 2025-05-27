@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param `value` The value of the element being defined.
  * @param currency The ISO 4217 Currency Code that the value is expressed in.
  */
-data class FlexSearchResponseOffersInnerOfferOfferPriceTotalPriceMoney(
-    // The value of the element being defined.
+@ConsistentCopyVisibility data class FlexSearchResponseOffersInnerOfferOfferPriceTotalPriceMoney private constructor(
+    /* The value of the element being defined. */
     @JsonProperty("Value")
     val `value`: kotlin.String,
-    // The ISO 4217 Currency Code that the value is expressed in.
+
+    /* The ISO 4217 Currency Code that the value is expressed in. */
     @JsonProperty("Currency")
     val currency: kotlin.String,
-) {
-    init {
-        require(`value` != null) { "`value` must not be null" }
 
-        require(currency != null) { "currency must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class FlexSearchResponseOffersInnerOfferOfferPriceTotalPriceMoney(
         fun currency(currency: kotlin.String) = apply { this.currency = currency }
 
         fun build(): FlexSearchResponseOffersInnerOfferOfferPriceTotalPriceMoney {
-            val instance =
-                FlexSearchResponseOffersInnerOfferOfferPriceTotalPriceMoney(
-                    `value` = `value`!!,
-                    currency = currency!!,
-                )
+            val `value` = this.`value`.getOrThrow {
+                IllegalArgumentException("`value` must not be null")
+            }
+
+            val currency = this.currency.getOrThrow {
+                IllegalArgumentException("currency must not be null")
+            }
+
+            val instance = FlexSearchResponseOffersInnerOfferOfferPriceTotalPriceMoney(
+                `value` = `value`,
+                currency = currency,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            `value` = `value`!!,
-            currency = currency!!,
-        )
+    fun toBuilder() = Builder(
+        `value` = `value`,
+        currency = currency,
+    )
 }

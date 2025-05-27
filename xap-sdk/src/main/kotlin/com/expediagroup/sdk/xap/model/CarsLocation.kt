@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarsAddress
 import com.expediagroup.sdk.xap.model.CarsCountry
 import com.expediagroup.sdk.xap.model.CarsGeoLocation
@@ -35,39 +36,46 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param regionId RegionId the location resides in.
  * @param country
  */
-data class CarsLocation(
-    // Location id.
+@ConsistentCopyVisibility data class CarsLocation private constructor(
+    /* Location id. */
     @JsonProperty("LocationId")
     val locationId: kotlin.String,
-    // The type of location code (MULTICITY | METROCODE).
+
+    /* The type of location code (MULTICITY | METROCODE). */
     @JsonProperty("Type")
     val type: kotlin.String? = null,
-    // Expedia Region ID of the specified airport.
+
+    /* Expedia Region ID of the specified airport. */
     @JsonProperty("Id")
     val id: kotlin.String? = null,
-    // Location Name
+
+    /* Location Name */
     @JsonProperty("Name")
     val name: kotlin.String? = null,
-    // Location Code
+
+    /* Location Code */
     @JsonProperty("Code")
     val code: kotlin.String? = null,
+
     @JsonProperty("Address")
     val address: CarsAddress? = null,
+
     @JsonProperty("PointOfInterest")
     val pointOfInterest: kotlin.String? = null,
+
     @JsonProperty("GeoLocation")
     val geoLocation: CarsGeoLocation? = null,
+
     @JsonProperty("Neighborhood")
     val neighborhood: CarsNeighborhood? = null,
-    // RegionId the location resides in.
+
+    /* RegionId the location resides in. */
     @JsonProperty("RegionId")
     val regionId: kotlin.Long? = null,
+
     @JsonProperty("Country")
     val country: CarsCountry? = null,
 ) {
-    init {
-        require(locationId != null) { "locationId must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -110,37 +118,39 @@ data class CarsLocation(
         fun country(country: CarsCountry?) = apply { this.country = country }
 
         fun build(): CarsLocation {
-            val instance =
-                CarsLocation(
-                    locationId = locationId!!,
-                    type = type,
-                    id = id,
-                    name = name,
-                    code = code,
-                    address = address,
-                    pointOfInterest = pointOfInterest,
-                    geoLocation = geoLocation,
-                    neighborhood = neighborhood,
-                    regionId = regionId,
-                    country = country,
-                )
+            val locationId = this.locationId.getOrThrow {
+                IllegalArgumentException("locationId must not be null")
+            }
+
+            val instance = CarsLocation(
+                locationId = locationId,
+                type = type,
+                id = id,
+                name = name,
+                code = code,
+                address = address,
+                pointOfInterest = pointOfInterest,
+                geoLocation = geoLocation,
+                neighborhood = neighborhood,
+                regionId = regionId,
+                country = country,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            locationId = locationId!!,
-            type = type,
-            id = id,
-            name = name,
-            code = code,
-            address = address,
-            pointOfInterest = pointOfInterest,
-            geoLocation = geoLocation,
-            neighborhood = neighborhood,
-            regionId = regionId,
-            country = country,
-        )
+    fun toBuilder() = Builder(
+        locationId = locationId,
+        type = type,
+        id = id,
+        name = name,
+        code = code,
+        address = address,
+        pointOfInterest = pointOfInterest,
+        geoLocation = geoLocation,
+        neighborhood = neighborhood,
+        regionId = regionId,
+        country = country,
+    )
 }

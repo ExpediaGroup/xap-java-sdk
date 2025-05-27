@@ -28,30 +28,34 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param minStay A comma-separated list of numbers that show the minimum number of days a traveler can stay, one for every day in the specified date range.  Valid values include 0-999, and 0 indicates no minimum for a given day. The unit is always day.  ***Note**: The first number stands for the minimum stay on the `StartDate` in the `DateRange` and the last one stands for the `EndDate`. No limitation if not returned.*
  * @param maxStay A comma-separated list of numbers that show the maximum number of days a traveler can stay, one for every day in the specified date range.  Valid values include 0-999, and 0 indicates no maximum for a given day. The unit is always day.  ***Note**: The first number stands for the maximum stay on the `StartDate` in the `DateRange` and the  last one stands for the `EndDate`. No limitation if not returned.
  */
-data class AvailabilityCalendar(
-    // The unique property identifier that designates a single property.
+@ConsistentCopyVisibility data class AvailabilityCalendar private constructor(
+    /* The unique property identifier that designates a single property. */
     @JsonProperty("PropertyId")
     val propertyId: kotlin.String? = null,
+
     @JsonProperty("DateRange")
     val dateRange: DateRange? = null,
-    // A string of codes that shows property availability, one for every day in the specified date range.  Valid values include Y (available) and N (unavailable).  ***Note**: The first code stands for availability on the `StartDate` in the `DateRange` and the last one stands  for the `EndDate`.*
+
+    /* A string of codes that shows property availability, one for every day in the specified date range.  Valid values include Y (available) and N (unavailable).  ***Note**: The first code stands for availability on the `StartDate` in the `DateRange` and the last one stands  for the `EndDate`.*  */
     @JsonProperty("Availability")
     val availability: kotlin.String? = null,
-    // A string of codes that shows changeover action, one for every day in the specified date range.  Valid values include - X (no action possible) - C (check-in, checkout) - O (checkout only) - I (check-in only) ***Note**: The first code stands for possible action on the `StartDate` in the `DateRange` and the last one  stands for the `EndDate`. All actions are possible if not returned.*
+
+    /* A string of codes that shows changeover action, one for every day in the specified date range.  Valid values include - X (no action possible) - C (check-in, checkout) - O (checkout only) - I (check-in only) ***Note**: The first code stands for possible action on the `StartDate` in the `DateRange` and the last one  stands for the `EndDate`. All actions are possible if not returned.*  */
     @JsonProperty("ChangeOver")
     val changeOver: kotlin.String? = null,
-    // A comma-separated list of numbers that shows how many days before a reservation the booking must occur, one for every day in the specified date range. Valid values include 0-999, and 0 indicates no prior notification required for a given day. The unit is always day.  ***Note**: The first number stands for the minimum advance booking days on the `StartDate` in the `DateRange` and the last one stands for the `EndDate`. No limitation if not returned.*
+
+    /* A comma-separated list of numbers that shows how many days before a reservation the booking must occur, one for every day in the specified date range. Valid values include 0-999, and 0 indicates no prior notification required for a given day. The unit is always day.  ***Note**: The first number stands for the minimum advance booking days on the `StartDate` in the `DateRange` and the last one stands for the `EndDate`. No limitation if not returned.*  */
     @JsonProperty("MinPriorNotify")
     val minPriorNotify: kotlin.String? = null,
-    // A comma-separated list of numbers that show the minimum number of days a traveler can stay, one for every day in the specified date range.  Valid values include 0-999, and 0 indicates no minimum for a given day. The unit is always day.  ***Note**: The first number stands for the minimum stay on the `StartDate` in the `DateRange` and the last one stands for the `EndDate`. No limitation if not returned.*
+
+    /* A comma-separated list of numbers that show the minimum number of days a traveler can stay, one for every day in the specified date range.  Valid values include 0-999, and 0 indicates no minimum for a given day. The unit is always day.  ***Note**: The first number stands for the minimum stay on the `StartDate` in the `DateRange` and the last one stands for the `EndDate`. No limitation if not returned.*  */
     @JsonProperty("MinStay")
     val minStay: kotlin.String? = null,
-    // A comma-separated list of numbers that show the maximum number of days a traveler can stay, one for every day in the specified date range.  Valid values include 0-999, and 0 indicates no maximum for a given day. The unit is always day.  ***Note**: The first number stands for the maximum stay on the `StartDate` in the `DateRange` and the  last one stands for the `EndDate`. No limitation if not returned.
+
+    /* A comma-separated list of numbers that show the maximum number of days a traveler can stay, one for every day in the specified date range.  Valid values include 0-999, and 0 indicates no maximum for a given day. The unit is always day.  ***Note**: The first number stands for the maximum stay on the `StartDate` in the `DateRange` and the  last one stands for the `EndDate`. No limitation if not returned.  */
     @JsonProperty("MaxStay")
     val maxStay: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -82,29 +86,27 @@ data class AvailabilityCalendar(
         fun maxStay(maxStay: kotlin.String?) = apply { this.maxStay = maxStay }
 
         fun build(): AvailabilityCalendar {
-            val instance =
-                AvailabilityCalendar(
-                    propertyId = propertyId,
-                    dateRange = dateRange,
-                    availability = availability,
-                    changeOver = changeOver,
-                    minPriorNotify = minPriorNotify,
-                    minStay = minStay,
-                    maxStay = maxStay,
-                )
+            val instance = AvailabilityCalendar(
+                propertyId = propertyId,
+                dateRange = dateRange,
+                availability = availability,
+                changeOver = changeOver,
+                minPriorNotify = minPriorNotify,
+                minStay = minStay,
+                maxStay = maxStay,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            propertyId = propertyId,
-            dateRange = dateRange,
-            availability = availability,
-            changeOver = changeOver,
-            minPriorNotify = minPriorNotify,
-            minStay = minStay,
-            maxStay = maxStay,
-        )
+    fun toBuilder() = Builder(
+        propertyId = propertyId,
+        dateRange = dateRange,
+        availability = availability,
+        changeOver = changeOver,
+        minPriorNotify = minPriorNotify,
+        minStay = minStay,
+        maxStay = maxStay,
+    )
 }

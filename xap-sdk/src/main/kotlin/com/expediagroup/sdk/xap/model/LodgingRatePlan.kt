@@ -24,15 +24,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param cancellationPolicy
  * @param promotions All promotion information of the ratePlan.
  */
-data class LodgingRatePlan(
+@ConsistentCopyVisibility data class LodgingRatePlan private constructor(
     @JsonProperty("CancellationPolicy")
     val cancellationPolicy: LodgingCancellationPolicy? = null,
-    // All promotion information of the ratePlan.
+
+    /* All promotion information of the ratePlan. */
     @JsonProperty("Promotions")
     val promotions: kotlin.collections.List<LodgingPromotion>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -48,19 +47,17 @@ data class LodgingRatePlan(
         fun promotions(promotions: kotlin.collections.List<LodgingPromotion>?) = apply { this.promotions = promotions }
 
         fun build(): LodgingRatePlan {
-            val instance =
-                LodgingRatePlan(
-                    cancellationPolicy = cancellationPolicy,
-                    promotions = promotions,
-                )
+            val instance = LodgingRatePlan(
+                cancellationPolicy = cancellationPolicy,
+                promotions = promotions,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            cancellationPolicy = cancellationPolicy,
-            promotions = promotions,
-        )
+    fun toBuilder() = Builder(
+        cancellationPolicy = cancellationPolicy,
+        promotions = promotions,
+    )
 }

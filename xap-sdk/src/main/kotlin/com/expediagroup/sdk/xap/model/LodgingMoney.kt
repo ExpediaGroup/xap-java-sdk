@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param `value` The value of the element being defined.
  * @param currency The ISO 4217 Currency Code that the value is expressed in.
  */
-data class LodgingMoney(
-    // The value of the element being defined.
+@ConsistentCopyVisibility data class LodgingMoney private constructor(
+    /* The value of the element being defined. */
     @JsonProperty("Value")
     val `value`: kotlin.String? = null,
-    // The ISO 4217 Currency Code that the value is expressed in.
+
+    /* The ISO 4217 Currency Code that the value is expressed in. */
     @JsonProperty("Currency")
     val currency: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class LodgingMoney(
         fun currency(currency: kotlin.String?) = apply { this.currency = currency }
 
         fun build(): LodgingMoney {
-            val instance =
-                LodgingMoney(
-                    `value` = `value`,
-                    currency = currency,
-                )
+            val instance = LodgingMoney(
+                `value` = `value`,
+                currency = currency,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            `value` = `value`,
-            currency = currency,
-        )
+    fun toBuilder() = Builder(
+        `value` = `value`,
+        currency = currency,
+    )
 }

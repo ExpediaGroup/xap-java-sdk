@@ -29,29 +29,33 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param geoLocation
  * @param country
  */
-data class FlightsV3Location(
-    // The type of location code (MULTICITY | METROCODE).
+@ConsistentCopyVisibility data class FlightsV3Location private constructor(
+    /* The type of location code (MULTICITY | METROCODE). */
     @JsonProperty("Type")
     val type: kotlin.String? = null,
-    // Expedia Region ID of the specified airport.
+
+    /* Expedia Region ID of the specified airport. */
     @JsonProperty("Id")
     val id: kotlin.String? = null,
-    // Location Name
+
+    /* Location Name */
     @JsonProperty("Name")
     val name: kotlin.String? = null,
-    // Location Code
+
+    /* Location Code */
     @JsonProperty("Code")
     val code: kotlin.String? = null,
-    // Street address of the location (if available)
+
+    /* Street address of the location (if available) */
     @JsonProperty("Address")
     val address: kotlin.String? = null,
+
     @JsonProperty("GeoLocation")
     val geoLocation: FlightsV3GeoLocation? = null,
+
     @JsonProperty("Country")
     val country: FlightsV3Country? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -82,29 +86,27 @@ data class FlightsV3Location(
         fun country(country: FlightsV3Country?) = apply { this.country = country }
 
         fun build(): FlightsV3Location {
-            val instance =
-                FlightsV3Location(
-                    type = type,
-                    id = id,
-                    name = name,
-                    code = code,
-                    address = address,
-                    geoLocation = geoLocation,
-                    country = country,
-                )
+            val instance = FlightsV3Location(
+                type = type,
+                id = id,
+                name = name,
+                code = code,
+                address = address,
+                geoLocation = geoLocation,
+                country = country,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type,
-            id = id,
-            name = name,
-            code = code,
-            address = address,
-            geoLocation = geoLocation,
-            country = country,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        id = id,
+        name = name,
+        code = code,
+        address = address,
+        geoLocation = geoLocation,
+        country = country,
+    )
 }

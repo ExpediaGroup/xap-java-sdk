@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightFareRuleItem
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,22 +24,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param flightFareRule Container for segment and corresponding fare rules.
  * @param transactionId Unique identifier for the transaction.
  */
-data class FlightFareRulesResponse(
-    // Container for segment and corresponding fare rules.
+@ConsistentCopyVisibility data class FlightFareRulesResponse private constructor(
+    /* Container for segment and corresponding fare rules. */
     @JsonProperty("FlightFareRule")
     val flightFareRule: kotlin.collections
         .List<
             FlightFareRuleItem,
-        >,
-    // Unique identifier for the transaction.
+            >,
+
+    /* Unique identifier for the transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
-) {
-    init {
-        require(flightFareRule != null) { "flightFareRule must not be null" }
 
-        require(transactionId != null) { "transactionId must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -54,19 +52,25 @@ data class FlightFareRulesResponse(
         fun transactionId(transactionId: kotlin.String) = apply { this.transactionId = transactionId }
 
         fun build(): FlightFareRulesResponse {
-            val instance =
-                FlightFareRulesResponse(
-                    flightFareRule = flightFareRule!!,
-                    transactionId = transactionId!!,
-                )
+            val flightFareRule = this.flightFareRule.getOrThrow {
+                IllegalArgumentException("flightFareRule must not be null")
+            }
+
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val instance = FlightFareRulesResponse(
+                flightFareRule = flightFareRule,
+                transactionId = transactionId,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            flightFareRule = flightFareRule!!,
-            transactionId = transactionId!!,
-        )
+    fun toBuilder() = Builder(
+        flightFareRule = flightFareRule,
+        transactionId = transactionId,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Capacity
 import com.expediagroup.sdk.xap.model.CarCategory
 import com.expediagroup.sdk.xap.model.CarType
@@ -35,44 +36,42 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param fuelLevel Car fuel information.
  * @param capacity
  */
-data class VehicleDetails(
-    // Car category and type.
+@ConsistentCopyVisibility data class VehicleDetails private constructor(
+    /* Car category and type. */
     @JsonProperty("CarClass")
     val carClass: kotlin.String,
+
     @JsonProperty("CarCategory")
     val carCategory: CarCategory,
+
     @JsonProperty("CarType")
     val carType: CarType,
+
     @JsonProperty("TransmissionDrive")
     val transmissionDrive: TransmissionDrive,
+
     @JsonProperty("FuelAC")
     val fuelAC: FuelAC,
-    // Car manufacturer and model.
+
+    /* Car manufacturer and model. */
     @JsonProperty("Make")
     val make: kotlin.String? = null,
-    // Minimal car door count.
+
+    /* Minimal car door count. */
     @JsonProperty("MinDoors")
     val minDoors: kotlin.Int? = null,
-    // Maximal car door count.
+
+    /* Maximal car door count. */
     @JsonProperty("MaxDoors")
     val maxDoors: kotlin.Int? = null,
-    // Car fuel information.
+
+    /* Car fuel information. */
     @JsonProperty("FuelLevel")
     val fuelLevel: kotlin.String? = null,
+
     @JsonProperty("Capacity")
     val capacity: Capacity? = null,
 ) {
-    init {
-        require(carClass != null) { "carClass must not be null" }
-
-        require(carCategory != null) { "carCategory must not be null" }
-
-        require(carType != null) { "carType must not be null" }
-
-        require(transmissionDrive != null) { "transmissionDrive must not be null" }
-
-        require(fuelAC != null) { "fuelAC must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -112,35 +111,53 @@ data class VehicleDetails(
         fun capacity(capacity: Capacity?) = apply { this.capacity = capacity }
 
         fun build(): VehicleDetails {
-            val instance =
-                VehicleDetails(
-                    carClass = carClass!!,
-                    carCategory = carCategory!!,
-                    carType = carType!!,
-                    transmissionDrive = transmissionDrive!!,
-                    fuelAC = fuelAC!!,
-                    make = make,
-                    minDoors = minDoors,
-                    maxDoors = maxDoors,
-                    fuelLevel = fuelLevel,
-                    capacity = capacity,
-                )
+            val carClass = this.carClass.getOrThrow {
+                IllegalArgumentException("carClass must not be null")
+            }
+
+            val carCategory = this.carCategory.getOrThrow {
+                IllegalArgumentException("carCategory must not be null")
+            }
+
+            val carType = this.carType.getOrThrow {
+                IllegalArgumentException("carType must not be null")
+            }
+
+            val transmissionDrive = this.transmissionDrive.getOrThrow {
+                IllegalArgumentException("transmissionDrive must not be null")
+            }
+
+            val fuelAC = this.fuelAC.getOrThrow {
+                IllegalArgumentException("fuelAC must not be null")
+            }
+
+            val instance = VehicleDetails(
+                carClass = carClass,
+                carCategory = carCategory,
+                carType = carType,
+                transmissionDrive = transmissionDrive,
+                fuelAC = fuelAC,
+                make = make,
+                minDoors = minDoors,
+                maxDoors = maxDoors,
+                fuelLevel = fuelLevel,
+                capacity = capacity,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            carClass = carClass!!,
-            carCategory = carCategory!!,
-            carType = carType!!,
-            transmissionDrive = transmissionDrive!!,
-            fuelAC = fuelAC!!,
-            make = make,
-            minDoors = minDoors,
-            maxDoors = maxDoors,
-            fuelLevel = fuelLevel,
-            capacity = capacity,
-        )
+    fun toBuilder() = Builder(
+        carClass = carClass,
+        carCategory = carCategory,
+        carType = carType,
+        transmissionDrive = transmissionDrive,
+        fuelAC = fuelAC,
+        make = make,
+        minDoors = minDoors,
+        maxDoors = maxDoors,
+        fuelLevel = fuelLevel,
+        capacity = capacity,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -23,24 +24,20 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param paymentSubMethod Sub method of payment
  * @param brandName The brand name of the payment sub-method to be displayed to the customer. In many cases it will be the same as the payment sub-method, but \"Visa/Carte Bleue\" and \"Visa/Delta are some of the exceptions.
  */
-data class CarsValidFormsOfPayment(
-    // Method of payment
+@ConsistentCopyVisibility data class CarsValidFormsOfPayment private constructor(
+    /* Method of payment */
     @JsonProperty("PaymentMethod")
     val paymentMethod: kotlin.String,
-    // Sub method of payment
+
+    /* Sub method of payment */
     @JsonProperty("PaymentSubMethod")
     val paymentSubMethod: kotlin.String,
-    // The brand name of the payment sub-method to be displayed to the customer. In many cases it will be the same as the payment sub-method, but \"Visa/Carte Bleue\" and \"Visa/Delta are some of the exceptions.
+
+    /* The brand name of the payment sub-method to be displayed to the customer. In many cases it will be the same as the payment sub-method, but \"Visa/Carte Bleue\" and \"Visa/Delta are some of the exceptions. */
     @JsonProperty("BrandName")
     val brandName: kotlin.String,
+
 ) {
-    init {
-        require(paymentMethod != null) { "paymentMethod must not be null" }
-
-        require(paymentSubMethod != null) { "paymentSubMethod must not be null" }
-
-        require(brandName != null) { "brandName must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -59,21 +56,31 @@ data class CarsValidFormsOfPayment(
         fun brandName(brandName: kotlin.String) = apply { this.brandName = brandName }
 
         fun build(): CarsValidFormsOfPayment {
-            val instance =
-                CarsValidFormsOfPayment(
-                    paymentMethod = paymentMethod!!,
-                    paymentSubMethod = paymentSubMethod!!,
-                    brandName = brandName!!,
-                )
+            val paymentMethod = this.paymentMethod.getOrThrow {
+                IllegalArgumentException("paymentMethod must not be null")
+            }
+
+            val paymentSubMethod = this.paymentSubMethod.getOrThrow {
+                IllegalArgumentException("paymentSubMethod must not be null")
+            }
+
+            val brandName = this.brandName.getOrThrow {
+                IllegalArgumentException("brandName must not be null")
+            }
+
+            val instance = CarsValidFormsOfPayment(
+                paymentMethod = paymentMethod,
+                paymentSubMethod = paymentSubMethod,
+                brandName = brandName,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            paymentMethod = paymentMethod!!,
-            paymentSubMethod = paymentSubMethod!!,
-            brandName = brandName!!,
-        )
+    fun toBuilder() = Builder(
+        paymentMethod = paymentMethod,
+        paymentSubMethod = paymentSubMethod,
+        brandName = brandName,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3BaggageFee
 import com.expediagroup.sdk.xap.model.FlightsV3Link
 import com.expediagroup.sdk.xap.model.Leg
@@ -40,60 +41,70 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param opaqueDepartureTime Contains the name of the Fare tagged against the specific fare options.
  * @param opaqueNumberOfStops Departure time range will be shown only for opaque flight offers.
  */
-data class Segment(
-    // Unique identifier for a single flight segment. Shown in case of opaque flight offer as well. Can be alphanumeric or numeric.
+@ConsistentCopyVisibility data class Segment private constructor(
+    /* Unique identifier for a single flight segment. Shown in case of opaque flight offer as well. Can be alphanumeric or numeric. */
     @JsonProperty("SegmentId")
     val segmentId: kotlin.String,
-    // This is an indicator (can have values of -1, 0, 1, 2, etc.) which depends on the relative difference between the arrival and departure dates.
+
+    /* This is an indicator (can have values of -1, 0, 1, 2, etc.) which depends on the relative difference between the arrival and departure dates. */
     @JsonProperty("DepartureArrivalDayDifference")
     val departureArrivalDayDifference: kotlin.Int,
-    // Container for deeplink URL information.
+
+    /* Container for deeplink URL information. */
     @JsonProperty("Links")
     val links: kotlin.collections.Map<kotlin.String, FlightsV3Link>? = null,
+
     @JsonProperty("Price")
     val price: OfferPrice? = null,
-    // True if any Leg associated with this Segment is via a non-flight type of transit (Bus, Train or Boat)
+
+    /* True if any Leg associated with this Segment is via a non-flight type of transit (Bus, Train or Boat) */
     @JsonProperty("IncludesNonFlightLeg")
     val includesNonFlightLeg: kotlin.Boolean? = null,
-    // Container information on each flight leg.
+
+    /* Container information on each flight leg. */
     @JsonProperty("Legs")
     val legs: kotlin.collections.List<Leg>? = null,
-    // Container for baggage fee information of each bag type. The baggage fee can vary for each bag type. The amount can be zero, fixed amount or will be in a range.
+
+    /* Container for baggage fee information of each bag type. The baggage fee can vary for each bag type. The amount can be zero, fixed amount or will be in a range. */
     @JsonProperty("BaggageFees")
     val baggageFees: kotlin.collections.List<FlightsV3BaggageFee>? = null,
-    // Lists any Account Code that has been applied to this segment.
+
+    /* Lists any Account Code that has been applied to this segment. */
     @JsonProperty("AccountCode")
     val accountCode: kotlin.String? = null,
-    // True if the corresponding fare ticket type associated with the segment is Basic Economy
+
+    /* True if the corresponding fare ticket type associated with the segment is Basic Economy */
     @JsonProperty("BasicEconomy")
     val basicEconomy: kotlin.Boolean? = null,
-    // Remaining number of seats available for this segment offer.
+
+    /* Remaining number of seats available for this segment offer. */
     @JsonProperty("SeatsLeft")
     val seatsLeft: kotlin.Int? = null,
-    // Type of fare.
+
+    /* Type of fare. */
     @JsonProperty("FareType")
     val fareType: Segment.FareType? = null,
-    // True if there the Segment is having a different Departure airport compared to the Arrival airport of previous Segment.
+
+    /* True if there the Segment is having a different Departure airport compared to the Arrival airport of previous Segment. */
     @JsonProperty("AirportChange")
     val airportChange: kotlin.Boolean? = null,
-    // The total number of stops in this segment(Nullable in case of Opaque Flights)
+
+    /* The total number of stops in this segment(Nullable in case of Opaque Flights) */
     @JsonProperty("TotalStops")
     val totalStops: kotlin.Int? = null,
-    // Total duration of the flight segment (Nullable in case of Opaque Flights)
+
+    /* Total duration of the flight segment (Nullable in case of Opaque Flights) */
     @JsonProperty("FlightDuration")
     val flightDuration: kotlin.String? = null,
-    // Contains the name of the Fare tagged against the specific fare options.
+
+    /* Contains the name of the Fare tagged against the specific fare options. */
     @JsonProperty("OpaqueDepartureTime")
     val opaqueDepartureTime: kotlin.String? = null,
-    // Departure time range will be shown only for opaque flight offers.
+
+    /* Departure time range will be shown only for opaque flight offers. */
     @JsonProperty("OpaqueNumberOfStops")
     val opaqueNumberOfStops: kotlin.String? = null,
 ) {
-    init {
-        require(segmentId != null) { "segmentId must not be null" }
-
-        require(departureArrivalDayDifference != null) { "departureArrivalDayDifference must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -151,57 +162,61 @@ data class Segment(
         fun opaqueNumberOfStops(opaqueNumberOfStops: kotlin.String?) = apply { this.opaqueNumberOfStops = opaqueNumberOfStops }
 
         fun build(): Segment {
-            val instance =
-                Segment(
-                    segmentId = segmentId!!,
-                    departureArrivalDayDifference = departureArrivalDayDifference!!,
-                    links = links,
-                    price = price,
-                    includesNonFlightLeg = includesNonFlightLeg,
-                    legs = legs,
-                    baggageFees = baggageFees,
-                    accountCode = accountCode,
-                    basicEconomy = basicEconomy,
-                    seatsLeft = seatsLeft,
-                    fareType = fareType,
-                    airportChange = airportChange,
-                    totalStops = totalStops,
-                    flightDuration = flightDuration,
-                    opaqueDepartureTime = opaqueDepartureTime,
-                    opaqueNumberOfStops = opaqueNumberOfStops,
-                )
+            val segmentId = this.segmentId.getOrThrow {
+                IllegalArgumentException("segmentId must not be null")
+            }
+
+            val departureArrivalDayDifference = this.departureArrivalDayDifference.getOrThrow {
+                IllegalArgumentException("departureArrivalDayDifference must not be null")
+            }
+
+            val instance = Segment(
+                segmentId = segmentId,
+                departureArrivalDayDifference = departureArrivalDayDifference,
+                links = links,
+                price = price,
+                includesNonFlightLeg = includesNonFlightLeg,
+                legs = legs,
+                baggageFees = baggageFees,
+                accountCode = accountCode,
+                basicEconomy = basicEconomy,
+                seatsLeft = seatsLeft,
+                fareType = fareType,
+                airportChange = airportChange,
+                totalStops = totalStops,
+                flightDuration = flightDuration,
+                opaqueDepartureTime = opaqueDepartureTime,
+                opaqueNumberOfStops = opaqueNumberOfStops,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            segmentId = segmentId!!,
-            departureArrivalDayDifference = departureArrivalDayDifference!!,
-            links = links,
-            price = price,
-            includesNonFlightLeg = includesNonFlightLeg,
-            legs = legs,
-            baggageFees = baggageFees,
-            accountCode = accountCode,
-            basicEconomy = basicEconomy,
-            seatsLeft = seatsLeft,
-            fareType = fareType,
-            airportChange = airportChange,
-            totalStops = totalStops,
-            flightDuration = flightDuration,
-            opaqueDepartureTime = opaqueDepartureTime,
-            opaqueNumberOfStops = opaqueNumberOfStops,
-        )
+    fun toBuilder() = Builder(
+        segmentId = segmentId,
+        departureArrivalDayDifference = departureArrivalDayDifference,
+        links = links,
+        price = price,
+        includesNonFlightLeg = includesNonFlightLeg,
+        legs = legs,
+        baggageFees = baggageFees,
+        accountCode = accountCode,
+        basicEconomy = basicEconomy,
+        seatsLeft = seatsLeft,
+        fareType = fareType,
+        airportChange = airportChange,
+        totalStops = totalStops,
+        flightDuration = flightDuration,
+        opaqueDepartureTime = opaqueDepartureTime,
+        opaqueNumberOfStops = opaqueNumberOfStops,
+    )
 
     /**
      * Type of fare.
      * Values: NET,PUBLISHED,WEB
      */
-    enum class FareType(
-        val value: kotlin.String,
-    ) {
+    enum class FareType(val value: kotlin.String) {
         @JsonProperty("NET")
         NET("NET"),
 

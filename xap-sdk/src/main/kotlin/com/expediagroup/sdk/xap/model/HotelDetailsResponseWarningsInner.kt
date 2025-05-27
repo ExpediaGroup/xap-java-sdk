@@ -26,28 +26,31 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param changedAmount The difference between `OriginalPrice` and `NewPrice`.
  * @param changedPercentage The changed percentage. In the sample 2.97 means the changed percentage is 2.97%.
  */
-data class HotelDetailsResponseWarningsInner(
-    // The code of the warning.  Available values are: - PRICE_DECREASED: The price decreased after shopping. - PRICE_INCREASED: The price increased after shopping. - CURRENCY_CHANGE: You will be charged in a different currency.
+@ConsistentCopyVisibility data class HotelDetailsResponseWarningsInner private constructor(
+    /* The code of the warning.  Available values are: - PRICE_DECREASED: The price decreased after shopping. - PRICE_INCREASED: The price increased after shopping. - CURRENCY_CHANGE: You will be charged in a different currency.  */
     @JsonProperty("Code")
     val code: kotlin.Any? = null,
-    // A detail information of what happened.
+
+    /* A detail information of what happened. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
-    // The original price from the Lodging Search API response.
+
+    /* The original price from the Lodging Search API response. */
     @JsonProperty("OriginalPrice")
     val originalPrice: kotlin.Any? = null,
-    // The new price.
+
+    /* The new price. */
     @JsonProperty("NewPrice")
     val newPrice: kotlin.Any? = null,
-    // The difference between `OriginalPrice` and `NewPrice`.
+
+    /* The difference between `OriginalPrice` and `NewPrice`. */
     @JsonProperty("ChangedAmount")
     val changedAmount: kotlin.Any? = null,
-    // The changed percentage. In the sample 2.97 means the changed percentage is 2.97%.
+
+    /* The changed percentage. In the sample 2.97 means the changed percentage is 2.97%. */
     @JsonProperty("ChangedPercentage")
     val changedPercentage: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -75,27 +78,25 @@ data class HotelDetailsResponseWarningsInner(
         fun changedPercentage(changedPercentage: kotlin.String?) = apply { this.changedPercentage = changedPercentage }
 
         fun build(): HotelDetailsResponseWarningsInner {
-            val instance =
-                HotelDetailsResponseWarningsInner(
-                    code = code,
-                    description = description,
-                    originalPrice = originalPrice,
-                    newPrice = newPrice,
-                    changedAmount = changedAmount,
-                    changedPercentage = changedPercentage,
-                )
+            val instance = HotelDetailsResponseWarningsInner(
+                code = code,
+                description = description,
+                originalPrice = originalPrice,
+                newPrice = newPrice,
+                changedAmount = changedAmount,
+                changedPercentage = changedPercentage,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code,
-            description = description,
-            originalPrice = originalPrice,
-            newPrice = newPrice,
-            changedAmount = changedAmount,
-            changedPercentage = changedPercentage,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        description = description,
+        originalPrice = originalPrice,
+        newPrice = newPrice,
+        changedAmount = changedAmount,
+        changedPercentage = changedPercentage,
+    )
 }

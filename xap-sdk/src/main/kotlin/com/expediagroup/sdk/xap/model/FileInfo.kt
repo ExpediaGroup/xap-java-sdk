@@ -34,40 +34,48 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param filterConditions
  * @param bestMatchedLink
  */
-data class FileInfo(
-    // The partner associated with the file. List of partners: `Bing`, `Criteo`, `Facebook`, `Google`, `Retarget`, `Snapchat`.
+@ConsistentCopyVisibility data class FileInfo private constructor(
+    /* The partner associated with the file. List of partners: `Bing`, `Criteo`, `Facebook`, `Google`, `Retarget`, `Snapchat`. */
     @JsonProperty("partner")
     val partner: kotlin.String? = null,
-    // The brand associated with the file content. List of brand: `Expedia`, `Hotels`, `Hotwire`, `Vrbo`, `HomeAway`, `Abritel`, `Bookabach`, `Stayz`, `Ebbokers`, `Travalocity`, `Orbitz`, `Wotif`.
+
+    /* The brand associated with the file content. List of brand: `Expedia`, `Hotels`, `Hotwire`, `Vrbo`, `HomeAway`, `Abritel`, `Bookabach`, `Stayz`, `Ebbokers`, `Travalocity`, `Orbitz`, `Wotif`. */
     @JsonProperty("brand")
     val brand: kotlin.String? = null,
-    // The type associated with the file content. List of types: `Amenities`, `Descriptions`, `Images`, `Listings`, `Locations`, `Policies`, `Regions`, `Reviews`, `Summary`, `VacationRental`
+
+    /* The type associated with the file content. List of types: `Amenities`, `Descriptions`, `Images`, `Listings`, `Locations`, `Policies`, `Regions`, `Reviews`, `Summary`, `VacationRental` */
     @JsonProperty("fileContentType")
     val fileContentType: kotlin.String? = null,
-    // The locale associated with the file content.
+
+    /* The locale associated with the file content. */
     @JsonProperty("locale")
     val locale: kotlin.String? = null,
-    // File name.
+
+    /* File name. */
     @JsonProperty("fileName")
     val fileName: kotlin.String? = null,
+
     @JsonProperty("size")
     val propertySize: FileSize? = null,
-    // The time about the file last updated. The format is uuuu-MM-dd'T'HH:mm:ss.SSSX
+
+    /* The time about the file last updated. The format is uuuu-MM-dd'T'HH:mm:ss.SSSX */
     @JsonProperty("fileLastUpdated")
     val fileLastUpdated: kotlin.String? = null,
-    // Pre-signed URL is a self signed URL generated for a resource in S3 with a set expiration time.
+
+    /* Pre-signed URL is a self signed URL generated for a resource in S3 with a set expiration time. */
     @JsonProperty("downloadUrl")
     val downloadUrl: kotlin.String? = null,
-    // The time about the download Url expires. The format is uuuu-MM-dd'T'HH:mm:ss.SSSX
+
+    /* The time about the download Url expires. The format is uuuu-MM-dd'T'HH:mm:ss.SSSX */
     @JsonProperty("downloadUrlExpires")
     val downloadUrlExpires: kotlin.String? = null,
+
     @JsonProperty("filterConditions")
     val filterConditions: FilterConditions? = null,
+
     @JsonProperty("bestMatchedLink")
     val bestMatchedLink: SdpLink? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -110,37 +118,35 @@ data class FileInfo(
         fun bestMatchedLink(bestMatchedLink: SdpLink?) = apply { this.bestMatchedLink = bestMatchedLink }
 
         fun build(): FileInfo {
-            val instance =
-                FileInfo(
-                    partner = partner,
-                    brand = brand,
-                    fileContentType = fileContentType,
-                    locale = locale,
-                    fileName = fileName,
-                    propertySize = propertySize,
-                    fileLastUpdated = fileLastUpdated,
-                    downloadUrl = downloadUrl,
-                    downloadUrlExpires = downloadUrlExpires,
-                    filterConditions = filterConditions,
-                    bestMatchedLink = bestMatchedLink,
-                )
+            val instance = FileInfo(
+                partner = partner,
+                brand = brand,
+                fileContentType = fileContentType,
+                locale = locale,
+                fileName = fileName,
+                propertySize = propertySize,
+                fileLastUpdated = fileLastUpdated,
+                downloadUrl = downloadUrl,
+                downloadUrlExpires = downloadUrlExpires,
+                filterConditions = filterConditions,
+                bestMatchedLink = bestMatchedLink,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            partner = partner,
-            brand = brand,
-            fileContentType = fileContentType,
-            locale = locale,
-            fileName = fileName,
-            propertySize = propertySize,
-            fileLastUpdated = fileLastUpdated,
-            downloadUrl = downloadUrl,
-            downloadUrlExpires = downloadUrlExpires,
-            filterConditions = filterConditions,
-            bestMatchedLink = bestMatchedLink,
-        )
+    fun toBuilder() = Builder(
+        partner = partner,
+        brand = brand,
+        fileContentType = fileContentType,
+        locale = locale,
+        fileName = fileName,
+        propertySize = propertySize,
+        fileLastUpdated = fileLastUpdated,
+        downloadUrl = downloadUrl,
+        downloadUrlExpires = downloadUrlExpires,
+        filterConditions = filterConditions,
+        bestMatchedLink = bestMatchedLink,
+    )
 }

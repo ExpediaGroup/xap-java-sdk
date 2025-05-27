@@ -31,40 +31,47 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param hotelMandatoryFees The total standalone mandatory fees.
  * @param strikeOutHotelMandatoryFees The strikeout of the mandatory fees in the standalone shopping path.
  */
-data class RoomTypeStandalonePrice(
-    // The standalone price of the rate plan for all occupants, excluding taxes and fees.
+@ConsistentCopyVisibility data class RoomTypeStandalonePrice private constructor(
+    /* The standalone price of the rate plan for all occupants, excluding taxes and fees. */
     @JsonProperty("BaseRate")
     val baseRate: Money? = null,
-    // The base rate strikeout in the standalone shopping path.
+
+    /* The base rate strikeout in the standalone shopping path. */
     @JsonProperty("StrikeOutBaseRate")
     val strikeOutBaseRate: Money? = null,
-    // The total standalone rate of taxes and fees of the rate plan for all occupants.
+
+    /* The total standalone rate of taxes and fees of the rate plan for all occupants. */
     @JsonProperty("TaxesAndFees")
     val taxesAndFees: Money? = null,
-    // The taxes and fees strikeout in the standalone shopping path.
+
+    /* The taxes and fees strikeout in the standalone shopping path. */
     @JsonProperty("StrikeOutTaxesAndFees")
     val strikeOutTaxesAndFees: Money? = null,
-    // The total standalone price of the rate plan, which is equal to the sum of `BaseRate` and `TaxesAndFees`. Hotel mandatory fees are not included as these are paid at the hotel at checkout.
+
+    /* The total standalone price of the rate plan, which is equal to the sum of `BaseRate` and `TaxesAndFees`. Hotel mandatory fees are not included as these are paid at the hotel at checkout.  */
     @JsonProperty("TotalPrice")
     val totalPrice: Money? = null,
-    // The total strikeout in the standalone shopping path, which is equal to the sum of `StrikeOutBaseRate` and `StrikeOutTaxesAndFees`.
+
+    /* The total strikeout in the standalone shopping path, which is equal to the sum of `StrikeOutBaseRate` and `StrikeOutTaxesAndFees`.  */
     @JsonProperty("TotalStrikeOutPrice")
     val totalStrikeOutPrice: Money? = null,
-    // The average standalone nightly base rate per night per room of the rate plan, which is equal to the `BaseRate` divided by `StayDates` and by `room number`.
+
+    /* The average standalone nightly base rate per night per room of the rate plan, which is equal to the `BaseRate` divided by `StayDates` and by `room number`.  */
     @JsonProperty("AvgNightlyRate")
     val avgNightlyRate: Money? = null,
-    // The average strikeout of the base rate in the standalone shopping path, which is per night per room and is equal to `StrikeOutBaseRate` divided by `StayDates` and by `room number`.
+
+    /* The average strikeout of the base rate in the standalone shopping path, which is per night per room and is equal to `StrikeOutBaseRate` divided by `StayDates` and by `room number`.  */
     @JsonProperty("AvgNightlyStrikeOutRate")
     val avgNightlyStrikeOutRate: Money? = null,
-    // The total standalone mandatory fees.
+
+    /* The total standalone mandatory fees. */
     @JsonProperty("HotelMandatoryFees")
     val hotelMandatoryFees: Money? = null,
-    // The strikeout of the mandatory fees in the standalone shopping path.
+
+    /* The strikeout of the mandatory fees in the standalone shopping path. */
     @JsonProperty("StrikeOutHotelMandatoryFees")
     val strikeOutHotelMandatoryFees: Money? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -104,35 +111,33 @@ data class RoomTypeStandalonePrice(
         fun strikeOutHotelMandatoryFees(strikeOutHotelMandatoryFees: Money?) = apply { this.strikeOutHotelMandatoryFees = strikeOutHotelMandatoryFees }
 
         fun build(): RoomTypeStandalonePrice {
-            val instance =
-                RoomTypeStandalonePrice(
-                    baseRate = baseRate,
-                    strikeOutBaseRate = strikeOutBaseRate,
-                    taxesAndFees = taxesAndFees,
-                    strikeOutTaxesAndFees = strikeOutTaxesAndFees,
-                    totalPrice = totalPrice,
-                    totalStrikeOutPrice = totalStrikeOutPrice,
-                    avgNightlyRate = avgNightlyRate,
-                    avgNightlyStrikeOutRate = avgNightlyStrikeOutRate,
-                    hotelMandatoryFees = hotelMandatoryFees,
-                    strikeOutHotelMandatoryFees = strikeOutHotelMandatoryFees,
-                )
+            val instance = RoomTypeStandalonePrice(
+                baseRate = baseRate,
+                strikeOutBaseRate = strikeOutBaseRate,
+                taxesAndFees = taxesAndFees,
+                strikeOutTaxesAndFees = strikeOutTaxesAndFees,
+                totalPrice = totalPrice,
+                totalStrikeOutPrice = totalStrikeOutPrice,
+                avgNightlyRate = avgNightlyRate,
+                avgNightlyStrikeOutRate = avgNightlyStrikeOutRate,
+                hotelMandatoryFees = hotelMandatoryFees,
+                strikeOutHotelMandatoryFees = strikeOutHotelMandatoryFees,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            baseRate = baseRate,
-            strikeOutBaseRate = strikeOutBaseRate,
-            taxesAndFees = taxesAndFees,
-            strikeOutTaxesAndFees = strikeOutTaxesAndFees,
-            totalPrice = totalPrice,
-            totalStrikeOutPrice = totalStrikeOutPrice,
-            avgNightlyRate = avgNightlyRate,
-            avgNightlyStrikeOutRate = avgNightlyStrikeOutRate,
-            hotelMandatoryFees = hotelMandatoryFees,
-            strikeOutHotelMandatoryFees = strikeOutHotelMandatoryFees,
-        )
+    fun toBuilder() = Builder(
+        baseRate = baseRate,
+        strikeOutBaseRate = strikeOutBaseRate,
+        taxesAndFees = taxesAndFees,
+        strikeOutTaxesAndFees = strikeOutTaxesAndFees,
+        totalPrice = totalPrice,
+        totalStrikeOutPrice = totalStrikeOutPrice,
+        avgNightlyRate = avgNightlyRate,
+        avgNightlyStrikeOutRate = avgNightlyStrikeOutRate,
+        hotelMandatoryFees = hotelMandatoryFees,
+        strikeOutHotelMandatoryFees = strikeOutHotelMandatoryFees,
+    )
 }

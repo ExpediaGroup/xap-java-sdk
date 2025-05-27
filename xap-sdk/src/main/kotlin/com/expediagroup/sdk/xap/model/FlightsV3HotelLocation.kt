@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3Address
 import com.expediagroup.sdk.xap.model.FlightsV3GeoLocation
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -25,21 +26,17 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param pointOfInterest
  * @param geoLocation
  */
-data class FlightsV3HotelLocation(
+@ConsistentCopyVisibility data class FlightsV3HotelLocation private constructor(
     @JsonProperty("Address")
     val address: FlightsV3Address,
+
     @JsonProperty("PointOfInterest")
     val pointOfInterest: kotlin.String,
+
     @JsonProperty("GeoLocation")
     val geoLocation: FlightsV3GeoLocation,
+
 ) {
-    init {
-        require(address != null) { "address must not be null" }
-
-        require(pointOfInterest != null) { "pointOfInterest must not be null" }
-
-        require(geoLocation != null) { "geoLocation must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -58,21 +55,31 @@ data class FlightsV3HotelLocation(
         fun geoLocation(geoLocation: FlightsV3GeoLocation) = apply { this.geoLocation = geoLocation }
 
         fun build(): FlightsV3HotelLocation {
-            val instance =
-                FlightsV3HotelLocation(
-                    address = address!!,
-                    pointOfInterest = pointOfInterest!!,
-                    geoLocation = geoLocation!!,
-                )
+            val address = this.address.getOrThrow {
+                IllegalArgumentException("address must not be null")
+            }
+
+            val pointOfInterest = this.pointOfInterest.getOrThrow {
+                IllegalArgumentException("pointOfInterest must not be null")
+            }
+
+            val geoLocation = this.geoLocation.getOrThrow {
+                IllegalArgumentException("geoLocation must not be null")
+            }
+
+            val instance = FlightsV3HotelLocation(
+                address = address,
+                pointOfInterest = pointOfInterest,
+                geoLocation = geoLocation,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            address = address!!,
-            pointOfInterest = pointOfInterest!!,
-            geoLocation = geoLocation!!,
-        )
+    fun toBuilder() = Builder(
+        address = address,
+        pointOfInterest = pointOfInterest,
+        geoLocation = geoLocation,
+    )
 }

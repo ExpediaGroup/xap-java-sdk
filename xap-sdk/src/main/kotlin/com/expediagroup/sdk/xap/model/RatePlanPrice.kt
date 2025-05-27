@@ -35,43 +35,51 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param taxesAndFeesDetails Container for taxes and fees detail information. Only visible by configuration. Please contact your Expedia Account Manager if you need this node.
  * @param roomRates Container for the rate information of all rooms. This is only returned in Lodging Details API.
  */
-data class RatePlanPrice(
-    // The price of the rate plan for all occupants, excluding taxes and fees.
+@ConsistentCopyVisibility data class RatePlanPrice private constructor(
+    /* The price of the rate plan for all occupants, excluding taxes and fees. */
     @JsonProperty("BaseRate")
     val baseRate: Money? = null,
-    // The total rate of taxes and fees of the rate plan for all occupants.
+
+    /* The total rate of taxes and fees of the rate plan for all occupants. */
     @JsonProperty("TaxesAndFees")
     val taxesAndFees: Money? = null,
-    // The total price of the rate plan, which is equal to the sum of `BaseRate` + `TaxesAndFees`. Hotel mandatory fees are not included in this value as these are paid at the hotel at checkout. Promotion amount have been deducted from the `TotalPrice` value.
+
+    /* The total price of the rate plan, which is equal to the sum of `BaseRate` + `TaxesAndFees`. Hotel mandatory fees are not included in this value as these are paid at the hotel at checkout. Promotion amount have been deducted from the `TotalPrice` value.  */
     @JsonProperty("TotalPrice")
     val totalPrice: Money? = null,
-    // The total amount to strikeout price. This value is the sum of the pre-discount `BaseRate` + the pre-discount `TaxesAndFees`.
+
+    /* The total amount to strikeout price. This value is the sum of the pre-discount `BaseRate` + the pre-discount `TaxesAndFees`.  */
     @JsonProperty("TotalStrikeOutPrice")
     val totalStrikeOutPrice: Money? = null,
-    // The average nightly base rate per night per room of the rate plan, which is equal to the `BaseRate` divided by `StayDates` and by `room number`.
+
+    /* The average nightly base rate per night per room of the rate plan, which is equal to the `BaseRate` divided by `StayDates` and by `room number`.  */
     @JsonProperty("AvgNightlyRate")
     val avgNightlyRate: Money? = null,
-    // The average nightly strike out price per night per room of the rate plan, which is equal to the strike out of `BaseRate` divided by `StayDates` and by `room number`.
+
+    /* The average nightly strike out price per night per room of the rate plan, which is equal to the strike out of `BaseRate` divided by `StayDates` and by `room number`.  */
     @JsonProperty("AvgNightlyStrikeOutRate")
     val avgNightlyStrikeOutRate: Money? = null,
-    // The total mandatory fees which will be charged at the hotel for the rate plan.
+
+    /* The total mandatory fees which will be charged at the hotel for the rate plan. */
     @JsonProperty("HotelMandatoryFees")
     val hotelMandatoryFees: Money? = null,
-    // The refundable damage deposit.
+
+    /* The refundable damage deposit. */
     @JsonProperty("RefundableDamageDeposit")
     val refundableDamageDeposit: Money? = null,
-    // Nightly base rate of the rate plan.
+
+    /* Nightly base rate of the rate plan. */
     @JsonProperty("NightlyRates")
     val nightlyRates: kotlin.collections.List<RatePlanPriceNightlyRatesInner>? = null,
-    // Container for taxes and fees detail information. Only visible by configuration. Please contact your Expedia Account Manager if you need this node.
+
+    /* Container for taxes and fees detail information. Only visible by configuration. Please contact your Expedia Account Manager if you need this node.  */
     @JsonProperty("TaxesAndFeesDetails")
     val taxesAndFeesDetails: kotlin.collections.List<RatePlanPriceTaxesAndFeesDetailsInner>? = null,
-    // Container for the rate information of all rooms. This is only returned in Lodging Details API.
+
+    /* Container for the rate information of all rooms. This is only returned in Lodging Details API. */
     @JsonProperty("RoomRates")
     val roomRates: kotlin.collections.List<RoomRates>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -114,37 +122,35 @@ data class RatePlanPrice(
         fun roomRates(roomRates: kotlin.collections.List<RoomRates>?) = apply { this.roomRates = roomRates }
 
         fun build(): RatePlanPrice {
-            val instance =
-                RatePlanPrice(
-                    baseRate = baseRate,
-                    taxesAndFees = taxesAndFees,
-                    totalPrice = totalPrice,
-                    totalStrikeOutPrice = totalStrikeOutPrice,
-                    avgNightlyRate = avgNightlyRate,
-                    avgNightlyStrikeOutRate = avgNightlyStrikeOutRate,
-                    hotelMandatoryFees = hotelMandatoryFees,
-                    refundableDamageDeposit = refundableDamageDeposit,
-                    nightlyRates = nightlyRates,
-                    taxesAndFeesDetails = taxesAndFeesDetails,
-                    roomRates = roomRates,
-                )
+            val instance = RatePlanPrice(
+                baseRate = baseRate,
+                taxesAndFees = taxesAndFees,
+                totalPrice = totalPrice,
+                totalStrikeOutPrice = totalStrikeOutPrice,
+                avgNightlyRate = avgNightlyRate,
+                avgNightlyStrikeOutRate = avgNightlyStrikeOutRate,
+                hotelMandatoryFees = hotelMandatoryFees,
+                refundableDamageDeposit = refundableDamageDeposit,
+                nightlyRates = nightlyRates,
+                taxesAndFeesDetails = taxesAndFeesDetails,
+                roomRates = roomRates,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            baseRate = baseRate,
-            taxesAndFees = taxesAndFees,
-            totalPrice = totalPrice,
-            totalStrikeOutPrice = totalStrikeOutPrice,
-            avgNightlyRate = avgNightlyRate,
-            avgNightlyStrikeOutRate = avgNightlyStrikeOutRate,
-            hotelMandatoryFees = hotelMandatoryFees,
-            refundableDamageDeposit = refundableDamageDeposit,
-            nightlyRates = nightlyRates,
-            taxesAndFeesDetails = taxesAndFeesDetails,
-            roomRates = roomRates,
-        )
+    fun toBuilder() = Builder(
+        baseRate = baseRate,
+        taxesAndFees = taxesAndFees,
+        totalPrice = totalPrice,
+        totalStrikeOutPrice = totalStrikeOutPrice,
+        avgNightlyRate = avgNightlyRate,
+        avgNightlyStrikeOutRate = avgNightlyStrikeOutRate,
+        hotelMandatoryFees = hotelMandatoryFees,
+        refundableDamageDeposit = refundableDamageDeposit,
+        nightlyRates = nightlyRates,
+        taxesAndFeesDetails = taxesAndFeesDetails,
+        roomRates = roomRates,
+    )
 }

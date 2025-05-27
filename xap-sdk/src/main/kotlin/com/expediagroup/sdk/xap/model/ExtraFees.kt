@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarsMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -24,23 +25,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param unitCount Numbers of period
  * @param amount
  */
-data class ExtraFees(
-    // Rate period beyond the base rate. Supported values: ExtraHourly, ExtraDaily
+@ConsistentCopyVisibility data class ExtraFees private constructor(
+    /* Rate period beyond the base rate. Supported values: ExtraHourly, ExtraDaily */
     @JsonProperty("Unit")
     val unit: kotlin.String,
-    // Numbers of period
+
+    /* Numbers of period */
     @JsonProperty("UnitCount")
     val unitCount: kotlin.Long,
+
     @JsonProperty("Amount")
     val amount: CarsMoney,
+
 ) {
-    init {
-        require(unit != null) { "unit must not be null" }
-
-        require(unitCount != null) { "unitCount must not be null" }
-
-        require(amount != null) { "amount must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -59,21 +56,31 @@ data class ExtraFees(
         fun amount(amount: CarsMoney) = apply { this.amount = amount }
 
         fun build(): ExtraFees {
-            val instance =
-                ExtraFees(
-                    unit = unit!!,
-                    unitCount = unitCount!!,
-                    amount = amount!!,
-                )
+            val unit = this.unit.getOrThrow {
+                IllegalArgumentException("unit must not be null")
+            }
+
+            val unitCount = this.unitCount.getOrThrow {
+                IllegalArgumentException("unitCount must not be null")
+            }
+
+            val amount = this.amount.getOrThrow {
+                IllegalArgumentException("amount must not be null")
+            }
+
+            val instance = ExtraFees(
+                unit = unit,
+                unitCount = unitCount,
+                amount = amount,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            unit = unit!!,
-            unitCount = unitCount!!,
-            amount = amount!!,
-        )
+    fun toBuilder() = Builder(
+        unit = unit,
+        unitCount = unitCount,
+        amount = amount,
+    )
 }

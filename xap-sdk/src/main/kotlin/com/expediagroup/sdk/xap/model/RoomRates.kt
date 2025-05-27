@@ -35,30 +35,35 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param mandatoryFeesDetails The breakdown for the taxes and fees that must be paid at the property.
  * @param nightlyRates Container for the nightly rate of current room.
  */
-data class RoomRates(
-    // Index of which of the requested rooms this entry refers to.
+@ConsistentCopyVisibility data class RoomRates private constructor(
+    /* Index of which of the requested rooms this entry refers to. */
     @JsonProperty("RoomIndex")
     val roomIndex: kotlin.Int? = null,
+
     @JsonProperty("BaseRate")
     val baseRate: RoomRatesBaseRate? = null,
+
     @JsonProperty("TaxesAndFees")
     val taxesAndFees: RoomRatesTaxesAndFees? = null,
+
     @JsonProperty("TotalPrice")
     val totalPrice: RoomRatesTotalPrice? = null,
+
     @JsonProperty("TotalStrikeOutPrice")
     val totalStrikeOutPrice: RoomRatesTotalStrikeOutPrice? = null,
-    // The breakdown for taxes and fees for this room for the entire stay.  Only visible by configuration. Please contact your Expedia Account Manager if you need this node.
+
+    /* The breakdown for taxes and fees for this room for the entire stay.  Only visible by configuration. Please contact your Expedia Account Manager if you need this node.  */
     @JsonProperty("TaxesAndFeesDetails")
     val taxesAndFeesDetails: kotlin.collections.List<RoomRatesTaxesAndFeesDetailsInner>? = null,
-    // The breakdown for the taxes and fees that must be paid at the property.
+
+    /* The breakdown for the taxes and fees that must be paid at the property. */
     @JsonProperty("MandatoryFeesDetails")
     val mandatoryFeesDetails: kotlin.collections.List<MandatoryFeesDetail>? = null,
-    // Container for the nightly rate of current room.
+
+    /* Container for the nightly rate of current room. */
     @JsonProperty("NightlyRates")
     val nightlyRates: kotlin.collections.List<RoomRatesNightlyRatesInner>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -92,31 +97,29 @@ data class RoomRates(
         fun nightlyRates(nightlyRates: kotlin.collections.List<RoomRatesNightlyRatesInner>?) = apply { this.nightlyRates = nightlyRates }
 
         fun build(): RoomRates {
-            val instance =
-                RoomRates(
-                    roomIndex = roomIndex,
-                    baseRate = baseRate,
-                    taxesAndFees = taxesAndFees,
-                    totalPrice = totalPrice,
-                    totalStrikeOutPrice = totalStrikeOutPrice,
-                    taxesAndFeesDetails = taxesAndFeesDetails,
-                    mandatoryFeesDetails = mandatoryFeesDetails,
-                    nightlyRates = nightlyRates,
-                )
+            val instance = RoomRates(
+                roomIndex = roomIndex,
+                baseRate = baseRate,
+                taxesAndFees = taxesAndFees,
+                totalPrice = totalPrice,
+                totalStrikeOutPrice = totalStrikeOutPrice,
+                taxesAndFeesDetails = taxesAndFeesDetails,
+                mandatoryFeesDetails = mandatoryFeesDetails,
+                nightlyRates = nightlyRates,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            roomIndex = roomIndex,
-            baseRate = baseRate,
-            taxesAndFees = taxesAndFees,
-            totalPrice = totalPrice,
-            totalStrikeOutPrice = totalStrikeOutPrice,
-            taxesAndFeesDetails = taxesAndFeesDetails,
-            mandatoryFeesDetails = mandatoryFeesDetails,
-            nightlyRates = nightlyRates,
-        )
+    fun toBuilder() = Builder(
+        roomIndex = roomIndex,
+        baseRate = baseRate,
+        taxesAndFees = taxesAndFees,
+        totalPrice = totalPrice,
+        totalStrikeOutPrice = totalStrikeOutPrice,
+        taxesAndFeesDetails = taxesAndFeesDetails,
+        mandatoryFeesDetails = mandatoryFeesDetails,
+        nightlyRates = nightlyRates,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.ActivitiesMoney
 import com.expediagroup.sdk.xap.model.ReferencePrice
 import com.expediagroup.sdk.xap.model.Savings
@@ -29,24 +30,26 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param referencePrice
  * @param savings
  */
-data class ActivitiesPrice(
+@ConsistentCopyVisibility data class ActivitiesPrice private constructor(
     @JsonProperty("TotalRate")
     val totalRate: ActivitiesMoney,
-    // Type of passenger. Values supported are: ADULT | SENIOR | CHILD
+
+    /* Type of passenger. Values supported are: ADULT | SENIOR | CHILD */
     @JsonProperty("Category")
     val category: kotlin.String? = null,
+
     @JsonProperty("TotalFees")
     val totalFees: ActivitiesMoney? = null,
+
     @JsonProperty("TotalTaxesAndFees")
     val totalTaxesAndFees: ActivitiesMoney? = null,
+
     @JsonProperty("ReferencePrice")
     val referencePrice: ReferencePrice? = null,
+
     @JsonProperty("Savings")
     val savings: Savings? = null,
 ) {
-    init {
-        require(totalRate != null) { "totalRate must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -74,27 +77,29 @@ data class ActivitiesPrice(
         fun savings(savings: Savings?) = apply { this.savings = savings }
 
         fun build(): ActivitiesPrice {
-            val instance =
-                ActivitiesPrice(
-                    totalRate = totalRate!!,
-                    category = category,
-                    totalFees = totalFees,
-                    totalTaxesAndFees = totalTaxesAndFees,
-                    referencePrice = referencePrice,
-                    savings = savings,
-                )
+            val totalRate = this.totalRate.getOrThrow {
+                IllegalArgumentException("totalRate must not be null")
+            }
+
+            val instance = ActivitiesPrice(
+                totalRate = totalRate,
+                category = category,
+                totalFees = totalFees,
+                totalTaxesAndFees = totalTaxesAndFees,
+                referencePrice = referencePrice,
+                savings = savings,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            totalRate = totalRate!!,
-            category = category,
-            totalFees = totalFees,
-            totalTaxesAndFees = totalTaxesAndFees,
-            referencePrice = referencePrice,
-            savings = savings,
-        )
+    fun toBuilder() = Builder(
+        totalRate = totalRate,
+        category = category,
+        totalFees = totalFees,
+        totalTaxesAndFees = totalTaxesAndFees,
+        referencePrice = referencePrice,
+        savings = savings,
+    )
 }

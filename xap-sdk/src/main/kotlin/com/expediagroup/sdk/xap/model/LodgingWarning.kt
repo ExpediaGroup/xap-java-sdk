@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code The code of a warning.
  * @param description A description of what caused the issues.
  */
-data class LodgingWarning(
-    // The code of a warning.
+@ConsistentCopyVisibility data class LodgingWarning private constructor(
+    /* The code of a warning. */
     @JsonProperty("Code")
     val code: kotlin.String? = null,
-    // A description of what caused the issues.
+
+    /* A description of what caused the issues. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class LodgingWarning(
         fun description(description: kotlin.String?) = apply { this.description = description }
 
         fun build(): LodgingWarning {
-            val instance =
-                LodgingWarning(
-                    code = code,
-                    description = description,
-                )
+            val instance = LodgingWarning(
+                code = code,
+                description = description,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code,
-            description = description,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        description = description,
+    )
 }

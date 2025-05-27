@@ -22,12 +22,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @param airport
  */
-data class FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInnerLegDepartureAirport(
+@ConsistentCopyVisibility data class FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInnerLegDepartureAirport private constructor(
     @JsonProperty("Airport")
     val airport: FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInnerLegDepartureAirportAirport? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,17 +38,15 @@ data class FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInnerLegDep
         fun airport(airport: FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInnerLegDepartureAirportAirport?) = apply { this.airport = airport }
 
         fun build(): FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInnerLegDepartureAirport {
-            val instance =
-                FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInnerLegDepartureAirport(
-                    airport = airport,
-                )
+            val instance = FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInnerLegDepartureAirport(
+                airport = airport,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            airport = airport,
-        )
+    fun toBuilder() = Builder(
+        airport = airport,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.AdditionalFee
 import com.expediagroup.sdk.xap.model.CarPolicy
 import com.expediagroup.sdk.xap.model.CarsCancellationPolicy
@@ -55,67 +56,72 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param images List of image resources of the car product.
  * @param rating
  */
-data class CarDetails(
+@ConsistentCopyVisibility data class CarDetails private constructor(
     @JsonProperty("VehicleDetails")
     val vehicleDetails: VehicleDetails,
+
     @JsonProperty("Supplier")
     val supplier: Supplier,
+
     @JsonProperty("PickupDetails")
     val pickupDetails: VendorLocationDetails,
+
     @JsonProperty("DropOffDetails")
     val dropOffDetails: VendorLocationDetails,
+
     @JsonProperty("Price")
     val price: Price,
+
     @JsonProperty("CancellationPolicy")
     val cancellationPolicy: CarsCancellationPolicy,
-    // Indicate whether the supplier supports online checkin
+
+    /* Indicate whether the supplier supports online checkin */
     @JsonProperty("OnlineCheckIn")
     val onlineCheckIn: kotlin.Boolean? = null,
-    // Indicate whether the supplier supports skip the counter
+
+    /* Indicate whether the supplier supports skip the counter */
     @JsonProperty("SkipTheCounter")
     val skipTheCounter: kotlin.Boolean? = null,
+
     @JsonProperty("RateDetails")
     val rateDetails: RateDetails? = null,
+
     @JsonProperty("ReferencePrice")
     val referencePrice: CarsMoney? = null,
-    // List of additional fees including both mandatory and optional fees.such as young driver fee/drop off fee /CollisionDamageWaiver
+
+    /* List of additional fees including both mandatory and optional fees.such as young driver fee/drop off fee /CollisionDamageWaiver */
     @JsonProperty("AdditionalFees")
     val additionalFees: kotlin.collections.List<AdditionalFee>? = null,
-    // List of TaxesAndFees Details
+
+    /* List of TaxesAndFees Details */
     @JsonProperty("TaxesAndFeesDetails")
     val taxesAndFeesDetails: kotlin.collections.List<TaxesAndFees>? = null,
-    // List of ExtraFeesDetails
+
+    /* List of ExtraFeesDetails */
     @JsonProperty("ExtraFeesDetails")
     val extraFeesDetails: kotlin.collections.List<ExtraFees>? = null,
-    // Description and costs of any optional special equipment that may be rented with the car.
+
+    /* Description and costs of any optional special equipment that may be rented with the car. */
     @JsonProperty("SpecialEquipments")
     val specialEquipments: kotlin.collections.List<Equipment>? = null,
+
     @JsonProperty("RentalLimits")
     val rentalLimits: RentalLimits? = null,
+
     @JsonProperty("NoShowPenalty")
     val noShowPenalty: PenaltyType? = null,
-    // A list of policies that apply to this car rental.
+
+    /* A list of policies that apply to this car rental. */
     @JsonProperty("CarPolicies")
     val carPolicies: kotlin.collections.List<CarPolicy>? = null,
-    // List of image resources of the car product.
+
+    /* List of image resources of the car product. */
     @JsonProperty("Images")
     val images: kotlin.collections.List<Image>? = null,
+
     @JsonProperty("Rating")
     val rating: Rating? = null,
 ) {
-    init {
-        require(vehicleDetails != null) { "vehicleDetails must not be null" }
-
-        require(supplier != null) { "supplier must not be null" }
-
-        require(pickupDetails != null) { "pickupDetails must not be null" }
-
-        require(dropOffDetails != null) { "dropOffDetails must not be null" }
-
-        require(price != null) { "price must not be null" }
-
-        require(cancellationPolicy != null) { "cancellationPolicy must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -182,53 +188,75 @@ data class CarDetails(
         fun rating(rating: Rating?) = apply { this.rating = rating }
 
         fun build(): CarDetails {
-            val instance =
-                CarDetails(
-                    vehicleDetails = vehicleDetails!!,
-                    supplier = supplier!!,
-                    pickupDetails = pickupDetails!!,
-                    dropOffDetails = dropOffDetails!!,
-                    price = price!!,
-                    cancellationPolicy = cancellationPolicy!!,
-                    onlineCheckIn = onlineCheckIn,
-                    skipTheCounter = skipTheCounter,
-                    rateDetails = rateDetails,
-                    referencePrice = referencePrice,
-                    additionalFees = additionalFees,
-                    taxesAndFeesDetails = taxesAndFeesDetails,
-                    extraFeesDetails = extraFeesDetails,
-                    specialEquipments = specialEquipments,
-                    rentalLimits = rentalLimits,
-                    noShowPenalty = noShowPenalty,
-                    carPolicies = carPolicies,
-                    images = images,
-                    rating = rating,
-                )
+            val vehicleDetails = this.vehicleDetails.getOrThrow {
+                IllegalArgumentException("vehicleDetails must not be null")
+            }
+
+            val supplier = this.supplier.getOrThrow {
+                IllegalArgumentException("supplier must not be null")
+            }
+
+            val pickupDetails = this.pickupDetails.getOrThrow {
+                IllegalArgumentException("pickupDetails must not be null")
+            }
+
+            val dropOffDetails = this.dropOffDetails.getOrThrow {
+                IllegalArgumentException("dropOffDetails must not be null")
+            }
+
+            val price = this.price.getOrThrow {
+                IllegalArgumentException("price must not be null")
+            }
+
+            val cancellationPolicy = this.cancellationPolicy.getOrThrow {
+                IllegalArgumentException("cancellationPolicy must not be null")
+            }
+
+            val instance = CarDetails(
+                vehicleDetails = vehicleDetails,
+                supplier = supplier,
+                pickupDetails = pickupDetails,
+                dropOffDetails = dropOffDetails,
+                price = price,
+                cancellationPolicy = cancellationPolicy,
+                onlineCheckIn = onlineCheckIn,
+                skipTheCounter = skipTheCounter,
+                rateDetails = rateDetails,
+                referencePrice = referencePrice,
+                additionalFees = additionalFees,
+                taxesAndFeesDetails = taxesAndFeesDetails,
+                extraFeesDetails = extraFeesDetails,
+                specialEquipments = specialEquipments,
+                rentalLimits = rentalLimits,
+                noShowPenalty = noShowPenalty,
+                carPolicies = carPolicies,
+                images = images,
+                rating = rating,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            vehicleDetails = vehicleDetails!!,
-            supplier = supplier!!,
-            pickupDetails = pickupDetails!!,
-            dropOffDetails = dropOffDetails!!,
-            price = price!!,
-            cancellationPolicy = cancellationPolicy!!,
-            onlineCheckIn = onlineCheckIn,
-            skipTheCounter = skipTheCounter,
-            rateDetails = rateDetails,
-            referencePrice = referencePrice,
-            additionalFees = additionalFees,
-            taxesAndFeesDetails = taxesAndFeesDetails,
-            extraFeesDetails = extraFeesDetails,
-            specialEquipments = specialEquipments,
-            rentalLimits = rentalLimits,
-            noShowPenalty = noShowPenalty,
-            carPolicies = carPolicies,
-            images = images,
-            rating = rating,
-        )
+    fun toBuilder() = Builder(
+        vehicleDetails = vehicleDetails,
+        supplier = supplier,
+        pickupDetails = pickupDetails,
+        dropOffDetails = dropOffDetails,
+        price = price,
+        cancellationPolicy = cancellationPolicy,
+        onlineCheckIn = onlineCheckIn,
+        skipTheCounter = skipTheCounter,
+        rateDetails = rateDetails,
+        referencePrice = referencePrice,
+        additionalFees = additionalFees,
+        taxesAndFeesDetails = taxesAndFeesDetails,
+        extraFeesDetails = extraFeesDetails,
+        specialEquipments = specialEquipments,
+        rentalLimits = rentalLimits,
+        noShowPenalty = noShowPenalty,
+        carPolicies = carPolicies,
+        images = images,
+        rating = rating,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.ActivitiesPhone
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,16 +24,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param name The name of the company providing the activity.
  * @param phone
  */
-data class ActivitiesSupplier(
-    // The name of the company providing the activity.
+@ConsistentCopyVisibility data class ActivitiesSupplier private constructor(
+    /* The name of the company providing the activity. */
     @JsonProperty("Name")
     val name: kotlin.String,
+
     @JsonProperty("Phone")
     val phone: ActivitiesPhone? = null,
 ) {
-    init {
-        require(name != null) { "name must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -48,19 +47,21 @@ data class ActivitiesSupplier(
         fun phone(phone: ActivitiesPhone?) = apply { this.phone = phone }
 
         fun build(): ActivitiesSupplier {
-            val instance =
-                ActivitiesSupplier(
-                    name = name!!,
-                    phone = phone,
-                )
+            val name = this.name.getOrThrow {
+                IllegalArgumentException("name must not be null")
+            }
+
+            val instance = ActivitiesSupplier(
+                name = name,
+                phone = phone,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            name = name!!,
-            phone = phone,
-        )
+    fun toBuilder() = Builder(
+        name = name,
+        phone = phone,
+    )
 }

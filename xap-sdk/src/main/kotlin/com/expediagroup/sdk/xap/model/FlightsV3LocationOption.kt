@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3Location
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,22 +24,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param requestedLocation Location used in partner request.
  * @param locations Container for list of possible locations that could be used to disambiguate the query.
  */
-data class FlightsV3LocationOption(
-    // Location used in partner request.
+@ConsistentCopyVisibility data class FlightsV3LocationOption private constructor(
+    /* Location used in partner request. */
     @JsonProperty("RequestedLocation")
     val requestedLocation: kotlin.String,
-    // Container for list of possible locations that could be used to disambiguate the query.
+
+    /* Container for list of possible locations that could be used to disambiguate the query. */
     @JsonProperty("Locations")
     val locations: kotlin.collections
         .List<
             FlightsV3Location,
-        >,
-) {
-    init {
-        require(requestedLocation != null) { "requestedLocation must not be null" }
+            >,
 
-        require(locations != null) { "locations must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -54,19 +52,25 @@ data class FlightsV3LocationOption(
         fun locations(locations: kotlin.collections.List<FlightsV3Location>) = apply { this.locations = locations }
 
         fun build(): FlightsV3LocationOption {
-            val instance =
-                FlightsV3LocationOption(
-                    requestedLocation = requestedLocation!!,
-                    locations = locations!!,
-                )
+            val requestedLocation = this.requestedLocation.getOrThrow {
+                IllegalArgumentException("requestedLocation must not be null")
+            }
+
+            val locations = this.locations.getOrThrow {
+                IllegalArgumentException("locations must not be null")
+            }
+
+            val instance = FlightsV3LocationOption(
+                requestedLocation = requestedLocation,
+                locations = locations,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            requestedLocation = requestedLocation!!,
-            locations = locations!!,
-        )
+    fun toBuilder() = Builder(
+        requestedLocation = requestedLocation,
+        locations = locations,
+    )
 }

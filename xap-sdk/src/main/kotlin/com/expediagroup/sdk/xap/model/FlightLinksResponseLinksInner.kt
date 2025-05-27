@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightLinksResponseLinksInnerApiDetails
 import com.expediagroup.sdk.xap.model.FlightLinksResponseLinksInnerWebDetails
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -25,17 +26,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param webDetails
  * @param apiDetails
  */
-data class FlightLinksResponseLinksInner(
+@ConsistentCopyVisibility data class FlightLinksResponseLinksInner private constructor(
     @JsonProperty("FlightId")
     val flightId: kotlin.String,
+
     @JsonProperty("WebDetails")
     val webDetails: FlightLinksResponseLinksInnerWebDetails? = null,
+
     @JsonProperty("ApiDetails")
     val apiDetails: FlightLinksResponseLinksInnerApiDetails? = null,
 ) {
-    init {
-        require(flightId != null) { "flightId must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -54,21 +54,23 @@ data class FlightLinksResponseLinksInner(
         fun apiDetails(apiDetails: FlightLinksResponseLinksInnerApiDetails?) = apply { this.apiDetails = apiDetails }
 
         fun build(): FlightLinksResponseLinksInner {
-            val instance =
-                FlightLinksResponseLinksInner(
-                    flightId = flightId!!,
-                    webDetails = webDetails,
-                    apiDetails = apiDetails,
-                )
+            val flightId = this.flightId.getOrThrow {
+                IllegalArgumentException("flightId must not be null")
+            }
+
+            val instance = FlightLinksResponseLinksInner(
+                flightId = flightId,
+                webDetails = webDetails,
+                apiDetails = apiDetails,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            flightId = flightId!!,
-            webDetails = webDetails,
-            apiDetails = apiDetails,
-        )
+    fun toBuilder() = Builder(
+        flightId = flightId,
+        webDetails = webDetails,
+        apiDetails = apiDetails,
+    )
 }

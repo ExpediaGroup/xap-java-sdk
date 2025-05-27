@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FareCalendarResponseOffersInnerSegmentsInnerLegsInner
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -22,17 +23,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Container of information about each flight offer Segments (the trip from one stopping place to another) are made up of Legs This will be given back in response if includeSegmentDetails=true
  * @param legs Container information on each flight leg.
  */
-data class FareCalendarResponseOffersInnerSegmentsInner(
-    // Container information on each flight leg.
+@ConsistentCopyVisibility data class FareCalendarResponseOffersInnerSegmentsInner private constructor(
+    /* Container information on each flight leg. */
     @JsonProperty("Legs")
     val legs: kotlin.collections
         .List<
             FareCalendarResponseOffersInnerSegmentsInnerLegsInner,
-        >,
+            >,
+
 ) {
-    init {
-        require(legs != null) { "legs must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -45,17 +44,19 @@ data class FareCalendarResponseOffersInnerSegmentsInner(
         fun legs(legs: kotlin.collections.List<FareCalendarResponseOffersInnerSegmentsInnerLegsInner>) = apply { this.legs = legs }
 
         fun build(): FareCalendarResponseOffersInnerSegmentsInner {
-            val instance =
-                FareCalendarResponseOffersInnerSegmentsInner(
-                    legs = legs!!,
-                )
+            val legs = this.legs.getOrThrow {
+                IllegalArgumentException("legs must not be null")
+            }
+
+            val instance = FareCalendarResponseOffersInnerSegmentsInner(
+                legs = legs,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            legs = legs!!,
-        )
+    fun toBuilder() = Builder(
+        legs = legs,
+    )
 }

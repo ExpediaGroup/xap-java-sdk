@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code Car transmission and drive code.
  * @param `value` Car transmission and drive value.
  */
-data class TransmissionDrive(
-    // Car transmission and drive code.
+@ConsistentCopyVisibility data class TransmissionDrive private constructor(
+    /* Car transmission and drive code. */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // Car transmission and drive value.
+
+    /* Car transmission and drive value. */
     @JsonProperty("Value")
     val `value`: kotlin.String,
-) {
-    init {
-        require(code != null) { "code must not be null" }
 
-        require(`value` != null) { "`value` must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class TransmissionDrive(
         fun `value`(`value`: kotlin.String) = apply { this.`value` = `value` }
 
         fun build(): TransmissionDrive {
-            val instance =
-                TransmissionDrive(
-                    code = code!!,
-                    `value` = `value`!!,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val `value` = this.`value`.getOrThrow {
+                IllegalArgumentException("`value` must not be null")
+            }
+
+            val instance = TransmissionDrive(
+                code = code,
+                `value` = `value`,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            `value` = `value`!!,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        `value` = `value`,
+    )
 }

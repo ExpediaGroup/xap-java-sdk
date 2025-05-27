@@ -21,12 +21,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @param message
  */
-data class APIMError(
+@ConsistentCopyVisibility data class APIMError private constructor(
     @JsonProperty("message")
     val message: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -39,17 +37,15 @@ data class APIMError(
         fun message(message: kotlin.String?) = apply { this.message = message }
 
         fun build(): APIMError {
-            val instance =
-                APIMError(
-                    message = message,
-                )
+            val instance = APIMError(
+                message = message,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            message = message,
-        )
+    fun toBuilder() = Builder(
+        message = message,
+    )
 }

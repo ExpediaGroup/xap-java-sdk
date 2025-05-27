@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Discount
 import com.expediagroup.sdk.xap.model.Mileage
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -29,34 +30,35 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param mileages A list of charges to be levied based on the mileage driven.
  * @param mobileRate Indicates whether car offer is mobile rate.
  */
-data class RateDetails(
-    // Rate period. Supported values: Daily,Weekly,Monthly,Trip,Weekend
+@ConsistentCopyVisibility data class RateDetails private constructor(
+    /* Rate period. Supported values: Daily,Weekly,Monthly,Trip,Weekend */
     @JsonProperty("RatePeriod")
     val ratePeriod: kotlin.String,
-    // Indicates whether this reservation should be paid at the time of booking (true) or at time of rental return (false).
+
+    /* Indicates whether this reservation should be paid at the time of booking (true) or at time of rental return (false). */
     @JsonProperty("PrePay")
     val prePay: kotlin.Boolean,
-    // Rate plan identifier.
+
+    /* Rate plan identifier. */
     @JsonProperty("RateCode")
     val rateCode: kotlin.String? = null,
-    // Indicates whether credit card is required for booking.
+
+    /* Indicates whether credit card is required for booking. */
     @JsonProperty("CreditCardRequired")
     val creditCardRequired: kotlin.Boolean? = null,
-    // List of discount information.
+
+    /* List of discount information. */
     @JsonProperty("Discounts")
     val discounts: kotlin.collections.List<Discount>? = null,
-    // A list of charges to be levied based on the mileage driven.
+
+    /* A list of charges to be levied based on the mileage driven. */
     @JsonProperty("Mileages")
     val mileages: kotlin.collections.List<Mileage>? = null,
-    // Indicates whether car offer is mobile rate.
+
+    /* Indicates whether car offer is mobile rate. */
     @JsonProperty("MobileRate")
     val mobileRate: kotlin.Boolean? = null,
 ) {
-    init {
-        require(ratePeriod != null) { "ratePeriod must not be null" }
-
-        require(prePay != null) { "prePay must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -87,29 +89,35 @@ data class RateDetails(
         fun mobileRate(mobileRate: kotlin.Boolean?) = apply { this.mobileRate = mobileRate }
 
         fun build(): RateDetails {
-            val instance =
-                RateDetails(
-                    ratePeriod = ratePeriod!!,
-                    prePay = prePay!!,
-                    rateCode = rateCode,
-                    creditCardRequired = creditCardRequired,
-                    discounts = discounts,
-                    mileages = mileages,
-                    mobileRate = mobileRate,
-                )
+            val ratePeriod = this.ratePeriod.getOrThrow {
+                IllegalArgumentException("ratePeriod must not be null")
+            }
+
+            val prePay = this.prePay.getOrThrow {
+                IllegalArgumentException("prePay must not be null")
+            }
+
+            val instance = RateDetails(
+                ratePeriod = ratePeriod,
+                prePay = prePay,
+                rateCode = rateCode,
+                creditCardRequired = creditCardRequired,
+                discounts = discounts,
+                mileages = mileages,
+                mobileRate = mobileRate,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            ratePeriod = ratePeriod!!,
-            prePay = prePay!!,
-            rateCode = rateCode,
-            creditCardRequired = creditCardRequired,
-            discounts = discounts,
-            mileages = mileages,
-            mobileRate = mobileRate,
-        )
+    fun toBuilder() = Builder(
+        ratePeriod = ratePeriod,
+        prePay = prePay,
+        rateCode = rateCode,
+        creditCardRequired = creditCardRequired,
+        discounts = discounts,
+        mileages = mileages,
+        mobileRate = mobileRate,
+    )
 }

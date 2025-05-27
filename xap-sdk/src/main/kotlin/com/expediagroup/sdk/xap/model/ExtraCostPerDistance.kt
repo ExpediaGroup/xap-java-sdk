@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarsDistance
 import com.expediagroup.sdk.xap.model.CarsMoney
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -24,17 +25,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param distance
  * @param cost
  */
-data class ExtraCostPerDistance(
+@ConsistentCopyVisibility data class ExtraCostPerDistance private constructor(
     @JsonProperty("Distance")
     val distance: CarsDistance,
+
     @JsonProperty("Cost")
     val cost: CarsMoney,
-) {
-    init {
-        require(distance != null) { "distance must not be null" }
 
-        require(cost != null) { "cost must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class ExtraCostPerDistance(
         fun cost(cost: CarsMoney) = apply { this.cost = cost }
 
         fun build(): ExtraCostPerDistance {
-            val instance =
-                ExtraCostPerDistance(
-                    distance = distance!!,
-                    cost = cost!!,
-                )
+            val distance = this.distance.getOrThrow {
+                IllegalArgumentException("distance must not be null")
+            }
+
+            val cost = this.cost.getOrThrow {
+                IllegalArgumentException("cost must not be null")
+            }
+
+            val instance = ExtraCostPerDistance(
+                distance = distance,
+                cost = cost,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            distance = distance!!,
-            cost = cost!!,
-        )
+    fun toBuilder() = Builder(
+        distance = distance,
+        cost = cost,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -23,21 +24,18 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param longitude Longitude of the location.
  * @param obfuscated
  */
-data class CarsGeoLocation(
-    // Latitude of the location.
+@ConsistentCopyVisibility data class CarsGeoLocation private constructor(
+    /* Latitude of the location. */
     @JsonProperty("Latitude")
     val latitude: kotlin.String,
-    // Longitude of the location.
+
+    /* Longitude of the location. */
     @JsonProperty("Longitude")
     val longitude: kotlin.String,
+
     @JsonProperty("Obfuscated")
     val obfuscated: kotlin.Boolean? = null,
 ) {
-    init {
-        require(latitude != null) { "latitude must not be null" }
-
-        require(longitude != null) { "longitude must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -56,21 +54,27 @@ data class CarsGeoLocation(
         fun obfuscated(obfuscated: kotlin.Boolean?) = apply { this.obfuscated = obfuscated }
 
         fun build(): CarsGeoLocation {
-            val instance =
-                CarsGeoLocation(
-                    latitude = latitude!!,
-                    longitude = longitude!!,
-                    obfuscated = obfuscated,
-                )
+            val latitude = this.latitude.getOrThrow {
+                IllegalArgumentException("latitude must not be null")
+            }
+
+            val longitude = this.longitude.getOrThrow {
+                IllegalArgumentException("longitude must not be null")
+            }
+
+            val instance = CarsGeoLocation(
+                latitude = latitude,
+                longitude = longitude,
+                obfuscated = obfuscated,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            latitude = latitude!!,
-            longitude = longitude!!,
-            obfuscated = obfuscated,
-        )
+    fun toBuilder() = Builder(
+        latitude = latitude,
+        longitude = longitude,
+        obfuscated = obfuscated,
+    )
 }

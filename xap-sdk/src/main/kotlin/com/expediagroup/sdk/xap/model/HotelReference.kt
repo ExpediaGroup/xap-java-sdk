@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param hotelId Unique id to represent a hotel
  * @param roomKey Unique id to represent Room
  */
-data class HotelReference(
-    // Unique id to represent a hotel
+@ConsistentCopyVisibility data class HotelReference private constructor(
+    /* Unique id to represent a hotel */
     @JsonProperty("HotelId")
     val hotelId: kotlin.String,
-    // Unique id to represent Room
+
+    /* Unique id to represent Room */
     @JsonProperty("RoomKey")
     val roomKey: kotlin.String,
-) {
-    init {
-        require(hotelId != null) { "hotelId must not be null" }
 
-        require(roomKey != null) { "roomKey must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class HotelReference(
         fun roomKey(roomKey: kotlin.String) = apply { this.roomKey = roomKey }
 
         fun build(): HotelReference {
-            val instance =
-                HotelReference(
-                    hotelId = hotelId!!,
-                    roomKey = roomKey!!,
-                )
+            val hotelId = this.hotelId.getOrThrow {
+                IllegalArgumentException("hotelId must not be null")
+            }
+
+            val roomKey = this.roomKey.getOrThrow {
+                IllegalArgumentException("roomKey must not be null")
+            }
+
+            val instance = HotelReference(
+                hotelId = hotelId,
+                roomKey = roomKey,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            hotelId = hotelId!!,
-            roomKey = roomKey!!,
-        )
+    fun toBuilder() = Builder(
+        hotelId = hotelId,
+        roomKey = roomKey,
+    )
 }

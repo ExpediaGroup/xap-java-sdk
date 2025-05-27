@@ -28,30 +28,34 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param squareFeet Property area in square feet.
  * @param propertyManager
  */
-data class PropertyDetails(
-    // The registry number of property.
+@ConsistentCopyVisibility data class PropertyDetails private constructor(
+    /* The registry number of property. */
     @JsonProperty("PropertyRegistryNumber")
     val propertyRegistryNumber: kotlin.String? = null,
-    // The languages the host of property will speak.
+
+    /* The languages the host of property will speak. */
     @JsonProperty("HostLanguages")
     val hostLanguages: kotlin.collections.List<kotlin.String>? = null,
-    // The maximum number of guests allowed to stay in the property.
+
+    /* The maximum number of guests allowed to stay in the property. */
     @JsonProperty("MaxOccupancy")
     val maxOccupancy: kotlin.Int? = null,
-    // The number of bedrooms in the property.
+
+    /* The number of bedrooms in the property. */
     @JsonProperty("NumberOfBedrooms")
     val numberOfBedrooms: kotlin.Int? = null,
-    // The number of bathrooms in the property.
+
+    /* The number of bathrooms in the property. */
     @JsonProperty("NumberOfBathrooms")
     val numberOfBathrooms: kotlin.Int? = null,
-    // Property area in square feet.
+
+    /* Property area in square feet. */
     @JsonProperty("SquareFeet")
     val squareFeet: kotlin.String? = null,
+
     @JsonProperty("PropertyManager")
     val propertyManager: PropertyManager? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -82,29 +86,27 @@ data class PropertyDetails(
         fun propertyManager(propertyManager: PropertyManager?) = apply { this.propertyManager = propertyManager }
 
         fun build(): PropertyDetails {
-            val instance =
-                PropertyDetails(
-                    propertyRegistryNumber = propertyRegistryNumber,
-                    hostLanguages = hostLanguages,
-                    maxOccupancy = maxOccupancy,
-                    numberOfBedrooms = numberOfBedrooms,
-                    numberOfBathrooms = numberOfBathrooms,
-                    squareFeet = squareFeet,
-                    propertyManager = propertyManager,
-                )
+            val instance = PropertyDetails(
+                propertyRegistryNumber = propertyRegistryNumber,
+                hostLanguages = hostLanguages,
+                maxOccupancy = maxOccupancy,
+                numberOfBedrooms = numberOfBedrooms,
+                numberOfBathrooms = numberOfBathrooms,
+                squareFeet = squareFeet,
+                propertyManager = propertyManager,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            propertyRegistryNumber = propertyRegistryNumber,
-            hostLanguages = hostLanguages,
-            maxOccupancy = maxOccupancy,
-            numberOfBedrooms = numberOfBedrooms,
-            numberOfBathrooms = numberOfBathrooms,
-            squareFeet = squareFeet,
-            propertyManager = propertyManager,
-        )
+    fun toBuilder() = Builder(
+        propertyRegistryNumber = propertyRegistryNumber,
+        hostLanguages = hostLanguages,
+        maxOccupancy = maxOccupancy,
+        numberOfBedrooms = numberOfBedrooms,
+        numberOfBathrooms = numberOfBathrooms,
+        squareFeet = squareFeet,
+        propertyManager = propertyManager,
+    )
 }

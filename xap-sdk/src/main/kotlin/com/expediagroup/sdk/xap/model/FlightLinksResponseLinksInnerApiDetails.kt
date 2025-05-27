@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -23,21 +24,17 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param method
  * @param href
  */
-data class FlightLinksResponseLinksInnerApiDetails(
+@ConsistentCopyVisibility data class FlightLinksResponseLinksInnerApiDetails private constructor(
     @JsonProperty("Accept")
     val accept: kotlin.String,
+
     @JsonProperty("Method")
     val method: kotlin.String,
+
     @JsonProperty("Href")
     val href: kotlin.String,
+
 ) {
-    init {
-        require(accept != null) { "accept must not be null" }
-
-        require(method != null) { "method must not be null" }
-
-        require(href != null) { "href must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -56,21 +53,31 @@ data class FlightLinksResponseLinksInnerApiDetails(
         fun href(href: kotlin.String) = apply { this.href = href }
 
         fun build(): FlightLinksResponseLinksInnerApiDetails {
-            val instance =
-                FlightLinksResponseLinksInnerApiDetails(
-                    accept = accept!!,
-                    method = method!!,
-                    href = href!!,
-                )
+            val accept = this.accept.getOrThrow {
+                IllegalArgumentException("accept must not be null")
+            }
+
+            val method = this.method.getOrThrow {
+                IllegalArgumentException("method must not be null")
+            }
+
+            val href = this.href.getOrThrow {
+                IllegalArgumentException("href must not be null")
+            }
+
+            val instance = FlightLinksResponseLinksInnerApiDetails(
+                accept = accept,
+                method = method,
+                href = href,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            accept = accept!!,
-            method = method!!,
-            href = href!!,
-        )
+    fun toBuilder() = Builder(
+        accept = accept,
+        method = method,
+        href = href,
+    )
 }

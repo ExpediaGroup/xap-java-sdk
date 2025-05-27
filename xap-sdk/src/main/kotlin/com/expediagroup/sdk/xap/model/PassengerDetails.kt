@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -25,23 +26,22 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param infantInSeat
  * @param infantInLap
  */
-data class PassengerDetails(
+@ConsistentCopyVisibility data class PassengerDetails private constructor(
     @JsonProperty("Adult")
     val adult: kotlin.String,
+
     @JsonProperty("Senior")
     val senior: kotlin.String,
+
     @JsonProperty("ChildrenAges")
     val childrenAges: kotlin.String? = null,
+
     @JsonProperty("InfantInSeat")
     val infantInSeat: kotlin.String? = null,
+
     @JsonProperty("InfantInLap")
     val infantInLap: kotlin.String? = null,
 ) {
-    init {
-        require(adult != null) { "adult must not be null" }
-
-        require(senior != null) { "senior must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -66,25 +66,31 @@ data class PassengerDetails(
         fun infantInLap(infantInLap: kotlin.String?) = apply { this.infantInLap = infantInLap }
 
         fun build(): PassengerDetails {
-            val instance =
-                PassengerDetails(
-                    adult = adult!!,
-                    senior = senior!!,
-                    childrenAges = childrenAges,
-                    infantInSeat = infantInSeat,
-                    infantInLap = infantInLap,
-                )
+            val adult = this.adult.getOrThrow {
+                IllegalArgumentException("adult must not be null")
+            }
+
+            val senior = this.senior.getOrThrow {
+                IllegalArgumentException("senior must not be null")
+            }
+
+            val instance = PassengerDetails(
+                adult = adult,
+                senior = senior,
+                childrenAges = childrenAges,
+                infantInSeat = infantInSeat,
+                infantInLap = infantInLap,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            adult = adult!!,
-            senior = senior!!,
-            childrenAges = childrenAges,
-            infantInSeat = infantInSeat,
-            infantInLap = infantInLap,
-        )
+    fun toBuilder() = Builder(
+        adult = adult,
+        senior = senior,
+        childrenAges = childrenAges,
+        infantInSeat = infantInSeat,
+        infantInLap = infantInLap,
+    )
 }

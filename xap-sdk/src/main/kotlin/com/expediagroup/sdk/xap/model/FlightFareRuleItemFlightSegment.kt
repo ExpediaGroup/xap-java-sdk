@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Airport
 import com.expediagroup.sdk.xap.model.FareRule
 import com.expediagroup.sdk.xap.model.FlightsV1Link
@@ -28,28 +29,25 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param links Contains the deeplink URLs of api services and websites
  * @param fareRules Contains the list of fare rule details
  */
-data class FlightFareRuleItemFlightSegment(
-    // Specifies the 2 letter IATA airline code of the Most Significant Carrier for the flight. In the case of flights with multiple airlines involves this is the airline who will be charging for the baggage.
+@ConsistentCopyVisibility data class FlightFareRuleItemFlightSegment private constructor(
+    /* Specifies the 2 letter IATA airline code of the Most Significant Carrier for the flight. In the case of flights with multiple airlines involves this is the airline who will be charging for the baggage. */
     @JsonProperty("AirlineCode")
     val airlineCode: kotlin.String,
+
     @JsonProperty("DepartureAirport")
     val departureAirport: Airport,
+
     @JsonProperty("ArrivalAirport")
     val arrivalAirport: Airport,
-    // Contains the deeplink URLs of api services and websites
+
+    /* Contains the deeplink URLs of api services and websites */
     @JsonProperty("Links")
     val links: kotlin.collections.Map<kotlin.String, FlightsV1Link>? = null,
-    // Contains the list of fare rule details
+
+    /* Contains the list of fare rule details */
     @JsonProperty("FareRules")
     val fareRules: kotlin.collections.List<FareRule>? = null,
 ) {
-    init {
-        require(airlineCode != null) { "airlineCode must not be null" }
-
-        require(departureAirport != null) { "departureAirport must not be null" }
-
-        require(arrivalAirport != null) { "arrivalAirport must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -74,25 +72,35 @@ data class FlightFareRuleItemFlightSegment(
         fun fareRules(fareRules: kotlin.collections.List<FareRule>?) = apply { this.fareRules = fareRules }
 
         fun build(): FlightFareRuleItemFlightSegment {
-            val instance =
-                FlightFareRuleItemFlightSegment(
-                    airlineCode = airlineCode!!,
-                    departureAirport = departureAirport!!,
-                    arrivalAirport = arrivalAirport!!,
-                    links = links,
-                    fareRules = fareRules,
-                )
+            val airlineCode = this.airlineCode.getOrThrow {
+                IllegalArgumentException("airlineCode must not be null")
+            }
+
+            val departureAirport = this.departureAirport.getOrThrow {
+                IllegalArgumentException("departureAirport must not be null")
+            }
+
+            val arrivalAirport = this.arrivalAirport.getOrThrow {
+                IllegalArgumentException("arrivalAirport must not be null")
+            }
+
+            val instance = FlightFareRuleItemFlightSegment(
+                airlineCode = airlineCode,
+                departureAirport = departureAirport,
+                arrivalAirport = arrivalAirport,
+                links = links,
+                fareRules = fareRules,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            airlineCode = airlineCode!!,
-            departureAirport = departureAirport!!,
-            arrivalAirport = arrivalAirport!!,
-            links = links,
-            fareRules = fareRules,
-        )
+    fun toBuilder() = Builder(
+        airlineCode = airlineCode,
+        departureAirport = departureAirport,
+        arrivalAirport = arrivalAirport,
+        links = links,
+        fareRules = fareRules,
+    )
 }

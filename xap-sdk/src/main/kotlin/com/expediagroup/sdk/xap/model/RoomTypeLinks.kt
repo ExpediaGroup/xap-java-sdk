@@ -27,16 +27,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param webDetails
  * @param apiDetails
  */
-data class RoomTypeLinks(
+@ConsistentCopyVisibility data class RoomTypeLinks private constructor(
     @JsonProperty("WebSearchResult")
     val webSearchResult: HotelLinksWebSearchResult? = null,
+
     @JsonProperty("WebDetails")
     val webDetails: RoomTypeLinksWebDetails? = null,
+
     @JsonProperty("ApiDetails")
     val apiDetails: RoomTypeLinksApiDetails? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -55,21 +55,19 @@ data class RoomTypeLinks(
         fun apiDetails(apiDetails: RoomTypeLinksApiDetails?) = apply { this.apiDetails = apiDetails }
 
         fun build(): RoomTypeLinks {
-            val instance =
-                RoomTypeLinks(
-                    webSearchResult = webSearchResult,
-                    webDetails = webDetails,
-                    apiDetails = apiDetails,
-                )
+            val instance = RoomTypeLinks(
+                webSearchResult = webSearchResult,
+                webDetails = webDetails,
+                apiDetails = apiDetails,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            webSearchResult = webSearchResult,
-            webDetails = webDetails,
-            apiDetails = apiDetails,
-        )
+    fun toBuilder() = Builder(
+        webSearchResult = webSearchResult,
+        webDetails = webDetails,
+        apiDetails = apiDetails,
+    )
 }

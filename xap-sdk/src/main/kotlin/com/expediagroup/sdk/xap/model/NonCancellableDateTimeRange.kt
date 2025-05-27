@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param startDateTime The time of this non-cancellable window starts
  * @param endDateTime The time of this non-cancellable window ends
  */
-data class NonCancellableDateTimeRange(
-    // The time of this non-cancellable window starts
+@ConsistentCopyVisibility data class NonCancellableDateTimeRange private constructor(
+    /* The time of this non-cancellable window starts */
     @JsonProperty("StartDateTime")
     val startDateTime: java.time.LocalDateTime,
-    // The time of this non-cancellable window ends
+
+    /* The time of this non-cancellable window ends */
     @JsonProperty("EndDateTime")
     val endDateTime: java.time.LocalDateTime,
-) {
-    init {
-        require(startDateTime != null) { "startDateTime must not be null" }
 
-        require(endDateTime != null) { "endDateTime must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class NonCancellableDateTimeRange(
         fun endDateTime(endDateTime: java.time.LocalDateTime) = apply { this.endDateTime = endDateTime }
 
         fun build(): NonCancellableDateTimeRange {
-            val instance =
-                NonCancellableDateTimeRange(
-                    startDateTime = startDateTime!!,
-                    endDateTime = endDateTime!!,
-                )
+            val startDateTime = this.startDateTime.getOrThrow {
+                IllegalArgumentException("startDateTime must not be null")
+            }
+
+            val endDateTime = this.endDateTime.getOrThrow {
+                IllegalArgumentException("endDateTime must not be null")
+            }
+
+            val instance = NonCancellableDateTimeRange(
+                startDateTime = startDateTime,
+                endDateTime = endDateTime,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            startDateTime = startDateTime!!,
-            endDateTime = endDateTime!!,
-        )
+    fun toBuilder() = Builder(
+        startDateTime = startDateTime,
+        endDateTime = endDateTime,
+    )
 }

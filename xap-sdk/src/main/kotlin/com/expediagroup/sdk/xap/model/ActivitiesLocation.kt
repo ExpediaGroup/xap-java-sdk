@@ -35,38 +35,46 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param regionId RegionId the location resides in.
  * @param country
  */
-data class ActivitiesLocation(
-    // The type of location code (MULTICITY | METROCODE).
+@ConsistentCopyVisibility data class ActivitiesLocation private constructor(
+    /* The type of location code (MULTICITY | METROCODE). */
     @JsonProperty("Type")
     val type: kotlin.String? = null,
-    // Expedia Region ID of the specified airport.
+
+    /* Expedia Region ID of the specified airport. */
     @JsonProperty("Id")
     val id: kotlin.String? = null,
-    // Location Name
+
+    /* Location Name */
     @JsonProperty("Name")
     val name: kotlin.String? = null,
-    // Location Code
+
+    /* Location Code */
     @JsonProperty("Code")
     val code: kotlin.String? = null,
-    // Location id.
+
+    /* Location id. */
     @JsonProperty("LocationId")
     val locationId: kotlin.String? = null,
+
     @JsonProperty("Address")
     val address: ActivitiesAddress? = null,
+
     @JsonProperty("PointOfInterest")
     val pointOfInterest: kotlin.String? = null,
+
     @JsonProperty("GeoLocation")
     val geoLocation: ActivitiesGeoLocation? = null,
+
     @JsonProperty("Neighborhood")
     val neighborhood: ActivitiesNeighborhood? = null,
-    // RegionId the location resides in.
+
+    /* RegionId the location resides in. */
     @JsonProperty("RegionId")
     val regionId: kotlin.Long? = null,
+
     @JsonProperty("Country")
     val country: ActivitiesCountry? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -109,37 +117,35 @@ data class ActivitiesLocation(
         fun country(country: ActivitiesCountry?) = apply { this.country = country }
 
         fun build(): ActivitiesLocation {
-            val instance =
-                ActivitiesLocation(
-                    type = type,
-                    id = id,
-                    name = name,
-                    code = code,
-                    locationId = locationId,
-                    address = address,
-                    pointOfInterest = pointOfInterest,
-                    geoLocation = geoLocation,
-                    neighborhood = neighborhood,
-                    regionId = regionId,
-                    country = country,
-                )
+            val instance = ActivitiesLocation(
+                type = type,
+                id = id,
+                name = name,
+                code = code,
+                locationId = locationId,
+                address = address,
+                pointOfInterest = pointOfInterest,
+                geoLocation = geoLocation,
+                neighborhood = neighborhood,
+                regionId = regionId,
+                country = country,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type,
-            id = id,
-            name = name,
-            code = code,
-            locationId = locationId,
-            address = address,
-            pointOfInterest = pointOfInterest,
-            geoLocation = geoLocation,
-            neighborhood = neighborhood,
-            regionId = regionId,
-            country = country,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        id = id,
+        name = name,
+        code = code,
+        locationId = locationId,
+        address = address,
+        pointOfInterest = pointOfInterest,
+        geoLocation = geoLocation,
+        neighborhood = neighborhood,
+        regionId = regionId,
+        country = country,
+    )
 }

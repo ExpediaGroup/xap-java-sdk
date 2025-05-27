@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -23,24 +24,20 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param `value` Value to indicate how many/much of the type listed above is going to be charged as a penalty.
  * @param currency The currency of the amount, only valid when Type=AMOUNT
  */
-data class PenaltyType(
-    // What the penalty amount is based on. should be one of the following values:AMOUNT : it means the user is charged a fixed amount specified in the value node. Say 50$ for example.PERCENT : it means the user is charged a percentage of the base rate/total rate.PERDAY : it means the user is charged Per Day Price. For eg.., if the value is 2, it means the penalty amount will the Per day price of 2 days.
+@ConsistentCopyVisibility data class PenaltyType private constructor(
+    /* What the penalty amount is based on. should be one of the following values:AMOUNT : it means the user is charged a fixed amount specified in the value node. Say 50$ for example.PERCENT : it means the user is charged a percentage of the base rate/total rate.PERDAY : it means the user is charged Per Day Price. For eg.., if the value is 2, it means the penalty amount will the Per day price of 2 days. */
     @JsonProperty("Type")
     val type: kotlin.String,
-    // Value to indicate how many/much of the type listed above is going to be charged as a penalty.
+
+    /* Value to indicate how many/much of the type listed above is going to be charged as a penalty. */
     @JsonProperty("Value")
     val `value`: kotlin.String,
-    // The currency of the amount, only valid when Type=AMOUNT
+
+    /* The currency of the amount, only valid when Type=AMOUNT */
     @JsonProperty("Currency")
     val currency: kotlin.String,
+
 ) {
-    init {
-        require(type != null) { "type must not be null" }
-
-        require(`value` != null) { "`value` must not be null" }
-
-        require(currency != null) { "currency must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -59,21 +56,31 @@ data class PenaltyType(
         fun currency(currency: kotlin.String) = apply { this.currency = currency }
 
         fun build(): PenaltyType {
-            val instance =
-                PenaltyType(
-                    type = type!!,
-                    `value` = `value`!!,
-                    currency = currency!!,
-                )
+            val type = this.type.getOrThrow {
+                IllegalArgumentException("type must not be null")
+            }
+
+            val `value` = this.`value`.getOrThrow {
+                IllegalArgumentException("`value` must not be null")
+            }
+
+            val currency = this.currency.getOrThrow {
+                IllegalArgumentException("currency must not be null")
+            }
+
+            val instance = PenaltyType(
+                type = type,
+                `value` = `value`,
+                currency = currency,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type!!,
-            `value` = `value`!!,
-            currency = currency!!,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        `value` = `value`,
+        currency = currency,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -24,27 +25,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param isoCode3 3-letter code for the country
  * @param code 3-letter code for the country
  */
-data class ActivitiesCountry(
-    // country name
+@ConsistentCopyVisibility data class ActivitiesCountry private constructor(
+    /* country name */
     @JsonProperty("Name")
     val name: kotlin.String,
-    // 2-letter code for the country
+
+    /* 2-letter code for the country */
     @JsonProperty("IsoCode2")
     val isoCode2: kotlin.String,
-    // 3-letter code for the country
+
+    /* 3-letter code for the country */
     @JsonProperty("IsoCode3")
     val isoCode3: kotlin.String,
-    // 3-letter code for the country
+
+    /* 3-letter code for the country */
     @JsonProperty("Code")
     val code: kotlin.String? = null,
 ) {
-    init {
-        require(name != null) { "name must not be null" }
-
-        require(isoCode2 != null) { "isoCode2 must not be null" }
-
-        require(isoCode3 != null) { "isoCode3 must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -66,23 +63,33 @@ data class ActivitiesCountry(
         fun code(code: kotlin.String?) = apply { this.code = code }
 
         fun build(): ActivitiesCountry {
-            val instance =
-                ActivitiesCountry(
-                    name = name!!,
-                    isoCode2 = isoCode2!!,
-                    isoCode3 = isoCode3!!,
-                    code = code,
-                )
+            val name = this.name.getOrThrow {
+                IllegalArgumentException("name must not be null")
+            }
+
+            val isoCode2 = this.isoCode2.getOrThrow {
+                IllegalArgumentException("isoCode2 must not be null")
+            }
+
+            val isoCode3 = this.isoCode3.getOrThrow {
+                IllegalArgumentException("isoCode3 must not be null")
+            }
+
+            val instance = ActivitiesCountry(
+                name = name,
+                isoCode2 = isoCode2,
+                isoCode3 = isoCode3,
+                code = code,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            name = name!!,
-            isoCode2 = isoCode2!!,
-            isoCode3 = isoCode3!!,
-            code = code,
-        )
+    fun toBuilder() = Builder(
+        name = name,
+        isoCode2 = isoCode2,
+        isoCode3 = isoCode3,
+        code = code,
+    )
 }

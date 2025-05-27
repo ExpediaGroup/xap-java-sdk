@@ -15,20 +15,19 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  * Container for information on the arrival airport.
  * @param code Three-letter IATA airport code for departure location
  */
-data class FareCalendarResponseOffersInnerSegmentsInnerLegsInnerDepartureAirport(
-    // Three-letter IATA airport code for departure location
+@ConsistentCopyVisibility data class FareCalendarResponseOffersInnerSegmentsInnerLegsInnerDepartureAirport private constructor(
+    /* Three-letter IATA airport code for departure location */
     @JsonProperty("Code")
     val code: kotlin.String,
+
 ) {
-    init {
-        require(code != null) { "code must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -41,17 +40,19 @@ data class FareCalendarResponseOffersInnerSegmentsInnerLegsInnerDepartureAirport
         fun code(code: kotlin.String) = apply { this.code = code }
 
         fun build(): FareCalendarResponseOffersInnerSegmentsInnerLegsInnerDepartureAirport {
-            val instance =
-                FareCalendarResponseOffersInnerSegmentsInnerLegsInnerDepartureAirport(
-                    code = code!!,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val instance = FareCalendarResponseOffersInnerSegmentsInnerLegsInnerDepartureAirport(
+                code = code,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+    )
 }

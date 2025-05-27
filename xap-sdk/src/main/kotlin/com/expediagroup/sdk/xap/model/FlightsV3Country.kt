@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,17 +23,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param name country name
  * @param code 3-letter code for the country
  */
-data class FlightsV3Country(
-    // country name
+@ConsistentCopyVisibility data class FlightsV3Country private constructor(
+    /* country name */
     @JsonProperty("Name")
     val name: kotlin.String,
-    // 3-letter code for the country
+
+    /* 3-letter code for the country */
     @JsonProperty("Code")
     val code: kotlin.String? = null,
 ) {
-    init {
-        require(name != null) { "name must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -48,19 +47,21 @@ data class FlightsV3Country(
         fun code(code: kotlin.String?) = apply { this.code = code }
 
         fun build(): FlightsV3Country {
-            val instance =
-                FlightsV3Country(
-                    name = name!!,
-                    code = code,
-                )
+            val name = this.name.getOrThrow {
+                IllegalArgumentException("name must not be null")
+            }
+
+            val instance = FlightsV3Country(
+                name = name,
+                code = code,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            name = name!!,
-            code = code,
-        )
+    fun toBuilder() = Builder(
+        name = name,
+        code = code,
+    )
 }

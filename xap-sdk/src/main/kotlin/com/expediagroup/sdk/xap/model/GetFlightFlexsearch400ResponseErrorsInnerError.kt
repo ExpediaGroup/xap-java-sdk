@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInner
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,17 +24,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code Error code describing the issue
  * @param locationOptions Container for list of matching locations corresponding to the value entered in the location keyword search.
  */
-data class GetFlightFlexsearch400ResponseErrorsInnerError(
-    // Error code describing the issue
+@ConsistentCopyVisibility data class GetFlightFlexsearch400ResponseErrorsInnerError private constructor(
+    /* Error code describing the issue */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // Container for list of matching locations corresponding to the value entered in the location keyword search.
+
+    /* Container for list of matching locations corresponding to the value entered in the location keyword search. */
     @JsonProperty("LocationOptions")
     val locationOptions: kotlin.collections.List<GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInner>? = null,
 ) {
-    init {
-        require(code != null) { "code must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -49,19 +48,21 @@ data class GetFlightFlexsearch400ResponseErrorsInnerError(
         fun locationOptions(locationOptions: kotlin.collections.List<GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInner>?) = apply { this.locationOptions = locationOptions }
 
         fun build(): GetFlightFlexsearch400ResponseErrorsInnerError {
-            val instance =
-                GetFlightFlexsearch400ResponseErrorsInnerError(
-                    code = code!!,
-                    locationOptions = locationOptions,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val instance = GetFlightFlexsearch400ResponseErrorsInnerError(
+                code = code,
+                locationOptions = locationOptions,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            locationOptions = locationOptions,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        locationOptions = locationOptions,
+    )
 }

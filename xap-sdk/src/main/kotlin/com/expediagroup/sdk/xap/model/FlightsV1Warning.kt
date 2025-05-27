@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code Standardized warning code.
  * @param description Standardized warning description message.
  */
-data class FlightsV1Warning(
-    // Standardized warning code.
+@ConsistentCopyVisibility data class FlightsV1Warning private constructor(
+    /* Standardized warning code. */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // Standardized warning description message.
+
+    /* Standardized warning description message. */
     @JsonProperty("Description")
     val description: kotlin.String,
-) {
-    init {
-        require(code != null) { "code must not be null" }
 
-        require(description != null) { "description must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class FlightsV1Warning(
         fun description(description: kotlin.String) = apply { this.description = description }
 
         fun build(): FlightsV1Warning {
-            val instance =
-                FlightsV1Warning(
-                    code = code!!,
-                    description = description!!,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val description = this.description.getOrThrow {
+                IllegalArgumentException("description must not be null")
+            }
+
+            val instance = FlightsV1Warning(
+                code = code,
+                description = description,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            description = description!!,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        description = description,
+    )
 }

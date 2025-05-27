@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FareCalendarResponseOffersInnerSegmentsInnerLegsInnerDepartureAirport
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -29,43 +30,37 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param marketingAirlineCode The two-letter code of the Airline that is marketing the flight.
  * @param operatingAirlineCode The two-letter code of the Airline actually operating the plane.
  */
-data class FareCalendarResponseOffersInnerSegmentsInnerLegsInner(
+@ConsistentCopyVisibility data class FareCalendarResponseOffersInnerSegmentsInnerLegsInner private constructor(
     @JsonProperty("DepartureAirport")
     val departureAirport: FareCalendarResponseOffersInnerSegmentsInnerLegsInnerDepartureAirport,
+
     @JsonProperty("ArrivalAirport")
     val arrivalAirport: FareCalendarResponseOffersInnerSegmentsInnerLegsInnerDepartureAirport,
-    // Flight departure date and time in ISO 8601 format
+
+    /* Flight departure date and time in ISO 8601 format */
     @JsonProperty("DepartureDateTime")
     val departureDateTime: java.time.OffsetDateTime,
-    // Flight landing date and time in ISO 8601 format
+
+    /* Flight landing date and time in ISO 8601 format */
     @JsonProperty("ArrivalDateTime")
     val arrivalDateTime: java.time.OffsetDateTime,
-    // Flight Number assigned by Carrier.
+
+    /* Flight Number assigned by Carrier. */
     @JsonProperty("FlightNumber")
     val flightNumber: kotlin.String,
-    // Class of service for the air leg.
+
+    /* Class of service for the air leg. */
     @JsonProperty("CabinClass")
     val cabinClass: FareCalendarResponseOffersInnerSegmentsInnerLegsInner.CabinClass,
-    // The two-letter code of the Airline that is marketing the flight.
+
+    /* The two-letter code of the Airline that is marketing the flight. */
     @JsonProperty("MarketingAirlineCode")
     val marketingAirlineCode: kotlin.String? = null,
-    // The two-letter code of the Airline actually operating the plane.
+
+    /* The two-letter code of the Airline actually operating the plane. */
     @JsonProperty("OperatingAirlineCode")
     val operatingAirlineCode: kotlin.String? = null,
 ) {
-    init {
-        require(departureAirport != null) { "departureAirport must not be null" }
-
-        require(arrivalAirport != null) { "arrivalAirport must not be null" }
-
-        require(departureDateTime != null) { "departureDateTime must not be null" }
-
-        require(arrivalDateTime != null) { "arrivalDateTime must not be null" }
-
-        require(flightNumber != null) { "flightNumber must not be null" }
-
-        require(cabinClass != null) { "cabinClass must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -99,41 +94,61 @@ data class FareCalendarResponseOffersInnerSegmentsInnerLegsInner(
         fun operatingAirlineCode(operatingAirlineCode: kotlin.String?) = apply { this.operatingAirlineCode = operatingAirlineCode }
 
         fun build(): FareCalendarResponseOffersInnerSegmentsInnerLegsInner {
-            val instance =
-                FareCalendarResponseOffersInnerSegmentsInnerLegsInner(
-                    departureAirport = departureAirport!!,
-                    arrivalAirport = arrivalAirport!!,
-                    departureDateTime = departureDateTime!!,
-                    arrivalDateTime = arrivalDateTime!!,
-                    flightNumber = flightNumber!!,
-                    cabinClass = cabinClass!!,
-                    marketingAirlineCode = marketingAirlineCode,
-                    operatingAirlineCode = operatingAirlineCode,
-                )
+            val departureAirport = this.departureAirport.getOrThrow {
+                IllegalArgumentException("departureAirport must not be null")
+            }
+
+            val arrivalAirport = this.arrivalAirport.getOrThrow {
+                IllegalArgumentException("arrivalAirport must not be null")
+            }
+
+            val departureDateTime = this.departureDateTime.getOrThrow {
+                IllegalArgumentException("departureDateTime must not be null")
+            }
+
+            val arrivalDateTime = this.arrivalDateTime.getOrThrow {
+                IllegalArgumentException("arrivalDateTime must not be null")
+            }
+
+            val flightNumber = this.flightNumber.getOrThrow {
+                IllegalArgumentException("flightNumber must not be null")
+            }
+
+            val cabinClass = this.cabinClass.getOrThrow {
+                IllegalArgumentException("cabinClass must not be null")
+            }
+
+            val instance = FareCalendarResponseOffersInnerSegmentsInnerLegsInner(
+                departureAirport = departureAirport,
+                arrivalAirport = arrivalAirport,
+                departureDateTime = departureDateTime,
+                arrivalDateTime = arrivalDateTime,
+                flightNumber = flightNumber,
+                cabinClass = cabinClass,
+                marketingAirlineCode = marketingAirlineCode,
+                operatingAirlineCode = operatingAirlineCode,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            departureAirport = departureAirport!!,
-            arrivalAirport = arrivalAirport!!,
-            departureDateTime = departureDateTime!!,
-            arrivalDateTime = arrivalDateTime!!,
-            flightNumber = flightNumber!!,
-            cabinClass = cabinClass!!,
-            marketingAirlineCode = marketingAirlineCode,
-            operatingAirlineCode = operatingAirlineCode,
-        )
+    fun toBuilder() = Builder(
+        departureAirport = departureAirport,
+        arrivalAirport = arrivalAirport,
+        departureDateTime = departureDateTime,
+        arrivalDateTime = arrivalDateTime,
+        flightNumber = flightNumber,
+        cabinClass = cabinClass,
+        marketingAirlineCode = marketingAirlineCode,
+        operatingAirlineCode = operatingAirlineCode,
+    )
 
     /**
      * Class of service for the air leg.
      * Values: ECONOMY,FIRST,BUSINESS,PREMIUM_ECONOMY
      */
-    enum class CabinClass(
-        val value: kotlin.String,
-    ) {
+    enum class CabinClass(val value: kotlin.String) {
         @JsonProperty("ECONOMY")
         ECONOMY("ECONOMY"),
 

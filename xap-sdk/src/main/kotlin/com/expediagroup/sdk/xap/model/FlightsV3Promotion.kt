@@ -23,18 +23,18 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param description The description of the promotion.
  * @param `value`
  */
-data class FlightsV3Promotion(
-    // Promotion type, possible values: PO | FN
+@ConsistentCopyVisibility data class FlightsV3Promotion private constructor(
+    /* Promotion type, possible values: PO | FN */
     @JsonProperty("Type")
     val type: kotlin.String? = null,
-    // The description of the promotion.
+
+    /* The description of the promotion. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
+
     @JsonProperty("Value")
     val `value`: kotlin.Double? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -53,21 +53,19 @@ data class FlightsV3Promotion(
         fun `value`(`value`: kotlin.Double?) = apply { this.`value` = `value` }
 
         fun build(): FlightsV3Promotion {
-            val instance =
-                FlightsV3Promotion(
-                    type = type,
-                    description = description,
-                    `value` = `value`,
-                )
+            val instance = FlightsV3Promotion(
+                type = type,
+                description = description,
+                `value` = `value`,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type,
-            description = description,
-            `value` = `value`,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        description = description,
+        `value` = `value`,
+    )
 }

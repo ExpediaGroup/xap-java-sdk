@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.RefundPenaltyDetail
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,19 +24,17 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param segmentIds Contains a list of segment Ids
  * @param preTripChange
  */
-data class FlightsV3OfferRefundPenaltyInnerRefundPenalty(
-    // Contains a list of segment Ids
+@ConsistentCopyVisibility data class FlightsV3OfferRefundPenaltyInnerRefundPenalty private constructor(
+    /* Contains a list of segment Ids */
     @JsonProperty("SegmentIds")
     val segmentIds: kotlin.collections
         .List<
             kotlin.String,
-        >,
+            >,
+
     @JsonProperty("PreTripChange")
     val preTripChange: RefundPenaltyDetail? = null,
 ) {
-    init {
-        require(segmentIds != null) { "segmentIds must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -51,19 +50,21 @@ data class FlightsV3OfferRefundPenaltyInnerRefundPenalty(
         fun preTripChange(preTripChange: RefundPenaltyDetail?) = apply { this.preTripChange = preTripChange }
 
         fun build(): FlightsV3OfferRefundPenaltyInnerRefundPenalty {
-            val instance =
-                FlightsV3OfferRefundPenaltyInnerRefundPenalty(
-                    segmentIds = segmentIds!!,
-                    preTripChange = preTripChange,
-                )
+            val segmentIds = this.segmentIds.getOrThrow {
+                IllegalArgumentException("segmentIds must not be null")
+            }
+
+            val instance = FlightsV3OfferRefundPenaltyInnerRefundPenalty(
+                segmentIds = segmentIds,
+                preTripChange = preTripChange,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            segmentIds = segmentIds!!,
-            preTripChange = preTripChange,
-        )
+    fun toBuilder() = Builder(
+        segmentIds = segmentIds,
+        preTripChange = preTripChange,
+    )
 }

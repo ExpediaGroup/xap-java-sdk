@@ -23,15 +23,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param description The description of the promotion.
  * @param amount
  */
-data class LodgingPromotion(
-    // The description of the promotion.
+@ConsistentCopyVisibility data class LodgingPromotion private constructor(
+    /* The description of the promotion. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
+
     @JsonProperty("Amount")
     val amount: LodgingMoney? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class LodgingPromotion(
         fun amount(amount: LodgingMoney?) = apply { this.amount = amount }
 
         fun build(): LodgingPromotion {
-            val instance =
-                LodgingPromotion(
-                    description = description,
-                    amount = amount,
-                )
+            val instance = LodgingPromotion(
+                description = description,
+                amount = amount,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            description = description,
-            amount = amount,
-        )
+    fun toBuilder() = Builder(
+        description = description,
+        amount = amount,
+    )
 }

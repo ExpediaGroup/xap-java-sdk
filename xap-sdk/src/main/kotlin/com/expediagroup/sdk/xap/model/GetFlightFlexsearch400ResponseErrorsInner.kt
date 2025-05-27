@@ -22,12 +22,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @param error
  */
-data class GetFlightFlexsearch400ResponseErrorsInner(
+@ConsistentCopyVisibility data class GetFlightFlexsearch400ResponseErrorsInner private constructor(
     @JsonProperty("Error")
     val error: GetFlightFlexsearch400ResponseErrorsInnerError? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,17 +38,15 @@ data class GetFlightFlexsearch400ResponseErrorsInner(
         fun error(error: GetFlightFlexsearch400ResponseErrorsInnerError?) = apply { this.error = error }
 
         fun build(): GetFlightFlexsearch400ResponseErrorsInner {
-            val instance =
-                GetFlightFlexsearch400ResponseErrorsInner(
-                    error = error,
-                )
+            val instance = GetFlightFlexsearch400ResponseErrorsInner(
+                error = error,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            error = error,
-        )
+    fun toBuilder() = Builder(
+        error = error,
+    )
 }

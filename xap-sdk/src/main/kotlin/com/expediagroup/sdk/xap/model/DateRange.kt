@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param startDate The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
  * @param endDate The final day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
  */
-data class DateRange(
-    // The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
+@ConsistentCopyVisibility data class DateRange private constructor(
+    /* The initial day of the date range in an ISO 8601 Date format [YYYY-MM-DD]. */
     @JsonProperty("StartDate")
     val startDate: java.time.LocalDate? = null,
-    // The final day of the date range in an ISO 8601 Date format [YYYY-MM-DD].
+
+    /* The final day of the date range in an ISO 8601 Date format [YYYY-MM-DD]. */
     @JsonProperty("EndDate")
     val endDate: java.time.LocalDate? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class DateRange(
         fun endDate(endDate: java.time.LocalDate?) = apply { this.endDate = endDate }
 
         fun build(): DateRange {
-            val instance =
-                DateRange(
-                    startDate = startDate,
-                    endDate = endDate,
-                )
+            val instance = DateRange(
+                startDate = startDate,
+                endDate = endDate,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            startDate = startDate,
-            endDate = endDate,
-        )
+    fun toBuilder() = Builder(
+        startDate = startDate,
+        endDate = endDate,
+    )
 }

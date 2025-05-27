@@ -24,22 +24,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param ageMaximum The maximum age defined in a particular AgeClass. If not specified, the AgeClass has no upper bound.
  * @param maxGuestCount The max guest count allowed in a particular AgeClass.
  */
-data class FlightsV3AgeClassRestriction(
-    // Categories for hotel guests, based on age.
+@ConsistentCopyVisibility data class FlightsV3AgeClassRestriction private constructor(
+    /* Categories for hotel guests, based on age. */
     @JsonProperty("AgeClass")
     val ageClass: FlightsV3AgeClassRestriction.AgeClass? = null,
-    // The minimum age defined in a particular AgeClass.
+
+    /* The minimum age defined in a particular AgeClass. */
     @JsonProperty("AgeMinimum")
     val ageMinimum: kotlin.Int? = null,
-    // The maximum age defined in a particular AgeClass. If not specified, the AgeClass has no upper bound.
+
+    /* The maximum age defined in a particular AgeClass. If not specified, the AgeClass has no upper bound. */
     @JsonProperty("AgeMaximum")
     val ageMaximum: kotlin.Int? = null,
-    // The max guest count allowed in a particular AgeClass.
+
+    /* The max guest count allowed in a particular AgeClass. */
     @JsonProperty("MaxGuestCount")
     val maxGuestCount: kotlin.Int? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -61,33 +62,29 @@ data class FlightsV3AgeClassRestriction(
         fun maxGuestCount(maxGuestCount: kotlin.Int?) = apply { this.maxGuestCount = maxGuestCount }
 
         fun build(): FlightsV3AgeClassRestriction {
-            val instance =
-                FlightsV3AgeClassRestriction(
-                    ageClass = ageClass,
-                    ageMinimum = ageMinimum,
-                    ageMaximum = ageMaximum,
-                    maxGuestCount = maxGuestCount,
-                )
+            val instance = FlightsV3AgeClassRestriction(
+                ageClass = ageClass,
+                ageMinimum = ageMinimum,
+                ageMaximum = ageMaximum,
+                maxGuestCount = maxGuestCount,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            ageClass = ageClass,
-            ageMinimum = ageMinimum,
-            ageMaximum = ageMaximum,
-            maxGuestCount = maxGuestCount,
-        )
+    fun toBuilder() = Builder(
+        ageClass = ageClass,
+        ageMinimum = ageMinimum,
+        ageMaximum = ageMaximum,
+        maxGuestCount = maxGuestCount,
+    )
 
     /**
      * Categories for hotel guests, based on age.
      * Values: ALL_AGES,SENIOR,ADULT,CHILD,INFANT,OTHER
      */
-    enum class AgeClass(
-        val value: kotlin.String,
-    ) {
+    enum class AgeClass(val value: kotlin.String) {
         @JsonProperty("All Ages")
         ALL_AGES("All Ages"),
 

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.AirValidFormsOfPayment
 import com.expediagroup.sdk.xap.model.CrossSell
 import com.expediagroup.sdk.xap.model.FlightDetailsOffer
@@ -34,34 +35,36 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param lounges
  * @param crossSell
  */
-data class FlightDetailsResponse(
+@ConsistentCopyVisibility data class FlightDetailsResponse private constructor(
     @JsonProperty("Offer")
     val offer: FlightDetailsOffer,
-    // Unique identifier for the transaction.
+
+    /* Unique identifier for the transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
-    // Container for Warning Codes.
+
+    /* Container for Warning Codes. */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<FlightDetailsWarning>? = null,
-    // Container for flight segments.
+
+    /* Container for flight segments. */
     @JsonProperty("Segments")
     val segments: kotlin.collections.List<Segment>? = null,
-    // Contains list of all the available alternate fare upsell/downsell offers.
+
+    /* Contains list of all the available alternate fare upsell/downsell offers. */
     @JsonProperty("AllOffers")
     val allOffers: kotlin.collections.List<FlightDetailsOffer>? = null,
-    // Container for fees that are charged for using certain payment methods.
+
+    /* Container for fees that are charged for using certain payment methods. */
     @JsonProperty("ValidFormsOfPayment")
     val validFormsOfPayment: kotlin.collections.List<AirValidFormsOfPayment>? = null,
+
     @JsonProperty("Lounges")
     val lounges: kotlin.collections.Map<kotlin.String, kotlin.collections.List<Lounge>>? = null,
+
     @JsonProperty("CrossSell")
     val crossSell: CrossSell? = null,
 ) {
-    init {
-        require(offer != null) { "offer must not be null" }
-
-        require(transactionId != null) { "transactionId must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -95,31 +98,37 @@ data class FlightDetailsResponse(
         fun crossSell(crossSell: CrossSell?) = apply { this.crossSell = crossSell }
 
         fun build(): FlightDetailsResponse {
-            val instance =
-                FlightDetailsResponse(
-                    offer = offer!!,
-                    transactionId = transactionId!!,
-                    warnings = warnings,
-                    segments = segments,
-                    allOffers = allOffers,
-                    validFormsOfPayment = validFormsOfPayment,
-                    lounges = lounges,
-                    crossSell = crossSell,
-                )
+            val offer = this.offer.getOrThrow {
+                IllegalArgumentException("offer must not be null")
+            }
+
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val instance = FlightDetailsResponse(
+                offer = offer,
+                transactionId = transactionId,
+                warnings = warnings,
+                segments = segments,
+                allOffers = allOffers,
+                validFormsOfPayment = validFormsOfPayment,
+                lounges = lounges,
+                crossSell = crossSell,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            offer = offer!!,
-            transactionId = transactionId!!,
-            warnings = warnings,
-            segments = segments,
-            allOffers = allOffers,
-            validFormsOfPayment = validFormsOfPayment,
-            lounges = lounges,
-            crossSell = crossSell,
-        )
+    fun toBuilder() = Builder(
+        offer = offer,
+        transactionId = transactionId,
+        warnings = warnings,
+        segments = segments,
+        allOffers = allOffers,
+        validFormsOfPayment = validFormsOfPayment,
+        lounges = lounges,
+        crossSell = crossSell,
+    )
 }

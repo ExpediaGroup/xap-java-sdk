@@ -24,18 +24,18 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param `value` Value to indicate how many/much of the type listed above is going to be charged as a deposit.
  * @param `when`
  */
-data class DepositDetail(
-    // Should be one of the following values: PERCENT The deposit amount is calculated as a percentage of the total booking cost. NIGHT The deposit amount is calculated in terms of nights plus tax. AMOUNT The deposit amount in USD. REMAINDER The deposit amount is equal to the booking cost minus any deposits that have been made before this point.
+@ConsistentCopyVisibility data class DepositDetail private constructor(
+    /* Should be one of the following values: PERCENT The deposit amount is calculated as a percentage of the total booking cost. NIGHT The deposit amount is calculated in terms of nights plus tax. AMOUNT The deposit amount in USD. REMAINDER The deposit amount is equal to the booking cost minus any deposits that have been made before this point. */
     @JsonProperty("Type")
     val type: DepositDetail.Type? = null,
-    // Value to indicate how many/much of the type listed above is going to be charged as a deposit.
+
+    /* Value to indicate how many/much of the type listed above is going to be charged as a deposit. */
     @JsonProperty("Value")
     val `value`: kotlin.String? = null,
+
     @JsonProperty("When")
     val `when`: When? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -54,31 +54,27 @@ data class DepositDetail(
         fun `when`(`when`: When?) = apply { this.`when` = `when` }
 
         fun build(): DepositDetail {
-            val instance =
-                DepositDetail(
-                    type = type,
-                    `value` = `value`,
-                    `when` = `when`,
-                )
+            val instance = DepositDetail(
+                type = type,
+                `value` = `value`,
+                `when` = `when`,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type,
-            `value` = `value`,
-            `when` = `when`,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        `value` = `value`,
+        `when` = `when`,
+    )
 
     /**
      * Should be one of the following values: PERCENT The deposit amount is calculated as a percentage of the total booking cost. NIGHT The deposit amount is calculated in terms of nights plus tax. AMOUNT The deposit amount in USD. REMAINDER The deposit amount is equal to the booking cost minus any deposits that have been made before this point.
      * Values: PERCENT,NIGHT,AMOUNT,REMAINDER
      */
-    enum class Type(
-        val value: kotlin.String,
-    ) {
+    enum class Type(val value: kotlin.String) {
         @JsonProperty("PERCENT")
         PERCENT("PERCENT"),
 

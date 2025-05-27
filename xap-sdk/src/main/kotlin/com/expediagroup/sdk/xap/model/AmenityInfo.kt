@@ -21,13 +21,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Availability of Passenger Temperature Check. Possible values: INCLUDED, NOT_AVAILABLE
  * @param availability Availability of Amenity
  */
-data class AmenityInfo(
-    // Availability of Amenity
+@ConsistentCopyVisibility data class AmenityInfo private constructor(
+    /* Availability of Amenity */
     @JsonProperty("Availability")
     val availability: AmenityInfo.Availability? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,27 +38,23 @@ data class AmenityInfo(
         fun availability(availability: AmenityInfo.Availability?) = apply { this.availability = availability }
 
         fun build(): AmenityInfo {
-            val instance =
-                AmenityInfo(
-                    availability = availability,
-                )
+            val instance = AmenityInfo(
+                availability = availability,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            availability = availability,
-        )
+    fun toBuilder() = Builder(
+        availability = availability,
+    )
 
     /**
      * Availability of Amenity
      * Values: INCLUDED,NOT_AVAILABLE,AVAILABLE_FOR_FEE
      */
-    enum class Availability(
-        val value: kotlin.String,
-    ) {
+    enum class Availability(val value: kotlin.String) {
         @JsonProperty("INCLUDED")
         INCLUDED("INCLUDED"),
 

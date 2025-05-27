@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarsDateRange
 import com.expediagroup.sdk.xap.model.TimeRange
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -24,16 +25,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param dateRange
  * @param timeRanges A list of time range to indicate the operation hours of the date range.
  */
-data class DateTimePeriod(
+@ConsistentCopyVisibility data class DateTimePeriod private constructor(
     @JsonProperty("DateRange")
     val dateRange: CarsDateRange,
-    // A list of time range to indicate the operation hours of the date range.
+
+    /* A list of time range to indicate the operation hours of the date range. */
     @JsonProperty("TimeRanges")
     val timeRanges: kotlin.collections.List<TimeRange>? = null,
 ) {
-    init {
-        require(dateRange != null) { "dateRange must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -49,19 +48,21 @@ data class DateTimePeriod(
         fun timeRanges(timeRanges: kotlin.collections.List<TimeRange>?) = apply { this.timeRanges = timeRanges }
 
         fun build(): DateTimePeriod {
-            val instance =
-                DateTimePeriod(
-                    dateRange = dateRange!!,
-                    timeRanges = timeRanges,
-                )
+            val dateRange = this.dateRange.getOrThrow {
+                IllegalArgumentException("dateRange must not be null")
+            }
+
+            val instance = DateTimePeriod(
+                dateRange = dateRange,
+                timeRanges = timeRanges,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            dateRange = dateRange!!,
-            timeRanges = timeRanges,
-        )
+    fun toBuilder() = Builder(
+        dateRange = dateRange,
+        timeRanges = timeRanges,
+    )
 }

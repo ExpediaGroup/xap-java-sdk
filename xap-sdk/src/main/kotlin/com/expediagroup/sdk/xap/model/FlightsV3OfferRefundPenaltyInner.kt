@@ -22,12 +22,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @param refundPenalty
  */
-data class FlightsV3OfferRefundPenaltyInner(
+@ConsistentCopyVisibility data class FlightsV3OfferRefundPenaltyInner private constructor(
     @JsonProperty("RefundPenalty")
     val refundPenalty: FlightsV3OfferRefundPenaltyInnerRefundPenalty? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,17 +38,15 @@ data class FlightsV3OfferRefundPenaltyInner(
         fun refundPenalty(refundPenalty: FlightsV3OfferRefundPenaltyInnerRefundPenalty?) = apply { this.refundPenalty = refundPenalty }
 
         fun build(): FlightsV3OfferRefundPenaltyInner {
-            val instance =
-                FlightsV3OfferRefundPenaltyInner(
-                    refundPenalty = refundPenalty,
-                )
+            val instance = FlightsV3OfferRefundPenaltyInner(
+                refundPenalty = refundPenalty,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            refundPenalty = refundPenalty,
-        )
+    fun toBuilder() = Builder(
+        refundPenalty = refundPenalty,
+    )
 }

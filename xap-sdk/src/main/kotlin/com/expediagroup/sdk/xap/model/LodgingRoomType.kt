@@ -26,17 +26,17 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param price
  * @param links
  */
-data class LodgingRoomType(
-    // Container for rate plan information.
+@ConsistentCopyVisibility data class LodgingRoomType private constructor(
+    /* Container for rate plan information. */
     @JsonProperty("RatePlans")
     val ratePlans: kotlin.collections.List<LodgingRatePlan>? = null,
+
     @JsonProperty("Price")
     val price: LodgingRoomTypePrice? = null,
+
     @JsonProperty("Links")
     val links: LodgingRoomTypeLinks? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -55,21 +55,19 @@ data class LodgingRoomType(
         fun links(links: LodgingRoomTypeLinks?) = apply { this.links = links }
 
         fun build(): LodgingRoomType {
-            val instance =
-                LodgingRoomType(
-                    ratePlans = ratePlans,
-                    price = price,
-                    links = links,
-                )
+            val instance = LodgingRoomType(
+                ratePlans = ratePlans,
+                price = price,
+                links = links,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            ratePlans = ratePlans,
-            price = price,
-            links = links,
-        )
+    fun toBuilder() = Builder(
+        ratePlans = ratePlans,
+        price = price,
+        links = links,
+    )
 }

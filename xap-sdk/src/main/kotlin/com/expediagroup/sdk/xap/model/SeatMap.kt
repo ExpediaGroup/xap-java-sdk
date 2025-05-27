@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Row
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,22 +24,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param cabinClass Cabin code for different class of service offered by the airline
  * @param rows Container for list of seat row information.
  */
-data class SeatMap(
-    // Cabin code for different class of service offered by the airline
+@ConsistentCopyVisibility data class SeatMap private constructor(
+    /* Cabin code for different class of service offered by the airline */
     @JsonProperty("CabinClass")
     val cabinClass: SeatMap.CabinClass,
-    // Container for list of seat row information.
+
+    /* Container for list of seat row information. */
     @JsonProperty("Rows")
     val rows: kotlin.collections
         .List<
             Row,
-        >,
-) {
-    init {
-        require(cabinClass != null) { "cabinClass must not be null" }
+            >,
 
-        require(rows != null) { "rows must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -54,29 +52,33 @@ data class SeatMap(
         fun rows(rows: kotlin.collections.List<Row>) = apply { this.rows = rows }
 
         fun build(): SeatMap {
-            val instance =
-                SeatMap(
-                    cabinClass = cabinClass!!,
-                    rows = rows!!,
-                )
+            val cabinClass = this.cabinClass.getOrThrow {
+                IllegalArgumentException("cabinClass must not be null")
+            }
+
+            val rows = this.rows.getOrThrow {
+                IllegalArgumentException("rows must not be null")
+            }
+
+            val instance = SeatMap(
+                cabinClass = cabinClass,
+                rows = rows,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            cabinClass = cabinClass!!,
-            rows = rows!!,
-        )
+    fun toBuilder() = Builder(
+        cabinClass = cabinClass,
+        rows = rows,
+    )
 
     /**
      * Cabin code for different class of service offered by the airline
      * Values: ECONOMY,FIRST,BUSINESS,PREMIUM_ECONOMY
      */
-    enum class CabinClass(
-        val value: kotlin.String,
-    ) {
+    enum class CabinClass(val value: kotlin.String) {
         @JsonProperty("ECONOMY")
         ECONOMY("ECONOMY"),
 

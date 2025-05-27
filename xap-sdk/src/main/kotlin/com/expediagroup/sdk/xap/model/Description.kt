@@ -23,19 +23,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param hotelTeaser A description of the features and amenities of the property itself.
  * @param roomTeaser The common description for all of the rooms in the property.
  */
-data class Description(
-    // A description of the property's location.
+@ConsistentCopyVisibility data class Description private constructor(
+    /* A description of the property's location. */
     @JsonProperty("LocationTeaser")
     val locationTeaser: kotlin.String? = null,
-    // A description of the features and amenities of the property itself.
+
+    /* A description of the features and amenities of the property itself. */
     @JsonProperty("HotelTeaser")
     val hotelTeaser: kotlin.String? = null,
-    // The common description for all of the rooms in the property.
+
+    /* The common description for all of the rooms in the property. */
     @JsonProperty("RoomTeaser")
     val roomTeaser: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -54,21 +54,19 @@ data class Description(
         fun roomTeaser(roomTeaser: kotlin.String?) = apply { this.roomTeaser = roomTeaser }
 
         fun build(): Description {
-            val instance =
-                Description(
-                    locationTeaser = locationTeaser,
-                    hotelTeaser = hotelTeaser,
-                    roomTeaser = roomTeaser,
-                )
+            val instance = Description(
+                locationTeaser = locationTeaser,
+                hotelTeaser = hotelTeaser,
+                roomTeaser = roomTeaser,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            locationTeaser = locationTeaser,
-            hotelTeaser = hotelTeaser,
-            roomTeaser = roomTeaser,
-        )
+    fun toBuilder() = Builder(
+        locationTeaser = locationTeaser,
+        hotelTeaser = hotelTeaser,
+        roomTeaser = roomTeaser,
+    )
 }

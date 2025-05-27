@@ -21,13 +21,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Container for power amenities available in this flight leg
  * @param available Indication of the availability of Power amenity.
  */
-data class Power(
-    // Indication of the availability of Power amenity.
+@ConsistentCopyVisibility data class Power private constructor(
+    /* Indication of the availability of Power amenity. */
     @JsonProperty("Available")
     val available: Power.Available? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,27 +38,23 @@ data class Power(
         fun available(available: Power.Available?) = apply { this.available = available }
 
         fun build(): Power {
-            val instance =
-                Power(
-                    available = available,
-                )
+            val instance = Power(
+                available = available,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            available = available,
-        )
+    fun toBuilder() = Builder(
+        available = available,
+    )
 
     /**
      * Indication of the availability of Power amenity.
      * Values: YES,NO,UNKNOWN
      */
-    enum class Available(
-        val value: kotlin.String,
-    ) {
+    enum class Available(val value: kotlin.String) {
         @JsonProperty("YES")
         YES("YES"),
 

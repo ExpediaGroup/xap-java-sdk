@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.AdditionalFee
 import com.expediagroup.sdk.xap.model.CarsCancellationPolicy
 import com.expediagroup.sdk.xap.model.CarsLink
@@ -49,64 +50,65 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param images List of image resources of the car product.
  * @param rating
  */
-data class Car(
-    // Uniquely identifies a Car Offer.Note: since pay-online and pay-at-the-counter Car Offers have the same associated Rate Code, the Offer ID is the only unique identifier to differentiate between the two offers when referencing or booking.
+@ConsistentCopyVisibility data class Car private constructor(
+    /* Uniquely identifies a Car Offer.Note: since pay-online and pay-at-the-counter Car Offers have the same associated Rate Code, the Offer ID is the only unique identifier to differentiate between the two offers when referencing or booking. */
     @JsonProperty("Id")
     val id: kotlin.String,
+
     @JsonProperty("VehicleDetails")
     val vehicleDetails: VehicleDetails,
+
     @JsonProperty("Supplier")
     val supplier: Supplier,
+
     @JsonProperty("PickupDetails")
     val pickupDetails: VendorLocationDetails,
+
     @JsonProperty("DropOffDetails")
     val dropOffDetails: VendorLocationDetails,
+
     @JsonProperty("Price")
     val price: Price,
+
     @JsonProperty("CancellationPolicy")
     val cancellationPolicy: CarsCancellationPolicy,
-    // DataTimeStamp
+
+    /* DataTimeStamp */
     @JsonProperty("DataTimeStamp")
     val dataTimeStamp: java.time.OffsetDateTime? = null,
-    // Indicate whether the supplier supports online checkin
+
+    /* Indicate whether the supplier supports online checkin */
     @JsonProperty("OnlineCheckIn")
     val onlineCheckIn: kotlin.Boolean? = null,
-    // Indicate whether the supplier supports skip the counter
+
+    /* Indicate whether the supplier supports skip the counter */
     @JsonProperty("SkipTheCounter")
     val skipTheCounter: kotlin.Boolean? = null,
-    // A map of links to other Car APIs or Expedia websites.
+
+    /* A map of links to other Car APIs or Expedia websites. */
     @JsonProperty("Links")
     val links: kotlin.collections.Map<kotlin.String, CarsLink>? = null,
+
     @JsonProperty("RateDetails")
     val rateDetails: RateDetails? = null,
+
     @JsonProperty("ReferencePrice")
     val referencePrice: CarsMoney? = null,
-    // List of additional fees including both mandatory and optional fees.such as young driver fee/drop off fee /CollisionDamageWaiver
+
+    /* List of additional fees including both mandatory and optional fees.such as young driver fee/drop off fee /CollisionDamageWaiver */
     @JsonProperty("AdditionalFees")
     val additionalFees: kotlin.collections.List<AdditionalFee>? = null,
+
     @JsonProperty("NoShowPenalty")
     val noShowPenalty: PenaltyType? = null,
-    // List of image resources of the car product.
+
+    /* List of image resources of the car product. */
     @JsonProperty("Images")
     val images: kotlin.collections.List<Image>? = null,
+
     @JsonProperty("Rating")
     val rating: RatingWithoutDetails? = null,
 ) {
-    init {
-        require(id != null) { "id must not be null" }
-
-        require(vehicleDetails != null) { "vehicleDetails must not be null" }
-
-        require(supplier != null) { "supplier must not be null" }
-
-        require(pickupDetails != null) { "pickupDetails must not be null" }
-
-        require(dropOffDetails != null) { "dropOffDetails must not be null" }
-
-        require(price != null) { "price must not be null" }
-
-        require(cancellationPolicy != null) { "cancellationPolicy must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -167,49 +169,75 @@ data class Car(
         fun rating(rating: RatingWithoutDetails?) = apply { this.rating = rating }
 
         fun build(): Car {
-            val instance =
-                Car(
-                    id = id!!,
-                    vehicleDetails = vehicleDetails!!,
-                    supplier = supplier!!,
-                    pickupDetails = pickupDetails!!,
-                    dropOffDetails = dropOffDetails!!,
-                    price = price!!,
-                    cancellationPolicy = cancellationPolicy!!,
-                    dataTimeStamp = dataTimeStamp,
-                    onlineCheckIn = onlineCheckIn,
-                    skipTheCounter = skipTheCounter,
-                    links = links,
-                    rateDetails = rateDetails,
-                    referencePrice = referencePrice,
-                    additionalFees = additionalFees,
-                    noShowPenalty = noShowPenalty,
-                    images = images,
-                    rating = rating,
-                )
+            val id = this.id.getOrThrow {
+                IllegalArgumentException("id must not be null")
+            }
+
+            val vehicleDetails = this.vehicleDetails.getOrThrow {
+                IllegalArgumentException("vehicleDetails must not be null")
+            }
+
+            val supplier = this.supplier.getOrThrow {
+                IllegalArgumentException("supplier must not be null")
+            }
+
+            val pickupDetails = this.pickupDetails.getOrThrow {
+                IllegalArgumentException("pickupDetails must not be null")
+            }
+
+            val dropOffDetails = this.dropOffDetails.getOrThrow {
+                IllegalArgumentException("dropOffDetails must not be null")
+            }
+
+            val price = this.price.getOrThrow {
+                IllegalArgumentException("price must not be null")
+            }
+
+            val cancellationPolicy = this.cancellationPolicy.getOrThrow {
+                IllegalArgumentException("cancellationPolicy must not be null")
+            }
+
+            val instance = Car(
+                id = id,
+                vehicleDetails = vehicleDetails,
+                supplier = supplier,
+                pickupDetails = pickupDetails,
+                dropOffDetails = dropOffDetails,
+                price = price,
+                cancellationPolicy = cancellationPolicy,
+                dataTimeStamp = dataTimeStamp,
+                onlineCheckIn = onlineCheckIn,
+                skipTheCounter = skipTheCounter,
+                links = links,
+                rateDetails = rateDetails,
+                referencePrice = referencePrice,
+                additionalFees = additionalFees,
+                noShowPenalty = noShowPenalty,
+                images = images,
+                rating = rating,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id!!,
-            vehicleDetails = vehicleDetails!!,
-            supplier = supplier!!,
-            pickupDetails = pickupDetails!!,
-            dropOffDetails = dropOffDetails!!,
-            price = price!!,
-            cancellationPolicy = cancellationPolicy!!,
-            dataTimeStamp = dataTimeStamp,
-            onlineCheckIn = onlineCheckIn,
-            skipTheCounter = skipTheCounter,
-            links = links,
-            rateDetails = rateDetails,
-            referencePrice = referencePrice,
-            additionalFees = additionalFees,
-            noShowPenalty = noShowPenalty,
-            images = images,
-            rating = rating,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        vehicleDetails = vehicleDetails,
+        supplier = supplier,
+        pickupDetails = pickupDetails,
+        dropOffDetails = dropOffDetails,
+        price = price,
+        cancellationPolicy = cancellationPolicy,
+        dataTimeStamp = dataTimeStamp,
+        onlineCheckIn = onlineCheckIn,
+        skipTheCounter = skipTheCounter,
+        links = links,
+        rateDetails = rateDetails,
+        referencePrice = referencePrice,
+        additionalFees = additionalFees,
+        noShowPenalty = noShowPenalty,
+        images = images,
+        rating = rating,
+    )
 }

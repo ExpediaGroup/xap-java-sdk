@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Duration
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,17 +24,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param minDuration
  * @param maxDuration
  */
-data class RentalLimits(
+@ConsistentCopyVisibility data class RentalLimits private constructor(
     @JsonProperty("MinDuration")
     val minDuration: Duration,
+
     @JsonProperty("MaxDuration")
     val maxDuration: Duration,
-) {
-    init {
-        require(minDuration != null) { "minDuration must not be null" }
 
-        require(maxDuration != null) { "maxDuration must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -49,19 +47,25 @@ data class RentalLimits(
         fun maxDuration(maxDuration: Duration) = apply { this.maxDuration = maxDuration }
 
         fun build(): RentalLimits {
-            val instance =
-                RentalLimits(
-                    minDuration = minDuration!!,
-                    maxDuration = maxDuration!!,
-                )
+            val minDuration = this.minDuration.getOrThrow {
+                IllegalArgumentException("minDuration must not be null")
+            }
+
+            val maxDuration = this.maxDuration.getOrThrow {
+                IllegalArgumentException("maxDuration must not be null")
+            }
+
+            val instance = RentalLimits(
+                minDuration = minDuration,
+                maxDuration = maxDuration,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            minDuration = minDuration!!,
-            maxDuration = maxDuration!!,
-        )
+    fun toBuilder() = Builder(
+        minDuration = minDuration,
+        maxDuration = maxDuration,
+    )
 }

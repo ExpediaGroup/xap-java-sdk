@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Car
 import com.expediagroup.sdk.xap.model.CarsWarning
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -26,25 +27,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param warnings Container for warning codes
  * @param cars List of cars matching the search criteria.
  */
-data class CarListingsResponse(
-    // A unique identifier for this transaction.
+@ConsistentCopyVisibility data class CarListingsResponse private constructor(
+    /* A unique identifier for this transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
-    // The number of cars offers returned in the response.
+
+    /* The number of cars offers returned in the response. */
     @JsonProperty("CarCount")
     val carCount: kotlin.Long,
-    // Container for warning codes
+
+    /* Container for warning codes */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<CarsWarning>? = null,
-    // List of cars matching the search criteria.
+
+    /* List of cars matching the search criteria. */
     @JsonProperty("Cars")
     val cars: kotlin.collections.List<Car>? = null,
 ) {
-    init {
-        require(transactionId != null) { "transactionId must not be null" }
-
-        require(carCount != null) { "carCount must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -66,23 +65,29 @@ data class CarListingsResponse(
         fun cars(cars: kotlin.collections.List<Car>?) = apply { this.cars = cars }
 
         fun build(): CarListingsResponse {
-            val instance =
-                CarListingsResponse(
-                    transactionId = transactionId!!,
-                    carCount = carCount!!,
-                    warnings = warnings,
-                    cars = cars,
-                )
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val carCount = this.carCount.getOrThrow {
+                IllegalArgumentException("carCount must not be null")
+            }
+
+            val instance = CarListingsResponse(
+                transactionId = transactionId,
+                carCount = carCount,
+                warnings = warnings,
+                cars = cars,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            transactionId = transactionId!!,
-            carCount = carCount!!,
-            warnings = warnings,
-            cars = cars,
-        )
+    fun toBuilder() = Builder(
+        transactionId = transactionId,
+        carCount = carCount,
+        warnings = warnings,
+        cars = cars,
+    )
 }

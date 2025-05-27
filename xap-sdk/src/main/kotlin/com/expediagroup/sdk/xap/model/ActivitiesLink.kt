@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -23,20 +24,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param accept Accept header.
  * @param method HTTP method to connect.
  */
-data class ActivitiesLink(
-    // HATEOAS URL to fetch details.
+@ConsistentCopyVisibility data class ActivitiesLink private constructor(
+    /* HATEOAS URL to fetch details. */
     @JsonProperty("Href")
     val href: kotlin.String,
-    // Accept header.
+
+    /* Accept header. */
     @JsonProperty("Accept")
     val accept: kotlin.String? = null,
-    // HTTP method to connect.
+
+    /* HTTP method to connect. */
     @JsonProperty("Method")
     val method: kotlin.String? = null,
 ) {
-    init {
-        require(href != null) { "href must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -55,21 +55,23 @@ data class ActivitiesLink(
         fun method(method: kotlin.String?) = apply { this.method = method }
 
         fun build(): ActivitiesLink {
-            val instance =
-                ActivitiesLink(
-                    href = href!!,
-                    accept = accept,
-                    method = method,
-                )
+            val href = this.href.getOrThrow {
+                IllegalArgumentException("href must not be null")
+            }
+
+            val instance = ActivitiesLink(
+                href = href,
+                accept = accept,
+                method = method,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            href = href!!,
-            accept = accept,
-            method = method,
-        )
+    fun toBuilder() = Builder(
+        href = href,
+        accept = accept,
+        method = method,
+    )
 }

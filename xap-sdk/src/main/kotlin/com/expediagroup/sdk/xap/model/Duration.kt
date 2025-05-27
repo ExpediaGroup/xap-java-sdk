@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param unit The unit for minimum amount of time for a rental.
  * @param count The minimum number of units that qualify for minimum amount of time for a rental.
  */
-data class Duration(
-    // The unit for minimum amount of time for a rental.
+@ConsistentCopyVisibility data class Duration private constructor(
+    /* The unit for minimum amount of time for a rental. */
     @JsonProperty("Unit")
     val unit: kotlin.String,
-    // The minimum number of units that qualify for minimum amount of time for a rental.
+
+    /* The minimum number of units that qualify for minimum amount of time for a rental. */
     @JsonProperty("Count")
     val count: kotlin.Long,
-) {
-    init {
-        require(unit != null) { "unit must not be null" }
 
-        require(count != null) { "count must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class Duration(
         fun count(count: kotlin.Long) = apply { this.count = count }
 
         fun build(): Duration {
-            val instance =
-                Duration(
-                    unit = unit!!,
-                    count = count!!,
-                )
+            val unit = this.unit.getOrThrow {
+                IllegalArgumentException("unit must not be null")
+            }
+
+            val count = this.count.getOrThrow {
+                IllegalArgumentException("count must not be null")
+            }
+
+            val instance = Duration(
+                unit = unit,
+                count = count,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            unit = unit!!,
-            count = count!!,
-        )
+    fun toBuilder() = Builder(
+        unit = unit,
+        count = count,
+    )
 }

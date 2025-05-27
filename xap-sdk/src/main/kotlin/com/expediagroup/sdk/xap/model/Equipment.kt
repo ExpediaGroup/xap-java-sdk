@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarsMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -25,24 +26,22 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param ratePeriod Unit indicating the price of special equipment. Support value:Trip,Daily
  * @param price
  */
-data class Equipment(
-    // Special equipment code
+@ConsistentCopyVisibility data class Equipment private constructor(
+    /* Special equipment code */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // Special equipment name
+
+    /* Special equipment name */
     @JsonProperty("Name")
     val name: kotlin.String,
-    // Unit indicating the price of special equipment. Support value:Trip,Daily
+
+    /* Unit indicating the price of special equipment. Support value:Trip,Daily */
     @JsonProperty("RatePeriod")
     val ratePeriod: kotlin.String? = null,
+
     @JsonProperty("Price")
     val price: CarsMoney? = null,
 ) {
-    init {
-        require(code != null) { "code must not be null" }
-
-        require(name != null) { "name must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -64,23 +63,29 @@ data class Equipment(
         fun price(price: CarsMoney?) = apply { this.price = price }
 
         fun build(): Equipment {
-            val instance =
-                Equipment(
-                    code = code!!,
-                    name = name!!,
-                    ratePeriod = ratePeriod,
-                    price = price,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val name = this.name.getOrThrow {
+                IllegalArgumentException("name must not be null")
+            }
+
+            val instance = Equipment(
+                code = code,
+                name = name,
+                ratePeriod = ratePeriod,
+                price = price,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            name = name!!,
-            ratePeriod = ratePeriod,
-            price = price,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        name = name,
+        ratePeriod = ratePeriod,
+        price = price,
+    )
 }

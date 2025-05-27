@@ -25,22 +25,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param freeCancellationEndDateTime The date and time until which the room can be cancelled free of charge.
  * @param cancellationPenaltyRules Container for Cancellation Penalty Rules information.
  */
-data class LodgingCancellationPolicy(
-    // Indicate whether the rate is refundable or not.
+@ConsistentCopyVisibility data class LodgingCancellationPolicy private constructor(
+    /* Indicate whether the rate is refundable or not. */
     @JsonProperty("Refundable")
     val refundable: kotlin.Boolean? = null,
-    // Indicate whether the room can be cancelled free of charge.
+
+    /* Indicate whether the room can be cancelled free of charge. */
     @JsonProperty("FreeCancellation")
     val freeCancellation: kotlin.Boolean? = null,
-    // The date and time until which the room can be cancelled free of charge.
+
+    /* The date and time until which the room can be cancelled free of charge. */
     @JsonProperty("FreeCancellationEndDateTime")
     val freeCancellationEndDateTime: java.time.OffsetDateTime? = null,
-    // Container for Cancellation Penalty Rules information.
+
+    /* Container for Cancellation Penalty Rules information. */
     @JsonProperty("CancellationPenaltyRules")
     val cancellationPenaltyRules: kotlin.collections.List<LodgingCancellationPenaltyRule>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -62,23 +63,21 @@ data class LodgingCancellationPolicy(
         fun cancellationPenaltyRules(cancellationPenaltyRules: kotlin.collections.List<LodgingCancellationPenaltyRule>?) = apply { this.cancellationPenaltyRules = cancellationPenaltyRules }
 
         fun build(): LodgingCancellationPolicy {
-            val instance =
-                LodgingCancellationPolicy(
-                    refundable = refundable,
-                    freeCancellation = freeCancellation,
-                    freeCancellationEndDateTime = freeCancellationEndDateTime,
-                    cancellationPenaltyRules = cancellationPenaltyRules,
-                )
+            val instance = LodgingCancellationPolicy(
+                refundable = refundable,
+                freeCancellation = freeCancellation,
+                freeCancellationEndDateTime = freeCancellationEndDateTime,
+                cancellationPenaltyRules = cancellationPenaltyRules,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            refundable = refundable,
-            freeCancellation = freeCancellation,
-            freeCancellationEndDateTime = freeCancellationEndDateTime,
-            cancellationPenaltyRules = cancellationPenaltyRules,
-        )
+    fun toBuilder() = Builder(
+        refundable = refundable,
+        freeCancellation = freeCancellation,
+        freeCancellationEndDateTime = freeCancellationEndDateTime,
+        cancellationPenaltyRules = cancellationPenaltyRules,
+    )
 }

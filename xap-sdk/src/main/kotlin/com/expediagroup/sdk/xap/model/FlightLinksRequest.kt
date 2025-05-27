@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Flight
 import com.expediagroup.sdk.xap.model.PassengerDetails
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -25,25 +26,22 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param passengers
  * @param links
  */
-data class FlightLinksRequest(
+@ConsistentCopyVisibility data class FlightLinksRequest private constructor(
     @JsonProperty("Flights")
     val flights: kotlin.collections
         .List<
             Flight,
-        >,
+            >,
+
     @JsonProperty("Passengers")
     val passengers: kotlin.collections
         .List<
             PassengerDetails,
-        >,
+            >,
+
     @JsonProperty("Links")
     val links: kotlin.collections.List<kotlin.String>? = null,
 ) {
-    init {
-        require(flights != null) { "flights must not be null" }
-
-        require(passengers != null) { "passengers must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -62,21 +60,27 @@ data class FlightLinksRequest(
         fun links(links: kotlin.collections.List<kotlin.String>?) = apply { this.links = links }
 
         fun build(): FlightLinksRequest {
-            val instance =
-                FlightLinksRequest(
-                    flights = flights!!,
-                    passengers = passengers!!,
-                    links = links,
-                )
+            val flights = this.flights.getOrThrow {
+                IllegalArgumentException("flights must not be null")
+            }
+
+            val passengers = this.passengers.getOrThrow {
+                IllegalArgumentException("passengers must not be null")
+            }
+
+            val instance = FlightLinksRequest(
+                flights = flights,
+                passengers = passengers,
+                links = links,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            flights = flights!!,
-            passengers = passengers!!,
-            links = links,
-        )
+    fun toBuilder() = Builder(
+        flights = flights,
+        passengers = passengers,
+        links = links,
+    )
 }

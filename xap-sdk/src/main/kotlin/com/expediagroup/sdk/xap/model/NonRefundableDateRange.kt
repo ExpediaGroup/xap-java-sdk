@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param startDate Start date of a non-refundable date range.
  * @param endDate End date of a non-refundable date range.
  */
-data class NonRefundableDateRange(
-    // Start date of a non-refundable date range.
+@ConsistentCopyVisibility data class NonRefundableDateRange private constructor(
+    /* Start date of a non-refundable date range. */
     @JsonProperty("StartDate")
     val startDate: java.time.LocalDate? = null,
-    // End date of a non-refundable date range.
+
+    /* End date of a non-refundable date range. */
     @JsonProperty("EndDate")
     val endDate: java.time.LocalDate? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class NonRefundableDateRange(
         fun endDate(endDate: java.time.LocalDate?) = apply { this.endDate = endDate }
 
         fun build(): NonRefundableDateRange {
-            val instance =
-                NonRefundableDateRange(
-                    startDate = startDate,
-                    endDate = endDate,
-                )
+            val instance = NonRefundableDateRange(
+                startDate = startDate,
+                endDate = endDate,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            startDate = startDate,
-            endDate = endDate,
-        )
+    fun toBuilder() = Builder(
+        startDate = startDate,
+        endDate = endDate,
+    )
 }

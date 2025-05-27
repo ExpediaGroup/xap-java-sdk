@@ -45,56 +45,69 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param descriptiveAmenities Container for all room amenities in group.  The key is amenity category, the values are the amenity information. The category for grouped amenities in room level will be: - ACCESSIBILITY - BATHROOM - BEDROOM - CLUB_EXEC - FAMILY_FRIENDLY - ENTERTAINMENT - FOOD_AND_DRINK - INTERNET - MORE - OUTDOOR_SPACE - SAFETY
  * @param media Container for Media elements.
  */
-data class RoomType(
-    // Text description of the room type.
+@ConsistentCopyVisibility data class RoomType private constructor(
+    /* Text description of the room type. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
-    // An encrypted string which includes the information that could be used to address the current room type.  `RoomKey` has been renamed as `OfferId`.
+
+    /* An encrypted string which includes the information that could be used to address the current room type.  `RoomKey` has been renamed as `OfferId`.  */
     @Deprecated(message = "This property is deprecated.")
     @JsonProperty("RoomKey")
     val roomKey: kotlin.String? = null,
-    // An encrypted string which includes the information that could be used to address the current room type.
+
+    /* An encrypted string which includes the information that could be used to address the current room type. */
     @JsonProperty("OfferId")
     val offerId: kotlin.String? = null,
-    // Name of Merchant that did the initial Authentication.
+
+    /* Name of Merchant that did the initial Authentication. */
     @JsonProperty("MerchantName")
     val merchantName: kotlin.String? = null,
-    // Indicate the room type is sold as package or standalone.
+
+    /* Indicate the room type is sold as package or standalone.  */
     @JsonProperty("RatePlanType")
     val ratePlanType: RoomType.RatePlanType? = null,
-    // Container for rate plan information.
+
+    /* Container for rate plan information. */
     @JsonProperty("RatePlans")
     val ratePlans: kotlin.collections.List<RatePlan>? = null,
+
     @JsonProperty("Price")
     val price: RoomTypePrice? = null,
+
     @JsonProperty("StandalonePrice")
     val standalonePrice: RoomTypeStandalonePrice? = null,
-    // All promotion information of the room.  **Note**: The node has been moved to `RatePlan` node, and will be deprecated soon.
+
+    /* All promotion information of the room.  **Note**: The node has been moved to `RatePlan` node, and will be deprecated soon.  */
     @Deprecated(message = "This property is deprecated.")
     @JsonProperty("Promotions [deprecated]")
     val promotionsDeprecated: kotlin.collections.List<Promotion>? = null,
+
     @JsonProperty("Links")
     val links: RoomTypeLinks? = null,
-    // The smoking options available for the room type.
+
+    /* The smoking options available for the room type. */
     @JsonProperty("SmokingOption")
     val smokingOption: RoomType.SmokingOption? = null,
-    // Statement of bed types available for this offer. A room may have several bed type options available.  **NOTE**: due to the large number of bed type options available, we no longer publish a list of available bed types. More information is available in [Lodging Bed Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/bed-types).
+
+    /* Statement of bed types available for this offer. A room may have several bed type options available.  **NOTE**: due to the large number of bed type options available, we no longer publish a list of available bed types. More information is available in [Lodging Bed Types](https://developers.expediagroup.com/xap/products/xap/lodging/references/bed-types).  */
     @JsonProperty("BedTypeOptions")
     val bedTypeOptions: kotlin.collections.List<BedType>? = null,
+
     @JsonProperty("RoomOccupancyPolicy")
     val roomOccupancyPolicy: RoomOccupancyPolicy? = null,
-    // Container for all room amenities.
+
+    /* Container for all room amenities. */
     @JsonProperty("Amenities")
     val amenities: kotlin.collections.List<RoomTypeAmenitiesInner>? = null,
-    // Container for all room amenities in group.  The key is amenity category, the values are the amenity information. The category for grouped amenities in room level will be: - ACCESSIBILITY - BATHROOM - BEDROOM - CLUB_EXEC - FAMILY_FRIENDLY - ENTERTAINMENT - FOOD_AND_DRINK - INTERNET - MORE - OUTDOOR_SPACE - SAFETY
+
+    /* Container for all room amenities in group.  The key is amenity category, the values are the amenity information. The category for grouped amenities in room level will be: - ACCESSIBILITY - BATHROOM - BEDROOM - CLUB_EXEC - FAMILY_FRIENDLY - ENTERTAINMENT - FOOD_AND_DRINK - INTERNET - MORE - OUTDOOR_SPACE - SAFETY  */
     @JsonProperty("DescriptiveAmenities")
     val descriptiveAmenities: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>>? = null,
-    // Container for Media elements.
+
+    /* Container for Media elements. */
     @JsonProperty("Media")
     val media: kotlin.collections.List<RoomTypeMediaInner>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -147,66 +160,58 @@ data class RoomType(
 
         fun amenities(amenities: kotlin.collections.List<RoomTypeAmenitiesInner>?) = apply { this.amenities = amenities }
 
-        fun descriptiveAmenities(descriptiveAmenities: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>>?) =
-            apply {
-                this.descriptiveAmenities =
-                    descriptiveAmenities
-            }
+        fun descriptiveAmenities(descriptiveAmenities: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>>?) = apply { this.descriptiveAmenities = descriptiveAmenities }
 
         fun media(media: kotlin.collections.List<RoomTypeMediaInner>?) = apply { this.media = media }
 
         fun build(): RoomType {
-            val instance =
-                RoomType(
-                    description = description,
-                    roomKey = roomKey,
-                    offerId = offerId,
-                    merchantName = merchantName,
-                    ratePlanType = ratePlanType,
-                    ratePlans = ratePlans,
-                    price = price,
-                    standalonePrice = standalonePrice,
-                    promotionsDeprecated = promotionsDeprecated,
-                    links = links,
-                    smokingOption = smokingOption,
-                    bedTypeOptions = bedTypeOptions,
-                    roomOccupancyPolicy = roomOccupancyPolicy,
-                    amenities = amenities,
-                    descriptiveAmenities = descriptiveAmenities,
-                    media = media,
-                )
+            val instance = RoomType(
+                description = description,
+                roomKey = roomKey,
+                offerId = offerId,
+                merchantName = merchantName,
+                ratePlanType = ratePlanType,
+                ratePlans = ratePlans,
+                price = price,
+                standalonePrice = standalonePrice,
+                promotionsDeprecated = promotionsDeprecated,
+                links = links,
+                smokingOption = smokingOption,
+                bedTypeOptions = bedTypeOptions,
+                roomOccupancyPolicy = roomOccupancyPolicy,
+                amenities = amenities,
+                descriptiveAmenities = descriptiveAmenities,
+                media = media,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            description = description,
-            roomKey = roomKey,
-            offerId = offerId,
-            merchantName = merchantName,
-            ratePlanType = ratePlanType,
-            ratePlans = ratePlans,
-            price = price,
-            standalonePrice = standalonePrice,
-            promotionsDeprecated = promotionsDeprecated,
-            links = links,
-            smokingOption = smokingOption,
-            bedTypeOptions = bedTypeOptions,
-            roomOccupancyPolicy = roomOccupancyPolicy,
-            amenities = amenities,
-            descriptiveAmenities = descriptiveAmenities,
-            media = media,
-        )
+    fun toBuilder() = Builder(
+        description = description,
+        roomKey = roomKey,
+        offerId = offerId,
+        merchantName = merchantName,
+        ratePlanType = ratePlanType,
+        ratePlans = ratePlans,
+        price = price,
+        standalonePrice = standalonePrice,
+        promotionsDeprecated = promotionsDeprecated,
+        links = links,
+        smokingOption = smokingOption,
+        bedTypeOptions = bedTypeOptions,
+        roomOccupancyPolicy = roomOccupancyPolicy,
+        amenities = amenities,
+        descriptiveAmenities = descriptiveAmenities,
+        media = media,
+    )
 
     /**
      * Indicate the room type is sold as package or standalone.
      * Values: STANDALONE,PACKAGE,WHOLESALE
      */
-    enum class RatePlanType(
-        val value: kotlin.String,
-    ) {
+    enum class RatePlanType(val value: kotlin.String) {
         @JsonProperty("standalone")
         STANDALONE("standalone"),
 
@@ -221,9 +226,7 @@ data class RoomType(
      * The smoking options available for the room type.
      * Values: SMOKING_OR_NON_SMOKING,SMOKING,NON_SMOKING
      */
-    enum class SmokingOption(
-        val value: kotlin.String,
-    ) {
+    enum class SmokingOption(val value: kotlin.String) {
         @JsonProperty("SmokingOrNonSmoking")
         SMOKING_OR_NON_SMOKING("SmokingOrNonSmoking"),
 

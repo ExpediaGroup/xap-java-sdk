@@ -25,19 +25,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param transactionId Unique identifier for the transaction.
  * @param availabilityCalendars A list of the calendar entities.
  */
-data class AvailabilityCalendarResponse(
-    // There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
+@ConsistentCopyVisibility data class AvailabilityCalendarResponse private constructor(
+    /* There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.  */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<LodgingWarning>? = null,
-    // Unique identifier for the transaction.
+
+    /* Unique identifier for the transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String? = null,
-    // A list of the calendar entities.
+
+    /* A list of the calendar entities. */
     @JsonProperty("AvailabilityCalendars")
     val availabilityCalendars: kotlin.collections.List<AvailabilityCalendar>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -56,21 +56,19 @@ data class AvailabilityCalendarResponse(
         fun availabilityCalendars(availabilityCalendars: kotlin.collections.List<AvailabilityCalendar>?) = apply { this.availabilityCalendars = availabilityCalendars }
 
         fun build(): AvailabilityCalendarResponse {
-            val instance =
-                AvailabilityCalendarResponse(
-                    warnings = warnings,
-                    transactionId = transactionId,
-                    availabilityCalendars = availabilityCalendars,
-                )
+            val instance = AvailabilityCalendarResponse(
+                warnings = warnings,
+                transactionId = transactionId,
+                availabilityCalendars = availabilityCalendars,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            warnings = warnings,
-            transactionId = transactionId,
-            availabilityCalendars = availabilityCalendars,
-        )
+    fun toBuilder() = Builder(
+        warnings = warnings,
+        transactionId = transactionId,
+        availabilityCalendars = availabilityCalendars,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -24,24 +25,22 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param areaCode Area code of traveler's phone number; only digits allowed.
  * @param extensionNumber
  */
-data class ActivitiesPhone(
-    // Country code of traveler's phone number; only digits allowed.
+@ConsistentCopyVisibility data class ActivitiesPhone private constructor(
+    /* Country code of traveler's phone number; only digits allowed. */
     @JsonProperty("CountryCode")
     val countryCode: kotlin.String,
-    // Traveler's phone number; only digits allowed.
+
+    /* Traveler's phone number; only digits allowed. */
     @JsonProperty("Number")
     val number: kotlin.String,
-    // Area code of traveler's phone number; only digits allowed.
+
+    /* Area code of traveler's phone number; only digits allowed. */
     @JsonProperty("AreaCode")
     val areaCode: kotlin.String? = null,
+
     @JsonProperty("ExtensionNumber")
     val extensionNumber: kotlin.String? = null,
 ) {
-    init {
-        require(countryCode != null) { "countryCode must not be null" }
-
-        require(number != null) { "number must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -63,23 +62,29 @@ data class ActivitiesPhone(
         fun extensionNumber(extensionNumber: kotlin.String?) = apply { this.extensionNumber = extensionNumber }
 
         fun build(): ActivitiesPhone {
-            val instance =
-                ActivitiesPhone(
-                    countryCode = countryCode!!,
-                    number = number!!,
-                    areaCode = areaCode,
-                    extensionNumber = extensionNumber,
-                )
+            val countryCode = this.countryCode.getOrThrow {
+                IllegalArgumentException("countryCode must not be null")
+            }
+
+            val number = this.number.getOrThrow {
+                IllegalArgumentException("number must not be null")
+            }
+
+            val instance = ActivitiesPhone(
+                countryCode = countryCode,
+                number = number,
+                areaCode = areaCode,
+                extensionNumber = extensionNumber,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            countryCode = countryCode!!,
-            number = number!!,
-            areaCode = areaCode,
-            extensionNumber = extensionNumber,
-        )
+    fun toBuilder() = Builder(
+        countryCode = countryCode,
+        number = number,
+        areaCode = areaCode,
+        extensionNumber = extensionNumber,
+    )
 }

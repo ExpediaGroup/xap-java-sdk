@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.expediagroup.sdk.xap.operations
+package com.expediagroup.sdk.xap.operation
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.core.http.Headers
 import com.expediagroup.sdk.rest.model.UrlQueryParam
 import com.expediagroup.sdk.rest.util.UrlQueryParamStringifier.explode
@@ -29,19 +30,16 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
  * @property locale locale information (Even though locale may be requested, the majority of the information in the response comes directly from the GDS systems and does NOT have any localization to languages other than English)
  */
 @JsonDeserialize(builder = GetFlightFarerulesOperationParams.Builder::class)
-data class GetFlightFarerulesOperationParams(
+@ConsistentCopyVisibility
+data class GetFlightFarerulesOperationParams private constructor(
     val offerToken: kotlin.String,
     val source: kotlin.String? =
         null,
     val partnerTransactionID: kotlin.String,
     val locale: kotlin.String? =
         null,
-) {
-    init {
-        require(offerToken != null) { "offerToken must not be null" }
 
-        require(partnerTransactionID != null) { "partnerTransactionID must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -53,84 +51,90 @@ data class GetFlightFarerulesOperationParams(
         @JsonProperty("Source") private var source: kotlin.String? = null,
         @JsonProperty("Partner-Transaction-ID") private var partnerTransactionID: kotlin.String? = null,
         @JsonProperty("locale") private var locale: kotlin.String? = null,
+
     ) {
         /**
          * @param offerToken An offerToken from a Flight API responses.
          */
-        fun offerToken(offerToken: kotlin.String) = apply { this.offerToken = offerToken }
+        fun offerToken(
+            offerToken: kotlin.String,
+        ) = apply { this.offerToken = offerToken }
 
         /**
          * @param source Accepts any single-word value that describes the source from which the API is being called. Example: 'Details', 'Book', 'Itin', etc.
          */
-        fun source(source: kotlin.String) = apply { this.source = source }
+        fun source(
+            source: kotlin.String,
+        ) = apply { this.source = source }
 
         /**
          * @param partnerTransactionID Partner-generated identifier.
          */
-        fun partnerTransactionID(partnerTransactionID: kotlin.String) = apply { this.partnerTransactionID = partnerTransactionID }
+        fun partnerTransactionID(
+            partnerTransactionID: kotlin.String,
+        ) = apply { this.partnerTransactionID = partnerTransactionID }
 
         /**
          * @param locale locale information (Even though locale may be requested, the majority of the information in the response comes directly from the GDS systems and does NOT have any localization to languages other than English)
          */
-        fun locale(locale: kotlin.String) = apply { this.locale = locale }
+        fun locale(
+            locale: kotlin.String,
+        ) = apply { this.locale = locale }
 
         fun build(): GetFlightFarerulesOperationParams {
-            val params =
-                GetFlightFarerulesOperationParams(
-                    offerToken = offerToken!!,
-                    source = source,
-                    partnerTransactionID = partnerTransactionID!!,
-                    locale = locale,
-                )
+            val offerToken = this.offerToken.getOrThrow {
+                IllegalArgumentException("offerToken must not be null")
+            }
 
+            val partnerTransactionID = this.partnerTransactionID.getOrThrow {
+                IllegalArgumentException("partnerTransactionID must not be null")
+            }
+
+            val params = GetFlightFarerulesOperationParams(
+                offerToken = offerToken,
+                source = source,
+                partnerTransactionID = partnerTransactionID,
+                locale = locale,
+            )
             return params
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            offerToken = offerToken,
-            source = source,
-            partnerTransactionID = partnerTransactionID,
-            locale = locale,
-        )
+    fun toBuilder() = Builder(
+        offerToken = offerToken,
+        source = source,
+        partnerTransactionID = partnerTransactionID,
+        locale = locale,
+    )
 
-    fun getHeaders(): Headers =
-        Headers
-            .builder()
-            .apply {
-                source?.let {
-                    add("Source", it)
-                }
-                partnerTransactionID?.let {
-                    add("Partner-Transaction-ID", it)
-                }
-                add("Accept", "application/vnd.exp-flight.v1+json")
-            }.build()
-
-    fun getQueryParams(): List<UrlQueryParam> =
-        buildList {
-            locale?.let {
-                val key = "locale"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
+    fun getHeaders(): Headers = Headers.builder().apply {
+        source?.let {
+            add("Source", it)
         }
+        add("Partner-Transaction-ID", partnerTransactionID)
+        add("Accept", "application/vnd.exp-flight.v1+json")
+    }.build()
 
-    fun getPathParams(): Map<String, String> =
-        buildMap {
-            offerToken?.also {
-                put("offerToken", offerToken)
+    fun getQueryParams(): List<UrlQueryParam> = buildList {
+        locale?.let {
+            val key = "locale"
+            val value = buildList {
+                add(it)
             }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
         }
+    }
+
+    fun getPathParams(): Map<String, String> = buildMap {
+        offerToken.also {
+            put("offerToken", offerToken)
+        }
+    }
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code Car FuelAC code.
  * @param `value` Car FuelAC value.
  */
-data class FuelAC(
-    // Car FuelAC code.
+@ConsistentCopyVisibility data class FuelAC private constructor(
+    /* Car FuelAC code. */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // Car FuelAC value.
+
+    /* Car FuelAC value. */
     @JsonProperty("Value")
     val `value`: kotlin.String,
-) {
-    init {
-        require(code != null) { "code must not be null" }
 
-        require(`value` != null) { "`value` must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class FuelAC(
         fun `value`(`value`: kotlin.String) = apply { this.`value` = `value` }
 
         fun build(): FuelAC {
-            val instance =
-                FuelAC(
-                    code = code!!,
-                    `value` = `value`!!,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val `value` = this.`value`.getOrThrow {
+                IllegalArgumentException("`value` must not be null")
+            }
+
+            val instance = FuelAC(
+                code = code,
+                `value` = `value`,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            `value` = `value`!!,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        `value` = `value`,
+    )
 }

@@ -22,12 +22,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @param warning
  */
-data class FlexSearchResponseWarningsInner(
+@ConsistentCopyVisibility data class FlexSearchResponseWarningsInner private constructor(
     @JsonProperty("Warning")
     val warning: FlexSearchResponseWarningsInnerWarning? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,17 +38,15 @@ data class FlexSearchResponseWarningsInner(
         fun warning(warning: FlexSearchResponseWarningsInnerWarning?) = apply { this.warning = warning }
 
         fun build(): FlexSearchResponseWarningsInner {
-            val instance =
-                FlexSearchResponseWarningsInner(
-                    warning = warning,
-                )
+            val instance = FlexSearchResponseWarningsInner(
+                warning = warning,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            warning = warning,
-        )
+    fun toBuilder() = Builder(
+        warning = warning,
+    )
 }

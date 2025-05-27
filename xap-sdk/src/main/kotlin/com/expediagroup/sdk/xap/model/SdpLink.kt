@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param href a link address.
  * @param method Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc...
  */
-data class SdpLink(
-    // a link address.
+@ConsistentCopyVisibility data class SdpLink private constructor(
+    /* a link address. */
     @JsonProperty("href")
     val href: kotlin.String? = null,
-    // Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc...
+
+    /* Request method, it will support `GET`, `POST`, `DELETE` and `PUT` etc... */
     @JsonProperty("method")
     val method: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class SdpLink(
         fun method(method: kotlin.String?) = apply { this.method = method }
 
         fun build(): SdpLink {
-            val instance =
-                SdpLink(
-                    href = href,
-                    method = method,
-                )
+            val instance = SdpLink(
+                href = href,
+                method = method,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            href = href,
-            method = method,
-        )
+    fun toBuilder() = Builder(
+        href = href,
+        method = method,
+    )
 }

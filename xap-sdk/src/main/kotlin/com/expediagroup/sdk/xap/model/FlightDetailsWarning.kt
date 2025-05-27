@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3Money
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -26,25 +27,24 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param newPrice
  * @param changedAmount
  */
-data class FlightDetailsWarning(
-    // Standardized warning code.
+@ConsistentCopyVisibility data class FlightDetailsWarning private constructor(
+    /* Standardized warning code. */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // Standardized warning description message.
+
+    /* Standardized warning description message. */
     @JsonProperty("Description")
     val description: kotlin.String,
+
     @JsonProperty("OriginalPrice")
     val originalPrice: FlightsV3Money? = null,
+
     @JsonProperty("NewPrice")
     val newPrice: FlightsV3Money? = null,
+
     @JsonProperty("ChangedAmount")
     val changedAmount: FlightsV3Money? = null,
 ) {
-    init {
-        require(code != null) { "code must not be null" }
-
-        require(description != null) { "description must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -69,25 +69,31 @@ data class FlightDetailsWarning(
         fun changedAmount(changedAmount: FlightsV3Money?) = apply { this.changedAmount = changedAmount }
 
         fun build(): FlightDetailsWarning {
-            val instance =
-                FlightDetailsWarning(
-                    code = code!!,
-                    description = description!!,
-                    originalPrice = originalPrice,
-                    newPrice = newPrice,
-                    changedAmount = changedAmount,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val description = this.description.getOrThrow {
+                IllegalArgumentException("description must not be null")
+            }
+
+            val instance = FlightDetailsWarning(
+                code = code,
+                description = description,
+                originalPrice = originalPrice,
+                newPrice = newPrice,
+                changedAmount = changedAmount,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            description = description!!,
-            originalPrice = originalPrice,
-            newPrice = newPrice,
-            changedAmount = changedAmount,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        description = description,
+        originalPrice = originalPrice,
+        newPrice = newPrice,
+        changedAmount = changedAmount,
+    )
 }

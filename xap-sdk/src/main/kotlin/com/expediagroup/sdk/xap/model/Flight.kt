@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightSegmentsInner
 import com.expediagroup.sdk.xap.model.FlightTotalPrice
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -25,22 +26,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param segments
  * @param totalPrice
  */
-data class Flight(
+@ConsistentCopyVisibility data class Flight private constructor(
     @JsonProperty("FlightId")
     val flightId: kotlin.String,
+
     @JsonProperty("Segments")
     val segments: kotlin.collections
         .List<
             FlightSegmentsInner,
-        >,
+            >,
+
     @JsonProperty("TotalPrice")
     val totalPrice: FlightTotalPrice? = null,
 ) {
-    init {
-        require(flightId != null) { "flightId must not be null" }
-
-        require(segments != null) { "segments must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -59,21 +57,27 @@ data class Flight(
         fun totalPrice(totalPrice: FlightTotalPrice?) = apply { this.totalPrice = totalPrice }
 
         fun build(): Flight {
-            val instance =
-                Flight(
-                    flightId = flightId!!,
-                    segments = segments!!,
-                    totalPrice = totalPrice,
-                )
+            val flightId = this.flightId.getOrThrow {
+                IllegalArgumentException("flightId must not be null")
+            }
+
+            val segments = this.segments.getOrThrow {
+                IllegalArgumentException("segments must not be null")
+            }
+
+            val instance = Flight(
+                flightId = flightId,
+                segments = segments,
+                totalPrice = totalPrice,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            flightId = flightId!!,
-            segments = segments!!,
-            totalPrice = totalPrice,
-        )
+    fun toBuilder() = Builder(
+        flightId = flightId,
+        segments = segments,
+        totalPrice = totalPrice,
+    )
 }

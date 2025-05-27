@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,17 +23,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param `value`
  * @param currency
  */
-data class FlightTotalPrice(
+@ConsistentCopyVisibility data class FlightTotalPrice private constructor(
     @JsonProperty("Value")
     val `value`: kotlin.String,
+
     @JsonProperty("Currency")
     val currency: kotlin.String,
-) {
-    init {
-        require(`value` != null) { "`value` must not be null" }
 
-        require(currency != null) { "currency must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -48,19 +46,25 @@ data class FlightTotalPrice(
         fun currency(currency: kotlin.String) = apply { this.currency = currency }
 
         fun build(): FlightTotalPrice {
-            val instance =
-                FlightTotalPrice(
-                    `value` = `value`!!,
-                    currency = currency!!,
-                )
+            val `value` = this.`value`.getOrThrow {
+                IllegalArgumentException("`value` must not be null")
+            }
+
+            val currency = this.currency.getOrThrow {
+                IllegalArgumentException("currency must not be null")
+            }
+
+            val instance = FlightTotalPrice(
+                `value` = `value`,
+                currency = currency,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            `value` = `value`!!,
-            currency = currency!!,
-        )
+    fun toBuilder() = Builder(
+        `value` = `value`,
+        currency = currency,
+    )
 }

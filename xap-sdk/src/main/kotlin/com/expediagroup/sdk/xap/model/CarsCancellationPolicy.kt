@@ -27,24 +27,26 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param penaltyRules Container for penalty rules
  * @param nonCancellableDateTimeRange
  */
-data class CarsCancellationPolicy(
-    // Indicates if this car can be cancelled (free cancel or penalty cancel)
+@ConsistentCopyVisibility data class CarsCancellationPolicy private constructor(
+    /* Indicates if this car can be cancelled (free cancel or penalty cancel) */
     @JsonProperty("Cancellable")
     val cancellable: kotlin.Boolean? = null,
-    // Indicates if this car may be cancelled without a penalty.
+
+    /* Indicates if this car may be cancelled without a penalty. */
     @JsonProperty("FreeCancellation")
     val freeCancellation: kotlin.Boolean? = null,
-    // Indicates the latest time that the car can be cancelled for free.
+
+    /* Indicates the latest time that the car can be cancelled for free. */
     @JsonProperty("FreeCancellationEndDateTime")
     val freeCancellationEndDateTime: java.time.LocalDateTime? = null,
-    // Container for penalty rules
+
+    /* Container for penalty rules */
     @JsonProperty("PenaltyRules")
     val penaltyRules: kotlin.collections.List<PenaltyRule>? = null,
+
     @JsonProperty("NonCancellableDateTimeRange")
     val nonCancellableDateTimeRange: NonCancellableDateTimeRange? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -69,25 +71,23 @@ data class CarsCancellationPolicy(
         fun nonCancellableDateTimeRange(nonCancellableDateTimeRange: NonCancellableDateTimeRange?) = apply { this.nonCancellableDateTimeRange = nonCancellableDateTimeRange }
 
         fun build(): CarsCancellationPolicy {
-            val instance =
-                CarsCancellationPolicy(
-                    cancellable = cancellable,
-                    freeCancellation = freeCancellation,
-                    freeCancellationEndDateTime = freeCancellationEndDateTime,
-                    penaltyRules = penaltyRules,
-                    nonCancellableDateTimeRange = nonCancellableDateTimeRange,
-                )
+            val instance = CarsCancellationPolicy(
+                cancellable = cancellable,
+                freeCancellation = freeCancellation,
+                freeCancellationEndDateTime = freeCancellationEndDateTime,
+                penaltyRules = penaltyRules,
+                nonCancellableDateTimeRange = nonCancellableDateTimeRange,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            cancellable = cancellable,
-            freeCancellation = freeCancellation,
-            freeCancellationEndDateTime = freeCancellationEndDateTime,
-            penaltyRules = penaltyRules,
-            nonCancellableDateTimeRange = nonCancellableDateTimeRange,
-        )
+    fun toBuilder() = Builder(
+        cancellable = cancellable,
+        freeCancellation = freeCancellation,
+        freeCancellationEndDateTime = freeCancellationEndDateTime,
+        penaltyRules = penaltyRules,
+        nonCancellableDateTimeRange = nonCancellableDateTimeRange,
+    )
 }

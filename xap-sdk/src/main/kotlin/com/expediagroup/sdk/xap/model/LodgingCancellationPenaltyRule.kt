@@ -23,19 +23,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param penaltyStartDateTime The beginning of the window of time when the `CancellationPenaltyRule` is in effect.  The date and time are expressed in ISO 8601 International Date format, and local to the property.
  * @param penaltyEndDateTime The end of the window of time when the `CancellationPenaltyRule` is in effect.  The date and time are expressed in ISO 8601 International Date format, and local to the property.
  */
-data class LodgingCancellationPenaltyRule(
-    // Specifies the per-stay cancellation fee charged as a percentage of the total rate, in addition to any other penalties listed.
+@ConsistentCopyVisibility data class LodgingCancellationPenaltyRule private constructor(
+    /* Specifies the per-stay cancellation fee charged as a percentage of the total rate, in addition to any other penalties listed.  */
     @JsonProperty("PenaltyPercentOfStay")
     val penaltyPercentOfStay: kotlin.String? = null,
-    // The beginning of the window of time when the `CancellationPenaltyRule` is in effect.  The date and time are expressed in ISO 8601 International Date format, and local to the property.
+
+    /* The beginning of the window of time when the `CancellationPenaltyRule` is in effect.  The date and time are expressed in ISO 8601 International Date format, and local to the property.  */
     @JsonProperty("PenaltyStartDateTime")
     val penaltyStartDateTime: java.time.OffsetDateTime? = null,
-    // The end of the window of time when the `CancellationPenaltyRule` is in effect.  The date and time are expressed in ISO 8601 International Date format, and local to the property.
+
+    /* The end of the window of time when the `CancellationPenaltyRule` is in effect.  The date and time are expressed in ISO 8601 International Date format, and local to the property.  */
     @JsonProperty("PenaltyEndDateTime")
     val penaltyEndDateTime: java.time.OffsetDateTime? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -54,21 +54,19 @@ data class LodgingCancellationPenaltyRule(
         fun penaltyEndDateTime(penaltyEndDateTime: java.time.OffsetDateTime?) = apply { this.penaltyEndDateTime = penaltyEndDateTime }
 
         fun build(): LodgingCancellationPenaltyRule {
-            val instance =
-                LodgingCancellationPenaltyRule(
-                    penaltyPercentOfStay = penaltyPercentOfStay,
-                    penaltyStartDateTime = penaltyStartDateTime,
-                    penaltyEndDateTime = penaltyEndDateTime,
-                )
+            val instance = LodgingCancellationPenaltyRule(
+                penaltyPercentOfStay = penaltyPercentOfStay,
+                penaltyStartDateTime = penaltyStartDateTime,
+                penaltyEndDateTime = penaltyEndDateTime,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            penaltyPercentOfStay = penaltyPercentOfStay,
-            penaltyStartDateTime = penaltyStartDateTime,
-            penaltyEndDateTime = penaltyEndDateTime,
-        )
+    fun toBuilder() = Builder(
+        penaltyPercentOfStay = penaltyPercentOfStay,
+        penaltyStartDateTime = penaltyStartDateTime,
+        penaltyEndDateTime = penaltyEndDateTime,
+    )
 }

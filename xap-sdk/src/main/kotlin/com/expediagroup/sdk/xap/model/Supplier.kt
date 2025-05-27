@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -24,27 +25,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code Supplier Code.
  * @param logoImageUrl Supplier Logo Image Url.
  */
-data class Supplier(
-    // Supplier ID.
+@ConsistentCopyVisibility data class Supplier private constructor(
+    /* Supplier ID. */
     @JsonProperty("Id")
     val id: kotlin.String,
-    // Supplier Name.
+
+    /* Supplier Name. */
     @JsonProperty("Name")
     val name: kotlin.String,
-    // Supplier Code.
+
+    /* Supplier Code. */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // Supplier Logo Image Url.
+
+    /* Supplier Logo Image Url. */
     @JsonProperty("LogoImageUrl")
     val logoImageUrl: kotlin.String? = null,
 ) {
-    init {
-        require(id != null) { "id must not be null" }
-
-        require(name != null) { "name must not be null" }
-
-        require(code != null) { "code must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -66,23 +63,33 @@ data class Supplier(
         fun logoImageUrl(logoImageUrl: kotlin.String?) = apply { this.logoImageUrl = logoImageUrl }
 
         fun build(): Supplier {
-            val instance =
-                Supplier(
-                    id = id!!,
-                    name = name!!,
-                    code = code!!,
-                    logoImageUrl = logoImageUrl,
-                )
+            val id = this.id.getOrThrow {
+                IllegalArgumentException("id must not be null")
+            }
+
+            val name = this.name.getOrThrow {
+                IllegalArgumentException("name must not be null")
+            }
+
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val instance = Supplier(
+                id = id,
+                name = name,
+                code = code,
+                logoImageUrl = logoImageUrl,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id!!,
-            name = name!!,
-            code = code!!,
-            logoImageUrl = logoImageUrl,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        name = name,
+        code = code,
+        logoImageUrl = logoImageUrl,
+    )
 }

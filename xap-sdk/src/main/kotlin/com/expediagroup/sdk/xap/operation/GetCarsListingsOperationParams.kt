@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.expediagroup.sdk.xap.operations
+package com.expediagroup.sdk.xap.operation
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.core.http.Headers
 import com.expediagroup.sdk.rest.model.UrlQueryParam
 import com.expediagroup.sdk.rest.util.UrlQueryParamStringifier.explode
@@ -53,7 +54,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
  * @property source Indicates the source where the request is coming from.The available values for the source as below:browser - The value \"browser\" represents that the client is traditional website.mobile - The value \"mobile\" represents that the client is mobile.all - The value \"all\" indicates that the client includes both browser and mobile.Only one source value may be used at a time.
  */
 @JsonDeserialize(builder = GetCarsListingsOperationParams.Builder::class)
-data class GetCarsListingsOperationParams(
+@ConsistentCopyVisibility
+data class GetCarsListingsOperationParams private constructor(
     val partnerTransactionId: kotlin.String,
     val pickupAirport: kotlin.String? =
         null,
@@ -85,11 +87,11 @@ data class GetCarsListingsOperationParams(
         null,
     val suppliers: kotlin.collections.Set<
         kotlin.String,
-    >? =
+        >? =
         null,
     val carClasses: kotlin.collections.Set<
         kotlin.String,
-    >? =
+        >? =
         null,
     val discount1Supplier: kotlin.String? =
         null,
@@ -99,13 +101,13 @@ data class GetCarsListingsOperationParams(
         null,
     val transmissions: kotlin.collections.Set<
         kotlin.String,
-    >? =
+        >? =
         null,
     val airConditioning: kotlin.Boolean? =
         null,
     val carTypes: kotlin.collections.Set<
         kotlin.String,
-    >? =
+        >? =
         null,
     val unit: GetCarsListingsOperationParams.Unit? =
         null,
@@ -113,18 +115,12 @@ data class GetCarsListingsOperationParams(
         null,
     val links: kotlin.collections.List<
         GetCarsListingsOperationParams.Links,
-    >? =
+        >? =
         null,
     val source: GetCarsListingsOperationParams.Source? =
         null,
+
 ) {
-    init {
-        require(partnerTransactionId != null) { "partnerTransactionId must not be null" }
-
-        require(pickupTime != null) { "pickupTime must not be null" }
-
-        require(dropOffTime != null) { "dropOffTime must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -160,6 +156,7 @@ data class GetCarsListingsOperationParams(
 
     enum class Links(
         val value: kotlin.String,
+
     ) {
         WS("WS"),
         AD("AD"),
@@ -193,106 +190,139 @@ data class GetCarsListingsOperationParams(
         @JsonProperty("limit") private var limit: kotlin.Int? = null,
         @JsonProperty("suppliers") private var suppliers: kotlin.collections.Set<
             kotlin.String,
-        >? = null,
+            >? = null,
         @JsonProperty("carClasses") private var carClasses: kotlin.collections.Set<
             kotlin.String,
-        >? = null,
+            >? = null,
         @JsonProperty("discount1.supplier") private var discount1Supplier: kotlin.String? = null,
         @JsonProperty("discount1.type") private var discount1Type: GetCarsListingsOperationParams.Discount1Type? = null,
         @JsonProperty("discount1.code") private var discount1Code: kotlin.String? = null,
         @JsonProperty("transmissions") private var transmissions: kotlin.collections.Set<
             kotlin.String,
-        >? = null,
+            >? = null,
         @JsonProperty("airConditioning") private var airConditioning: kotlin.Boolean? = null,
         @JsonProperty("carTypes") private var carTypes: kotlin.collections.Set<
             kotlin.String,
-        >? = null,
+            >? = null,
         @JsonProperty("unit") private var unit: GetCarsListingsOperationParams.Unit? = null,
         @JsonProperty("driverAge") private var driverAge: kotlin.Int? = null,
         @JsonProperty("links") private var links: kotlin.collections.List<
             GetCarsListingsOperationParams.Links,
-        >? = null,
+            >? = null,
         @JsonProperty("source") private var source: GetCarsListingsOperationParams.Source? = null,
+
     ) {
         /**
          * @param partnerTransactionId [Not consumed by Expedia] Partner-generated identifier.
          */
-        fun partnerTransactionId(partnerTransactionId: kotlin.String) = apply { this.partnerTransactionId = partnerTransactionId }
+        fun partnerTransactionId(
+            partnerTransactionId: kotlin.String,
+        ) = apply { this.partnerTransactionId = partnerTransactionId }
 
         /**
          * @param pickupAirport Three letter code for the airport at which the customer would like to pick up the car.Supported values: standard 3 letter IATA Airport Code.Please see a full list of Car Vendor Codes and Airport Codes in the Related Links Section below.Cannot coexist with other pickup parameters, only one pickup parameter is allowed per request.
          */
-        fun pickupAirport(pickupAirport: kotlin.String) = apply { this.pickupAirport = pickupAirport }
+        fun pickupAirport(
+            pickupAirport: kotlin.String,
+        ) = apply { this.pickupAirport = pickupAirport }
 
         /**
          * @param pickupCity The name of the city in which the customer would like to pick up the car.Search results will include up to 40 rental locations that are closest to the center point of the search.Cannot coexist with other pickup parameters, only one pickup parameter is allowed per request.
          */
-        fun pickupCity(pickupCity: kotlin.String) = apply { this.pickupCity = pickupCity }
+        fun pickupCity(
+            pickupCity: kotlin.String,
+        ) = apply { this.pickupCity = pickupCity }
 
         /**
          * @param pickupAddress The address of a car rental location where the customer would like to pick up the car.Cannot coexist with other pickup parameters, only one pickup parameter is allowed per request.
          */
-        fun pickupAddress(pickupAddress: kotlin.String) = apply { this.pickupAddress = pickupAddress }
+        fun pickupAddress(
+            pickupAddress: kotlin.String,
+        ) = apply { this.pickupAddress = pickupAddress }
 
         /**
          * @param pickupGeoLocation The latitude and longitude that defines where the customer would like to pick up the car.Latitude and longitude are separated by comma.South latitudes and West longitudes are represented by negative values.Cannot coexist with other pickup parameters, only one pickup parameter is allowed per request.
          */
-        fun pickupGeoLocation(pickupGeoLocation: kotlin.String) = apply { this.pickupGeoLocation = pickupGeoLocation }
+        fun pickupGeoLocation(
+            pickupGeoLocation: kotlin.String,
+        ) = apply { this.pickupGeoLocation = pickupGeoLocation }
 
         /**
          * @param pickupRadius Radius used in conjunction with a point to define the search area when searching by lat/ long, city or address.See ' unit' parameter below to select miles or kilometers.If no value is specified a default value of 25 will be assumed.
          */
-        fun pickupRadius(pickupRadius: kotlin.Int) = apply { this.pickupRadius = pickupRadius }
+        fun pickupRadius(
+            pickupRadius: kotlin.Int,
+        ) = apply { this.pickupRadius = pickupRadius }
 
         /**
          * @param dropOffAirport Three letter code for the airport at which the customer would like to drop off the car.Supported values: standard 3 letter IATA Airport Code.Please see a full list of Car Vendor Codes and Airport Codes in the Related Links Section below.Cannot coexist with other drop off parameters, only one drop off parameter is allowed per request.If no drop off location is specified, it is assumed that the customer will be dropping the car off at the same location at which they picked it up.
          */
-        fun dropOffAirport(dropOffAirport: kotlin.String) = apply { this.dropOffAirport = dropOffAirport }
+        fun dropOffAirport(
+            dropOffAirport: kotlin.String,
+        ) = apply { this.dropOffAirport = dropOffAirport }
 
         /**
          * @param dropOffCity City name for the location at which the customer would like to drop off the car.Cannot coexist with other drop off parameters, only one drop off parameter is allowed in a request.If no drop off location is specified, it is assumed that the customer will be dropping the car off at the same location at which they picked it up.
          */
-        fun dropOffCity(dropOffCity: kotlin.String) = apply { this.dropOffCity = dropOffCity }
+        fun dropOffCity(
+            dropOffCity: kotlin.String,
+        ) = apply { this.dropOffCity = dropOffCity }
 
         /**
          * @param dropOffAddress Address for the location at which the customer would like to drop off the car.Cannot coexist with other drop off parameters, only one drop off parameter is allowed in a request.If no drop off location is specified, it is assumed that the customer will be dropping the car off at the same location at which they picked it up.
          */
-        fun dropOffAddress(dropOffAddress: kotlin.String) = apply { this.dropOffAddress = dropOffAddress }
+        fun dropOffAddress(
+            dropOffAddress: kotlin.String,
+        ) = apply { this.dropOffAddress = dropOffAddress }
 
         /**
          * @param dropOffGeoLocation Latitude and longitude for the location at which the customer would like to drop off the car.Latitude and longitude are separated by comma.South latitudes and West longitudes are represented by negative values.Cannot coexist with other drop off parameters, only one drop off parameter is allowed per request.If no drop off location is specified, it is assumed that the customer will be dropping the car off at the same location at which they picked it up.
          */
-        fun dropOffGeoLocation(dropOffGeoLocation: kotlin.String) = apply { this.dropOffGeoLocation = dropOffGeoLocation }
+        fun dropOffGeoLocation(
+            dropOffGeoLocation: kotlin.String,
+        ) = apply { this.dropOffGeoLocation = dropOffGeoLocation }
 
         /**
          * @param dropOffRadius Radius used in conjunction with a point to define the search area when searching by lat/ long, city or address.See ' unit' parameter below to select miles or kilometers.If no value is specified a default value of 25 will be assumed.Note: The pickup radius value will be used (instead of the the drop-off radius) when the requested pickup and drop-off city/address are exactly the same.
          */
-        fun dropOffRadius(dropOffRadius: kotlin.Int) = apply { this.dropOffRadius = dropOffRadius }
+        fun dropOffRadius(
+            dropOffRadius: kotlin.Int,
+        ) = apply { this.dropOffRadius = dropOffRadius }
 
         /**
          * @param pickupTime Requested car pickup date and time.Date should be ISO8601 Date format.The default TIME is 10:30:00.The supported search window is today to 330 days in the future.(Note that each rental counter has different hours of operation. If you select a time in the middle of the night there may be no inventory available as all locations may be closed.)
          */
-        fun pickupTime(pickupTime: java.time.LocalDateTime) = apply { this.pickupTime = pickupTime }
+        fun pickupTime(
+            pickupTime: java.time.LocalDateTime,
+        ) = apply { this.pickupTime = pickupTime }
 
         /**
          * @param dropOffTime Requested car drop off date and time. Date should be ISO8601 Date format.The supported search window is today to 330 days in the future.Note: The dropOffTime must be at least 2 hours later than the pickupTime for the request to be valid.
          */
-        fun dropOffTime(dropOffTime: java.time.LocalDateTime) = apply { this.dropOffTime = dropOffTime }
+        fun dropOffTime(
+            dropOffTime: java.time.LocalDateTime,
+        ) = apply { this.dropOffTime = dropOffTime }
 
         /**
          * @param sortType Method of sorting the car search results.Supported value: Price.If no value is present a sort by 'price' will be assumed.
          */
-        fun sortType(sortType: GetCarsListingsOperationParams.SortType) = apply { this.sortType = sortType }
+        fun sortType(
+            sortType: GetCarsListingsOperationParams.SortType,
+        ) = apply { this.sortType = sortType }
 
         /**
          * @param sortOrder Order of sorting the car search results.Supported values: ASC, DESCIf no value is present a sort order of 'ascending' will be assumed.
          */
-        fun sortOrder(sortOrder: GetCarsListingsOperationParams.SortOrder) = apply { this.sortOrder = sortOrder }
+        fun sortOrder(
+            sortOrder: GetCarsListingsOperationParams.SortOrder,
+        ) = apply { this.sortOrder = sortOrder }
 
         /**
          * @param limit The maximum number of search results that will be returned by the query.
          */
-        fun limit(limit: kotlin.Int) = apply { this.limit = limit }
+        fun limit(
+            limit: kotlin.Int,
+        ) = apply { this.limit = limit }
 
         /**
          * @param suppliers A list of supplier ids or supplier names to be used to filter search results.Multiple supplier names or ids may be separated by comma.Please see a full list of Expedia Vendor Codes & Names in the Related Links Section below.The max count of suppliers requested is limited to 20.Note: while you may filter using either supplier name or supplier ID, it is recommended that you use supplier ID, as this value will remain consistent in the event of a merger or other name change by the supplier.
@@ -300,7 +330,7 @@ data class GetCarsListingsOperationParams(
         fun suppliers(
             suppliers: kotlin.collections.Set<
                 kotlin.String,
-            >,
+                >,
         ) = apply { this.suppliers = suppliers }
 
         /**
@@ -309,23 +339,29 @@ data class GetCarsListingsOperationParams(
         fun carClasses(
             carClasses: kotlin.collections.Set<
                 kotlin.String,
-            >,
+                >,
         ) = apply { this.carClasses = carClasses }
 
         /**
          * @param discount1Supplier Name or ID of the supplier who issued a coupon or discount code.NOTE: Only ONE discount code per transaction is currently supported by the API. If you enter more than one discount code, only the first one will be honored.Please see a full list of Expedia Vendor Codes & Names in the Related Links Section below.
          */
-        fun discount1Supplier(discount1Supplier: kotlin.String) = apply { this.discount1Supplier = discount1Supplier }
+        fun discount1Supplier(
+            discount1Supplier: kotlin.String,
+        ) = apply { this.discount1Supplier = discount1Supplier }
 
         /**
          * @param discount1Type The type of discount to be applied.Supported values: CorpDiscount | Coupon.
          */
-        fun discount1Type(discount1Type: GetCarsListingsOperationParams.Discount1Type) = apply { this.discount1Type = discount1Type }
+        fun discount1Type(
+            discount1Type: GetCarsListingsOperationParams.Discount1Type,
+        ) = apply { this.discount1Type = discount1Type }
 
         /**
          * @param discount1Code The code of the discount to be applied.
          */
-        fun discount1Code(discount1Code: kotlin.String) = apply { this.discount1Code = discount1Code }
+        fun discount1Code(
+            discount1Code: kotlin.String,
+        ) = apply { this.discount1Code = discount1Code }
 
         /**
          * @param transmissions A list of car transmission drive codes to be used to filter search results.Multiple car classes may be separated by a comma.Please see a full list of Transmission Drive Codes in the Related Links Section below.
@@ -333,13 +369,15 @@ data class GetCarsListingsOperationParams(
         fun transmissions(
             transmissions: kotlin.collections.Set<
                 kotlin.String,
-            >,
+                >,
         ) = apply { this.transmissions = transmissions }
 
         /**
          * @param airConditioning Specify whether to filter for cars that include or exclude air conditioning.
          */
-        fun airConditioning(airConditioning: kotlin.Boolean) = apply { this.airConditioning = airConditioning }
+        fun airConditioning(
+            airConditioning: kotlin.Boolean,
+        ) = apply { this.airConditioning = airConditioning }
 
         /**
          * @param carTypes A list of car types to be used to filter search results.Multiple car types may be separated by comma.Please see a full list of Car Type Codes in the Related Links Section below.
@@ -347,18 +385,22 @@ data class GetCarsListingsOperationParams(
         fun carTypes(
             carTypes: kotlin.collections.Set<
                 kotlin.String,
-            >,
+                >,
         ) = apply { this.carTypes = carTypes }
 
         /**
          * @param unit The distance unit for the radius of a location-based search, or the distance between the center point of a search and the vendor location.Supported values: KM | MI.Default value: KM.
          */
-        fun unit(unit: GetCarsListingsOperationParams.Unit) = apply { this.unit = unit }
+        fun unit(
+            unit: GetCarsListingsOperationParams.Unit,
+        ) = apply { this.unit = unit }
 
         /**
          * @param driverAge The age of the driver that will be renting the car.This value is required in the UK and optional elsewhere.
          */
-        fun driverAge(driverAge: kotlin.Int) = apply { this.driverAge = driverAge }
+        fun driverAge(
+            driverAge: kotlin.Int,
+        ) = apply { this.driverAge = driverAge }
 
         /**
          * @param links WS = WebSearch, AD = ApiDetails, WD = WebDetails
@@ -366,499 +408,477 @@ data class GetCarsListingsOperationParams(
         fun links(
             links: kotlin.collections.List<
                 GetCarsListingsOperationParams.Links,
-            >,
+                >,
         ) = apply { this.links = links }
 
         /**
          * @param source Indicates the source where the request is coming from.The available values for the source as below:browser - The value \"browser\" represents that the client is traditional website.mobile - The value \"mobile\" represents that the client is mobile.all - The value \"all\" indicates that the client includes both browser and mobile.Only one source value may be used at a time.
          */
-        fun source(source: GetCarsListingsOperationParams.Source) = apply { this.source = source }
+        fun source(
+            source: GetCarsListingsOperationParams.Source,
+        ) = apply { this.source = source }
 
         fun build(): GetCarsListingsOperationParams {
-            val params =
-                GetCarsListingsOperationParams(
-                    partnerTransactionId = partnerTransactionId!!,
-                    pickupAirport = pickupAirport,
-                    pickupCity = pickupCity,
-                    pickupAddress = pickupAddress,
-                    pickupGeoLocation = pickupGeoLocation,
-                    pickupRadius = pickupRadius,
-                    dropOffAirport = dropOffAirport,
-                    dropOffCity = dropOffCity,
-                    dropOffAddress = dropOffAddress,
-                    dropOffGeoLocation = dropOffGeoLocation,
-                    dropOffRadius = dropOffRadius,
-                    pickupTime = pickupTime!!,
-                    dropOffTime = dropOffTime!!,
-                    sortType = sortType,
-                    sortOrder = sortOrder,
-                    limit = limit,
-                    suppliers = suppliers,
-                    carClasses = carClasses,
-                    discount1Supplier = discount1Supplier,
-                    discount1Type = discount1Type,
-                    discount1Code = discount1Code,
-                    transmissions = transmissions,
-                    airConditioning = airConditioning,
-                    carTypes = carTypes,
-                    unit = unit,
-                    driverAge = driverAge,
-                    links = links,
-                    source = source,
-                )
+            val partnerTransactionId = this.partnerTransactionId.getOrThrow {
+                IllegalArgumentException("partnerTransactionId must not be null")
+            }
 
+            val pickupTime = this.pickupTime.getOrThrow {
+                IllegalArgumentException("pickupTime must not be null")
+            }
+
+            val dropOffTime = this.dropOffTime.getOrThrow {
+                IllegalArgumentException("dropOffTime must not be null")
+            }
+
+            val params = GetCarsListingsOperationParams(
+                partnerTransactionId = partnerTransactionId,
+                pickupAirport = pickupAirport,
+                pickupCity = pickupCity,
+                pickupAddress = pickupAddress,
+                pickupGeoLocation = pickupGeoLocation,
+                pickupRadius = pickupRadius,
+                dropOffAirport = dropOffAirport,
+                dropOffCity = dropOffCity,
+                dropOffAddress = dropOffAddress,
+                dropOffGeoLocation = dropOffGeoLocation,
+                dropOffRadius = dropOffRadius,
+                pickupTime = pickupTime,
+                dropOffTime = dropOffTime,
+                sortType = sortType,
+                sortOrder = sortOrder,
+                limit = limit,
+                suppliers = suppliers,
+                carClasses = carClasses,
+                discount1Supplier = discount1Supplier,
+                discount1Type = discount1Type,
+                discount1Code = discount1Code,
+                transmissions = transmissions,
+                airConditioning = airConditioning,
+                carTypes = carTypes,
+                unit = unit,
+                driverAge = driverAge,
+                links = links,
+                source = source,
+            )
             return params
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            partnerTransactionId = partnerTransactionId,
-            pickupAirport = pickupAirport,
-            pickupCity = pickupCity,
-            pickupAddress = pickupAddress,
-            pickupGeoLocation = pickupGeoLocation,
-            pickupRadius = pickupRadius,
-            dropOffAirport = dropOffAirport,
-            dropOffCity = dropOffCity,
-            dropOffAddress = dropOffAddress,
-            dropOffGeoLocation = dropOffGeoLocation,
-            dropOffRadius = dropOffRadius,
-            pickupTime = pickupTime,
-            dropOffTime = dropOffTime,
-            sortType = sortType,
-            sortOrder = sortOrder,
-            limit = limit,
-            suppliers = suppliers,
-            carClasses = carClasses,
-            discount1Supplier = discount1Supplier,
-            discount1Type = discount1Type,
-            discount1Code = discount1Code,
-            transmissions = transmissions,
-            airConditioning = airConditioning,
-            carTypes = carTypes,
-            unit = unit,
-            driverAge = driverAge,
-            links = links,
-            source = source,
-        )
+    fun toBuilder() = Builder(
+        partnerTransactionId = partnerTransactionId,
+        pickupAirport = pickupAirport,
+        pickupCity = pickupCity,
+        pickupAddress = pickupAddress,
+        pickupGeoLocation = pickupGeoLocation,
+        pickupRadius = pickupRadius,
+        dropOffAirport = dropOffAirport,
+        dropOffCity = dropOffCity,
+        dropOffAddress = dropOffAddress,
+        dropOffGeoLocation = dropOffGeoLocation,
+        dropOffRadius = dropOffRadius,
+        pickupTime = pickupTime,
+        dropOffTime = dropOffTime,
+        sortType = sortType,
+        sortOrder = sortOrder,
+        limit = limit,
+        suppliers = suppliers,
+        carClasses = carClasses,
+        discount1Supplier = discount1Supplier,
+        discount1Type = discount1Type,
+        discount1Code = discount1Code,
+        transmissions = transmissions,
+        airConditioning = airConditioning,
+        carTypes = carTypes,
+        unit = unit,
+        driverAge = driverAge,
+        links = links,
+        source = source,
+    )
 
-    fun getHeaders(): Headers =
-        Headers
-            .builder()
-            .apply {
-                partnerTransactionId?.let {
-                    add("Partner-Transaction-Id", it)
-                }
-                add("Accept", "application/vnd.exp-car.v3+json")
-            }.build()
+    fun getHeaders(): Headers = Headers.builder().apply {
+        add("Partner-Transaction-Id", partnerTransactionId)
+        add("Accept", "application/vnd.exp-car.v3+json")
+    }.build()
 
-    fun getQueryParams(): List<UrlQueryParam> =
-        buildList {
-            pickupAirport?.let {
-                val key = "pickup.airport"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
+    fun getQueryParams(): List<UrlQueryParam> = buildList {
+        pickupAirport?.let {
+            val key = "pickup.airport"
+            val value = buildList {
+                add(it)
             }
-            pickupCity?.let {
-                val key = "pickup.city"
-                val value =
-                    buildList {
-                        add(it)
-                    }
 
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            pickupAddress?.let {
-                val key = "pickup.address"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            pickupGeoLocation?.let {
-                val key = "pickup.geoLocation"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            pickupRadius?.let {
-                val key = "pickup.radius"
-                val value =
-                    buildList {
-                        add(it.toString())
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            dropOffAirport?.let {
-                val key = "dropOff.airport"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            dropOffCity?.let {
-                val key = "dropOff.city"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            dropOffAddress?.let {
-                val key = "dropOff.address"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            dropOffGeoLocation?.let {
-                val key = "dropOff.geoLocation"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            dropOffRadius?.let {
-                val key = "dropOff.radius"
-                val value =
-                    buildList {
-                        add(it.toString())
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            pickupTime?.let {
-                val key = "pickupTime"
-                val value =
-                    buildList {
-                        add(it.toString())
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            dropOffTime?.let {
-                val key = "dropOffTime"
-                val value =
-                    buildList {
-                        add(it.toString())
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            sortType?.let {
-                val key = "sortType"
-                val value =
-                    buildList {
-                        add(it.value)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            sortOrder?.let {
-                val key = "sortOrder"
-                val value =
-                    buildList {
-                        add(it.value)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            limit?.let {
-                val key = "limit"
-                val value =
-                    buildList {
-                        add(it.toString())
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            suppliers?.let {
-                val key = "suppliers"
-                val value =
-                    buildList {
-                        addAll(it.map { v -> v.toString() })
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
-                    ),
-                )
-            }
-            carClasses?.let {
-                val key = "carClasses"
-                val value =
-                    buildList {
-                        addAll(it.map { v -> v.toString() })
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
-                    ),
-                )
-            }
-            discount1Supplier?.let {
-                val key = "discount1.supplier"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            discount1Type?.let {
-                val key = "discount1.type"
-                val value =
-                    buildList {
-                        add(it.value)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            discount1Code?.let {
-                val key = "discount1.code"
-                val value =
-                    buildList {
-                        add(it)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            transmissions?.let {
-                val key = "transmissions"
-                val value =
-                    buildList {
-                        addAll(it.map { v -> v.toString() })
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
-                    ),
-                )
-            }
-            airConditioning?.let {
-                val key = "airConditioning"
-                val value =
-                    buildList {
-                        add(it.toString())
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            carTypes?.let {
-                val key = "carTypes"
-                val value =
-                    buildList {
-                        addAll(it.map { v -> v.toString() })
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
-                    ),
-                )
-            }
-            unit?.let {
-                val key = "unit"
-                val value =
-                    buildList {
-                        add(it.value)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            driverAge?.let {
-                val key = "driverAge"
-                val value =
-                    buildList {
-                        add(it.toString())
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
-            links?.let {
-                val key = "links"
-                val value =
-                    buildList {
-                        addAll(it.map { v -> v.value.toString() })
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
-                    ),
-                )
-            }
-            source?.let {
-                val key = "source"
-                val value =
-                    buildList {
-                        add(it.value)
-                    }
-
-                add(
-                    UrlQueryParam(
-                        key = key,
-                        value = value,
-                        stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
-                    ),
-                )
-            }
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
         }
+        pickupCity?.let {
+            val key = "pickup.city"
+            val value = buildList {
+                add(it)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        pickupAddress?.let {
+            val key = "pickup.address"
+            val value = buildList {
+                add(it)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        pickupGeoLocation?.let {
+            val key = "pickup.geoLocation"
+            val value = buildList {
+                add(it)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        pickupRadius?.let {
+            val key = "pickup.radius"
+            val value = buildList {
+                add(it.toString())
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        dropOffAirport?.let {
+            val key = "dropOff.airport"
+            val value = buildList {
+                add(it)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        dropOffCity?.let {
+            val key = "dropOff.city"
+            val value = buildList {
+                add(it)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        dropOffAddress?.let {
+            val key = "dropOff.address"
+            val value = buildList {
+                add(it)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        dropOffGeoLocation?.let {
+            val key = "dropOff.geoLocation"
+            val value = buildList {
+                add(it)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        dropOffRadius?.let {
+            val key = "dropOff.radius"
+            val value = buildList {
+                add(it.toString())
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        pickupTime.let {
+            val key = "pickupTime"
+            val value = buildList {
+                add(it.toString())
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        dropOffTime.let {
+            val key = "dropOffTime"
+            val value = buildList {
+                add(it.toString())
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        sortType?.let {
+            val key = "sortType"
+            val value = buildList {
+                add(it.value)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        sortOrder?.let {
+            val key = "sortOrder"
+            val value = buildList {
+                add(it.value)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        limit?.let {
+            val key = "limit"
+            val value = buildList {
+                add(it.toString())
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        suppliers?.let {
+            val key = "suppliers"
+            val value = buildList {
+                addAll(it.map { v -> v.toString() })
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
+                ),
+            )
+        }
+        carClasses?.let {
+            val key = "carClasses"
+            val value = buildList {
+                addAll(it.map { v -> v.toString() })
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
+                ),
+            )
+        }
+        discount1Supplier?.let {
+            val key = "discount1.supplier"
+            val value = buildList {
+                add(it)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        discount1Type?.let {
+            val key = "discount1.type"
+            val value = buildList {
+                add(it.value)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        discount1Code?.let {
+            val key = "discount1.code"
+            val value = buildList {
+                add(it)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        transmissions?.let {
+            val key = "transmissions"
+            val value = buildList {
+                addAll(it.map { v -> v.toString() })
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
+                ),
+            )
+        }
+        airConditioning?.let {
+            val key = "airConditioning"
+            val value = buildList {
+                add(it.toString())
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        carTypes?.let {
+            val key = "carTypes"
+            val value = buildList {
+                addAll(it.map { v -> v.toString() })
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
+                ),
+            )
+        }
+        unit?.let {
+            val key = "unit"
+            val value = buildList {
+                add(it.value)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        driverAge?.let {
+            val key = "driverAge"
+            val value = buildList {
+                add(it.toString())
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+        links?.let {
+            val key = "links"
+            val value = buildList {
+                addAll(it.map { v -> v.value.toString() })
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("csv", explode),
+                ),
+            )
+        }
+        source?.let {
+            val key = "source"
+            val value = buildList {
+                add(it.value)
+            }
+
+            add(
+                UrlQueryParam(
+                    key = key,
+                    value = value,
+                    stringify = swaggerCollectionFormatStringifier.getOrDefault("", explode),
+                ),
+            )
+        }
+    }
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param latitude Latitude of the location.
  * @param longitude Longitude of the location.
  */
-data class FlightsV3GeoLocation(
-    // Latitude of the location.
+@ConsistentCopyVisibility data class FlightsV3GeoLocation private constructor(
+    /* Latitude of the location. */
     @JsonProperty("Latitude")
     val latitude: kotlin.String,
-    // Longitude of the location.
+
+    /* Longitude of the location. */
     @JsonProperty("Longitude")
     val longitude: kotlin.String,
-) {
-    init {
-        require(latitude != null) { "latitude must not be null" }
 
-        require(longitude != null) { "longitude must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class FlightsV3GeoLocation(
         fun longitude(longitude: kotlin.String) = apply { this.longitude = longitude }
 
         fun build(): FlightsV3GeoLocation {
-            val instance =
-                FlightsV3GeoLocation(
-                    latitude = latitude!!,
-                    longitude = longitude!!,
-                )
+            val latitude = this.latitude.getOrThrow {
+                IllegalArgumentException("latitude must not be null")
+            }
+
+            val longitude = this.longitude.getOrThrow {
+                IllegalArgumentException("longitude must not be null")
+            }
+
+            val instance = FlightsV3GeoLocation(
+                latitude = latitude,
+                longitude = longitude,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            latitude = latitude!!,
-            longitude = longitude!!,
-        )
+    fun toBuilder() = Builder(
+        latitude = latitude,
+        longitude = longitude,
+    )
 }

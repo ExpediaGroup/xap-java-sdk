@@ -29,29 +29,33 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param country
  * @param geoLocation
  */
-data class LocationOption(
-    // Type of the location.
+@ConsistentCopyVisibility data class LocationOption private constructor(
+    /* Type of the location. */
     @JsonProperty("Type")
     val type: kotlin.String? = null,
-    // RegionId the location resides in.
+
+    /* RegionId the location resides in. */
     @JsonProperty("RegionId")
     val regionId: kotlin.String? = null,
-    // The name of the location which matches the location keyword.
+
+    /* The name of the location which matches the location keyword. */
     @JsonProperty("ShortName")
     val shortName: kotlin.String? = null,
-    // Indicates the nearest major airport to the location.
+
+    /* Indicates the nearest major airport to the location. */
     @JsonProperty("AirportCode")
     val airportCode: kotlin.String? = null,
-    // The address of the location.
+
+    /* The address of the location. */
     @JsonProperty("Address")
     val address: kotlin.String? = null,
+
     @JsonProperty("Country")
     val country: Country? = null,
+
     @JsonProperty("GeoLocation")
     val geoLocation: GeoLocation? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -82,29 +86,27 @@ data class LocationOption(
         fun geoLocation(geoLocation: GeoLocation?) = apply { this.geoLocation = geoLocation }
 
         fun build(): LocationOption {
-            val instance =
-                LocationOption(
-                    type = type,
-                    regionId = regionId,
-                    shortName = shortName,
-                    airportCode = airportCode,
-                    address = address,
-                    country = country,
-                    geoLocation = geoLocation,
-                )
+            val instance = LocationOption(
+                type = type,
+                regionId = regionId,
+                shortName = shortName,
+                airportCode = airportCode,
+                address = address,
+                country = country,
+                geoLocation = geoLocation,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type,
-            regionId = regionId,
-            shortName = shortName,
-            airportCode = airportCode,
-            address = address,
-            country = country,
-            geoLocation = geoLocation,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        regionId = regionId,
+        shortName = shortName,
+        airportCode = airportCode,
+        address = address,
+        country = country,
+        geoLocation = geoLocation,
+    )
 }

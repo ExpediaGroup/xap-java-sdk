@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.expediagroup.sdk.xap.operations
+package com.expediagroup.sdk.xap.operation
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.core.http.Headers
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
@@ -23,12 +24,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
  * @property partnerTransactionID Partner-generated identifier.
  */
 @JsonDeserialize(builder = PostFlightLinksOperationParams.Builder::class)
-data class PostFlightLinksOperationParams(
+@ConsistentCopyVisibility
+data class PostFlightLinksOperationParams private constructor(
     val partnerTransactionID: kotlin.String,
+
 ) {
-    init {
-        require(partnerTransactionID != null) { "partnerTransactionID must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -37,34 +37,33 @@ data class PostFlightLinksOperationParams(
 
     class Builder(
         @JsonProperty("Partner-Transaction-ID") private var partnerTransactionID: kotlin.String? = null,
+
     ) {
         /**
          * @param partnerTransactionID Partner-generated identifier.
          */
-        fun partnerTransactionID(partnerTransactionID: kotlin.String) = apply { this.partnerTransactionID = partnerTransactionID }
+        fun partnerTransactionID(
+            partnerTransactionID: kotlin.String,
+        ) = apply { this.partnerTransactionID = partnerTransactionID }
 
         fun build(): PostFlightLinksOperationParams {
-            val params =
-                PostFlightLinksOperationParams(
-                    partnerTransactionID = partnerTransactionID!!,
-                )
+            val partnerTransactionID = this.partnerTransactionID.getOrThrow {
+                IllegalArgumentException("partnerTransactionID must not be null")
+            }
 
+            val params = PostFlightLinksOperationParams(
+                partnerTransactionID = partnerTransactionID,
+            )
             return params
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            partnerTransactionID = partnerTransactionID,
-        )
+    fun toBuilder() = Builder(
+        partnerTransactionID = partnerTransactionID,
+    )
 
-    fun getHeaders(): Headers =
-        Headers
-            .builder()
-            .apply {
-                partnerTransactionID?.let {
-                    add("Partner-Transaction-ID", it)
-                }
-                add("Accept", "application/vnd.exp-flight.v3+json")
-            }.build()
+    fun getHeaders(): Headers = Headers.builder().apply {
+        add("Partner-Transaction-ID", partnerTransactionID)
+        add("Accept", "application/vnd.exp-flight.v3+json")
+    }.build()
 }

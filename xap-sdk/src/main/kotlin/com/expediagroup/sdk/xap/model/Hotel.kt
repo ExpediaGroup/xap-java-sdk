@@ -65,98 +65,127 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param memberOnlyDealAvailable Indicates whether the property has member only deal rates available.
  * @param roomTypes Container for all of available room types.
  */
-data class Hotel(
-    // The unique, Expedia-specific hotel property identifier used to designate a single hotel.
+@ConsistentCopyVisibility data class Hotel private constructor(
+    /* The unique, Expedia-specific hotel property identifier used to designate a single hotel. */
     @JsonProperty("Id")
     val id: kotlin.String? = null,
-    // The unique, Hotels.com-specific hotel property identifier used to designate a single hotel.  This will only be returned if searching via hcomHotelIds in request.
+
+    /* The unique, Hotels.com-specific hotel property identifier used to designate a single hotel.  This will only be returned if searching via hcomHotelIds in request.  */
     @JsonProperty("HcomId")
     val hcomId: kotlin.String? = null,
-    // The common name of the hotel
+
+    /* The common name of the hotel */
     @JsonProperty("Name")
     val name: kotlin.String? = null,
+
     @JsonProperty("PropertyType")
     val propertyType: HotelPropertyType? = null,
+
     @JsonProperty("PropertyDetails")
     val propertyDetails: PropertyDetails? = null,
-    // The Local Currency Code for Hotel (which will be used for any fees that must be paid at the hotel)
+
+    /* The Local Currency Code for Hotel (which will be used for any fees that must be paid at the hotel) */
     @JsonProperty("LocalCurrencyCode")
     val localCurrencyCode: kotlin.String? = null,
+
     @JsonProperty("Location")
     val location: HotelLocation? = null,
-    // Container for property phone numbers.  Note: PhoneInfos section will not return for Vrbo Vacation Rental properties.
+
+    /* Container for property phone numbers.  Note: PhoneInfos section will not return for Vrbo Vacation Rental properties.  */
     @JsonProperty("PhoneInfos")
     val phoneInfos: kotlin.collections.List<Phone>? = null,
+
     @JsonProperty("Distance")
     val distance: Distance? = null,
+
     @JsonProperty("Description")
     val description: Description? = null,
-    // Indicates whether there are available offers at the property during the dates requested, as well as information as to why.  Note that pricing will <u>only</u> be present in the API response for a status of `AVAILABLE`.  If there are no rooms available at the property for the dates requested, then `NOT_AVAILABLE` will be returned.  If there are available rooms, but none that meet the specific parameters of the search request, then one of the other messages will be returned.
+
+    /* Indicates whether there are available offers at the property during the dates requested, as well as information as to why.  Note that pricing will <u>only</u> be present in the API response for a status of `AVAILABLE`.  If there are no rooms available at the property for the dates requested, then `NOT_AVAILABLE` will be returned.  If there are available rooms, but none that meet the specific parameters of the search request, then one of the other messages will be returned.  */
     @JsonProperty("Status")
     val status: Hotel.Status? = null,
-    // The information about renovations and closures
+
+    /* The information about renovations and closures */
     @JsonProperty("RenovationsAndClosures")
     val renovationsAndClosures: kotlin.collections.List<kotlin.String>? = null,
+
     @JsonProperty("ChainAndBrandInfo")
     val chainAndBrandInfo: ChainAndBrandInfo? = null,
-    // URL of the thumbnail image of the hotel.  Note that other images sizes are available - You can find a link to the complete list of Supported Hotel Image Sizes in [Lodging Image Captions, IDs, and Sizes](https://developers.expediagroup.com/xap/products/xap/lodging/references/image-captions-ids-and-sizes).
+
+    /* URL of the thumbnail image of the hotel.  Note that other images sizes are available - You can find a link to the complete list of Supported Hotel Image Sizes in [Lodging Image Captions, IDs, and Sizes](https://developers.expediagroup.com/xap/products/xap/lodging/references/image-captions-ids-and-sizes).  */
     @JsonProperty("ThumbnailUrl")
     val thumbnailUrl: kotlin.String? = null,
-    // Star rating value of the hotel property.
+
+    /* Star rating value of the hotel property. */
     @JsonProperty("StarRating")
     val starRating: Hotel.StarRating? = null,
-    // Average overall guest rating of the hotel.  The value is between 1.0 and 5.0 in 0.1 increments.  Higher is better.
+
+    /* Average overall guest rating of the hotel.  The value is between 1.0 and 5.0 in 0.1 increments.  Higher is better.  */
     @JsonProperty("GuestRating")
     val guestRating: kotlin.String? = null,
-    // The total count of guest reviews used to create the average `GuestRating` above.
+
+    /* The total count of guest reviews used to create the average `GuestRating` above. */
     @JsonProperty("GuestReviewCount")
     val guestReviewCount: kotlin.Int? = null,
-    // Indicates whether the property allows certain pets under certain circumstances.  Prior to booking, guests should review the PetPolicies information in the Lodging Details API to find out whether a particular pet will be permitted to stay at the property.
+
+    /* Indicates whether the property allows certain pets under certain circumstances.  Prior to booking, guests should review the PetPolicies information in the Lodging Details API to find out whether a particular pet will be permitted to stay at the property.  */
     @JsonProperty("PetFriendly")
     val petFriendly: kotlin.Boolean? = null,
-    // This value is returned if the property owner has specifically designated this property as LGBTQIA-friendly.
+
+    /* This value is returned if the property owner has specifically designated this property as LGBTQIA-friendly. */
     @JsonProperty("LgbtqiaFriendly")
     val lgbtqiaFriendly: kotlin.Boolean? = null,
+
     @JsonProperty("Links")
     val links: HotelLinks? = null,
+
     @JsonProperty("Policies")
     val policies: HotelPolicies? = null,
-    // Container for all cleanliness and safety measures.  The key is the measures category, the values are the information. The category will be: - CLEANLINESS - SOCIAL_DISTANCING - SAFETY - DISCLAIMER
+
+    /* Container for all cleanliness and safety measures.  The key is the measures category, the values are the information. The category will be: - CLEANLINESS - SOCIAL_DISTANCING - SAFETY - DISCLAIMER  */
     @JsonProperty("CleanlinessAndSafety")
     val cleanlinessAndSafety: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>>? = null,
-    // The optional extras info.
+
+    /* The optional extras info. */
     @JsonProperty("OptionalExtras")
     val optionalExtras: kotlin.collections.List<kotlin.String>? = null,
-    // The important notices for hotel.
+
+    /* The important notices for hotel. */
     @JsonProperty("ImportantNotices")
     val importantNotices: kotlin.collections.List<kotlin.String>? = null,
-    // Container for hotel images
+
+    /* Container for hotel images */
     @JsonProperty("Media")
     val media: kotlin.collections.List<Media>? = null,
-    // Container for all hotel amenities.
+
+    /* Container for all hotel amenities. */
     @JsonProperty("HotelAmenities")
     val hotelAmenities: kotlin.collections.List<HotelHotelAmenitiesInner>? = null,
-    // Container for all hotel amenities in group.  The key is amenity category, the values are the amenity information. The category for grouped amenities in hotel level for conventional lodging hotel will be: - PARKING - FOOD_AND_DRINK - INTERNET - THINGS_TO_DO - FAMILY_FRIENDLY - CONVENIENCES - GUEST_SERVICES - BUSINESS_SERVICE - OUTDOOR - ACCESSIBILITY - SPA - ACTIVITIES_NEARBY - LANGS_SPOKEN - MORE  The category for grouped amenities in hotel level for Vacation Rental hotel will be: - BEACH - SKI - POOL/SPA - INTERNET - PARKING - FAMILY_FRIENDLY - KITCHEN - DINING - BEDROOM - BATHROOMS - LIVING_SPACES - ENTERTAINMENT - OUTDOORS - LAUNDRY - WORKSPACES - CLIMATE_CONTROL - PETS - SUITABILITY/ACCESSIBILITY - SERVICES_AND_CONVENIENCES - LOCATION_HIGHLIGHTS - THINGS_TO_DO - GENERAL - SAFETY
+
+    /* Container for all hotel amenities in group.  The key is amenity category, the values are the amenity information. The category for grouped amenities in hotel level for conventional lodging hotel will be: - PARKING - FOOD_AND_DRINK - INTERNET - THINGS_TO_DO - FAMILY_FRIENDLY - CONVENIENCES - GUEST_SERVICES - BUSINESS_SERVICE - OUTDOOR - ACCESSIBILITY - SPA - ACTIVITIES_NEARBY - LANGS_SPOKEN - MORE  The category for grouped amenities in hotel level for Vacation Rental hotel will be: - BEACH - SKI - POOL/SPA - INTERNET - PARKING - FAMILY_FRIENDLY - KITCHEN - DINING - BEDROOM - BATHROOMS - LIVING_SPACES - ENTERTAINMENT - OUTDOORS - LAUNDRY - WORKSPACES - CLIMATE_CONTROL - PETS - SUITABILITY/ACCESSIBILITY - SERVICES_AND_CONVENIENCES - LOCATION_HIGHLIGHTS - THINGS_TO_DO - GENERAL - SAFETY  */
     @JsonProperty("HotelDescriptiveAmenities")
     val hotelDescriptiveAmenities: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>>? = null,
-    // Container for all room amenities.
+
+    /* Container for all room amenities. */
     @JsonProperty("RoomAmenities")
     val roomAmenities: kotlin.collections.List<HotelRoomAmenitiesInner>? = null,
-    // Container for all common room amenities in group.  The key is amenity category, the values are the amenity information. The category for grouped amenities in common room level will be: - BEDROOM - BATHROOM - FOOD_AND_DRINK - ENTERTAINMENT - OUTDOOR_SPACE - MORE
+
+    /* Container for all common room amenities in group.  The key is amenity category, the values are the amenity information. The category for grouped amenities in common room level will be: - BEDROOM - BATHROOM - FOOD_AND_DRINK - ENTERTAINMENT - OUTDOOR_SPACE - MORE  */
     @JsonProperty("RoomDescriptiveAmenities")
     val roomDescriptiveAmenities: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>>? = null,
-    // The accessibility options available for the room.  Possible accessibility include: - Accessible path of travel - Accessible bathroom - Roll-in shower - Handicapped parking - In-room accessibility - Accessibility equipment for the deaf - Braille or raised signage
+
+    /* The accessibility options available for the room.  Possible accessibility include: - Accessible path of travel - Accessible bathroom - Roll-in shower - Handicapped parking - In-room accessibility - Accessibility equipment for the deaf - Braille or raised signage  */
     @JsonProperty("Accessibility")
     val accessibility: kotlin.collections.List<kotlin.String>? = null,
-    // Indicates whether the property has member only deal rates available.
+
+    /* Indicates whether the property has member only deal rates available. */
     @JsonProperty("MemberOnlyDealAvailable")
     val memberOnlyDealAvailable: kotlin.Boolean? = null,
-    // Container for all of available room types.
+
+    /* Container for all of available room types. */
     @JsonProperty("RoomTypes")
     val roomTypes: kotlin.collections.List<RoomType>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -239,11 +268,7 @@ data class Hotel(
 
         fun policies(policies: HotelPolicies?) = apply { this.policies = policies }
 
-        fun cleanlinessAndSafety(cleanlinessAndSafety: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>>?) =
-            apply {
-                this.cleanlinessAndSafety =
-                    cleanlinessAndSafety
-            }
+        fun cleanlinessAndSafety(cleanlinessAndSafety: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>>?) = apply { this.cleanlinessAndSafety = cleanlinessAndSafety }
 
         fun optionalExtras(optionalExtras: kotlin.collections.List<kotlin.String>?) = apply { this.optionalExtras = optionalExtras }
 
@@ -253,19 +278,11 @@ data class Hotel(
 
         fun hotelAmenities(hotelAmenities: kotlin.collections.List<HotelHotelAmenitiesInner>?) = apply { this.hotelAmenities = hotelAmenities }
 
-        fun hotelDescriptiveAmenities(hotelDescriptiveAmenities: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>>?) =
-            apply {
-                this.hotelDescriptiveAmenities =
-                    hotelDescriptiveAmenities
-            }
+        fun hotelDescriptiveAmenities(hotelDescriptiveAmenities: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>>?) = apply { this.hotelDescriptiveAmenities = hotelDescriptiveAmenities }
 
         fun roomAmenities(roomAmenities: kotlin.collections.List<HotelRoomAmenitiesInner>?) = apply { this.roomAmenities = roomAmenities }
 
-        fun roomDescriptiveAmenities(roomDescriptiveAmenities: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>>?) =
-            apply {
-                this.roomDescriptiveAmenities =
-                    roomDescriptiveAmenities
-            }
+        fun roomDescriptiveAmenities(roomDescriptiveAmenities: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>>?) = apply { this.roomDescriptiveAmenities = roomDescriptiveAmenities }
 
         fun accessibility(accessibility: kotlin.collections.List<kotlin.String>?) = apply { this.accessibility = accessibility }
 
@@ -274,89 +291,85 @@ data class Hotel(
         fun roomTypes(roomTypes: kotlin.collections.List<RoomType>?) = apply { this.roomTypes = roomTypes }
 
         fun build(): Hotel {
-            val instance =
-                Hotel(
-                    id = id,
-                    hcomId = hcomId,
-                    name = name,
-                    propertyType = propertyType,
-                    propertyDetails = propertyDetails,
-                    localCurrencyCode = localCurrencyCode,
-                    location = location,
-                    phoneInfos = phoneInfos,
-                    distance = distance,
-                    description = description,
-                    status = status,
-                    renovationsAndClosures = renovationsAndClosures,
-                    chainAndBrandInfo = chainAndBrandInfo,
-                    thumbnailUrl = thumbnailUrl,
-                    starRating = starRating,
-                    guestRating = guestRating,
-                    guestReviewCount = guestReviewCount,
-                    petFriendly = petFriendly,
-                    lgbtqiaFriendly = lgbtqiaFriendly,
-                    links = links,
-                    policies = policies,
-                    cleanlinessAndSafety = cleanlinessAndSafety,
-                    optionalExtras = optionalExtras,
-                    importantNotices = importantNotices,
-                    media = media,
-                    hotelAmenities = hotelAmenities,
-                    hotelDescriptiveAmenities = hotelDescriptiveAmenities,
-                    roomAmenities = roomAmenities,
-                    roomDescriptiveAmenities = roomDescriptiveAmenities,
-                    accessibility = accessibility,
-                    memberOnlyDealAvailable = memberOnlyDealAvailable,
-                    roomTypes = roomTypes,
-                )
+            val instance = Hotel(
+                id = id,
+                hcomId = hcomId,
+                name = name,
+                propertyType = propertyType,
+                propertyDetails = propertyDetails,
+                localCurrencyCode = localCurrencyCode,
+                location = location,
+                phoneInfos = phoneInfos,
+                distance = distance,
+                description = description,
+                status = status,
+                renovationsAndClosures = renovationsAndClosures,
+                chainAndBrandInfo = chainAndBrandInfo,
+                thumbnailUrl = thumbnailUrl,
+                starRating = starRating,
+                guestRating = guestRating,
+                guestReviewCount = guestReviewCount,
+                petFriendly = petFriendly,
+                lgbtqiaFriendly = lgbtqiaFriendly,
+                links = links,
+                policies = policies,
+                cleanlinessAndSafety = cleanlinessAndSafety,
+                optionalExtras = optionalExtras,
+                importantNotices = importantNotices,
+                media = media,
+                hotelAmenities = hotelAmenities,
+                hotelDescriptiveAmenities = hotelDescriptiveAmenities,
+                roomAmenities = roomAmenities,
+                roomDescriptiveAmenities = roomDescriptiveAmenities,
+                accessibility = accessibility,
+                memberOnlyDealAvailable = memberOnlyDealAvailable,
+                roomTypes = roomTypes,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id,
-            hcomId = hcomId,
-            name = name,
-            propertyType = propertyType,
-            propertyDetails = propertyDetails,
-            localCurrencyCode = localCurrencyCode,
-            location = location,
-            phoneInfos = phoneInfos,
-            distance = distance,
-            description = description,
-            status = status,
-            renovationsAndClosures = renovationsAndClosures,
-            chainAndBrandInfo = chainAndBrandInfo,
-            thumbnailUrl = thumbnailUrl,
-            starRating = starRating,
-            guestRating = guestRating,
-            guestReviewCount = guestReviewCount,
-            petFriendly = petFriendly,
-            lgbtqiaFriendly = lgbtqiaFriendly,
-            links = links,
-            policies = policies,
-            cleanlinessAndSafety = cleanlinessAndSafety,
-            optionalExtras = optionalExtras,
-            importantNotices = importantNotices,
-            media = media,
-            hotelAmenities = hotelAmenities,
-            hotelDescriptiveAmenities = hotelDescriptiveAmenities,
-            roomAmenities = roomAmenities,
-            roomDescriptiveAmenities = roomDescriptiveAmenities,
-            accessibility = accessibility,
-            memberOnlyDealAvailable = memberOnlyDealAvailable,
-            roomTypes = roomTypes,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        hcomId = hcomId,
+        name = name,
+        propertyType = propertyType,
+        propertyDetails = propertyDetails,
+        localCurrencyCode = localCurrencyCode,
+        location = location,
+        phoneInfos = phoneInfos,
+        distance = distance,
+        description = description,
+        status = status,
+        renovationsAndClosures = renovationsAndClosures,
+        chainAndBrandInfo = chainAndBrandInfo,
+        thumbnailUrl = thumbnailUrl,
+        starRating = starRating,
+        guestRating = guestRating,
+        guestReviewCount = guestReviewCount,
+        petFriendly = petFriendly,
+        lgbtqiaFriendly = lgbtqiaFriendly,
+        links = links,
+        policies = policies,
+        cleanlinessAndSafety = cleanlinessAndSafety,
+        optionalExtras = optionalExtras,
+        importantNotices = importantNotices,
+        media = media,
+        hotelAmenities = hotelAmenities,
+        hotelDescriptiveAmenities = hotelDescriptiveAmenities,
+        roomAmenities = roomAmenities,
+        roomDescriptiveAmenities = roomDescriptiveAmenities,
+        accessibility = accessibility,
+        memberOnlyDealAvailable = memberOnlyDealAvailable,
+        roomTypes = roomTypes,
+    )
 
     /**
      * Indicates whether there are available offers at the property during the dates requested, as well as information as to why.  Note that pricing will <u>only</u> be present in the API response for a status of `AVAILABLE`.  If there are no rooms available at the property for the dates requested, then `NOT_AVAILABLE` will be returned.  If there are available rooms, but none that meet the specific parameters of the search request, then one of the other messages will be returned.
      * Values: AVAILABLE,NOT_AVAILABLE,ERROR,NUMBER_OF_ADULTS_NOT_ACCEPTED,NUMBER_OF_CHILDREN_NOT_ACCEPTED,NUMBER_OF_INFANTS_NOT_ACCEPTED,NUMBER_OF_PERSONS_NOT_ACCEPTED,CHECK_IN_AGE_NOT_ACCEPTED
      */
-    enum class Status(
-        val value: kotlin.String,
-    ) {
+    enum class Status(val value: kotlin.String) {
         @JsonProperty("AVAILABLE")
         AVAILABLE("AVAILABLE"),
 
@@ -386,9 +399,7 @@ data class Hotel(
      * Star rating value of the hotel property.
      * Values: _1_PERIOD0,_1_PERIOD5,_2_PERIOD0,_2_PERIOD5,_3_PERIOD0,_3_PERIOD5,_4_PERIOD0,_4_PERIOD5,_5_PERIOD0
      */
-    enum class StarRating(
-        val value: kotlin.String,
-    ) {
+    enum class StarRating(val value: kotlin.String) {
         @JsonProperty("1.0")
         _1_PERIOD0("1.0"),
 

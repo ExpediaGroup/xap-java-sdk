@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInner
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -24,25 +25,22 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param legs Container information on each flight leg.
  * @param airportChange True if there the Segment is having a different Departure airport compared to the Arrival airport of previous Segment.
  */
-data class FlexSearchResponseOffersInnerOfferSegmentsInnerSegment(
-    // This is an indicator (can have values of -1, 0, 1, 2, etc.) which depends on the relative difference between the arrival and departure dates.
+@ConsistentCopyVisibility data class FlexSearchResponseOffersInnerOfferSegmentsInnerSegment private constructor(
+    /* This is an indicator (can have values of -1, 0, 1, 2, etc.) which depends on the relative difference between the arrival and departure dates. */
     @JsonProperty("DepartureArrivalDayDifference")
     val departureArrivalDayDifference: kotlin.Int,
-    // Container information on each flight leg.
+
+    /* Container information on each flight leg. */
     @JsonProperty("Legs")
     val legs: kotlin.collections
         .List<
             FlexSearchResponseOffersInnerOfferSegmentsInnerSegmentLegsInner,
-        >,
-    // True if there the Segment is having a different Departure airport compared to the Arrival airport of previous Segment.
+            >,
+
+    /* True if there the Segment is having a different Departure airport compared to the Arrival airport of previous Segment. */
     @JsonProperty("AirportChange")
     val airportChange: kotlin.Boolean? = null,
 ) {
-    init {
-        require(departureArrivalDayDifference != null) { "departureArrivalDayDifference must not be null" }
-
-        require(legs != null) { "legs must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -61,21 +59,27 @@ data class FlexSearchResponseOffersInnerOfferSegmentsInnerSegment(
         fun airportChange(airportChange: kotlin.Boolean?) = apply { this.airportChange = airportChange }
 
         fun build(): FlexSearchResponseOffersInnerOfferSegmentsInnerSegment {
-            val instance =
-                FlexSearchResponseOffersInnerOfferSegmentsInnerSegment(
-                    departureArrivalDayDifference = departureArrivalDayDifference!!,
-                    legs = legs!!,
-                    airportChange = airportChange,
-                )
+            val departureArrivalDayDifference = this.departureArrivalDayDifference.getOrThrow {
+                IllegalArgumentException("departureArrivalDayDifference must not be null")
+            }
+
+            val legs = this.legs.getOrThrow {
+                IllegalArgumentException("legs must not be null")
+            }
+
+            val instance = FlexSearchResponseOffersInnerOfferSegmentsInnerSegment(
+                departureArrivalDayDifference = departureArrivalDayDifference,
+                legs = legs,
+                airportChange = airportChange,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            departureArrivalDayDifference = departureArrivalDayDifference!!,
-            legs = legs!!,
-            airportChange = airportChange,
-        )
+    fun toBuilder() = Builder(
+        departureArrivalDayDifference = departureArrivalDayDifference,
+        legs = legs,
+        airportChange = airportChange,
+    )
 }

@@ -55,90 +55,115 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param cancellationPolicy
  * @param amenities The amenities of the `rateplan`.
  */
-data class RatePlan(
-    // The room type identifier.
+@ConsistentCopyVisibility data class RatePlan private constructor(
+    /* The room type identifier. */
     @JsonProperty("RoomTypeId")
     val roomTypeId: kotlin.String? = null,
-    // The rate plan identifier.
+
+    /* The rate plan identifier. */
     @JsonProperty("RatePlanId")
     val ratePlanId: kotlin.String? = null,
-    // The identifier of rate rule.
+
+    /* The identifier of rate rule. */
     @JsonProperty("RateRuleId")
     val rateRuleId: kotlin.String? = null,
-    // The identification number of the source that provides the rate plan.
+
+    /* The identification number of the source that provides the rate plan. */
     @JsonProperty("InventorySourceId")
     val inventorySourceId: kotlin.String? = null,
-    // The source name that provided the rate plan.
+
+    /* The source name that provided the rate plan. */
     @JsonProperty("InventorySourceCode")
     val inventorySourceCode: kotlin.String? = null,
+
     @JsonProperty("StayDates")
     val stayDates: StayDates? = null,
-    // The number of rooms remaining through Expedia for this room type.  **NOTE**: This value does <u>NOT</u> represent the total number of rooms remaining at the hotel property,  only the number of rooms allocated to Expedia for sale by the property that currently remain in Expedia's inventory.  When a hotel is listed as 'sold out' by Expedia there may still be rooms available for sale by the hotel through other channels.  Also note that the `RemainingCount` response element has a maximum returned value of 100, even if there are more than 100 rooms available within bookable Expedia inventory.  **CMA Compliance Note (UK)**: websites in the UK that display `remainingCount` should make it clear to  consumers that this count refers to the number of rooms remaining within Expedia inventory - NOT the number remaining at the property.
+
+    /* The number of rooms remaining through Expedia for this room type.  **NOTE**: This value does <u>NOT</u> represent the total number of rooms remaining at the hotel property,  only the number of rooms allocated to Expedia for sale by the property that currently remain in Expedia's inventory.  When a hotel is listed as 'sold out' by Expedia there may still be rooms available for sale by the hotel through other channels.  Also note that the `RemainingCount` response element has a maximum returned value of 100, even if there are more than 100 rooms available within bookable Expedia inventory.  **CMA Compliance Note (UK)**: websites in the UK that display `remainingCount` should make it clear to  consumers that this count refers to the number of rooms remaining within Expedia inventory - NOT the number remaining at the property.  */
     @JsonProperty("RemainingCount")
     val remainingCount: kotlin.Int? = null,
+
     @JsonProperty("Price")
     val price: RatePlanPrice? = null,
-    // Indicates whether the rate is for member only.  Only visible by configuration. Please contact your Expedia Account Manager if you need this node.
+
+    /* Indicates whether the rate is for member only.  Only visible by configuration. Please contact your Expedia Account Manager if you need this node.  */
     @JsonProperty("MemberOnlyDeal")
     val memberOnlyDeal: kotlin.Boolean? = null,
-    // All promotion information of the `ratePlan`.
+
+    /* All promotion information of the `ratePlan`. */
     @JsonProperty("Promotions")
     val promotions: kotlin.collections.List<Promotion>? = null,
+
     @JsonProperty("StandalonePrice")
     val standalonePrice: RatePlanStandalonePrice? = null,
-    // Indicates whether taxes and fees are included in base rate.
+
+    /* Indicates whether taxes and fees are included in base rate. */
     @JsonProperty("TaxesAndFeesInclusive")
     val taxesAndFeesInclusive: kotlin.Boolean? = null,
-    // Text description for any deposit information provide by the property (if applicable).
+
+    /* Text description for any deposit information provide by the property (if applicable). */
     @JsonProperty("GuaranteeText")
     val guaranteeText: kotlin.String? = null,
-    // Room payment information. The available options are: - Online: Pay at the time of booking - Hotel: Could either be paid at the hotel during the time of stay or paid at the time indicated by `PaymentTime` and `PaymentSchedule`
+
+    /* Room payment information. The available options are: - Online: Pay at the time of booking - Hotel: Could either be paid at the hotel during the time of stay or paid at the time indicated by `PaymentTime` and `PaymentSchedule`  */
     @JsonProperty("PaymentMethod")
     val paymentMethod: RatePlan.PaymentMethod? = null,
-    // The time when the booking amount will be charged on the traveler’s credit card. Valid values are as follows: - UponBooking - PayLater - SupplierDiscretion
+
+    /* The time when the booking amount will be charged on the traveler’s credit card. Valid values are as follows: - UponBooking - PayLater - SupplierDiscretion  */
     @JsonProperty("PaymentTime")
     val paymentTime: RatePlan.PaymentTime? = null,
-    // It will be true if PaymentSchedule has one installment and the value of \"Due\" is booking date, otherwise, it will be false.
+
+    /* It will be true if PaymentSchedule has one installment and the value of \"Due\" is booking date, otherwise, it will be false.  */
     @JsonProperty("FullDepositUponBooking")
     val fullDepositUponBooking: kotlin.Boolean? = null,
-    // Contains information on the payment schedule.
+
+    /* Contains information on the payment schedule. */
     @JsonProperty("PaymentSchedule")
     val paymentSchedule: kotlin.collections.List<PaymentSchedule>? = null,
-    // Indicates whether this rate plan need deposit to reserve.
+
+    /* Indicates whether this rate plan need deposit to reserve. */
     @JsonProperty("ReserveWithDeposit")
     val reserveWithDeposit: kotlin.Boolean? = null,
-    // Indicates whether the price of the room includes free Internet. (either wireless or wired)
+
+    /* Indicates whether the price of the room includes free Internet. (either wireless or wired) */
     @JsonProperty("FreeInternet")
     val freeInternet: kotlin.Boolean? = null,
-    // Indicates whether the price of the room includes free wireless Internet access.
+
+    /* Indicates whether the price of the room includes free wireless Internet access. */
     @JsonProperty("FreeWiFi")
     val freeWiFi: kotlin.Boolean? = null,
-    // The localized details for the free internet amenity (only shown when FreeInternet = true).  You can find a link to the complete list of Free Internet Details in [Lodging Free Breakfast and Internet Details](https://developers.expediagroup.com/xap/products/xap/lodging/references/free-breakfast-and-internet-details).
+
+    /* The localized details for the free internet amenity (only shown when FreeInternet = true).  You can find a link to the complete list of Free Internet Details in [Lodging Free Breakfast and Internet Details](https://developers.expediagroup.com/xap/products/xap/lodging/references/free-breakfast-and-internet-details).  */
     @JsonProperty("FreeInternetDetails")
     val freeInternetDetails: kotlin.collections.List<kotlin.String>? = null,
-    // Indicates whether the price of the room includes free parking.
+
+    /* Indicates whether the price of the room includes free parking. */
     @JsonProperty("FreeParking")
     val freeParking: kotlin.Boolean? = null,
-    // Indicates whether the price of the room includes free breakfast.
+
+    /* Indicates whether the price of the room includes free breakfast. */
     @JsonProperty("FreeBreakfast")
     val freeBreakfast: kotlin.Boolean? = null,
-    // The localized details for the free breakfast amenity (only shown when FreeBreakfast = true).  You can find a link to the complete list of Free Breakfast Details in [Lodging Free Breakfast and Internet Details](https://developers.expediagroup.com/xap/products/xap/lodging/references/free-breakfast-and-internet-details).
+
+    /* The localized details for the free breakfast amenity (only shown when FreeBreakfast = true).  You can find a link to the complete list of Free Breakfast Details in [Lodging Free Breakfast and Internet Details](https://developers.expediagroup.com/xap/products/xap/lodging/references/free-breakfast-and-internet-details).  */
     @JsonProperty("FreeBreakfastDetails")
     val freeBreakfastDetails: kotlin.collections.List<kotlin.String>? = null,
-    // Indicate whether the room qualifies for Hcom Rewards Earn. (Hotels.com partners only)
+
+    /* Indicate whether the room qualifies for Hcom Rewards Earn. (Hotels.com partners only) */
     @JsonProperty("HcomRewardsEarn")
     val hcomRewardsEarn: kotlin.Boolean? = null,
-    // Indicate whether the room qualifies for Hcom Rewards Burn. (Hotels.com partners only)
+
+    /* Indicate whether the room qualifies for Hcom Rewards Burn. (Hotels.com partners only) */
     @JsonProperty("HcomRewardsBurn")
     val hcomRewardsBurn: kotlin.Boolean? = null,
+
     @JsonProperty("CancellationPolicy")
     val cancellationPolicy: CancellationPolicy? = null,
-    // The amenities of the `rateplan`.
+
+    /* The amenities of the `rateplan`. */
     @JsonProperty("Amenities")
     val amenities: kotlin.collections.List<RatePlanAmenitiesInner>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -232,81 +257,77 @@ data class RatePlan(
         fun amenities(amenities: kotlin.collections.List<RatePlanAmenitiesInner>?) = apply { this.amenities = amenities }
 
         fun build(): RatePlan {
-            val instance =
-                RatePlan(
-                    roomTypeId = roomTypeId,
-                    ratePlanId = ratePlanId,
-                    rateRuleId = rateRuleId,
-                    inventorySourceId = inventorySourceId,
-                    inventorySourceCode = inventorySourceCode,
-                    stayDates = stayDates,
-                    remainingCount = remainingCount,
-                    price = price,
-                    memberOnlyDeal = memberOnlyDeal,
-                    promotions = promotions,
-                    standalonePrice = standalonePrice,
-                    taxesAndFeesInclusive = taxesAndFeesInclusive,
-                    guaranteeText = guaranteeText,
-                    paymentMethod = paymentMethod,
-                    paymentTime = paymentTime,
-                    fullDepositUponBooking = fullDepositUponBooking,
-                    paymentSchedule = paymentSchedule,
-                    reserveWithDeposit = reserveWithDeposit,
-                    freeInternet = freeInternet,
-                    freeWiFi = freeWiFi,
-                    freeInternetDetails = freeInternetDetails,
-                    freeParking = freeParking,
-                    freeBreakfast = freeBreakfast,
-                    freeBreakfastDetails = freeBreakfastDetails,
-                    hcomRewardsEarn = hcomRewardsEarn,
-                    hcomRewardsBurn = hcomRewardsBurn,
-                    cancellationPolicy = cancellationPolicy,
-                    amenities = amenities,
-                )
+            val instance = RatePlan(
+                roomTypeId = roomTypeId,
+                ratePlanId = ratePlanId,
+                rateRuleId = rateRuleId,
+                inventorySourceId = inventorySourceId,
+                inventorySourceCode = inventorySourceCode,
+                stayDates = stayDates,
+                remainingCount = remainingCount,
+                price = price,
+                memberOnlyDeal = memberOnlyDeal,
+                promotions = promotions,
+                standalonePrice = standalonePrice,
+                taxesAndFeesInclusive = taxesAndFeesInclusive,
+                guaranteeText = guaranteeText,
+                paymentMethod = paymentMethod,
+                paymentTime = paymentTime,
+                fullDepositUponBooking = fullDepositUponBooking,
+                paymentSchedule = paymentSchedule,
+                reserveWithDeposit = reserveWithDeposit,
+                freeInternet = freeInternet,
+                freeWiFi = freeWiFi,
+                freeInternetDetails = freeInternetDetails,
+                freeParking = freeParking,
+                freeBreakfast = freeBreakfast,
+                freeBreakfastDetails = freeBreakfastDetails,
+                hcomRewardsEarn = hcomRewardsEarn,
+                hcomRewardsBurn = hcomRewardsBurn,
+                cancellationPolicy = cancellationPolicy,
+                amenities = amenities,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            roomTypeId = roomTypeId,
-            ratePlanId = ratePlanId,
-            rateRuleId = rateRuleId,
-            inventorySourceId = inventorySourceId,
-            inventorySourceCode = inventorySourceCode,
-            stayDates = stayDates,
-            remainingCount = remainingCount,
-            price = price,
-            memberOnlyDeal = memberOnlyDeal,
-            promotions = promotions,
-            standalonePrice = standalonePrice,
-            taxesAndFeesInclusive = taxesAndFeesInclusive,
-            guaranteeText = guaranteeText,
-            paymentMethod = paymentMethod,
-            paymentTime = paymentTime,
-            fullDepositUponBooking = fullDepositUponBooking,
-            paymentSchedule = paymentSchedule,
-            reserveWithDeposit = reserveWithDeposit,
-            freeInternet = freeInternet,
-            freeWiFi = freeWiFi,
-            freeInternetDetails = freeInternetDetails,
-            freeParking = freeParking,
-            freeBreakfast = freeBreakfast,
-            freeBreakfastDetails = freeBreakfastDetails,
-            hcomRewardsEarn = hcomRewardsEarn,
-            hcomRewardsBurn = hcomRewardsBurn,
-            cancellationPolicy = cancellationPolicy,
-            amenities = amenities,
-        )
+    fun toBuilder() = Builder(
+        roomTypeId = roomTypeId,
+        ratePlanId = ratePlanId,
+        rateRuleId = rateRuleId,
+        inventorySourceId = inventorySourceId,
+        inventorySourceCode = inventorySourceCode,
+        stayDates = stayDates,
+        remainingCount = remainingCount,
+        price = price,
+        memberOnlyDeal = memberOnlyDeal,
+        promotions = promotions,
+        standalonePrice = standalonePrice,
+        taxesAndFeesInclusive = taxesAndFeesInclusive,
+        guaranteeText = guaranteeText,
+        paymentMethod = paymentMethod,
+        paymentTime = paymentTime,
+        fullDepositUponBooking = fullDepositUponBooking,
+        paymentSchedule = paymentSchedule,
+        reserveWithDeposit = reserveWithDeposit,
+        freeInternet = freeInternet,
+        freeWiFi = freeWiFi,
+        freeInternetDetails = freeInternetDetails,
+        freeParking = freeParking,
+        freeBreakfast = freeBreakfast,
+        freeBreakfastDetails = freeBreakfastDetails,
+        hcomRewardsEarn = hcomRewardsEarn,
+        hcomRewardsBurn = hcomRewardsBurn,
+        cancellationPolicy = cancellationPolicy,
+        amenities = amenities,
+    )
 
     /**
      * Room payment information. The available options are: - Online: Pay at the time of booking - Hotel: Could either be paid at the hotel during the time of stay or paid at the time indicated by `PaymentTime` and `PaymentSchedule`
      * Values: ONLINE,HOTEL
      */
-    enum class PaymentMethod(
-        val value: kotlin.String,
-    ) {
+    enum class PaymentMethod(val value: kotlin.String) {
         @JsonProperty("Online")
         ONLINE("Online"),
 
@@ -318,9 +339,7 @@ data class RatePlan(
      * The time when the booking amount will be charged on the traveler’s credit card. Valid values are as follows: - UponBooking - PayLater - SupplierDiscretion
      * Values: UPON_BOOKING,PAY_LATER,SUPPLIER_DISCRETION
      */
-    enum class PaymentTime(
-        val value: kotlin.String,
-    ) {
+    enum class PaymentTime(val value: kotlin.String) {
         @JsonProperty("UponBooking")
         UPON_BOOKING("UponBooking"),
 

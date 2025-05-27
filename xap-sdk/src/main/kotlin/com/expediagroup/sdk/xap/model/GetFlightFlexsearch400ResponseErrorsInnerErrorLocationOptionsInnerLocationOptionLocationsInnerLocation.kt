@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3GeoLocation
 import com.expediagroup.sdk.xap.model.GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocationCountry
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -29,30 +30,33 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param geoLocation
  * @param country
  */
-data class GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocation(
-    // Location Name
+@ConsistentCopyVisibility data class GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocation private constructor(
+    /* Location Name */
     @JsonProperty("Name")
     val name: kotlin.String,
-    // The type of location code (MULTICITY | METROCODE).
+
+    /* The type of location code (MULTICITY | METROCODE). */
     @JsonProperty("Type")
     val type: kotlin.String? = null,
-    // Expedia Region ID of the specified airport.
+
+    /* Expedia Region ID of the specified airport. */
     @JsonProperty("Id")
     val id: kotlin.String? = null,
-    // Location Code
+
+    /* Location Code */
     @JsonProperty("Code")
     val code: kotlin.String? = null,
-    // Street address of the location (if available)
+
+    /* Street address of the location (if available) */
     @JsonProperty("Address")
     val address: kotlin.String? = null,
+
     @JsonProperty("GeoLocation")
     val geoLocation: FlightsV3GeoLocation? = null,
+
     @JsonProperty("Country")
     val country: GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocationCountry? = null,
 ) {
-    init {
-        require(name != null) { "name must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -83,29 +87,31 @@ data class GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLoc
         fun country(country: GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocationCountry?) = apply { this.country = country }
 
         fun build(): GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocation {
-            val instance =
-                GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocation(
-                    name = name!!,
-                    type = type,
-                    id = id,
-                    code = code,
-                    address = address,
-                    geoLocation = geoLocation,
-                    country = country,
-                )
+            val name = this.name.getOrThrow {
+                IllegalArgumentException("name must not be null")
+            }
+
+            val instance = GetFlightFlexsearch400ResponseErrorsInnerErrorLocationOptionsInnerLocationOptionLocationsInnerLocation(
+                name = name,
+                type = type,
+                id = id,
+                code = code,
+                address = address,
+                geoLocation = geoLocation,
+                country = country,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            name = name!!,
-            type = type,
-            id = id,
-            code = code,
-            address = address,
-            geoLocation = geoLocation,
-            country = country,
-        )
+    fun toBuilder() = Builder(
+        name = name,
+        type = type,
+        id = id,
+        code = code,
+        address = address,
+        geoLocation = geoLocation,
+        country = country,
+    )
 }

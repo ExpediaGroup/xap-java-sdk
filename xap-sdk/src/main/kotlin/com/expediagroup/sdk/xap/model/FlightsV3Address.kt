@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -26,33 +27,31 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param province The state or province
  * @param postalCode Zip/postal code
  */
-data class FlightsV3Address(
-    // Street Number, Street Name, or PO Box
+@ConsistentCopyVisibility data class FlightsV3Address private constructor(
+    /* Street Number, Street Name, or PO Box */
     @JsonProperty("Address1")
     val address1: kotlin.String,
-    // The city
+
+    /* The city */
     @JsonProperty("City")
     val city: kotlin.String,
-    // 3-letter code for the country
+
+    /* 3-letter code for the country */
     @JsonProperty("Country")
     val country: kotlin.String,
-    // Apartment, Floor, Suite, Bldg # or more specific information about Address1.
+
+    /* Apartment, Floor, Suite, Bldg # or more specific information about Address1. */
     @JsonProperty("Address2")
     val address2: kotlin.String? = null,
-    // The state or province
+
+    /* The state or province */
     @JsonProperty("Province")
     val province: kotlin.String? = null,
-    // Zip/postal code
+
+    /* Zip/postal code */
     @JsonProperty("PostalCode")
     val postalCode: kotlin.String? = null,
 ) {
-    init {
-        require(address1 != null) { "address1 must not be null" }
-
-        require(city != null) { "city must not be null" }
-
-        require(country != null) { "country must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -80,27 +79,37 @@ data class FlightsV3Address(
         fun postalCode(postalCode: kotlin.String?) = apply { this.postalCode = postalCode }
 
         fun build(): FlightsV3Address {
-            val instance =
-                FlightsV3Address(
-                    address1 = address1!!,
-                    city = city!!,
-                    country = country!!,
-                    address2 = address2,
-                    province = province,
-                    postalCode = postalCode,
-                )
+            val address1 = this.address1.getOrThrow {
+                IllegalArgumentException("address1 must not be null")
+            }
+
+            val city = this.city.getOrThrow {
+                IllegalArgumentException("city must not be null")
+            }
+
+            val country = this.country.getOrThrow {
+                IllegalArgumentException("country must not be null")
+            }
+
+            val instance = FlightsV3Address(
+                address1 = address1,
+                city = city,
+                country = country,
+                address2 = address2,
+                province = province,
+                postalCode = postalCode,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            address1 = address1!!,
-            city = city!!,
-            country = country!!,
-            address2 = address2,
-            province = province,
-            postalCode = postalCode,
-        )
+    fun toBuilder() = Builder(
+        address1 = address1,
+        city = city,
+        country = country,
+        address2 = address2,
+        province = province,
+        postalCode = postalCode,
+    )
 }

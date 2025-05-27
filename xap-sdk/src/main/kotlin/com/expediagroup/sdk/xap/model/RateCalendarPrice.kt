@@ -24,18 +24,18 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param currency The ISO 4217 Currency Code that the Value is expressed in.  See [Global Currency Codes](https://developers.expediagroup.com/xap/products/xap/lodging/references/global-currency-codes) for a full list of supported currencies.
  * @param localCurrencyPrice
  */
-data class RateCalendarPrice(
-    // The total price of the corresponding date.
+@ConsistentCopyVisibility data class RateCalendarPrice private constructor(
+    /* The total price of the corresponding date. */
     @JsonProperty("Value")
     val `value`: kotlin.Any? = null,
-    // The ISO 4217 Currency Code that the Value is expressed in.  See [Global Currency Codes](https://developers.expediagroup.com/xap/products/xap/lodging/references/global-currency-codes) for a full list of supported currencies.
+
+    /* The ISO 4217 Currency Code that the Value is expressed in.  See [Global Currency Codes](https://developers.expediagroup.com/xap/products/xap/lodging/references/global-currency-codes) for a full list of supported currencies.  */
     @JsonProperty("Currency")
     val currency: kotlin.Any? = null,
+
     @JsonProperty("LocalCurrencyPrice")
     val localCurrencyPrice: Money? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -54,21 +54,19 @@ data class RateCalendarPrice(
         fun localCurrencyPrice(localCurrencyPrice: Money?) = apply { this.localCurrencyPrice = localCurrencyPrice }
 
         fun build(): RateCalendarPrice {
-            val instance =
-                RateCalendarPrice(
-                    `value` = `value`,
-                    currency = currency,
-                    localCurrencyPrice = localCurrencyPrice,
-                )
+            val instance = RateCalendarPrice(
+                `value` = `value`,
+                currency = currency,
+                localCurrencyPrice = localCurrencyPrice,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            `value` = `value`,
-            currency = currency,
-            localCurrencyPrice = localCurrencyPrice,
-        )
+    fun toBuilder() = Builder(
+        `value` = `value`,
+        currency = currency,
+        localCurrencyPrice = localCurrencyPrice,
+    )
 }

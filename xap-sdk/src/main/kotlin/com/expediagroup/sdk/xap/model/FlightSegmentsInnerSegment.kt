@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightSegmentsInnerSegmentLegsInner
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -25,26 +26,22 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param legs
  * @param lowCost
  */
-data class FlightSegmentsInnerSegment(
+@ConsistentCopyVisibility data class FlightSegmentsInnerSegment private constructor(
     @JsonProperty("FareType")
     val fareType: FlightSegmentsInnerSegment.FareType,
+
     @JsonProperty("Provider")
     val provider: kotlin.String,
+
     @JsonProperty("Legs")
     val legs: kotlin.collections
         .List<
             FlightSegmentsInnerSegmentLegsInner,
-        >,
+            >,
+
     @JsonProperty("LowCost")
     val lowCost: kotlin.Boolean? = null,
 ) {
-    init {
-        require(fareType != null) { "fareType must not be null" }
-
-        require(provider != null) { "provider must not be null" }
-
-        require(legs != null) { "legs must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -66,33 +63,41 @@ data class FlightSegmentsInnerSegment(
         fun lowCost(lowCost: kotlin.Boolean?) = apply { this.lowCost = lowCost }
 
         fun build(): FlightSegmentsInnerSegment {
-            val instance =
-                FlightSegmentsInnerSegment(
-                    fareType = fareType!!,
-                    provider = provider!!,
-                    legs = legs!!,
-                    lowCost = lowCost,
-                )
+            val fareType = this.fareType.getOrThrow {
+                IllegalArgumentException("fareType must not be null")
+            }
+
+            val provider = this.provider.getOrThrow {
+                IllegalArgumentException("provider must not be null")
+            }
+
+            val legs = this.legs.getOrThrow {
+                IllegalArgumentException("legs must not be null")
+            }
+
+            val instance = FlightSegmentsInnerSegment(
+                fareType = fareType,
+                provider = provider,
+                legs = legs,
+                lowCost = lowCost,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            fareType = fareType!!,
-            provider = provider!!,
-            legs = legs!!,
-            lowCost = lowCost,
-        )
+    fun toBuilder() = Builder(
+        fareType = fareType,
+        provider = provider,
+        legs = legs,
+        lowCost = lowCost,
+    )
 
     /**
      *
      * Values: PUBLISHED,NET,WEB
      */
-    enum class FareType(
-        val value: kotlin.String,
-    ) {
+    enum class FareType(val value: kotlin.String) {
         @JsonProperty("PUBLISHED")
         PUBLISHED("PUBLISHED"),
 

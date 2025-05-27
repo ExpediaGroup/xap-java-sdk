@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.ActivitiesWarning
 import com.expediagroup.sdk.xap.model.Activity
 import com.expediagroup.sdk.xap.model.CategoryGroup
@@ -31,39 +32,39 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param activities List of activities matching the search criteria.
  * @param categories Container for a breakdown of how many of each type of Activity have been returned in the API response.
  */
-data class ActivityListingsResponse(
-    // A unique identifier for this transaction.
+@ConsistentCopyVisibility data class ActivityListingsResponse private constructor(
+    /* A unique identifier for this transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
-    // The number of activities returned in the response.
+
+    /* The number of activities returned in the response. */
     @JsonProperty("Count")
     val count: kotlin.Long,
-    // The location that the user searched, expressed in the exact format that the inventory system uses to designate the location.
+
+    /* The location that the user searched, expressed in the exact format that the inventory system uses to designate the location. */
     @JsonProperty("Location")
     val location: kotlin.String,
-    // Container for all warnings generated during the transaction.
+
+    /* Container for all warnings generated during the transaction. */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<ActivitiesWarning>? = null,
-    // The startDate of the returned group of activities in YYYY-MM-DD format.
+
+    /* The startDate of the returned group of activities in YYYY-MM-DD format. */
     @JsonProperty("StartDate")
     val startDate: java.time.LocalDate? = null,
-    // The endDate of returned group of activities in YYYY-MM-DD format.
+
+    /* The endDate of returned group of activities in YYYY-MM-DD format. */
     @JsonProperty("EndDate")
     val endDate: java.time.LocalDate? = null,
-    // List of activities matching the search criteria.
+
+    /* List of activities matching the search criteria. */
     @JsonProperty("Activities")
     val activities: kotlin.collections.List<Activity>? = null,
-    // Container for a breakdown of how many of each type of Activity have been returned in the API response.
+
+    /* Container for a breakdown of how many of each type of Activity have been returned in the API response. */
     @JsonProperty("Categories")
     val categories: kotlin.collections.List<CategoryGroup>? = null,
 ) {
-    init {
-        require(transactionId != null) { "transactionId must not be null" }
-
-        require(count != null) { "count must not be null" }
-
-        require(location != null) { "location must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -97,31 +98,41 @@ data class ActivityListingsResponse(
         fun categories(categories: kotlin.collections.List<CategoryGroup>?) = apply { this.categories = categories }
 
         fun build(): ActivityListingsResponse {
-            val instance =
-                ActivityListingsResponse(
-                    transactionId = transactionId!!,
-                    count = count!!,
-                    location = location!!,
-                    warnings = warnings,
-                    startDate = startDate,
-                    endDate = endDate,
-                    activities = activities,
-                    categories = categories,
-                )
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val count = this.count.getOrThrow {
+                IllegalArgumentException("count must not be null")
+            }
+
+            val location = this.location.getOrThrow {
+                IllegalArgumentException("location must not be null")
+            }
+
+            val instance = ActivityListingsResponse(
+                transactionId = transactionId,
+                count = count,
+                location = location,
+                warnings = warnings,
+                startDate = startDate,
+                endDate = endDate,
+                activities = activities,
+                categories = categories,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            transactionId = transactionId!!,
-            count = count!!,
-            location = location!!,
-            warnings = warnings,
-            startDate = startDate,
-            endDate = endDate,
-            activities = activities,
-            categories = categories,
-        )
+    fun toBuilder() = Builder(
+        transactionId = transactionId,
+        count = count,
+        location = location,
+        warnings = warnings,
+        startDate = startDate,
+        endDate = endDate,
+        activities = activities,
+        categories = categories,
+    )
 }

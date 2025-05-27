@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3Money
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -26,27 +27,26 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param type Savings type
  * @param description Description of savings
  */
-data class PackageSavings(
-    // The value of the element being defined.
+@ConsistentCopyVisibility data class PackageSavings private constructor(
+    /* The value of the element being defined. */
     @JsonProperty("Value")
     val `value`: kotlin.String,
-    // The ISO 4217 Currency Code that the value is expressed in.
+
+    /* The ISO 4217 Currency Code that the value is expressed in. */
     @JsonProperty("Currency")
     val currency: kotlin.String,
+
     @JsonProperty("LocalCurrencyPrice")
     val localCurrencyPrice: FlightsV3Money? = null,
-    // Savings type
+
+    /* Savings type */
     @JsonProperty("Type")
     val type: kotlin.String? = null,
-    // Description of savings
+
+    /* Description of savings */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
 ) {
-    init {
-        require(`value` != null) { "`value` must not be null" }
-
-        require(currency != null) { "currency must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -71,25 +71,31 @@ data class PackageSavings(
         fun description(description: kotlin.String?) = apply { this.description = description }
 
         fun build(): PackageSavings {
-            val instance =
-                PackageSavings(
-                    `value` = `value`!!,
-                    currency = currency!!,
-                    localCurrencyPrice = localCurrencyPrice,
-                    type = type,
-                    description = description,
-                )
+            val `value` = this.`value`.getOrThrow {
+                IllegalArgumentException("`value` must not be null")
+            }
+
+            val currency = this.currency.getOrThrow {
+                IllegalArgumentException("currency must not be null")
+            }
+
+            val instance = PackageSavings(
+                `value` = `value`,
+                currency = currency,
+                localCurrencyPrice = localCurrencyPrice,
+                type = type,
+                description = description,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            `value` = `value`!!,
-            currency = currency!!,
-            localCurrencyPrice = localCurrencyPrice,
-            type = type,
-            description = description,
-        )
+    fun toBuilder() = Builder(
+        `value` = `value`,
+        currency = currency,
+        localCurrencyPrice = localCurrencyPrice,
+        type = type,
+        description = description,
+    )
 }

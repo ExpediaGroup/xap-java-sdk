@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarsDistance
 import com.expediagroup.sdk.xap.model.CarsLocation
 import com.expediagroup.sdk.xap.model.DateTimePeriod
@@ -28,26 +29,25 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param distance
  * @param openSchedule A List of date time periods to indicate the vendor business hours for the pickup time.
  */
-data class VendorLocationDetails(
-    // Pickup date and time.
+@ConsistentCopyVisibility data class VendorLocationDetails private constructor(
+    /* Pickup date and time. */
     @JsonProperty("DateTime")
     val dateTime: java.time.LocalDateTime,
+
     @JsonProperty("Location")
     val location: CarsLocation,
-    // The category of shuttle from the terminal to the rental car counter. Please find list of Shuttle Categories in the Related Links Section below.
+
+    /* The category of shuttle from the terminal to the rental car counter. Please find list of Shuttle Categories in the Related Links Section below. */
     @JsonProperty("ShuttleCategory")
     val shuttleCategory: kotlin.String? = null,
+
     @JsonProperty("Distance")
     val distance: CarsDistance? = null,
-    // A List of date time periods to indicate the vendor business hours for the pickup time.
+
+    /* A List of date time periods to indicate the vendor business hours for the pickup time. */
     @JsonProperty("OpenSchedule")
     val openSchedule: kotlin.collections.List<DateTimePeriod>? = null,
 ) {
-    init {
-        require(dateTime != null) { "dateTime must not be null" }
-
-        require(location != null) { "location must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -72,25 +72,31 @@ data class VendorLocationDetails(
         fun openSchedule(openSchedule: kotlin.collections.List<DateTimePeriod>?) = apply { this.openSchedule = openSchedule }
 
         fun build(): VendorLocationDetails {
-            val instance =
-                VendorLocationDetails(
-                    dateTime = dateTime!!,
-                    location = location!!,
-                    shuttleCategory = shuttleCategory,
-                    distance = distance,
-                    openSchedule = openSchedule,
-                )
+            val dateTime = this.dateTime.getOrThrow {
+                IllegalArgumentException("dateTime must not be null")
+            }
+
+            val location = this.location.getOrThrow {
+                IllegalArgumentException("location must not be null")
+            }
+
+            val instance = VendorLocationDetails(
+                dateTime = dateTime,
+                location = location,
+                shuttleCategory = shuttleCategory,
+                distance = distance,
+                openSchedule = openSchedule,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            dateTime = dateTime!!,
-            location = location!!,
-            shuttleCategory = shuttleCategory,
-            distance = distance,
-            openSchedule = openSchedule,
-        )
+    fun toBuilder() = Builder(
+        dateTime = dateTime,
+        location = location,
+        shuttleCategory = shuttleCategory,
+        distance = distance,
+        openSchedule = openSchedule,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.RowCharacteristic
 import com.expediagroup.sdk.xap.model.Seat
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -25,20 +26,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param rowCharacteristics Container for row characteristics.
  * @param seats Container for seat information in that particular row. It can be null if it is empty row.
  */
-data class Row(
-    // Specific row number.
+@ConsistentCopyVisibility data class Row private constructor(
+    /* Specific row number. */
     @JsonProperty("RowNumber")
     val rowNumber: kotlin.Int,
-    // Container for row characteristics.
+
+    /* Container for row characteristics. */
     @JsonProperty("RowCharacteristics")
     val rowCharacteristics: kotlin.collections.List<RowCharacteristic>? = null,
-    // Container for seat information in that particular row. It can be null if it is empty row.
+
+    /* Container for seat information in that particular row. It can be null if it is empty row. */
     @JsonProperty("Seats")
     val seats: kotlin.collections.List<Seat>? = null,
 ) {
-    init {
-        require(rowNumber != null) { "rowNumber must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -57,21 +57,23 @@ data class Row(
         fun seats(seats: kotlin.collections.List<Seat>?) = apply { this.seats = seats }
 
         fun build(): Row {
-            val instance =
-                Row(
-                    rowNumber = rowNumber!!,
-                    rowCharacteristics = rowCharacteristics,
-                    seats = seats,
-                )
+            val rowNumber = this.rowNumber.getOrThrow {
+                IllegalArgumentException("rowNumber must not be null")
+            }
+
+            val instance = Row(
+                rowNumber = rowNumber,
+                rowCharacteristics = rowCharacteristics,
+                seats = seats,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            rowNumber = rowNumber!!,
-            rowCharacteristics = rowCharacteristics,
-            seats = seats,
-        )
+    fun toBuilder() = Builder(
+        rowNumber = rowNumber,
+        rowCharacteristics = rowCharacteristics,
+        seats = seats,
+    )
 }

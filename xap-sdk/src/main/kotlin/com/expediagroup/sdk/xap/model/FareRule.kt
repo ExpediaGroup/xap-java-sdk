@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Rule
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,22 +24,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param fareBasisCode Fare Basis Code to which the rules are applied.
  * @param rules Container for fare rules.
  */
-data class FareRule(
-    // Fare Basis Code to which the rules are applied.
+@ConsistentCopyVisibility data class FareRule private constructor(
+    /* Fare Basis Code to which the rules are applied. */
     @JsonProperty("FareBasisCode")
     val fareBasisCode: kotlin.String,
-    // Container for fare rules.
+
+    /* Container for fare rules. */
     @JsonProperty("Rules")
     val rules: kotlin.collections
         .List<
             Rule,
-        >,
-) {
-    init {
-        require(fareBasisCode != null) { "fareBasisCode must not be null" }
+            >,
 
-        require(rules != null) { "rules must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -54,19 +52,25 @@ data class FareRule(
         fun rules(rules: kotlin.collections.List<Rule>) = apply { this.rules = rules }
 
         fun build(): FareRule {
-            val instance =
-                FareRule(
-                    fareBasisCode = fareBasisCode!!,
-                    rules = rules!!,
-                )
+            val fareBasisCode = this.fareBasisCode.getOrThrow {
+                IllegalArgumentException("fareBasisCode must not be null")
+            }
+
+            val rules = this.rules.getOrThrow {
+                IllegalArgumentException("rules must not be null")
+            }
+
+            val instance = FareRule(
+                fareBasisCode = fareBasisCode,
+                rules = rules,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            fareBasisCode = fareBasisCode!!,
-            rules = rules!!,
-        )
+    fun toBuilder() = Builder(
+        fareBasisCode = fareBasisCode,
+        rules = rules,
+    )
 }

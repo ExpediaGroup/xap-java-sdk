@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param category Category name of the rule.
  * @param description Rule description.
  */
-data class Rule(
-    // Category name of the rule.
+@ConsistentCopyVisibility data class Rule private constructor(
+    /* Category name of the rule. */
     @JsonProperty("Category")
     val category: kotlin.String,
-    // Rule description.
+
+    /* Rule description. */
     @JsonProperty("Description")
     val description: kotlin.String,
-) {
-    init {
-        require(category != null) { "category must not be null" }
 
-        require(description != null) { "description must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class Rule(
         fun description(description: kotlin.String) = apply { this.description = description }
 
         fun build(): Rule {
-            val instance =
-                Rule(
-                    category = category!!,
-                    description = description!!,
-                )
+            val category = this.category.getOrThrow {
+                IllegalArgumentException("category must not be null")
+            }
+
+            val description = this.description.getOrThrow {
+                IllegalArgumentException("description must not be null")
+            }
+
+            val instance = Rule(
+                category = category,
+                description = description,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            category = category!!,
-            description = description!!,
-        )
+    fun toBuilder() = Builder(
+        category = category,
+        description = description,
+    )
 }

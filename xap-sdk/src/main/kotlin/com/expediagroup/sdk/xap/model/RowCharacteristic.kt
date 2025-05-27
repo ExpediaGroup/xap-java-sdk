@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code Code of Row
  * @param name Corresponding name for the row code Same response will have upper deck and lower deck information if any
  */
-data class RowCharacteristic(
-    // Code of Row
+@ConsistentCopyVisibility data class RowCharacteristic private constructor(
+    /* Code of Row */
     @JsonProperty("Code")
     val code: RowCharacteristic.Code,
-    // Corresponding name for the row code Same response will have upper deck and lower deck information if any
+
+    /* Corresponding name for the row code Same response will have upper deck and lower deck information if any */
     @JsonProperty("Name")
     val name: RowCharacteristic.Name,
-) {
-    init {
-        require(code != null) { "code must not be null" }
 
-        require(name != null) { "name must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,29 +48,33 @@ data class RowCharacteristic(
         fun name(name: RowCharacteristic.Name) = apply { this.name = name }
 
         fun build(): RowCharacteristic {
-            val instance =
-                RowCharacteristic(
-                    code = code!!,
-                    name = name!!,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val name = this.name.getOrThrow {
+                IllegalArgumentException("name must not be null")
+            }
+
+            val instance = RowCharacteristic(
+                code = code,
+                name = name,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            name = name!!,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        name = name,
+    )
 
     /**
      * Code of Row
      * Values: E,X,S,N,U,W
      */
-    enum class Code(
-        val value: kotlin.String,
-    ) {
+    enum class Code(val value: kotlin.String) {
         @JsonProperty("E")
         E("E"),
 
@@ -96,9 +98,7 @@ data class RowCharacteristic(
      * Corresponding name for the row code Same response will have upper deck and lower deck information if any
      * Values: EMPTY,EXIT,SMOKING,NONSMOKING,UPPERDECK,OVERWING
      */
-    enum class Name(
-        val value: kotlin.String,
-    ) {
+    enum class Name(val value: kotlin.String) {
         @JsonProperty("EMPTY")
         EMPTY("EMPTY"),
 

@@ -21,13 +21,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Container for WiFi amenities available in this flight leg
  * @param available Indication of the availability of WIFI amenity.
  */
-data class Wifi(
-    // Indication of the availability of WIFI amenity.
+@ConsistentCopyVisibility data class Wifi private constructor(
+    /* Indication of the availability of WIFI amenity. */
     @JsonProperty("Available")
     val available: Wifi.Available? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,27 +38,23 @@ data class Wifi(
         fun available(available: Wifi.Available?) = apply { this.available = available }
 
         fun build(): Wifi {
-            val instance =
-                Wifi(
-                    available = available,
-                )
+            val instance = Wifi(
+                available = available,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            available = available,
-        )
+    fun toBuilder() = Builder(
+        available = available,
+    )
 
     /**
      * Indication of the availability of WIFI amenity.
      * Values: YES,NO,UNKNOWN
      */
-    enum class Available(
-        val value: kotlin.String,
-    ) {
+    enum class Available(val value: kotlin.String) {
         @JsonProperty("YES")
         YES("YES"),
 

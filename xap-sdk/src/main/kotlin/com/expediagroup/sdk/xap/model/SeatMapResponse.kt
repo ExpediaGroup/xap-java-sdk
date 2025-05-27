@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV2Airport
 import com.expediagroup.sdk.xap.model.FlightsV2Warning
 import com.expediagroup.sdk.xap.model.SeatMap
@@ -34,55 +35,48 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param equipmentName Equipment type name.
  * @param warnings Container for Warning messages.
  */
-data class SeatMapResponse(
-    // Specifies the requested flight number.
+@ConsistentCopyVisibility data class SeatMapResponse private constructor(
+    /* Specifies the requested flight number. */
     @JsonProperty("FlightNumber")
     val flightNumber: kotlin.String,
-    // Specifies the departure date of the requested flight
+
+    /* Specifies the departure date of the requested flight */
     @JsonProperty("DepartureDate")
     val departureDate: java.time.LocalDate,
-    // The IATA or Expedia assigned airline codes of the carrier. IATA codes must contain at least one alphabetic character.
+
+    /* The IATA or Expedia assigned airline codes of the carrier. IATA codes must contain at least one alphabetic character. */
     @JsonProperty("MarketingAirLineCode")
     val marketingAirLineCode: kotlin.String,
-    // IATA Equipment type codes.
+
+    /* IATA Equipment type codes. */
     @JsonProperty("EquipmentCode")
     val equipmentCode: kotlin.String,
+
     @JsonProperty("DepartureAirport")
     val departureAirport: FlightsV2Airport,
+
     @JsonProperty("ArrivalAirport")
     val arrivalAirport: FlightsV2Airport,
+
     @JsonProperty("SeatMap")
     val seatMap: SeatMap,
-    // Unique identifier for the transaction.
+
+    /* Unique identifier for the transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
-    // The airline name of the marketing airline
+
+    /* The airline name of the marketing airline */
     @JsonProperty("MarketingAirLineName")
     val marketingAirLineName: kotlin.String? = null,
-    // Equipment type name.
+
+    /* Equipment type name. */
     @JsonProperty("EquipmentName")
     val equipmentName: kotlin.String? = null,
-    // Container for Warning messages.
+
+    /* Container for Warning messages. */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<FlightsV2Warning>? = null,
 ) {
-    init {
-        require(flightNumber != null) { "flightNumber must not be null" }
-
-        require(departureDate != null) { "departureDate must not be null" }
-
-        require(marketingAirLineCode != null) { "marketingAirLineCode must not be null" }
-
-        require(equipmentCode != null) { "equipmentCode must not be null" }
-
-        require(departureAirport != null) { "departureAirport must not be null" }
-
-        require(arrivalAirport != null) { "arrivalAirport must not be null" }
-
-        require(seatMap != null) { "seatMap must not be null" }
-
-        require(transactionId != null) { "transactionId must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -125,37 +119,67 @@ data class SeatMapResponse(
         fun warnings(warnings: kotlin.collections.List<FlightsV2Warning>?) = apply { this.warnings = warnings }
 
         fun build(): SeatMapResponse {
-            val instance =
-                SeatMapResponse(
-                    flightNumber = flightNumber!!,
-                    departureDate = departureDate!!,
-                    marketingAirLineCode = marketingAirLineCode!!,
-                    equipmentCode = equipmentCode!!,
-                    departureAirport = departureAirport!!,
-                    arrivalAirport = arrivalAirport!!,
-                    seatMap = seatMap!!,
-                    transactionId = transactionId!!,
-                    marketingAirLineName = marketingAirLineName,
-                    equipmentName = equipmentName,
-                    warnings = warnings,
-                )
+            val flightNumber = this.flightNumber.getOrThrow {
+                IllegalArgumentException("flightNumber must not be null")
+            }
+
+            val departureDate = this.departureDate.getOrThrow {
+                IllegalArgumentException("departureDate must not be null")
+            }
+
+            val marketingAirLineCode = this.marketingAirLineCode.getOrThrow {
+                IllegalArgumentException("marketingAirLineCode must not be null")
+            }
+
+            val equipmentCode = this.equipmentCode.getOrThrow {
+                IllegalArgumentException("equipmentCode must not be null")
+            }
+
+            val departureAirport = this.departureAirport.getOrThrow {
+                IllegalArgumentException("departureAirport must not be null")
+            }
+
+            val arrivalAirport = this.arrivalAirport.getOrThrow {
+                IllegalArgumentException("arrivalAirport must not be null")
+            }
+
+            val seatMap = this.seatMap.getOrThrow {
+                IllegalArgumentException("seatMap must not be null")
+            }
+
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val instance = SeatMapResponse(
+                flightNumber = flightNumber,
+                departureDate = departureDate,
+                marketingAirLineCode = marketingAirLineCode,
+                equipmentCode = equipmentCode,
+                departureAirport = departureAirport,
+                arrivalAirport = arrivalAirport,
+                seatMap = seatMap,
+                transactionId = transactionId,
+                marketingAirLineName = marketingAirLineName,
+                equipmentName = equipmentName,
+                warnings = warnings,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            flightNumber = flightNumber!!,
-            departureDate = departureDate!!,
-            marketingAirLineCode = marketingAirLineCode!!,
-            equipmentCode = equipmentCode!!,
-            departureAirport = departureAirport!!,
-            arrivalAirport = arrivalAirport!!,
-            seatMap = seatMap!!,
-            transactionId = transactionId!!,
-            marketingAirLineName = marketingAirLineName,
-            equipmentName = equipmentName,
-            warnings = warnings,
-        )
+    fun toBuilder() = Builder(
+        flightNumber = flightNumber,
+        departureDate = departureDate,
+        marketingAirLineCode = marketingAirLineCode,
+        equipmentCode = equipmentCode,
+        departureAirport = departureAirport,
+        arrivalAirport = arrivalAirport,
+        seatMap = seatMap,
+        transactionId = transactionId,
+        marketingAirLineName = marketingAirLineName,
+        equipmentName = equipmentName,
+        warnings = warnings,
+    )
 }

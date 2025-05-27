@@ -15,19 +15,18 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
  *
  * @param message
  */
-data class PostFlightLinks404Response(
+@ConsistentCopyVisibility data class PostFlightLinks404Response private constructor(
     @JsonProperty("message")
     val message: kotlin.String,
+
 ) {
-    init {
-        require(message != null) { "message must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -40,17 +39,19 @@ data class PostFlightLinks404Response(
         fun message(message: kotlin.String) = apply { this.message = message }
 
         fun build(): PostFlightLinks404Response {
-            val instance =
-                PostFlightLinks404Response(
-                    message = message!!,
-                )
+            val message = this.message.getOrThrow {
+                IllegalArgumentException("message must not be null")
+            }
+
+            val instance = PostFlightLinks404Response(
+                message = message,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            message = message!!,
-        )
+    fun toBuilder() = Builder(
+        message = message,
+    )
 }

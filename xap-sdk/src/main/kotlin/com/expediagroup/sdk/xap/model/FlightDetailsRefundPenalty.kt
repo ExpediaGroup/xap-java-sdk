@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.RefundPenaltyDetail
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -28,29 +29,32 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param transferable
  * @param nameChangeAllowed
  */
-data class FlightDetailsRefundPenalty(
-    // Contains a list of segment Ids
+@ConsistentCopyVisibility data class FlightDetailsRefundPenalty private constructor(
+    /* Contains a list of segment Ids */
     @JsonProperty("SegmentIds")
     val segmentIds: kotlin.collections
         .List<
             kotlin.String,
-        >,
+            >,
+
     @JsonProperty("PreTripChange")
     val preTripChange: RefundPenaltyDetail? = null,
+
     @JsonProperty("PreTripCancel")
     val preTripCancel: RefundPenaltyDetail? = null,
+
     @JsonProperty("EnrouteChange")
     val enrouteChange: RefundPenaltyDetail? = null,
+
     @JsonProperty("EnrouteCancel")
     val enrouteCancel: RefundPenaltyDetail? = null,
+
     @JsonProperty("Transferable")
     val transferable: FlightDetailsRefundPenalty.Transferable? = null,
+
     @JsonProperty("NameChangeAllowed")
     val nameChangeAllowed: FlightDetailsRefundPenalty.NameChangeAllowed? = null,
 ) {
-    init {
-        require(segmentIds != null) { "segmentIds must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -81,39 +85,39 @@ data class FlightDetailsRefundPenalty(
         fun nameChangeAllowed(nameChangeAllowed: FlightDetailsRefundPenalty.NameChangeAllowed?) = apply { this.nameChangeAllowed = nameChangeAllowed }
 
         fun build(): FlightDetailsRefundPenalty {
-            val instance =
-                FlightDetailsRefundPenalty(
-                    segmentIds = segmentIds!!,
-                    preTripChange = preTripChange,
-                    preTripCancel = preTripCancel,
-                    enrouteChange = enrouteChange,
-                    enrouteCancel = enrouteCancel,
-                    transferable = transferable,
-                    nameChangeAllowed = nameChangeAllowed,
-                )
+            val segmentIds = this.segmentIds.getOrThrow {
+                IllegalArgumentException("segmentIds must not be null")
+            }
+
+            val instance = FlightDetailsRefundPenalty(
+                segmentIds = segmentIds,
+                preTripChange = preTripChange,
+                preTripCancel = preTripCancel,
+                enrouteChange = enrouteChange,
+                enrouteCancel = enrouteCancel,
+                transferable = transferable,
+                nameChangeAllowed = nameChangeAllowed,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            segmentIds = segmentIds!!,
-            preTripChange = preTripChange,
-            preTripCancel = preTripCancel,
-            enrouteChange = enrouteChange,
-            enrouteCancel = enrouteCancel,
-            transferable = transferable,
-            nameChangeAllowed = nameChangeAllowed,
-        )
+    fun toBuilder() = Builder(
+        segmentIds = segmentIds,
+        preTripChange = preTripChange,
+        preTripCancel = preTripCancel,
+        enrouteChange = enrouteChange,
+        enrouteCancel = enrouteCancel,
+        transferable = transferable,
+        nameChangeAllowed = nameChangeAllowed,
+    )
 
     /**
      *
      * Values: YES,NO,UNKNOWN
      */
-    enum class Transferable(
-        val value: kotlin.String,
-    ) {
+    enum class Transferable(val value: kotlin.String) {
         @JsonProperty("YES")
         YES("YES"),
 
@@ -128,9 +132,7 @@ data class FlightDetailsRefundPenalty(
      *
      * Values: YES,NO,UNKNOWN
      */
-    enum class NameChangeAllowed(
-        val value: kotlin.String,
-    ) {
+    enum class NameChangeAllowed(val value: kotlin.String) {
         @JsonProperty("YES")
         YES("YES"),
 

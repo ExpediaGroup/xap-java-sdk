@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param categoryCode Category ID of this specific tax or fee.
  * @param amount The value of this specific tax or fee.
  */
-data class RatePlanPriceTaxesAndFeesDetailsInner(
-    // Category ID of this specific tax or fee.
+@ConsistentCopyVisibility data class RatePlanPriceTaxesAndFeesDetailsInner private constructor(
+    /* Category ID of this specific tax or fee. */
     @JsonProperty("CategoryCode")
     val categoryCode: kotlin.Any? = null,
-    // The value of this specific tax or fee.
+
+    /* The value of this specific tax or fee. */
     @JsonProperty("Amount")
     val amount: kotlin.Any? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class RatePlanPriceTaxesAndFeesDetailsInner(
         fun amount(amount: kotlin.Any?) = apply { this.amount = amount }
 
         fun build(): RatePlanPriceTaxesAndFeesDetailsInner {
-            val instance =
-                RatePlanPriceTaxesAndFeesDetailsInner(
-                    categoryCode = categoryCode,
-                    amount = amount,
-                )
+            val instance = RatePlanPriceTaxesAndFeesDetailsInner(
+                categoryCode = categoryCode,
+                amount = amount,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            categoryCode = categoryCode,
-            amount = amount,
-        )
+    fun toBuilder() = Builder(
+        categoryCode = categoryCode,
+        amount = amount,
+    )
 }

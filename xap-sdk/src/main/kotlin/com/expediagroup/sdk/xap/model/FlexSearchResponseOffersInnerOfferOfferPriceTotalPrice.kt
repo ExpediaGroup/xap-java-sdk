@@ -22,12 +22,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @param money
  */
-data class FlexSearchResponseOffersInnerOfferOfferPriceTotalPrice(
+@ConsistentCopyVisibility data class FlexSearchResponseOffersInnerOfferOfferPriceTotalPrice private constructor(
     @JsonProperty("Money")
     val money: FlexSearchResponseOffersInnerOfferOfferPriceTotalPriceMoney? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,17 +38,15 @@ data class FlexSearchResponseOffersInnerOfferOfferPriceTotalPrice(
         fun money(money: FlexSearchResponseOffersInnerOfferOfferPriceTotalPriceMoney?) = apply { this.money = money }
 
         fun build(): FlexSearchResponseOffersInnerOfferOfferPriceTotalPrice {
-            val instance =
-                FlexSearchResponseOffersInnerOfferOfferPriceTotalPrice(
-                    money = money,
-                )
+            val instance = FlexSearchResponseOffersInnerOfferOfferPriceTotalPrice(
+                money = money,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            money = money,
-        )
+    fun toBuilder() = Builder(
+        money = money,
+    )
 }

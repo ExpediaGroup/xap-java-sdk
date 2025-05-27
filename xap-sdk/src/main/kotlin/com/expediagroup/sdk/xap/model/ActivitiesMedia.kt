@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -24,27 +25,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param url Image URL
  * @param title Image title
  */
-data class ActivitiesMedia(
-    // type of the media. So far there is only one option: 1: Image
+@ConsistentCopyVisibility data class ActivitiesMedia private constructor(
+    /* type of the media. So far there is only one option: 1: Image */
     @JsonProperty("Type")
     val type: kotlin.String,
-    // Image size You can find a link to the complete list of Supported Images Sizes in the Related Links section at the bottom of the page.
+
+    /* Image size You can find a link to the complete list of Supported Images Sizes in the Related Links section at the bottom of the page. */
     @JsonProperty("Size")
     val propertySize: kotlin.String,
-    // Image URL
+
+    /* Image URL */
     @JsonProperty("Url")
     val url: kotlin.String,
-    // Image title
+
+    /* Image title */
     @JsonProperty("Title")
     val title: kotlin.String? = null,
 ) {
-    init {
-        require(type != null) { "type must not be null" }
-
-        require(propertySize != null) { "propertySize must not be null" }
-
-        require(url != null) { "url must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -66,23 +63,33 @@ data class ActivitiesMedia(
         fun title(title: kotlin.String?) = apply { this.title = title }
 
         fun build(): ActivitiesMedia {
-            val instance =
-                ActivitiesMedia(
-                    type = type!!,
-                    propertySize = propertySize!!,
-                    url = url!!,
-                    title = title,
-                )
+            val type = this.type.getOrThrow {
+                IllegalArgumentException("type must not be null")
+            }
+
+            val propertySize = this.propertySize.getOrThrow {
+                IllegalArgumentException("propertySize must not be null")
+            }
+
+            val url = this.url.getOrThrow {
+                IllegalArgumentException("url must not be null")
+            }
+
+            val instance = ActivitiesMedia(
+                type = type,
+                propertySize = propertySize,
+                url = url,
+                title = title,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type!!,
-            propertySize = propertySize!!,
-            url = url!!,
-            title = title,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        propertySize = propertySize,
+        url = url,
+        title = title,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.BaggageFee
 import com.expediagroup.sdk.xap.model.BaggageFeeFlightSegment
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -24,21 +25,18 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param flightSegment
  * @param baggageFees Container for baggage fee information of each bag type. The baggage fee can vary for each bag type. The amount can be zero, fixed amount or will be in a range
  */
-data class FlightBaggageFee(
+@ConsistentCopyVisibility data class FlightBaggageFee private constructor(
     @JsonProperty("FlightSegment")
     val flightSegment: BaggageFeeFlightSegment,
-    // Container for baggage fee information of each bag type. The baggage fee can vary for each bag type. The amount can be zero, fixed amount or will be in a range
+
+    /* Container for baggage fee information of each bag type. The baggage fee can vary for each bag type. The amount can be zero, fixed amount or will be in a range */
     @JsonProperty("BaggageFees")
     val baggageFees: kotlin.collections
         .List<
             BaggageFee,
-        >,
-) {
-    init {
-        require(flightSegment != null) { "flightSegment must not be null" }
+            >,
 
-        require(baggageFees != null) { "baggageFees must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -54,19 +52,25 @@ data class FlightBaggageFee(
         fun baggageFees(baggageFees: kotlin.collections.List<BaggageFee>) = apply { this.baggageFees = baggageFees }
 
         fun build(): FlightBaggageFee {
-            val instance =
-                FlightBaggageFee(
-                    flightSegment = flightSegment!!,
-                    baggageFees = baggageFees!!,
-                )
+            val flightSegment = this.flightSegment.getOrThrow {
+                IllegalArgumentException("flightSegment must not be null")
+            }
+
+            val baggageFees = this.baggageFees.getOrThrow {
+                IllegalArgumentException("baggageFees must not be null")
+            }
+
+            val instance = FlightBaggageFee(
+                flightSegment = flightSegment,
+                baggageFees = baggageFees,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            flightSegment = flightSegment!!,
-            baggageFees = baggageFees!!,
-        )
+    fun toBuilder() = Builder(
+        flightSegment = flightSegment,
+        baggageFees = baggageFees,
+    )
 }

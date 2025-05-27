@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.AirValidFormsOfPayment
 import com.expediagroup.sdk.xap.model.FlightsV3Airport
 import com.expediagroup.sdk.xap.model.FlightsV3Offer
@@ -35,44 +36,44 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param validFormsOfPayment Container for fees that are charged for using certain payment methods. Since the method of payment is not known until time of booking, these fees are returned separately and not included in the total price
  * @param lounges List of lounges
  */
-data class FlightSearchResponse(
-    // Container for list of air offers. An offer gives total trip details including flight and pricing information.
+@ConsistentCopyVisibility data class FlightSearchResponse private constructor(
+    /* Container for list of air offers. An offer gives total trip details including flight and pricing information. */
     @JsonProperty("Offers")
     val offers: kotlin.collections
         .List<
             FlightsV3Offer,
-        >,
-    // Container for list of Information about each search locations
+            >,
+
+    /* Container for list of Information about each search locations */
     @JsonProperty("SearchCities")
     val searchCities: kotlin.collections
         .List<
             FlightsV3Airport,
-        >,
-    // Unique Id to identify one individual API response.
+            >,
+
+    /* Unique Id to identify one individual API response. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
+
     @JsonProperty("Insights")
     val insights: Insights? = null,
-    // Container for warning messages.
+
+    /* Container for warning messages. */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<FlightsV3Warning>? = null,
-    // Container of information about each flight offer (Less information shown if the offer is and opaque flight offer) Flights (the complete journey to your final destination by air) are made up of:  Segments (the trip from one stopping place to another) are made up of:  Legs (take off at one airport and land at another)
+
+    /* Container of information about each flight offer (Less information shown if the offer is and opaque flight offer) Flights (the complete journey to your final destination by air) are made up of:  Segments (the trip from one stopping place to another) are made up of:  Legs (take off at one airport and land at another) */
     @JsonProperty("Segments")
     val segments: kotlin.collections.List<Segment>? = null,
-    // Container for fees that are charged for using certain payment methods. Since the method of payment is not known until time of booking, these fees are returned separately and not included in the total price
+
+    /* Container for fees that are charged for using certain payment methods. Since the method of payment is not known until time of booking, these fees are returned separately and not included in the total price */
     @JsonProperty("ValidFormsOfPayment")
     val validFormsOfPayment: kotlin.collections.Map<kotlin.String, kotlin.collections.List<AirValidFormsOfPayment>>? = null,
-    // List of lounges
+
+    /* List of lounges */
     @JsonProperty("Lounges")
     val lounges: kotlin.collections.Map<kotlin.String, kotlin.collections.List<Lounge>>? = null,
 ) {
-    init {
-        require(offers != null) { "offers must not be null" }
-
-        require(searchCities != null) { "searchCities must not be null" }
-
-        require(transactionId != null) { "transactionId must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -101,40 +102,46 @@ data class FlightSearchResponse(
 
         fun segments(segments: kotlin.collections.List<Segment>?) = apply { this.segments = segments }
 
-        fun validFormsOfPayment(validFormsOfPayment: kotlin.collections.Map<kotlin.String, kotlin.collections.List<AirValidFormsOfPayment>>?) =
-            apply {
-                this.validFormsOfPayment =
-                    validFormsOfPayment
-            }
+        fun validFormsOfPayment(validFormsOfPayment: kotlin.collections.Map<kotlin.String, kotlin.collections.List<AirValidFormsOfPayment>>?) = apply { this.validFormsOfPayment = validFormsOfPayment }
 
         fun lounges(lounges: kotlin.collections.Map<kotlin.String, kotlin.collections.List<Lounge>>?) = apply { this.lounges = lounges }
 
         fun build(): FlightSearchResponse {
-            val instance =
-                FlightSearchResponse(
-                    offers = offers!!,
-                    searchCities = searchCities!!,
-                    transactionId = transactionId!!,
-                    insights = insights,
-                    warnings = warnings,
-                    segments = segments,
-                    validFormsOfPayment = validFormsOfPayment,
-                    lounges = lounges,
-                )
+            val offers = this.offers.getOrThrow {
+                IllegalArgumentException("offers must not be null")
+            }
+
+            val searchCities = this.searchCities.getOrThrow {
+                IllegalArgumentException("searchCities must not be null")
+            }
+
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val instance = FlightSearchResponse(
+                offers = offers,
+                searchCities = searchCities,
+                transactionId = transactionId,
+                insights = insights,
+                warnings = warnings,
+                segments = segments,
+                validFormsOfPayment = validFormsOfPayment,
+                lounges = lounges,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            offers = offers!!,
-            searchCities = searchCities!!,
-            transactionId = transactionId!!,
-            insights = insights,
-            warnings = warnings,
-            segments = segments,
-            validFormsOfPayment = validFormsOfPayment,
-            lounges = lounges,
-        )
+    fun toBuilder() = Builder(
+        offers = offers,
+        searchCities = searchCities,
+        transactionId = transactionId,
+        insights = insights,
+        warnings = warnings,
+        segments = segments,
+        validFormsOfPayment = validFormsOfPayment,
+        lounges = lounges,
+    )
 }

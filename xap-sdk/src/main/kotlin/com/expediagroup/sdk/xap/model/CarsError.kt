@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarsLocationOption
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -26,28 +27,27 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param locationKeyword The requested location that caused the error.
  * @param locationOptions List for possible locations from which the customer must choose the best one to be re-submitted in the request.
  */
-data class CarsError(
-    // Error code describing the issue
+@ConsistentCopyVisibility data class CarsError private constructor(
+    /* Error code describing the issue */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // A simple description of what the error is.
+
+    /* A simple description of what the error is. */
     @JsonProperty("Description")
     val description: kotlin.String,
-    // Detailed error code describing the issue.
+
+    /* Detailed error code describing the issue. */
     @JsonProperty("DetailCode")
     val detailCode: kotlin.String? = null,
-    // The requested location that caused the error.
+
+    /* The requested location that caused the error. */
     @JsonProperty("LocationKeyword")
     val locationKeyword: kotlin.String? = null,
-    // List for possible locations from which the customer must choose the best one to be re-submitted in the request.
+
+    /* List for possible locations from which the customer must choose the best one to be re-submitted in the request.  */
     @JsonProperty("LocationOptions")
     val locationOptions: kotlin.collections.List<CarsLocationOption>? = null,
 ) {
-    init {
-        require(code != null) { "code must not be null" }
-
-        require(description != null) { "description must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -72,25 +72,31 @@ data class CarsError(
         fun locationOptions(locationOptions: kotlin.collections.List<CarsLocationOption>?) = apply { this.locationOptions = locationOptions }
 
         fun build(): CarsError {
-            val instance =
-                CarsError(
-                    code = code!!,
-                    description = description!!,
-                    detailCode = detailCode,
-                    locationKeyword = locationKeyword,
-                    locationOptions = locationOptions,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val description = this.description.getOrThrow {
+                IllegalArgumentException("description must not be null")
+            }
+
+            val instance = CarsError(
+                code = code,
+                description = description,
+                detailCode = detailCode,
+                locationKeyword = locationKeyword,
+                locationOptions = locationOptions,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            description = description!!,
-            detailCode = detailCode,
-            locationKeyword = locationKeyword,
-            locationOptions = locationOptions,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        description = description,
+        detailCode = detailCode,
+        locationKeyword = locationKeyword,
+        locationOptions = locationOptions,
+    )
 }

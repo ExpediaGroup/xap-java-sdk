@@ -24,19 +24,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param hcomHotelId The unique, Hotels.com-specific hotel property identifier used to designate a single hotel.  This will be returned if searching via `hcomHotelId` in request or the request is coming from Hcom partner.
  * @param rateCalendar Container for all rate calendar data.
  */
-data class HotelRateCalendar(
-    // The unique, Expedia-specific hotel property identifier used to designate a single hotel.
+@ConsistentCopyVisibility data class HotelRateCalendar private constructor(
+    /* The unique, Expedia-specific hotel property identifier used to designate a single hotel. */
     @JsonProperty("EcomHotelId")
     val ecomHotelId: kotlin.String? = null,
-    // The unique, Hotels.com-specific hotel property identifier used to designate a single hotel.  This will be returned if searching via `hcomHotelId` in request or the request is coming from Hcom partner.
+
+    /* The unique, Hotels.com-specific hotel property identifier used to designate a single hotel.  This will be returned if searching via `hcomHotelId` in request or the request is coming from Hcom partner.  */
     @JsonProperty("HcomHotelId")
     val hcomHotelId: kotlin.String? = null,
-    // Container for all rate calendar data.
+
+    /* Container for all rate calendar data. */
     @JsonProperty("RateCalendar")
     val rateCalendar: kotlin.collections.List<RateCalendar>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -55,21 +55,19 @@ data class HotelRateCalendar(
         fun rateCalendar(rateCalendar: kotlin.collections.List<RateCalendar>?) = apply { this.rateCalendar = rateCalendar }
 
         fun build(): HotelRateCalendar {
-            val instance =
-                HotelRateCalendar(
-                    ecomHotelId = ecomHotelId,
-                    hcomHotelId = hcomHotelId,
-                    rateCalendar = rateCalendar,
-                )
+            val instance = HotelRateCalendar(
+                ecomHotelId = ecomHotelId,
+                hcomHotelId = hcomHotelId,
+                rateCalendar = rateCalendar,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            ecomHotelId = ecomHotelId,
-            hcomHotelId = hcomHotelId,
-            rateCalendar = rateCalendar,
-        )
+    fun toBuilder() = Builder(
+        ecomHotelId = ecomHotelId,
+        hcomHotelId = hcomHotelId,
+        rateCalendar = rateCalendar,
+    )
 }

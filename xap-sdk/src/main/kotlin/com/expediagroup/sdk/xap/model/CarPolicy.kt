@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,17 +23,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param categoryCode The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements)
  * @param policyText The raw text of the policy.This is generally localized into the requested language, but may be English if no other translations are available.
  */
-data class CarPolicy(
-    // The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements)
+@ConsistentCopyVisibility data class CarPolicy private constructor(
+    /* The category that this policy applies to (e.g. cancellation, drivers license requirements, driver age requirements)  */
     @JsonProperty("CategoryCode")
     val categoryCode: kotlin.String,
-    // The raw text of the policy.This is generally localized into the requested language, but may be English if no other translations are available.
+
+    /* The raw text of the policy.This is generally localized into the requested language, but may be English if no other translations are available. */
     @JsonProperty("PolicyText")
     val policyText: kotlin.String? = null,
 ) {
-    init {
-        require(categoryCode != null) { "categoryCode must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -48,19 +47,21 @@ data class CarPolicy(
         fun policyText(policyText: kotlin.String?) = apply { this.policyText = policyText }
 
         fun build(): CarPolicy {
-            val instance =
-                CarPolicy(
-                    categoryCode = categoryCode!!,
-                    policyText = policyText,
-                )
+            val categoryCode = this.categoryCode.getOrThrow {
+                IllegalArgumentException("categoryCode must not be null")
+            }
+
+            val instance = CarPolicy(
+                categoryCode = categoryCode,
+                policyText = policyText,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            categoryCode = categoryCode!!,
-            policyText = policyText,
-        )
+    fun toBuilder() = Builder(
+        categoryCode = categoryCode,
+        policyText = policyText,
+    )
 }

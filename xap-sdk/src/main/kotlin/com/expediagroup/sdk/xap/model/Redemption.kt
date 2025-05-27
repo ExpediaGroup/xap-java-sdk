@@ -23,16 +23,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param type The type of redemption process associated to the activity.
  * @param redemptionLocations List of redemption locations where the activity will take place, please refer to Location Section below.
  */
-data class Redemption(
-    // The type of redemption process associated to the activity.
+@ConsistentCopyVisibility data class Redemption private constructor(
+    /* The type of redemption process associated to the activity. */
     @JsonProperty("Type")
     val type: kotlin.String? = null,
-    // List of redemption locations where the activity will take place, please refer to Location Section below.
+
+    /* List of redemption locations where the activity will take place, please refer to Location Section below. */
     @JsonProperty("RedemptionLocations")
     val redemptionLocations: kotlin.collections.List<ActivitiesLocation>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -48,19 +47,17 @@ data class Redemption(
         fun redemptionLocations(redemptionLocations: kotlin.collections.List<ActivitiesLocation>?) = apply { this.redemptionLocations = redemptionLocations }
 
         fun build(): Redemption {
-            val instance =
-                Redemption(
-                    type = type,
-                    redemptionLocations = redemptionLocations,
-                )
+            val instance = Redemption(
+                type = type,
+                redemptionLocations = redemptionLocations,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type,
-            redemptionLocations = redemptionLocations,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        redemptionLocations = redemptionLocations,
+    )
 }

@@ -23,19 +23,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param brand List of filter condition for Brands: `VRBO`.
  * @param structureType List of filter condition for StructureTypes: `VR`, `CONVENTIONAL`.
  */
-data class FilterConditions(
-    // List of filter condition for PointOfSupplies: `US`, `AT`,`BR`,`CA`,`FR`,`DE`,`GR`,`IT`, `JP`,`KR`,`MX`,`PT`,`ES`,`TR`, `AE`,`GB`.
+@ConsistentCopyVisibility data class FilterConditions private constructor(
+    /* List of filter condition for PointOfSupplies: `US`, `AT`,`BR`,`CA`,`FR`,`DE`,`GR`,`IT`, `JP`,`KR`,`MX`,`PT`,`ES`,`TR`, `AE`,`GB`. */
     @JsonProperty("pointOfSupply")
     val pointOfSupply: kotlin.String? = null,
-    // List of filter condition for Brands: `VRBO`.
+
+    /* List of filter condition for Brands: `VRBO`. */
     @JsonProperty("brand")
     val brand: kotlin.String? = null,
-    // List of filter condition for StructureTypes: `VR`, `CONVENTIONAL`.
+
+    /* List of filter condition for StructureTypes: `VR`, `CONVENTIONAL`. */
     @JsonProperty("structureType")
     val structureType: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -54,21 +54,19 @@ data class FilterConditions(
         fun structureType(structureType: kotlin.String?) = apply { this.structureType = structureType }
 
         fun build(): FilterConditions {
-            val instance =
-                FilterConditions(
-                    pointOfSupply = pointOfSupply,
-                    brand = brand,
-                    structureType = structureType,
-                )
+            val instance = FilterConditions(
+                pointOfSupply = pointOfSupply,
+                brand = brand,
+                structureType = structureType,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            pointOfSupply = pointOfSupply,
-            brand = brand,
-            structureType = structureType,
-        )
+    fun toBuilder() = Builder(
+        pointOfSupply = pointOfSupply,
+        brand = brand,
+        structureType = structureType,
+    )
 }

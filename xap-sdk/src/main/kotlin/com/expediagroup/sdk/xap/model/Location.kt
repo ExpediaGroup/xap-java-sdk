@@ -26,16 +26,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param geoLocation
  * @param neighborhood
  */
-data class Location(
+@ConsistentCopyVisibility data class Location private constructor(
     @JsonProperty("Address")
     val address: Address? = null,
+
     @JsonProperty("GeoLocation")
     val geoLocation: LocationGeoLocation? = null,
+
     @JsonProperty("Neighborhood")
     val neighborhood: Neighborhood? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -54,21 +54,19 @@ data class Location(
         fun neighborhood(neighborhood: Neighborhood?) = apply { this.neighborhood = neighborhood }
 
         fun build(): Location {
-            val instance =
-                Location(
-                    address = address,
-                    geoLocation = geoLocation,
-                    neighborhood = neighborhood,
-                )
+            val instance = Location(
+                address = address,
+                geoLocation = geoLocation,
+                neighborhood = neighborhood,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            address = address,
-            geoLocation = geoLocation,
-            neighborhood = neighborhood,
-        )
+    fun toBuilder() = Builder(
+        address = address,
+        geoLocation = geoLocation,
+        neighborhood = neighborhood,
+    )
 }

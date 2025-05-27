@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightFareRuleItemFlightSegment
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -22,13 +23,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Container for segment and corresponding fare rules.
  * @param flightSegment
  */
-data class FlightFareRuleItem(
+@ConsistentCopyVisibility data class FlightFareRuleItem private constructor(
     @JsonProperty("FlightSegment")
     val flightSegment: FlightFareRuleItemFlightSegment,
+
 ) {
-    init {
-        require(flightSegment != null) { "flightSegment must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -41,17 +40,19 @@ data class FlightFareRuleItem(
         fun flightSegment(flightSegment: FlightFareRuleItemFlightSegment) = apply { this.flightSegment = flightSegment }
 
         fun build(): FlightFareRuleItem {
-            val instance =
-                FlightFareRuleItem(
-                    flightSegment = flightSegment!!,
-                )
+            val flightSegment = this.flightSegment.getOrThrow {
+                IllegalArgumentException("flightSegment must not be null")
+            }
+
+            val instance = FlightFareRuleItem(
+                flightSegment = flightSegment,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            flightSegment = flightSegment!!,
-        )
+    fun toBuilder() = Builder(
+        flightSegment = flightSegment,
+    )
 }

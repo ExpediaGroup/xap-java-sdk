@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param type Indicates the time of the deposit collection. Options are: UPON_BOOKING The customer must pay the deposit when booking the property. DAYS_PRIOR The customer must pay the deposit a number of days before arriving at the property. UPON_ARRIVAL The customer must pay the deposit upon arriving at the property.
  * @param `value` This value will only be shown when Deposit Type is DAYS_PRIOR to indicate the number of days prior to check in when the deposit will be collected.
  */
-data class When(
-    // Indicates the time of the deposit collection. Options are: UPON_BOOKING The customer must pay the deposit when booking the property. DAYS_PRIOR The customer must pay the deposit a number of days before arriving at the property. UPON_ARRIVAL The customer must pay the deposit upon arriving at the property.
+@ConsistentCopyVisibility data class When private constructor(
+    /* Indicates the time of the deposit collection. Options are: UPON_BOOKING The customer must pay the deposit when booking the property. DAYS_PRIOR The customer must pay the deposit a number of days before arriving at the property. UPON_ARRIVAL The customer must pay the deposit upon arriving at the property. */
     @JsonProperty("Type")
     val type: When.Type? = null,
-    // This value will only be shown when Deposit Type is DAYS_PRIOR to indicate the number of days prior to check in when the deposit will be collected.
+
+    /* This value will only be shown when Deposit Type is DAYS_PRIOR to indicate the number of days prior to check in when the deposit will be collected. */
     @JsonProperty("Value")
     val `value`: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,29 +46,25 @@ data class When(
         fun `value`(`value`: kotlin.String?) = apply { this.`value` = `value` }
 
         fun build(): When {
-            val instance =
-                When(
-                    type = type,
-                    `value` = `value`,
-                )
+            val instance = When(
+                type = type,
+                `value` = `value`,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type,
-            `value` = `value`,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        `value` = `value`,
+    )
 
     /**
      * Indicates the time of the deposit collection. Options are: UPON_BOOKING The customer must pay the deposit when booking the property. DAYS_PRIOR The customer must pay the deposit a number of days before arriving at the property. UPON_ARRIVAL The customer must pay the deposit upon arriving at the property.
      * Values: UPON_BOOKING,DAYS_PRIOR,UPON_ARRIVAL
      */
-    enum class Type(
-        val value: kotlin.String,
-    ) {
+    enum class Type(val value: kotlin.String) {
         @JsonProperty("UPON_BOOKING")
         UPON_BOOKING("UPON_BOOKING"),
 

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarDetails
 import com.expediagroup.sdk.xap.model.CarsLink
 import com.expediagroup.sdk.xap.model.CarsValidFormsOfPayment
@@ -29,25 +30,26 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param validFormsOfPayment List of all the forms of payment that will be accepted for the booking of this rental transaction.
  * @param links A map of links to other Car APIs. possible link name: ApiBooking
  */
-data class CarDetailsResponse(
-    // A unique identifier for this transaction.
+@ConsistentCopyVisibility data class CarDetailsResponse private constructor(
+    /* A unique identifier for this transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
-    // Container for warning codes
+
+    /* Container for warning codes */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<CarsWarning>? = null,
+
     @JsonProperty("CarDetails")
     val carDetails: CarDetails? = null,
-    // List of all the forms of payment that will be accepted for the booking of this rental transaction.
+
+    /* List of all the forms of payment that will be accepted for the booking of this rental transaction. */
     @JsonProperty("ValidFormsOfPayment")
     val validFormsOfPayment: kotlin.collections.List<CarsValidFormsOfPayment>? = null,
-    // A map of links to other Car APIs. possible link name: ApiBooking
+
+    /* A map of links to other Car APIs. possible link name: ApiBooking */
     @JsonProperty("Links")
     val links: kotlin.collections.Map<kotlin.String, CarsLink>? = null,
 ) {
-    init {
-        require(transactionId != null) { "transactionId must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -72,25 +74,27 @@ data class CarDetailsResponse(
         fun links(links: kotlin.collections.Map<kotlin.String, CarsLink>?) = apply { this.links = links }
 
         fun build(): CarDetailsResponse {
-            val instance =
-                CarDetailsResponse(
-                    transactionId = transactionId!!,
-                    warnings = warnings,
-                    carDetails = carDetails,
-                    validFormsOfPayment = validFormsOfPayment,
-                    links = links,
-                )
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val instance = CarDetailsResponse(
+                transactionId = transactionId,
+                warnings = warnings,
+                carDetails = carDetails,
+                validFormsOfPayment = validFormsOfPayment,
+                links = links,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            transactionId = transactionId!!,
-            warnings = warnings,
-            carDetails = carDetails,
-            validFormsOfPayment = validFormsOfPayment,
-            links = links,
-        )
+    fun toBuilder() = Builder(
+        transactionId = transactionId,
+        warnings = warnings,
+        carDetails = carDetails,
+        validFormsOfPayment = validFormsOfPayment,
+        links = links,
+    )
 }

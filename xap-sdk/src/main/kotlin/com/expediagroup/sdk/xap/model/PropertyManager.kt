@@ -23,19 +23,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param calendarLastUpdated The latest updated date.
  * @param photoUrl The URL for property manager's photo.
  */
-data class PropertyManager(
-    // The name of the property manager.
+@ConsistentCopyVisibility data class PropertyManager private constructor(
+    /* The name of the property manager. */
     @JsonProperty("Name")
     val name: kotlin.String? = null,
-    // The latest updated date.
+
+    /* The latest updated date. */
     @JsonProperty("CalendarLastUpdated")
     val calendarLastUpdated: java.time.LocalDate? = null,
-    // The URL for property manager's photo.
+
+    /* The URL for property manager's photo. */
     @JsonProperty("PhotoUrl")
     val photoUrl: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -54,21 +54,19 @@ data class PropertyManager(
         fun photoUrl(photoUrl: kotlin.String?) = apply { this.photoUrl = photoUrl }
 
         fun build(): PropertyManager {
-            val instance =
-                PropertyManager(
-                    name = name,
-                    calendarLastUpdated = calendarLastUpdated,
-                    photoUrl = photoUrl,
-                )
+            val instance = PropertyManager(
+                name = name,
+                calendarLastUpdated = calendarLastUpdated,
+                photoUrl = photoUrl,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            name = name,
-            calendarLastUpdated = calendarLastUpdated,
-            photoUrl = photoUrl,
-        )
+    fun toBuilder() = Builder(
+        name = name,
+        calendarLastUpdated = calendarLastUpdated,
+        photoUrl = photoUrl,
+    )
 }

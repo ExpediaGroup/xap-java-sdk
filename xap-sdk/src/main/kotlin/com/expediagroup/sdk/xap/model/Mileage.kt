@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarsDistance
 import com.expediagroup.sdk.xap.model.ExtraCostPerDistance
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -25,20 +26,17 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param freeDistanceRatePeriod Rate period for free distance.
  * @param extraCostPerDistance
  */
-data class Mileage(
+@ConsistentCopyVisibility data class Mileage private constructor(
     @JsonProperty("FreeDistance")
     val freeDistance: CarsDistance,
-    // Rate period for free distance.
+
+    /* Rate period for free distance. */
     @JsonProperty("FreeDistanceRatePeriod")
     val freeDistanceRatePeriod: kotlin.String,
+
     @JsonProperty("ExtraCostPerDistance")
     val extraCostPerDistance: ExtraCostPerDistance? = null,
 ) {
-    init {
-        require(freeDistance != null) { "freeDistance must not be null" }
-
-        require(freeDistanceRatePeriod != null) { "freeDistanceRatePeriod must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -57,21 +55,27 @@ data class Mileage(
         fun extraCostPerDistance(extraCostPerDistance: ExtraCostPerDistance?) = apply { this.extraCostPerDistance = extraCostPerDistance }
 
         fun build(): Mileage {
-            val instance =
-                Mileage(
-                    freeDistance = freeDistance!!,
-                    freeDistanceRatePeriod = freeDistanceRatePeriod!!,
-                    extraCostPerDistance = extraCostPerDistance,
-                )
+            val freeDistance = this.freeDistance.getOrThrow {
+                IllegalArgumentException("freeDistance must not be null")
+            }
+
+            val freeDistanceRatePeriod = this.freeDistanceRatePeriod.getOrThrow {
+                IllegalArgumentException("freeDistanceRatePeriod must not be null")
+            }
+
+            val instance = Mileage(
+                freeDistance = freeDistance,
+                freeDistanceRatePeriod = freeDistanceRatePeriod,
+                extraCostPerDistance = extraCostPerDistance,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            freeDistance = freeDistance!!,
-            freeDistanceRatePeriod = freeDistanceRatePeriod!!,
-            extraCostPerDistance = extraCostPerDistance,
-        )
+    fun toBuilder() = Builder(
+        freeDistance = freeDistance,
+        freeDistanceRatePeriod = freeDistanceRatePeriod,
+        extraCostPerDistance = extraCostPerDistance,
+    )
 }

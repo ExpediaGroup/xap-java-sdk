@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FareCalendarResponseOffersInnerOfferPrice
 import com.expediagroup.sdk.xap.model.FareCalendarResponseOffersInnerSegmentsInner
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -25,21 +26,18 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param offerPrice
  * @param segments Container of information about each flight offer Segments (the trip from one stopping place to another) are made up of Legs This will be given back in response if includeSegmentDetails=true
  */
-data class FareCalendarResponseOffersInner(
-    // Flight departure date in ISO 8601 format.
+@ConsistentCopyVisibility data class FareCalendarResponseOffersInner private constructor(
+    /* Flight departure date in ISO 8601 format. */
     @JsonProperty("DepartureDate")
     val departureDate: java.time.OffsetDateTime,
+
     @JsonProperty("OfferPrice")
     val offerPrice: FareCalendarResponseOffersInnerOfferPrice,
-    // Container of information about each flight offer Segments (the trip from one stopping place to another) are made up of Legs This will be given back in response if includeSegmentDetails=true
+
+    /* Container of information about each flight offer Segments (the trip from one stopping place to another) are made up of Legs This will be given back in response if includeSegmentDetails=true */
     @JsonProperty("Segments")
     val segments: kotlin.collections.List<FareCalendarResponseOffersInnerSegmentsInner>? = null,
 ) {
-    init {
-        require(departureDate != null) { "departureDate must not be null" }
-
-        require(offerPrice != null) { "offerPrice must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -58,21 +56,27 @@ data class FareCalendarResponseOffersInner(
         fun segments(segments: kotlin.collections.List<FareCalendarResponseOffersInnerSegmentsInner>?) = apply { this.segments = segments }
 
         fun build(): FareCalendarResponseOffersInner {
-            val instance =
-                FareCalendarResponseOffersInner(
-                    departureDate = departureDate!!,
-                    offerPrice = offerPrice!!,
-                    segments = segments,
-                )
+            val departureDate = this.departureDate.getOrThrow {
+                IllegalArgumentException("departureDate must not be null")
+            }
+
+            val offerPrice = this.offerPrice.getOrThrow {
+                IllegalArgumentException("offerPrice must not be null")
+            }
+
+            val instance = FareCalendarResponseOffersInner(
+                departureDate = departureDate,
+                offerPrice = offerPrice,
+                segments = segments,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            departureDate = departureDate!!,
-            offerPrice = offerPrice!!,
-            segments = segments,
-        )
+    fun toBuilder() = Builder(
+        departureDate = departureDate,
+        offerPrice = offerPrice,
+        segments = segments,
+    )
 }

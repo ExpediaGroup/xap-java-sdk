@@ -25,19 +25,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param transactionId Unique identifier for the transaction.
  * @param rateCalendars Container for all hotel rate calendar data.
  */
-data class RateCalendarResponse(
-    // There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.
+@ConsistentCopyVisibility data class RateCalendarResponse private constructor(
+    /* There were some errors or events during the transaction, but the API has still returned a response.  Container for all warnings.  */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<Warning>? = null,
-    // Unique identifier for the transaction.
+
+    /* Unique identifier for the transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String? = null,
-    // Container for all hotel rate calendar data.
+
+    /* Container for all hotel rate calendar data. */
     @JsonProperty("RateCalendars")
     val rateCalendars: kotlin.collections.List<HotelRateCalendar>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -56,21 +56,19 @@ data class RateCalendarResponse(
         fun rateCalendars(rateCalendars: kotlin.collections.List<HotelRateCalendar>?) = apply { this.rateCalendars = rateCalendars }
 
         fun build(): RateCalendarResponse {
-            val instance =
-                RateCalendarResponse(
-                    warnings = warnings,
-                    transactionId = transactionId,
-                    rateCalendars = rateCalendars,
-                )
+            val instance = RateCalendarResponse(
+                warnings = warnings,
+                transactionId = transactionId,
+                rateCalendars = rateCalendars,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            warnings = warnings,
-            transactionId = transactionId,
-            rateCalendars = rateCalendars,
-        )
+    fun toBuilder() = Builder(
+        warnings = warnings,
+        transactionId = transactionId,
+        rateCalendars = rateCalendars,
+    )
 }

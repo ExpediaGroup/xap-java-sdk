@@ -25,14 +25,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param webSearchResult
  * @param apiRateCalendar
  */
-data class HotelLinks(
+@ConsistentCopyVisibility data class HotelLinks private constructor(
     @JsonProperty("WebSearchResult")
     val webSearchResult: HotelLinksWebSearchResult? = null,
+
     @JsonProperty("ApiRateCalendar")
     val apiRateCalendar: HotelLinksApiRateCalendar? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -48,19 +47,17 @@ data class HotelLinks(
         fun apiRateCalendar(apiRateCalendar: HotelLinksApiRateCalendar?) = apply { this.apiRateCalendar = apiRateCalendar }
 
         fun build(): HotelLinks {
-            val instance =
-                HotelLinks(
-                    webSearchResult = webSearchResult,
-                    apiRateCalendar = apiRateCalendar,
-                )
+            val instance = HotelLinks(
+                webSearchResult = webSearchResult,
+                apiRateCalendar = apiRateCalendar,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            webSearchResult = webSearchResult,
-            apiRateCalendar = apiRateCalendar,
-        )
+    fun toBuilder() = Builder(
+        webSearchResult = webSearchResult,
+        apiRateCalendar = apiRateCalendar,
+    )
 }

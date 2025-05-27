@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FareOptions
 import com.expediagroup.sdk.xap.model.FlightDetailsRefundPenalty
 import com.expediagroup.sdk.xap.model.FlightsV3Link
@@ -42,87 +43,81 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param vfopKey Key generated for Valid form of payment
  * @param refundPenalty Contains refund penalty information
  */
-data class FlightDetailsOffer(
-    // True if more that one ticket will be issued for this offer per passenger. False if only one ticket will be issued per passenger.
+@ConsistentCopyVisibility data class FlightDetailsOffer private constructor(
+    /* True if more that one ticket will be issued for this offer per passenger. False if only one ticket will be issued per passenger. */
     @JsonProperty("SplitTicket")
     val splitTicket: kotlin.Boolean,
-    // Indicate whether the air product is a opaque flight product or not. If true, then there will be no Segments node for this air product.
+
+    /* Indicate whether the air product is a opaque flight product or not. If true, then there will be no Segments node for this air product. */
     @JsonProperty("OpaqueFlight")
     val opaqueFlight: kotlin.Boolean,
-    // All Merchant name appending them together with a ?*?
+
+    /* All Merchant name appending them together with a ?*? */
     @JsonProperty("MerchantName")
     val merchantName: kotlin.String,
-    // Container for deeplink URL information.
+
+    /* Container for deeplink URL information. */
     @JsonProperty("Links")
     val links: kotlin.collections.Map<kotlin.String, FlightsV3Link>,
+
     @JsonProperty("OfferPrice")
     val offerPrice: OfferPrice,
-    // True if flight is refundable, False if it's not refundable.
+
+    /* True if flight is refundable, False if it's not refundable. */
     @JsonProperty("Refundable")
     val refundable: kotlin.Boolean,
-    // True, if flight is international. False, if flight departs and arrives within the same country
+
+    /* True, if flight is international. False, if flight departs and arrives within the same country */
     @JsonProperty("International")
     val international: kotlin.Boolean,
-    // Type of ticket being issued
+
+    /* Type of ticket being issued */
     @JsonProperty("TicketType")
     val ticketType: kotlin.String,
-    // Contains list of fare options
+
+    /* Contains list of fare options */
     @JsonProperty("FareOptions")
     val fareOptions: kotlin.collections
         .List<
             FareOptions,
-        >,
-    // Whether to support undisclosed gender? True = support False = not support
+            >,
+
+    /* Whether to support undisclosed gender? True = support False = not support */
     @JsonProperty("UndisclosedGenderSupported")
     val undisclosedGenderSupported: kotlin.Boolean,
-    // Whether to support unspecified gender? True = support False = not support
+
+    /* Whether to support unspecified gender? True = support False = not support */
     @JsonProperty("UnspecifiedGenderSupported")
     val unspecifiedGenderSupported: kotlin.Boolean,
-    // Unique key to identify each offer.
+
+    /* Unique key to identify each offer. */
     @JsonProperty("offerToken")
     val offerToken: kotlin.String? = null,
-    // Key that allows the user to create a package using this flight.
+
+    /* Key that allows the user to create a package using this flight. */
     @JsonProperty("ReferenceId")
     val referenceId: kotlin.String? = null,
-    // To indicate meta partners whether the air product is available for TAAS instant book.
+
+    /* To indicate meta partners whether the air product is available for TAAS instant book. */
     @JsonProperty("MetaApiBook")
     val metaApiBook: kotlin.Boolean? = null,
-    // True if Booking can be cancelled  within 24 hours of booking.
+
+    /* True if Booking can be cancelled  within 24 hours of booking. */
     @JsonProperty("Free24HourCancellation")
     val free24HourCancellation: kotlin.Boolean? = null,
-    // Container for list of segment ids in a particular offer. For Opaque flight, no segment will be present.
+
+    /* Container for list of segment ids in a particular offer. For Opaque flight, no segment will be present. */
     @JsonProperty("SegmentIds")
     val segmentIds: kotlin.collections.List<kotlin.String>? = null,
-    // Key generated for Valid form of payment
+
+    /* Key generated for Valid form of payment */
     @JsonProperty("VfopKey")
     val vfopKey: kotlin.String? = null,
-    // Contains refund penalty information
+
+    /* Contains refund penalty information */
     @JsonProperty("RefundPenalty")
     val refundPenalty: kotlin.collections.List<FlightDetailsRefundPenalty>? = null,
 ) {
-    init {
-        require(splitTicket != null) { "splitTicket must not be null" }
-
-        require(opaqueFlight != null) { "opaqueFlight must not be null" }
-
-        require(merchantName != null) { "merchantName must not be null" }
-
-        require(links != null) { "links must not be null" }
-
-        require(offerPrice != null) { "offerPrice must not be null" }
-
-        require(refundable != null) { "refundable must not be null" }
-
-        require(international != null) { "international must not be null" }
-
-        require(ticketType != null) { "ticketType must not be null" }
-
-        require(fareOptions != null) { "fareOptions must not be null" }
-
-        require(undisclosedGenderSupported != null) { "undisclosedGenderSupported must not be null" }
-
-        require(unspecifiedGenderSupported != null) { "unspecifiedGenderSupported must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -186,51 +181,93 @@ data class FlightDetailsOffer(
         fun refundPenalty(refundPenalty: kotlin.collections.List<FlightDetailsRefundPenalty>?) = apply { this.refundPenalty = refundPenalty }
 
         fun build(): FlightDetailsOffer {
-            val instance =
-                FlightDetailsOffer(
-                    splitTicket = splitTicket!!,
-                    opaqueFlight = opaqueFlight!!,
-                    merchantName = merchantName!!,
-                    links = links!!,
-                    offerPrice = offerPrice!!,
-                    refundable = refundable!!,
-                    international = international!!,
-                    ticketType = ticketType!!,
-                    fareOptions = fareOptions!!,
-                    undisclosedGenderSupported = undisclosedGenderSupported!!,
-                    unspecifiedGenderSupported = unspecifiedGenderSupported!!,
-                    offerToken = offerToken,
-                    referenceId = referenceId,
-                    metaApiBook = metaApiBook,
-                    free24HourCancellation = free24HourCancellation,
-                    segmentIds = segmentIds,
-                    vfopKey = vfopKey,
-                    refundPenalty = refundPenalty,
-                )
+            val splitTicket = this.splitTicket.getOrThrow {
+                IllegalArgumentException("splitTicket must not be null")
+            }
+
+            val opaqueFlight = this.opaqueFlight.getOrThrow {
+                IllegalArgumentException("opaqueFlight must not be null")
+            }
+
+            val merchantName = this.merchantName.getOrThrow {
+                IllegalArgumentException("merchantName must not be null")
+            }
+
+            val links = this.links.getOrThrow {
+                IllegalArgumentException("links must not be null")
+            }
+
+            val offerPrice = this.offerPrice.getOrThrow {
+                IllegalArgumentException("offerPrice must not be null")
+            }
+
+            val refundable = this.refundable.getOrThrow {
+                IllegalArgumentException("refundable must not be null")
+            }
+
+            val international = this.international.getOrThrow {
+                IllegalArgumentException("international must not be null")
+            }
+
+            val ticketType = this.ticketType.getOrThrow {
+                IllegalArgumentException("ticketType must not be null")
+            }
+
+            val fareOptions = this.fareOptions.getOrThrow {
+                IllegalArgumentException("fareOptions must not be null")
+            }
+
+            val undisclosedGenderSupported = this.undisclosedGenderSupported.getOrThrow {
+                IllegalArgumentException("undisclosedGenderSupported must not be null")
+            }
+
+            val unspecifiedGenderSupported = this.unspecifiedGenderSupported.getOrThrow {
+                IllegalArgumentException("unspecifiedGenderSupported must not be null")
+            }
+
+            val instance = FlightDetailsOffer(
+                splitTicket = splitTicket,
+                opaqueFlight = opaqueFlight,
+                merchantName = merchantName,
+                links = links,
+                offerPrice = offerPrice,
+                refundable = refundable,
+                international = international,
+                ticketType = ticketType,
+                fareOptions = fareOptions,
+                undisclosedGenderSupported = undisclosedGenderSupported,
+                unspecifiedGenderSupported = unspecifiedGenderSupported,
+                offerToken = offerToken,
+                referenceId = referenceId,
+                metaApiBook = metaApiBook,
+                free24HourCancellation = free24HourCancellation,
+                segmentIds = segmentIds,
+                vfopKey = vfopKey,
+                refundPenalty = refundPenalty,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            splitTicket = splitTicket!!,
-            opaqueFlight = opaqueFlight!!,
-            merchantName = merchantName!!,
-            links = links!!,
-            offerPrice = offerPrice!!,
-            refundable = refundable!!,
-            international = international!!,
-            ticketType = ticketType!!,
-            fareOptions = fareOptions!!,
-            undisclosedGenderSupported = undisclosedGenderSupported!!,
-            unspecifiedGenderSupported = unspecifiedGenderSupported!!,
-            offerToken = offerToken,
-            referenceId = referenceId,
-            metaApiBook = metaApiBook,
-            free24HourCancellation = free24HourCancellation,
-            segmentIds = segmentIds,
-            vfopKey = vfopKey,
-            refundPenalty = refundPenalty,
-        )
+    fun toBuilder() = Builder(
+        splitTicket = splitTicket,
+        opaqueFlight = opaqueFlight,
+        merchantName = merchantName,
+        links = links,
+        offerPrice = offerPrice,
+        refundable = refundable,
+        international = international,
+        ticketType = ticketType,
+        fareOptions = fareOptions,
+        undisclosedGenderSupported = undisclosedGenderSupported,
+        unspecifiedGenderSupported = unspecifiedGenderSupported,
+        offerToken = offerToken,
+        referenceId = referenceId,
+        metaApiBook = metaApiBook,
+        free24HourCancellation = free24HourCancellation,
+        segmentIds = segmentIds,
+        vfopKey = vfopKey,
+        refundPenalty = refundPenalty,
+    )
 }

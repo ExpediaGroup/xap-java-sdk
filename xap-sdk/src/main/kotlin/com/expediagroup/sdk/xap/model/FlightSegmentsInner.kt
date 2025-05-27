@@ -22,12 +22,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @param segment
  */
-data class FlightSegmentsInner(
+@ConsistentCopyVisibility data class FlightSegmentsInner private constructor(
     @JsonProperty("Segment")
     val segment: FlightSegmentsInnerSegment? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,17 +38,15 @@ data class FlightSegmentsInner(
         fun segment(segment: FlightSegmentsInnerSegment?) = apply { this.segment = segment }
 
         fun build(): FlightSegmentsInner {
-            val instance =
-                FlightSegmentsInner(
-                    segment = segment,
-                )
+            val instance = FlightSegmentsInner(
+                segment = segment,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            segment = segment,
-        )
+    fun toBuilder() = Builder(
+        segment = segment,
+    )
 }

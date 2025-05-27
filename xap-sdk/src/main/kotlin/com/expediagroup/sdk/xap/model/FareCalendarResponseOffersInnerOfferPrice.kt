@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3Money
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -22,13 +23,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Container for offer price information.
  * @param totalPrice
  */
-data class FareCalendarResponseOffersInnerOfferPrice(
+@ConsistentCopyVisibility data class FareCalendarResponseOffersInnerOfferPrice private constructor(
     @JsonProperty("TotalPrice")
     val totalPrice: FlightsV3Money,
+
 ) {
-    init {
-        require(totalPrice != null) { "totalPrice must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -41,17 +40,19 @@ data class FareCalendarResponseOffersInnerOfferPrice(
         fun totalPrice(totalPrice: FlightsV3Money) = apply { this.totalPrice = totalPrice }
 
         fun build(): FareCalendarResponseOffersInnerOfferPrice {
-            val instance =
-                FareCalendarResponseOffersInnerOfferPrice(
-                    totalPrice = totalPrice!!,
-                )
+            val totalPrice = this.totalPrice.getOrThrow {
+                IllegalArgumentException("totalPrice must not be null")
+            }
+
+            val instance = FareCalendarResponseOffersInnerOfferPrice(
+                totalPrice = totalPrice,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            totalPrice = totalPrice!!,
-        )
+    fun toBuilder() = Builder(
+        totalPrice = totalPrice,
+    )
 }

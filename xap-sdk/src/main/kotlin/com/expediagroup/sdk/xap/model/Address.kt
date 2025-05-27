@@ -26,28 +26,31 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param country 3-letter code for the country
  * @param postalCode Zip/postal code
  */
-data class Address(
-    // Street Number, Street Name, or PO Box
+@ConsistentCopyVisibility data class Address private constructor(
+    /* Street Number, Street Name, or PO Box */
     @JsonProperty("Address1")
     val address1: kotlin.String? = null,
-    // Apartment, Floor, Suite, Bldg or more specific information about Address1.
+
+    /* Apartment, Floor, Suite, Bldg or more specific information about Address1. */
     @JsonProperty("Address2")
     val address2: kotlin.String? = null,
-    // The city
+
+    /* The city */
     @JsonProperty("City")
     val city: kotlin.String? = null,
-    // The state or province
+
+    /* The state or province */
     @JsonProperty("Province")
     val province: kotlin.String? = null,
-    // 3-letter code for the country
+
+    /* 3-letter code for the country */
     @JsonProperty("Country")
     val country: kotlin.String? = null,
-    // Zip/postal code
+
+    /* Zip/postal code */
     @JsonProperty("PostalCode")
     val postalCode: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -75,27 +78,25 @@ data class Address(
         fun postalCode(postalCode: kotlin.String?) = apply { this.postalCode = postalCode }
 
         fun build(): Address {
-            val instance =
-                Address(
-                    address1 = address1,
-                    address2 = address2,
-                    city = city,
-                    province = province,
-                    country = country,
-                    postalCode = postalCode,
-                )
+            val instance = Address(
+                address1 = address1,
+                address2 = address2,
+                city = city,
+                province = province,
+                country = country,
+                postalCode = postalCode,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            address1 = address1,
-            address2 = address2,
-            city = city,
-            province = province,
-            country = country,
-            postalCode = postalCode,
-        )
+    fun toBuilder() = Builder(
+        address1 = address1,
+        address2 = address2,
+        city = city,
+        province = province,
+        country = country,
+        postalCode = postalCode,
+    )
 }

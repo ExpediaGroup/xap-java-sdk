@@ -24,19 +24,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param status Represents whether the offer is currently available.
  * @param roomTypes Container for all of available room types.
  */
-data class Property(
-    // The unique property identifier used to designate a single property.
+@ConsistentCopyVisibility data class Property private constructor(
+    /* The unique property identifier used to designate a single property. */
     @JsonProperty("Id")
     val id: kotlin.String? = null,
-    // Represents whether the offer is currently available.
+
+    /* Represents whether the offer is currently available. */
     @JsonProperty("Status")
     val status: Property.Status? = null,
-    // Container for all of available room types.
+
+    /* Container for all of available room types. */
     @JsonProperty("RoomTypes")
     val roomTypes: kotlin.collections.List<LodgingRoomType>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -55,31 +55,27 @@ data class Property(
         fun roomTypes(roomTypes: kotlin.collections.List<LodgingRoomType>?) = apply { this.roomTypes = roomTypes }
 
         fun build(): Property {
-            val instance =
-                Property(
-                    id = id,
-                    status = status,
-                    roomTypes = roomTypes,
-                )
+            val instance = Property(
+                id = id,
+                status = status,
+                roomTypes = roomTypes,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id,
-            status = status,
-            roomTypes = roomTypes,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        status = status,
+        roomTypes = roomTypes,
+    )
 
     /**
      * Represents whether the offer is currently available.
      * Values: AVAILABLE,NOT_AVAILABLE,ERROR,NUMBER_OF_ADULTS_NOT_ACCEPTED,NUMBER_OF_CHILDREN_NOT_ACCEPTED,NUMBER_OF_INFANTS_NOT_ACCEPTED,NUMBER_OF_PERSONS_NOT_ACCEPTED,CHECK_IN_AGE_NOT_ACCEPTED
      */
-    enum class Status(
-        val value: kotlin.String,
-    ) {
+    enum class Status(val value: kotlin.String) {
         @JsonProperty("AVAILABLE")
         AVAILABLE("AVAILABLE"),
 

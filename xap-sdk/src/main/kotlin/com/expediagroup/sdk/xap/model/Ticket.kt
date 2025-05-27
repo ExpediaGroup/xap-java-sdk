@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.ActivitiesPrice
 import com.expediagroup.sdk.xap.model.Restrictions
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -27,30 +28,25 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param ticketPrice
  * @param restrictions
  */
-data class Ticket(
-    // The numerical identifier for the ticket.
+@ConsistentCopyVisibility data class Ticket private constructor(
+    /* The numerical identifier for the ticket. */
     @JsonProperty("Id")
     val id: kotlin.Int,
-    // The code for the ticket. Values supported are: Adult Traveler Child Group Senior Infant Student
+
+    /* The code for the ticket. Values supported are: Adult Traveler Child Group Senior Infant Student */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // The number of each ticket type to be booked.
+
+    /* The number of each ticket type to be booked. */
     @JsonProperty("Count")
     val count: kotlin.Int,
+
     @JsonProperty("TicketPrice")
     val ticketPrice: ActivitiesPrice,
+
     @JsonProperty("Restrictions")
     val restrictions: Restrictions? = null,
 ) {
-    init {
-        require(id != null) { "id must not be null" }
-
-        require(code != null) { "code must not be null" }
-
-        require(count != null) { "count must not be null" }
-
-        require(ticketPrice != null) { "ticketPrice must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -75,25 +71,39 @@ data class Ticket(
         fun restrictions(restrictions: Restrictions?) = apply { this.restrictions = restrictions }
 
         fun build(): Ticket {
-            val instance =
-                Ticket(
-                    id = id!!,
-                    code = code!!,
-                    count = count!!,
-                    ticketPrice = ticketPrice!!,
-                    restrictions = restrictions,
-                )
+            val id = this.id.getOrThrow {
+                IllegalArgumentException("id must not be null")
+            }
+
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val count = this.count.getOrThrow {
+                IllegalArgumentException("count must not be null")
+            }
+
+            val ticketPrice = this.ticketPrice.getOrThrow {
+                IllegalArgumentException("ticketPrice must not be null")
+            }
+
+            val instance = Ticket(
+                id = id,
+                code = code,
+                count = count,
+                ticketPrice = ticketPrice,
+                restrictions = restrictions,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id!!,
-            code = code!!,
-            count = count!!,
-            ticketPrice = ticketPrice!!,
-            restrictions = restrictions,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        code = code,
+        count = count,
+        ticketPrice = ticketPrice,
+        restrictions = restrictions,
+    )
 }

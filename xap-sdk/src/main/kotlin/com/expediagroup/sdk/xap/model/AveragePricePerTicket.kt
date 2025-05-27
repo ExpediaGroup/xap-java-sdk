@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -23,24 +24,20 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param currency Currency in ISO 4217 format
  * @param count Indicates how many tickets were used to determine the average
  */
-data class AveragePricePerTicket(
-    // Average price per ticket, excluding infant
+@ConsistentCopyVisibility data class AveragePricePerTicket private constructor(
+    /* Average price per ticket, excluding infant */
     @JsonProperty("Value")
     val `value`: kotlin.String,
-    // Currency in ISO 4217 format
+
+    /* Currency in ISO 4217 format */
     @JsonProperty("Currency")
     val currency: kotlin.String,
-    // Indicates how many tickets were used to determine the average
+
+    /* Indicates how many tickets were used to determine the average */
     @JsonProperty("Count")
     val count: kotlin.Int,
+
 ) {
-    init {
-        require(`value` != null) { "`value` must not be null" }
-
-        require(currency != null) { "currency must not be null" }
-
-        require(count != null) { "count must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -59,21 +56,31 @@ data class AveragePricePerTicket(
         fun count(count: kotlin.Int) = apply { this.count = count }
 
         fun build(): AveragePricePerTicket {
-            val instance =
-                AveragePricePerTicket(
-                    `value` = `value`!!,
-                    currency = currency!!,
-                    count = count!!,
-                )
+            val `value` = this.`value`.getOrThrow {
+                IllegalArgumentException("`value` must not be null")
+            }
+
+            val currency = this.currency.getOrThrow {
+                IllegalArgumentException("currency must not be null")
+            }
+
+            val count = this.count.getOrThrow {
+                IllegalArgumentException("count must not be null")
+            }
+
+            val instance = AveragePricePerTicket(
+                `value` = `value`,
+                currency = currency,
+                count = count,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            `value` = `value`!!,
-            currency = currency!!,
-            count = count!!,
-        )
+    fun toBuilder() = Builder(
+        `value` = `value`,
+        currency = currency,
+        count = count,
+    )
 }

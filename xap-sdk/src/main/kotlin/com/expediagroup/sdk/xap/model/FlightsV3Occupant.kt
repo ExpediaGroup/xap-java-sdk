@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param adults The number of adults in a room.
  * @param childAges The ages of children in a room.
  */
-data class FlightsV3Occupant(
-    // The number of adults in a room.
+@ConsistentCopyVisibility data class FlightsV3Occupant private constructor(
+    /* The number of adults in a room.  */
     @JsonProperty("Adults")
     val adults: kotlin.Int? = null,
-    // The ages of children in a room.
+
+    /* The ages of children in a room.  */
     @JsonProperty("ChildAges")
     val childAges: kotlin.collections.List<kotlin.Int>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class FlightsV3Occupant(
         fun childAges(childAges: kotlin.collections.List<kotlin.Int>?) = apply { this.childAges = childAges }
 
         fun build(): FlightsV3Occupant {
-            val instance =
-                FlightsV3Occupant(
-                    adults = adults,
-                    childAges = childAges,
-                )
+            val instance = FlightsV3Occupant(
+                adults = adults,
+                childAges = childAges,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            adults = adults,
-            childAges = childAges,
-        )
+    fun toBuilder() = Builder(
+        adults = adults,
+        childAges = childAges,
+    )
 }

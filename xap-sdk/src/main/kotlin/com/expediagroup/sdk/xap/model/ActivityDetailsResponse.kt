@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.ActivitiesWarning
 import com.expediagroup.sdk.xap.model.Activity
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -28,30 +29,30 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param endDate The endDate of activities in YYY-MM-DD format.
  * @param activityDetails
  */
-data class ActivityDetailsResponse(
-    // A unique identifier for this transaction.
+@ConsistentCopyVisibility data class ActivityDetailsResponse private constructor(
+    /* A unique identifier for this transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
-    // The location user searched, translated into the full, unambiguous format.
+
+    /* The location user searched, translated into the full, unambiguous format. */
     @JsonProperty("Location")
     val location: kotlin.String,
-    // Container for all warnings generated during the transaction.
+
+    /* Container for all warnings generated during the transaction. */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<ActivitiesWarning>? = null,
-    // The startDate of activities in YYY-MM-DD format.
+
+    /* The startDate of activities in YYY-MM-DD format. */
     @JsonProperty("StartDate")
     val startDate: java.time.LocalDate? = null,
-    // The endDate of activities in YYY-MM-DD format.
+
+    /* The endDate of activities in YYY-MM-DD format. */
     @JsonProperty("EndDate")
     val endDate: java.time.LocalDate? = null,
+
     @JsonProperty("ActivityDetails")
     val activityDetails: Activity? = null,
 ) {
-    init {
-        require(transactionId != null) { "transactionId must not be null" }
-
-        require(location != null) { "location must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -79,27 +80,33 @@ data class ActivityDetailsResponse(
         fun activityDetails(activityDetails: Activity?) = apply { this.activityDetails = activityDetails }
 
         fun build(): ActivityDetailsResponse {
-            val instance =
-                ActivityDetailsResponse(
-                    transactionId = transactionId!!,
-                    location = location!!,
-                    warnings = warnings,
-                    startDate = startDate,
-                    endDate = endDate,
-                    activityDetails = activityDetails,
-                )
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val location = this.location.getOrThrow {
+                IllegalArgumentException("location must not be null")
+            }
+
+            val instance = ActivityDetailsResponse(
+                transactionId = transactionId,
+                location = location,
+                warnings = warnings,
+                startDate = startDate,
+                endDate = endDate,
+                activityDetails = activityDetails,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            transactionId = transactionId!!,
-            location = location!!,
-            warnings = warnings,
-            startDate = startDate,
-            endDate = endDate,
-            activityDetails = activityDetails,
-        )
+    fun toBuilder() = Builder(
+        transactionId = transactionId,
+        location = location,
+        warnings = warnings,
+        startDate = startDate,
+        endDate = endDate,
+        activityDetails = activityDetails,
+    )
 }

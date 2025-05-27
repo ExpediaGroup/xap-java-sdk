@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarsCountry
 import com.expediagroup.sdk.xap.model.CarsGeoLocation
 import com.expediagroup.sdk.xap.model.CarsLocation
@@ -32,41 +33,44 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param country
  * @param geoLocation
  */
-data class CarsLocationOption(
-    // Location used in partner request.
+@ConsistentCopyVisibility data class CarsLocationOption private constructor(
+    /* Location used in partner request. */
     @JsonProperty("RequestedLocation")
     val requestedLocation: kotlin.String,
-    // Container for list of possible locations that could be used to disambiguate the query.
+
+    /* Container for list of possible locations that could be used to disambiguate the query. */
     @JsonProperty("Locations")
     val locations: kotlin.collections
         .List<
             CarsLocation,
-        >,
-    // Type of the location.
+            >,
+
+    /* Type of the location. */
     @JsonProperty("Type")
     val type: kotlin.String? = null,
-    // RegionId the location resides in.
+
+    /* RegionId the location resides in. */
     @JsonProperty("RegionId")
     val regionId: kotlin.String? = null,
-    // The name of the location which matches the location keyword.
+
+    /* The name of the location which matches the location keyword. */
     @JsonProperty("ShortName")
     val shortName: kotlin.String? = null,
-    // Indicates the nearest major airport to the location.
+
+    /* Indicates the nearest major airport to the location. */
     @JsonProperty("AirportCode")
     val airportCode: kotlin.String? = null,
-    // The address of the location.
+
+    /* The address of the location. */
     @JsonProperty("Address")
     val address: kotlin.String? = null,
+
     @JsonProperty("Country")
     val country: CarsCountry? = null,
+
     @JsonProperty("GeoLocation")
     val geoLocation: CarsGeoLocation? = null,
 ) {
-    init {
-        require(requestedLocation != null) { "requestedLocation must not be null" }
-
-        require(locations != null) { "locations must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -103,33 +107,39 @@ data class CarsLocationOption(
         fun geoLocation(geoLocation: CarsGeoLocation?) = apply { this.geoLocation = geoLocation }
 
         fun build(): CarsLocationOption {
-            val instance =
-                CarsLocationOption(
-                    requestedLocation = requestedLocation!!,
-                    locations = locations!!,
-                    type = type,
-                    regionId = regionId,
-                    shortName = shortName,
-                    airportCode = airportCode,
-                    address = address,
-                    country = country,
-                    geoLocation = geoLocation,
-                )
+            val requestedLocation = this.requestedLocation.getOrThrow {
+                IllegalArgumentException("requestedLocation must not be null")
+            }
+
+            val locations = this.locations.getOrThrow {
+                IllegalArgumentException("locations must not be null")
+            }
+
+            val instance = CarsLocationOption(
+                requestedLocation = requestedLocation,
+                locations = locations,
+                type = type,
+                regionId = regionId,
+                shortName = shortName,
+                airportCode = airportCode,
+                address = address,
+                country = country,
+                geoLocation = geoLocation,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            requestedLocation = requestedLocation!!,
-            locations = locations!!,
-            type = type,
-            regionId = regionId,
-            shortName = shortName,
-            airportCode = airportCode,
-            address = address,
-            country = country,
-            geoLocation = geoLocation,
-        )
+    fun toBuilder() = Builder(
+        requestedLocation = requestedLocation,
+        locations = locations,
+        type = type,
+        regionId = regionId,
+        shortName = shortName,
+        airportCode = airportCode,
+        address = address,
+        country = country,
+        geoLocation = geoLocation,
+    )
 }

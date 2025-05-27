@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -24,29 +25,24 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param fee The amount of the payment fee.
  * @param currency Currency of the fee in ISO 4217 format
  */
-data class AirValidFormsOfPayment(
-    // Method of payment
+@ConsistentCopyVisibility data class AirValidFormsOfPayment private constructor(
+    /* Method of payment */
     @JsonProperty("PaymentMethod")
     val paymentMethod: kotlin.String,
-    // Name of Payment Method.
+
+    /* Name of Payment Method. */
     @JsonProperty("Name")
     val name: kotlin.String,
-    // The amount of the payment fee.
+
+    /* The amount of the payment fee. */
     @JsonProperty("Fee")
     val fee: kotlin.String,
-    // Currency of the fee in ISO 4217 format
+
+    /* Currency of the fee in ISO 4217 format */
     @JsonProperty("Currency")
     val currency: kotlin.String,
+
 ) {
-    init {
-        require(paymentMethod != null) { "paymentMethod must not be null" }
-
-        require(name != null) { "name must not be null" }
-
-        require(fee != null) { "fee must not be null" }
-
-        require(currency != null) { "currency must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -68,23 +64,37 @@ data class AirValidFormsOfPayment(
         fun currency(currency: kotlin.String) = apply { this.currency = currency }
 
         fun build(): AirValidFormsOfPayment {
-            val instance =
-                AirValidFormsOfPayment(
-                    paymentMethod = paymentMethod!!,
-                    name = name!!,
-                    fee = fee!!,
-                    currency = currency!!,
-                )
+            val paymentMethod = this.paymentMethod.getOrThrow {
+                IllegalArgumentException("paymentMethod must not be null")
+            }
+
+            val name = this.name.getOrThrow {
+                IllegalArgumentException("name must not be null")
+            }
+
+            val fee = this.fee.getOrThrow {
+                IllegalArgumentException("fee must not be null")
+            }
+
+            val currency = this.currency.getOrThrow {
+                IllegalArgumentException("currency must not be null")
+            }
+
+            val instance = AirValidFormsOfPayment(
+                paymentMethod = paymentMethod,
+                name = name,
+                fee = fee,
+                currency = currency,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            paymentMethod = paymentMethod!!,
-            name = name!!,
-            fee = fee!!,
-            currency = currency!!,
-        )
+    fun toBuilder() = Builder(
+        paymentMethod = paymentMethod,
+        name = name,
+        fee = fee,
+        currency = currency,
+    )
 }

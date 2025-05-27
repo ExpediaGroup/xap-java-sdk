@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param id The identification of a property amenity.
  * @param name The description of a property amenity.
  */
-data class FlightsV3LodgingAmenity(
-    // The identification of a property amenity.
+@ConsistentCopyVisibility data class FlightsV3LodgingAmenity private constructor(
+    /* The identification of a property amenity. */
     @JsonProperty("Id")
     val id: kotlin.String,
-    // The description of a property amenity.
+
+    /* The description of a property amenity. */
     @JsonProperty("Name")
     val name: kotlin.String,
-) {
-    init {
-        require(id != null) { "id must not be null" }
 
-        require(name != null) { "name must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class FlightsV3LodgingAmenity(
         fun name(name: kotlin.String) = apply { this.name = name }
 
         fun build(): FlightsV3LodgingAmenity {
-            val instance =
-                FlightsV3LodgingAmenity(
-                    id = id!!,
-                    name = name!!,
-                )
+            val id = this.id.getOrThrow {
+                IllegalArgumentException("id must not be null")
+            }
+
+            val name = this.name.getOrThrow {
+                IllegalArgumentException("name must not be null")
+            }
+
+            val instance = FlightsV3LodgingAmenity(
+                id = id,
+                name = name,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id!!,
-            name = name!!,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        name = name,
+    )
 }

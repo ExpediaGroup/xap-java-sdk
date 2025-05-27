@@ -25,21 +25,22 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param priceLevel Indicates how that day's price compares to the other lowest price for that hotel over the searched date range. Prices will be bucketed into LOW/MEDIUM/HIGH. Here are the details for each `PriceLevel`: - HIGH: 65th percentile+ - MEDIUM: 30th Percentile+ - LOW: Anything lower than 30th percentile
  * @param status Represents whether the offer is currently available.
  */
-data class RateCalendar(
-    // Stay date for which the price is returned.
+@ConsistentCopyVisibility data class RateCalendar private constructor(
+    /* Stay date for which the price is returned. */
     @JsonProperty("StayDate")
     val stayDate: java.time.LocalDate? = null,
+
     @JsonProperty("Price")
     val price: RateCalendarPrice? = null,
-    // Indicates how that day's price compares to the other lowest price for that hotel over the searched date range. Prices will be bucketed into LOW/MEDIUM/HIGH. Here are the details for each `PriceLevel`: - HIGH: 65th percentile+ - MEDIUM: 30th Percentile+ - LOW: Anything lower than 30th percentile
+
+    /* Indicates how that day's price compares to the other lowest price for that hotel over the searched date range. Prices will be bucketed into LOW/MEDIUM/HIGH. Here are the details for each `PriceLevel`: - HIGH: 65th percentile+ - MEDIUM: 30th Percentile+ - LOW: Anything lower than 30th percentile  */
     @JsonProperty("PriceLevel")
     val priceLevel: RateCalendar.PriceLevel? = null,
-    // Represents whether the offer is currently available.
+
+    /* Represents whether the offer is currently available. */
     @JsonProperty("Status")
     val status: RateCalendar.Status? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -61,33 +62,29 @@ data class RateCalendar(
         fun status(status: RateCalendar.Status?) = apply { this.status = status }
 
         fun build(): RateCalendar {
-            val instance =
-                RateCalendar(
-                    stayDate = stayDate,
-                    price = price,
-                    priceLevel = priceLevel,
-                    status = status,
-                )
+            val instance = RateCalendar(
+                stayDate = stayDate,
+                price = price,
+                priceLevel = priceLevel,
+                status = status,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            stayDate = stayDate,
-            price = price,
-            priceLevel = priceLevel,
-            status = status,
-        )
+    fun toBuilder() = Builder(
+        stayDate = stayDate,
+        price = price,
+        priceLevel = priceLevel,
+        status = status,
+    )
 
     /**
      * Indicates how that day's price compares to the other lowest price for that hotel over the searched date range. Prices will be bucketed into LOW/MEDIUM/HIGH. Here are the details for each `PriceLevel`: - HIGH: 65th percentile+ - MEDIUM: 30th Percentile+ - LOW: Anything lower than 30th percentile
      * Values: HIGH,MEDIUM,LOW
      */
-    enum class PriceLevel(
-        val value: kotlin.String,
-    ) {
+    enum class PriceLevel(val value: kotlin.String) {
         @JsonProperty("HIGH")
         HIGH("HIGH"),
 
@@ -102,9 +99,7 @@ data class RateCalendar(
      * Represents whether the offer is currently available.
      * Values: AVAILABLE,NOT_AVAILABLE
      */
-    enum class Status(
-        val value: kotlin.String,
-    ) {
+    enum class Status(val value: kotlin.String) {
         @JsonProperty("AVAILABLE")
         AVAILABLE("AVAILABLE"),
 

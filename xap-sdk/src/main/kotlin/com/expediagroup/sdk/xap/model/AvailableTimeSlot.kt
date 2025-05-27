@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.ActivitiesCancellationPolicy
 import com.expediagroup.sdk.xap.model.Ticket
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -26,31 +27,26 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param cancellationPolicy
  * @param tickets Container for ticket information.
  */
-data class AvailableTimeSlot(
-    // The date and time when the activity happens.
+@ConsistentCopyVisibility data class AvailableTimeSlot private constructor(
+    /* The date and time when the activity happens. */
     @JsonProperty("DateTime")
     val dateTime: java.time.LocalDateTime,
-    // Indicates whether the activity is an all-day activity.
+
+    /* Indicates whether the activity is an all-day activity. */
     @JsonProperty("AllDayActivity")
     val allDayActivity: kotlin.Boolean,
+
     @JsonProperty("CancellationPolicy")
     val cancellationPolicy: ActivitiesCancellationPolicy,
-    // Container for ticket information.
+
+    /* Container for ticket information. */
     @JsonProperty("Tickets")
     val tickets: kotlin.collections
         .List<
             Ticket,
-        >,
+            >,
+
 ) {
-    init {
-        require(dateTime != null) { "dateTime must not be null" }
-
-        require(allDayActivity != null) { "allDayActivity must not be null" }
-
-        require(cancellationPolicy != null) { "cancellationPolicy must not be null" }
-
-        require(tickets != null) { "tickets must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -72,23 +68,37 @@ data class AvailableTimeSlot(
         fun tickets(tickets: kotlin.collections.List<Ticket>) = apply { this.tickets = tickets }
 
         fun build(): AvailableTimeSlot {
-            val instance =
-                AvailableTimeSlot(
-                    dateTime = dateTime!!,
-                    allDayActivity = allDayActivity!!,
-                    cancellationPolicy = cancellationPolicy!!,
-                    tickets = tickets!!,
-                )
+            val dateTime = this.dateTime.getOrThrow {
+                IllegalArgumentException("dateTime must not be null")
+            }
+
+            val allDayActivity = this.allDayActivity.getOrThrow {
+                IllegalArgumentException("allDayActivity must not be null")
+            }
+
+            val cancellationPolicy = this.cancellationPolicy.getOrThrow {
+                IllegalArgumentException("cancellationPolicy must not be null")
+            }
+
+            val tickets = this.tickets.getOrThrow {
+                IllegalArgumentException("tickets must not be null")
+            }
+
+            val instance = AvailableTimeSlot(
+                dateTime = dateTime,
+                allDayActivity = allDayActivity,
+                cancellationPolicy = cancellationPolicy,
+                tickets = tickets,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            dateTime = dateTime!!,
-            allDayActivity = allDayActivity!!,
-            cancellationPolicy = cancellationPolicy!!,
-            tickets = tickets!!,
-        )
+    fun toBuilder() = Builder(
+        dateTime = dateTime,
+        allDayActivity = allDayActivity,
+        cancellationPolicy = cancellationPolicy,
+        tickets = tickets,
+    )
 }

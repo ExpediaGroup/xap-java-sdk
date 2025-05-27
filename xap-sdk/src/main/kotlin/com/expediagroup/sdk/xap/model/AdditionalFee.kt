@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarsMoney
 import com.expediagroup.sdk.xap.model.Deductible
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -28,33 +29,29 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param description Description of the fee.
  * @param deductible
  */
-data class AdditionalFee(
-    // Indicates whether this additional fee is mandatory.
+@ConsistentCopyVisibility data class AdditionalFee private constructor(
+    /* Indicates whether this additional fee is mandatory. */
     @JsonProperty("IsRequired")
     val isRequired: kotlin.Boolean,
-    // Category of the fee / Coverages
+
+    /* Category of the fee / Coverages */
     @JsonProperty("FinanceCategory")
     val financeCategory: kotlin.String,
-    // Sub category of the fee / Coverages .
+
+    /* Sub category of the fee / Coverages . */
     @JsonProperty("FinanceSubCategory")
     val financeSubCategory: kotlin.String,
+
     @JsonProperty("Amount")
     val amount: CarsMoney,
-    // Description of the fee.
+
+    /* Description of the fee. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
+
     @JsonProperty("Deductible")
     val deductible: Deductible? = null,
 ) {
-    init {
-        require(isRequired != null) { "isRequired must not be null" }
-
-        require(financeCategory != null) { "financeCategory must not be null" }
-
-        require(financeSubCategory != null) { "financeSubCategory must not be null" }
-
-        require(amount != null) { "amount must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -82,27 +79,41 @@ data class AdditionalFee(
         fun deductible(deductible: Deductible?) = apply { this.deductible = deductible }
 
         fun build(): AdditionalFee {
-            val instance =
-                AdditionalFee(
-                    isRequired = isRequired!!,
-                    financeCategory = financeCategory!!,
-                    financeSubCategory = financeSubCategory!!,
-                    amount = amount!!,
-                    description = description,
-                    deductible = deductible,
-                )
+            val isRequired = this.isRequired.getOrThrow {
+                IllegalArgumentException("isRequired must not be null")
+            }
+
+            val financeCategory = this.financeCategory.getOrThrow {
+                IllegalArgumentException("financeCategory must not be null")
+            }
+
+            val financeSubCategory = this.financeSubCategory.getOrThrow {
+                IllegalArgumentException("financeSubCategory must not be null")
+            }
+
+            val amount = this.amount.getOrThrow {
+                IllegalArgumentException("amount must not be null")
+            }
+
+            val instance = AdditionalFee(
+                isRequired = isRequired,
+                financeCategory = financeCategory,
+                financeSubCategory = financeSubCategory,
+                amount = amount,
+                description = description,
+                deductible = deductible,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            isRequired = isRequired!!,
-            financeCategory = financeCategory!!,
-            financeSubCategory = financeSubCategory!!,
-            amount = amount!!,
-            description = description,
-            deductible = deductible,
-        )
+    fun toBuilder() = Builder(
+        isRequired = isRequired,
+        financeCategory = financeCategory,
+        financeSubCategory = financeSubCategory,
+        amount = amount,
+        description = description,
+        deductible = deductible,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightBaggageFee
 import com.expediagroup.sdk.xap.model.FlightsV1Warning
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -25,25 +26,22 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param transactionId Unique identifier for the transaction.
  * @param warnings Container for Warning messages.
  */
-data class FlightBaggageFeesResponse(
-    // Container for information on Baggage fee information of each Segment.
+@ConsistentCopyVisibility data class FlightBaggageFeesResponse private constructor(
+    /* Container for information on Baggage fee information of each Segment. */
     @JsonProperty("FlightBaggageFees")
     val flightBaggageFees: kotlin.collections
         .List<
             FlightBaggageFee,
-        >,
-    // Unique identifier for the transaction.
+            >,
+
+    /* Unique identifier for the transaction. */
     @JsonProperty("TransactionId")
     val transactionId: kotlin.String,
-    // Container for Warning messages.
+
+    /* Container for Warning messages. */
     @JsonProperty("Warnings")
     val warnings: kotlin.collections.List<FlightsV1Warning>? = null,
 ) {
-    init {
-        require(flightBaggageFees != null) { "flightBaggageFees must not be null" }
-
-        require(transactionId != null) { "transactionId must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -62,21 +60,27 @@ data class FlightBaggageFeesResponse(
         fun warnings(warnings: kotlin.collections.List<FlightsV1Warning>?) = apply { this.warnings = warnings }
 
         fun build(): FlightBaggageFeesResponse {
-            val instance =
-                FlightBaggageFeesResponse(
-                    flightBaggageFees = flightBaggageFees!!,
-                    transactionId = transactionId!!,
-                    warnings = warnings,
-                )
+            val flightBaggageFees = this.flightBaggageFees.getOrThrow {
+                IllegalArgumentException("flightBaggageFees must not be null")
+            }
+
+            val transactionId = this.transactionId.getOrThrow {
+                IllegalArgumentException("transactionId must not be null")
+            }
+
+            val instance = FlightBaggageFeesResponse(
+                flightBaggageFees = flightBaggageFees,
+                transactionId = transactionId,
+                warnings = warnings,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            flightBaggageFees = flightBaggageFees!!,
-            transactionId = transactionId!!,
-            warnings = warnings,
-        )
+    fun toBuilder() = Builder(
+        flightBaggageFees = flightBaggageFees,
+        transactionId = transactionId,
+        warnings = warnings,
+    )
 }

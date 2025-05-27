@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -23,22 +24,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param unit The unit (KM or MI) for the distance.
  * @param direction The direction of the location from the search 'center'.Possible values are: N,S,W,E,NW,NE,SW,SE
  */
-data class FlightsV3Distance(
-    // The number of miles/kilometers of the distance (specified by the Unit).
+@ConsistentCopyVisibility data class FlightsV3Distance private constructor(
+    /* The number of miles/kilometers of the distance (specified by the Unit). */
     @JsonProperty("Value")
     val `value`: kotlin.String,
-    // The unit (KM or MI) for the distance.
+
+    /* The unit (KM or MI) for the distance. */
     @JsonProperty("Unit")
     val unit: kotlin.String,
-    // The direction of the location from the search 'center'.Possible values are: N,S,W,E,NW,NE,SW,SE
+
+    /* The direction of the location from the search 'center'.Possible values are: N,S,W,E,NW,NE,SW,SE */
     @JsonProperty("Direction")
     val direction: kotlin.String? = null,
 ) {
-    init {
-        require(`value` != null) { "`value` must not be null" }
-
-        require(unit != null) { "unit must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -57,21 +55,27 @@ data class FlightsV3Distance(
         fun direction(direction: kotlin.String?) = apply { this.direction = direction }
 
         fun build(): FlightsV3Distance {
-            val instance =
-                FlightsV3Distance(
-                    `value` = `value`!!,
-                    unit = unit!!,
-                    direction = direction,
-                )
+            val `value` = this.`value`.getOrThrow {
+                IllegalArgumentException("`value` must not be null")
+            }
+
+            val unit = this.unit.getOrThrow {
+                IllegalArgumentException("unit must not be null")
+            }
+
+            val instance = FlightsV3Distance(
+                `value` = `value`,
+                unit = unit,
+                direction = direction,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            `value` = `value`!!,
-            unit = unit!!,
-            direction = direction,
-        )
+    fun toBuilder() = Builder(
+        `value` = `value`,
+        unit = unit,
+        direction = direction,
+    )
 }

@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param id Amenity ID.
  * @param name Amenity Name.
  */
-data class RatePlanAmenitiesInner(
-    // Amenity ID.
+@ConsistentCopyVisibility data class RatePlanAmenitiesInner private constructor(
+    /* Amenity ID. */
     @JsonProperty("Id")
     val id: kotlin.Any? = null,
-    // Amenity Name.
+
+    /* Amenity Name. */
     @JsonProperty("Name")
     val name: kotlin.Any? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class RatePlanAmenitiesInner(
         fun name(name: kotlin.Any?) = apply { this.name = name }
 
         fun build(): RatePlanAmenitiesInner {
-            val instance =
-                RatePlanAmenitiesInner(
-                    id = id,
-                    name = name,
-                )
+            val instance = RatePlanAmenitiesInner(
+                id = id,
+                name = name,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id,
-            name = name,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        name = name,
+    )
 }

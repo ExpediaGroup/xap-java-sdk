@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param bagNumber Bag number of CarryOnBag amenity for which the Availability applies.
  * @param availability Availability of Amenity
  */
-data class Bag(
-    // Bag number of CarryOnBag amenity for which the Availability applies.
+@ConsistentCopyVisibility data class Bag private constructor(
+    /* Bag number of CarryOnBag amenity for which the Availability applies. */
     @JsonProperty("BagNumber")
     val bagNumber: kotlin.Int? = null,
-    // Availability of Amenity
+
+    /* Availability of Amenity */
     @JsonProperty("Availability")
     val availability: Bag.Availability? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,29 +46,25 @@ data class Bag(
         fun availability(availability: Bag.Availability?) = apply { this.availability = availability }
 
         fun build(): Bag {
-            val instance =
-                Bag(
-                    bagNumber = bagNumber,
-                    availability = availability,
-                )
+            val instance = Bag(
+                bagNumber = bagNumber,
+                availability = availability,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            bagNumber = bagNumber,
-            availability = availability,
-        )
+    fun toBuilder() = Builder(
+        bagNumber = bagNumber,
+        availability = availability,
+    )
 
     /**
      * Availability of Amenity
      * Values: INCLUDED,NOT_AVAILABLE,AVAILABLE_FOR_FEE
      */
-    enum class Availability(
-        val value: kotlin.String,
-    ) {
+    enum class Availability(val value: kotlin.String) {
         @JsonProperty("INCLUDED")
         INCLUDED("INCLUDED"),
 

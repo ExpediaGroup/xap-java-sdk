@@ -29,30 +29,34 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param paidSeat A boolean object (true/false) to indicate whether the seat is paid or not. It can be null
  * @param seatPrice
  */
-data class Seat(
-    // Seat Number It can be null if there is no physical seat in the location
+@ConsistentCopyVisibility data class Seat private constructor(
+    /* Seat Number It can be null if there is no physical seat in the location */
     @JsonProperty("SeatNumber")
     val seatNumber: kotlin.String? = null,
-    // Token used by the Booking service to reserve seats
+
+    /* Token used by the Booking service to reserve seats */
     @JsonProperty("SeatToken")
     val seatToken: kotlin.String? = null,
-    // Occupancy details whether it is available or not. It can be null if there is no physical seat in that location. AVAILABLE - Seat is currently available for selection. OCCUPIED - Seat already occupied
+
+    /* Occupancy details whether it is available or not. It can be null if there is no physical seat in that location. AVAILABLE - Seat is currently available for selection. OCCUPIED - Seat already occupied */
     @JsonProperty("SeatOccupancy")
     val seatOccupancy: Seat.SeatOccupancy? = null,
-    // It can be null if there is no physical seat in that location
+
+    /* It can be null if there is no physical seat in that location */
     @JsonProperty("Column")
     val column: kotlin.String? = null,
-    // Container for seat characteristics information.
+
+    /* Container for seat characteristics information. */
     @JsonProperty("SeatCharacteristics")
     val seatCharacteristics: kotlin.collections.List<SeatCharacteristic>? = null,
-    // A boolean object (true/false) to indicate whether the seat is paid or not. It can be null
+
+    /* A boolean object (true/false) to indicate whether the seat is paid or not. It can be null */
     @JsonProperty("PaidSeat")
     val paidSeat: kotlin.Boolean? = null,
+
     @JsonProperty("SeatPrice")
     val seatPrice: SeatSeatPrice? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -83,39 +87,35 @@ data class Seat(
         fun seatPrice(seatPrice: SeatSeatPrice?) = apply { this.seatPrice = seatPrice }
 
         fun build(): Seat {
-            val instance =
-                Seat(
-                    seatNumber = seatNumber,
-                    seatToken = seatToken,
-                    seatOccupancy = seatOccupancy,
-                    column = column,
-                    seatCharacteristics = seatCharacteristics,
-                    paidSeat = paidSeat,
-                    seatPrice = seatPrice,
-                )
+            val instance = Seat(
+                seatNumber = seatNumber,
+                seatToken = seatToken,
+                seatOccupancy = seatOccupancy,
+                column = column,
+                seatCharacteristics = seatCharacteristics,
+                paidSeat = paidSeat,
+                seatPrice = seatPrice,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            seatNumber = seatNumber,
-            seatToken = seatToken,
-            seatOccupancy = seatOccupancy,
-            column = column,
-            seatCharacteristics = seatCharacteristics,
-            paidSeat = paidSeat,
-            seatPrice = seatPrice,
-        )
+    fun toBuilder() = Builder(
+        seatNumber = seatNumber,
+        seatToken = seatToken,
+        seatOccupancy = seatOccupancy,
+        column = column,
+        seatCharacteristics = seatCharacteristics,
+        paidSeat = paidSeat,
+        seatPrice = seatPrice,
+    )
 
     /**
      * Occupancy details whether it is available or not. It can be null if there is no physical seat in that location. AVAILABLE - Seat is currently available for selection. OCCUPIED - Seat already occupied
      * Values: AVAILABLE,OCCUPIED
      */
-    enum class SeatOccupancy(
-        val value: kotlin.String,
-    ) {
+    enum class SeatOccupancy(val value: kotlin.String) {
         @JsonProperty("AVAILABLE")
         AVAILABLE("AVAILABLE"),
 

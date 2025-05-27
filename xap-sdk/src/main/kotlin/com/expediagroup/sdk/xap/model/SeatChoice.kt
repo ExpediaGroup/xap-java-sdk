@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param availability Availability of Amenity
  * @param restriction Restriction if any on SeatChoice Amenity.
  */
-data class SeatChoice(
-    // Availability of Amenity
+@ConsistentCopyVisibility data class SeatChoice private constructor(
+    /* Availability of Amenity */
     @JsonProperty("Availability")
     val availability: SeatChoice.Availability? = null,
-    // Restriction if any on SeatChoice Amenity.
+
+    /* Restriction if any on SeatChoice Amenity. */
     @JsonProperty("Restriction")
     val restriction: SeatChoice.Restriction? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,29 +46,25 @@ data class SeatChoice(
         fun restriction(restriction: SeatChoice.Restriction?) = apply { this.restriction = restriction }
 
         fun build(): SeatChoice {
-            val instance =
-                SeatChoice(
-                    availability = availability,
-                    restriction = restriction,
-                )
+            val instance = SeatChoice(
+                availability = availability,
+                restriction = restriction,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            availability = availability,
-            restriction = restriction,
-        )
+    fun toBuilder() = Builder(
+        availability = availability,
+        restriction = restriction,
+    )
 
     /**
      * Availability of Amenity
      * Values: INCLUDED,NOT_AVAILABLE,AVAILABLE_FOR_FEE
      */
-    enum class Availability(
-        val value: kotlin.String,
-    ) {
+    enum class Availability(val value: kotlin.String) {
         @JsonProperty("INCLUDED")
         INCLUDED("INCLUDED"),
 
@@ -84,9 +79,7 @@ data class SeatChoice(
      * Restriction if any on SeatChoice Amenity.
      * Values: ONLY_AT_CHECKIN
      */
-    enum class Restriction(
-        val value: kotlin.String,
-    ) {
+    enum class Restriction(val value: kotlin.String) {
         @JsonProperty("ONLY_AT_CHECKIN")
         ONLY_AT_CHECKIN("ONLY_AT_CHECKIN"),
     }

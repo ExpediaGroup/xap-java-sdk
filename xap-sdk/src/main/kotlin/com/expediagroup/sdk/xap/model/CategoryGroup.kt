@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -25,31 +26,26 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param categoryName The name of one of the categories.
  * @param categoryDisplayName
  */
-data class CategoryGroup(
-    // The count of the number of categories the returned set of activities map to.
+@ConsistentCopyVisibility data class CategoryGroup private constructor(
+    /* The count of the number of categories the returned set of activities map to. */
     @JsonProperty("Count")
     val count: kotlin.Int,
-    // The group which the category belongs Possible value is: Recommendations Tours Activities Transportation Promotions Duration
+
+    /* The group which the category belongs Possible value is: Recommendations Tours Activities Transportation Promotions Duration */
     @JsonProperty("GroupName")
     val groupName: kotlin.String,
-    // The localized value for category name.
+
+    /* The localized value for category name. */
     @JsonProperty("GroupDisplayName")
     val groupDisplayName: kotlin.String,
-    // The name of one of the categories.
+
+    /* The name of one of the categories. */
     @JsonProperty("CategoryName")
     val categoryName: kotlin.String,
+
     @JsonProperty("CategoryDisplayName")
     val categoryDisplayName: kotlin.String? = null,
 ) {
-    init {
-        require(count != null) { "count must not be null" }
-
-        require(groupName != null) { "groupName must not be null" }
-
-        require(groupDisplayName != null) { "groupDisplayName must not be null" }
-
-        require(categoryName != null) { "categoryName must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -74,25 +70,39 @@ data class CategoryGroup(
         fun categoryDisplayName(categoryDisplayName: kotlin.String?) = apply { this.categoryDisplayName = categoryDisplayName }
 
         fun build(): CategoryGroup {
-            val instance =
-                CategoryGroup(
-                    count = count!!,
-                    groupName = groupName!!,
-                    groupDisplayName = groupDisplayName!!,
-                    categoryName = categoryName!!,
-                    categoryDisplayName = categoryDisplayName,
-                )
+            val count = this.count.getOrThrow {
+                IllegalArgumentException("count must not be null")
+            }
+
+            val groupName = this.groupName.getOrThrow {
+                IllegalArgumentException("groupName must not be null")
+            }
+
+            val groupDisplayName = this.groupDisplayName.getOrThrow {
+                IllegalArgumentException("groupDisplayName must not be null")
+            }
+
+            val categoryName = this.categoryName.getOrThrow {
+                IllegalArgumentException("categoryName must not be null")
+            }
+
+            val instance = CategoryGroup(
+                count = count,
+                groupName = groupName,
+                groupDisplayName = groupDisplayName,
+                categoryName = categoryName,
+                categoryDisplayName = categoryDisplayName,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            count = count!!,
-            groupName = groupName!!,
-            groupDisplayName = groupDisplayName!!,
-            categoryName = categoryName!!,
-            categoryDisplayName = categoryDisplayName,
-        )
+    fun toBuilder() = Builder(
+        count = count,
+        groupName = groupName,
+        groupDisplayName = groupDisplayName,
+        categoryName = categoryName,
+        categoryDisplayName = categoryDisplayName,
+    )
 }

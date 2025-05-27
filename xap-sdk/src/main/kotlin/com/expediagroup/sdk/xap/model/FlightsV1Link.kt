@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -23,22 +24,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param href HATEOAS URL to fetch details.
  * @param accept Accept header.
  */
-data class FlightsV1Link(
-    // HTTP method to connect.
+@ConsistentCopyVisibility data class FlightsV1Link private constructor(
+    /* HTTP method to connect. */
     @JsonProperty("Method")
     val method: kotlin.String,
-    // HATEOAS URL to fetch details.
+
+    /* HATEOAS URL to fetch details. */
     @JsonProperty("Href")
     val href: kotlin.String,
-    // Accept header.
+
+    /* Accept header. */
     @JsonProperty("Accept")
     val accept: kotlin.String? = null,
 ) {
-    init {
-        require(method != null) { "method must not be null" }
-
-        require(href != null) { "href must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -57,21 +55,27 @@ data class FlightsV1Link(
         fun accept(accept: kotlin.String?) = apply { this.accept = accept }
 
         fun build(): FlightsV1Link {
-            val instance =
-                FlightsV1Link(
-                    method = method!!,
-                    href = href!!,
-                    accept = accept,
-                )
+            val method = this.method.getOrThrow {
+                IllegalArgumentException("method must not be null")
+            }
+
+            val href = this.href.getOrThrow {
+                IllegalArgumentException("href must not be null")
+            }
+
+            val instance = FlightsV1Link(
+                method = method,
+                href = href,
+                accept = accept,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            method = method!!,
-            href = href!!,
-            accept = accept,
-        )
+    fun toBuilder() = Builder(
+        method = method,
+        href = href,
+        accept = accept,
+    )
 }

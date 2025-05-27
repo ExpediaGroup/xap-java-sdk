@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param id Neighborhood id.
  * @param name Neighborhood name.
  */
-data class Neighborhood(
-    // Neighborhood id.
+@ConsistentCopyVisibility data class Neighborhood private constructor(
+    /* Neighborhood id. */
     @JsonProperty("Id")
     val id: kotlin.String? = null,
-    // Neighborhood name.
+
+    /* Neighborhood name. */
     @JsonProperty("Name")
     val name: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class Neighborhood(
         fun name(name: kotlin.String?) = apply { this.name = name }
 
         fun build(): Neighborhood {
-            val instance =
-                Neighborhood(
-                    id = id,
-                    name = name,
-                )
+            val instance = Neighborhood(
+                id = id,
+                name = name,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id,
-            name = name,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        name = name,
+    )
 }

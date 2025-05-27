@@ -24,22 +24,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param propertySize Image size. You can find a link to the complete list of Supported Images Sizes in [Lodging Image Captions, IDs, and Sizes](https://developers.expediagroup.com/xap/products/xap/lodging/references/image-captions-ids-and-sizes).
  * @param url Image URL
  */
-data class Media(
-    // Supported type of media.  1=Image.  Only 1 is supported now.
+@ConsistentCopyVisibility data class Media private constructor(
+    /* Supported type of media.  1=Image.  Only 1 is supported now.  */
     @JsonProperty("Type")
     val type: Media.Type? = null,
-    // Image title
+
+    /* Image title */
     @JsonProperty("Title")
     val title: kotlin.String? = null,
-    // Image size. You can find a link to the complete list of Supported Images Sizes in [Lodging Image Captions, IDs, and Sizes](https://developers.expediagroup.com/xap/products/xap/lodging/references/image-captions-ids-and-sizes).
+
+    /* Image size. You can find a link to the complete list of Supported Images Sizes in [Lodging Image Captions, IDs, and Sizes](https://developers.expediagroup.com/xap/products/xap/lodging/references/image-captions-ids-and-sizes).  */
     @JsonProperty("Size")
     val propertySize: kotlin.String? = null,
-    // Image URL
+
+    /* Image URL */
     @JsonProperty("Url")
     val url: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -61,33 +62,29 @@ data class Media(
         fun url(url: kotlin.String?) = apply { this.url = url }
 
         fun build(): Media {
-            val instance =
-                Media(
-                    type = type,
-                    title = title,
-                    propertySize = propertySize,
-                    url = url,
-                )
+            val instance = Media(
+                type = type,
+                title = title,
+                propertySize = propertySize,
+                url = url,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type,
-            title = title,
-            propertySize = propertySize,
-            url = url,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        title = title,
+        propertySize = propertySize,
+        url = url,
+    )
 
     /**
      * Supported type of media.  1=Image.  Only 1 is supported now.
      * Values: _1
      */
-    enum class Type(
-        val value: kotlin.String,
-    ) {
+    enum class Type(val value: kotlin.String) {
         @JsonProperty("1")
         _1("1"),
     }

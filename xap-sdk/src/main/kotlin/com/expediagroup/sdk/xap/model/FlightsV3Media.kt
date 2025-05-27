@@ -24,22 +24,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param propertySize Image size You can find a link to the complete list of Supported Images Sizes in the Related Links section at the bottom of the page.
  * @param url Image URL
  */
-data class FlightsV3Media(
-    // type of the media. So far there is only one option: 1: Image
+@ConsistentCopyVisibility data class FlightsV3Media private constructor(
+    /* type of the media. So far there is only one option: 1: Image */
     @JsonProperty("Type")
     val type: kotlin.String? = null,
-    // Image title
+
+    /* Image title */
     @JsonProperty("Title")
     val title: kotlin.String? = null,
-    // Image size You can find a link to the complete list of Supported Images Sizes in the Related Links section at the bottom of the page.
+
+    /* Image size You can find a link to the complete list of Supported Images Sizes in the Related Links section at the bottom of the page. */
     @JsonProperty("Size")
     val propertySize: kotlin.String? = null,
-    // Image URL
+
+    /* Image URL */
     @JsonProperty("Url")
     val url: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -61,23 +62,21 @@ data class FlightsV3Media(
         fun url(url: kotlin.String?) = apply { this.url = url }
 
         fun build(): FlightsV3Media {
-            val instance =
-                FlightsV3Media(
-                    type = type,
-                    title = title,
-                    propertySize = propertySize,
-                    url = url,
-                )
+            val instance = FlightsV3Media(
+                type = type,
+                title = title,
+                propertySize = propertySize,
+                url = url,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type,
-            title = title,
-            propertySize = propertySize,
-            url = url,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        title = title,
+        propertySize = propertySize,
+        url = url,
+    )
 }

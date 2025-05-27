@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Fee
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -28,29 +29,32 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param maxCharge
  * @param minCharge
  */
-data class BaggageFee(
-    // Specifies the type of baggage.
+@ConsistentCopyVisibility data class BaggageFee private constructor(
+    /* Specifies the type of baggage. */
     @JsonProperty("BagType")
     val bagType: BaggageFee.BagType,
-    // Specifies weight unit for this bagType. This will always be kilograms.
+
+    /* Specifies weight unit for this bagType. This will always be kilograms. */
     @JsonProperty("WeightUnit")
     val weightUnit: kotlin.String? = null,
-    // Weight of the bag.
+
+    /* Weight of the bag. */
     @JsonProperty("Weight")
     val weight: kotlin.String? = null,
-    // This element specifies descriptive text useful in displaying baggage fees.
+
+    /* This element specifies descriptive text useful in displaying baggage fees. */
     @JsonProperty("Application")
     val application: BaggageFee.Application? = null,
+
     @JsonProperty("FixedCharge")
     val fixedCharge: Fee? = null,
+
     @JsonProperty("MaxCharge")
     val maxCharge: Fee? = null,
+
     @JsonProperty("MinCharge")
     val minCharge: Fee? = null,
 ) {
-    init {
-        require(bagType != null) { "bagType must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -81,39 +85,39 @@ data class BaggageFee(
         fun minCharge(minCharge: Fee?) = apply { this.minCharge = minCharge }
 
         fun build(): BaggageFee {
-            val instance =
-                BaggageFee(
-                    bagType = bagType!!,
-                    weightUnit = weightUnit,
-                    weight = weight,
-                    application = application,
-                    fixedCharge = fixedCharge,
-                    maxCharge = maxCharge,
-                    minCharge = minCharge,
-                )
+            val bagType = this.bagType.getOrThrow {
+                IllegalArgumentException("bagType must not be null")
+            }
+
+            val instance = BaggageFee(
+                bagType = bagType,
+                weightUnit = weightUnit,
+                weight = weight,
+                application = application,
+                fixedCharge = fixedCharge,
+                maxCharge = maxCharge,
+                minCharge = minCharge,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            bagType = bagType!!,
-            weightUnit = weightUnit,
-            weight = weight,
-            application = application,
-            fixedCharge = fixedCharge,
-            maxCharge = maxCharge,
-            minCharge = minCharge,
-        )
+    fun toBuilder() = Builder(
+        bagType = bagType,
+        weightUnit = weightUnit,
+        weight = weight,
+        application = application,
+        fixedCharge = fixedCharge,
+        maxCharge = maxCharge,
+        minCharge = minCharge,
+    )
 
     /**
      * Specifies the type of baggage.
      * Values: PREPAID_CARRY_ON,PREPAID_FIRST_BAG,PREPAID_SECOND_BAG,CARRY_ON,FIRST_BAG,SECOND_BAG
      */
-    enum class BagType(
-        val value: kotlin.String,
-    ) {
+    enum class BagType(val value: kotlin.String) {
         @JsonProperty("PREPAID_CARRY_ON")
         PREPAID_CARRY_ON("PREPAID_CARRY_ON"),
 
@@ -137,9 +141,7 @@ data class BaggageFee(
      * This element specifies descriptive text useful in displaying baggage fees.
      * Values: UPTO,PER
      */
-    enum class Application(
-        val value: kotlin.String,
-    ) {
+    enum class Application(val value: kotlin.String) {
         @JsonProperty("upto")
         UPTO("upto"),
 

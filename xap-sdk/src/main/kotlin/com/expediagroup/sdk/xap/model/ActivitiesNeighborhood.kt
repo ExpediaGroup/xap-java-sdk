@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param id Neighborhood id.
  * @param name Neighborhood name.
  */
-data class ActivitiesNeighborhood(
-    // Neighborhood id.
+@ConsistentCopyVisibility data class ActivitiesNeighborhood private constructor(
+    /* Neighborhood id. */
     @JsonProperty("Id")
     val id: kotlin.String,
-    // Neighborhood name.
+
+    /* Neighborhood name. */
     @JsonProperty("Name")
     val name: kotlin.String,
-) {
-    init {
-        require(id != null) { "id must not be null" }
 
-        require(name != null) { "name must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class ActivitiesNeighborhood(
         fun name(name: kotlin.String) = apply { this.name = name }
 
         fun build(): ActivitiesNeighborhood {
-            val instance =
-                ActivitiesNeighborhood(
-                    id = id!!,
-                    name = name!!,
-                )
+            val id = this.id.getOrThrow {
+                IllegalArgumentException("id must not be null")
+            }
+
+            val name = this.name.getOrThrow {
+                IllegalArgumentException("name must not be null")
+            }
+
+            val instance = ActivitiesNeighborhood(
+                id = id,
+                name = name,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id!!,
-            name = name!!,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        name = name,
+    )
 }

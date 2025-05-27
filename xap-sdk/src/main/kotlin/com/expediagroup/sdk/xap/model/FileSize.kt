@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param unit The unit about the file size.
  * @param `value` The value about the file size.
  */
-data class FileSize(
-    // The unit about the file size.
+@ConsistentCopyVisibility data class FileSize private constructor(
+    /* The unit about the file size. */
     @JsonProperty("unit")
     val unit: FileSize.Unit? = null,
-    // The value about the file size.
+
+    /* The value about the file size. */
     @JsonProperty("value")
     val `value`: kotlin.Long? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,29 +46,25 @@ data class FileSize(
         fun `value`(`value`: kotlin.Long?) = apply { this.`value` = `value` }
 
         fun build(): FileSize {
-            val instance =
-                FileSize(
-                    unit = unit,
-                    `value` = `value`,
-                )
+            val instance = FileSize(
+                unit = unit,
+                `value` = `value`,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            unit = unit,
-            `value` = `value`,
-        )
+    fun toBuilder() = Builder(
+        unit = unit,
+        `value` = `value`,
+    )
 
     /**
      * The unit about the file size.
      * Values: KB,MB,GB
      */
-    enum class Unit(
-        val value: kotlin.String,
-    ) {
+    enum class Unit(val value: kotlin.String) {
         @JsonProperty("KB")
         KB("KB"),
 

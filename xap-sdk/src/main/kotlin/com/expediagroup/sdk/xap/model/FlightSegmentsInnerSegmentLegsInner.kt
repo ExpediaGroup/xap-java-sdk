@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightSegmentsInnerSegmentLegsInnerArrivalAirport
 import com.expediagroup.sdk.xap.model.FlightSegmentsInnerSegmentLegsInnerDepartureAirport
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -30,41 +31,32 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param bookingCode
  * @param cabinClass
  */
-data class FlightSegmentsInnerSegmentLegsInner(
+@ConsistentCopyVisibility data class FlightSegmentsInnerSegmentLegsInner private constructor(
     @JsonProperty("DepartureAirport")
     val departureAirport: FlightSegmentsInnerSegmentLegsInnerDepartureAirport,
+
     @JsonProperty("ArrivalAirport")
     val arrivalAirport: FlightSegmentsInnerSegmentLegsInnerArrivalAirport,
+
     @JsonProperty("DepartureDateTime")
     val departureDateTime: java.time.OffsetDateTime,
+
     @JsonProperty("ArrivalDateTime")
     val arrivalDateTime: java.time.OffsetDateTime,
+
     @JsonProperty("FlightNumber")
     val flightNumber: kotlin.String,
+
     @JsonProperty("MarketingAirlineCode")
     val marketingAirlineCode: kotlin.String,
+
     @JsonProperty("BookingCode")
     val bookingCode: kotlin.String,
+
     @JsonProperty("CabinClass")
     val cabinClass: FlightSegmentsInnerSegmentLegsInner.CabinClass,
+
 ) {
-    init {
-        require(departureAirport != null) { "departureAirport must not be null" }
-
-        require(arrivalAirport != null) { "arrivalAirport must not be null" }
-
-        require(departureDateTime != null) { "departureDateTime must not be null" }
-
-        require(arrivalDateTime != null) { "arrivalDateTime must not be null" }
-
-        require(flightNumber != null) { "flightNumber must not be null" }
-
-        require(marketingAirlineCode != null) { "marketingAirlineCode must not be null" }
-
-        require(bookingCode != null) { "bookingCode must not be null" }
-
-        require(cabinClass != null) { "cabinClass must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -98,41 +90,69 @@ data class FlightSegmentsInnerSegmentLegsInner(
         fun cabinClass(cabinClass: FlightSegmentsInnerSegmentLegsInner.CabinClass) = apply { this.cabinClass = cabinClass }
 
         fun build(): FlightSegmentsInnerSegmentLegsInner {
-            val instance =
-                FlightSegmentsInnerSegmentLegsInner(
-                    departureAirport = departureAirport!!,
-                    arrivalAirport = arrivalAirport!!,
-                    departureDateTime = departureDateTime!!,
-                    arrivalDateTime = arrivalDateTime!!,
-                    flightNumber = flightNumber!!,
-                    marketingAirlineCode = marketingAirlineCode!!,
-                    bookingCode = bookingCode!!,
-                    cabinClass = cabinClass!!,
-                )
+            val departureAirport = this.departureAirport.getOrThrow {
+                IllegalArgumentException("departureAirport must not be null")
+            }
+
+            val arrivalAirport = this.arrivalAirport.getOrThrow {
+                IllegalArgumentException("arrivalAirport must not be null")
+            }
+
+            val departureDateTime = this.departureDateTime.getOrThrow {
+                IllegalArgumentException("departureDateTime must not be null")
+            }
+
+            val arrivalDateTime = this.arrivalDateTime.getOrThrow {
+                IllegalArgumentException("arrivalDateTime must not be null")
+            }
+
+            val flightNumber = this.flightNumber.getOrThrow {
+                IllegalArgumentException("flightNumber must not be null")
+            }
+
+            val marketingAirlineCode = this.marketingAirlineCode.getOrThrow {
+                IllegalArgumentException("marketingAirlineCode must not be null")
+            }
+
+            val bookingCode = this.bookingCode.getOrThrow {
+                IllegalArgumentException("bookingCode must not be null")
+            }
+
+            val cabinClass = this.cabinClass.getOrThrow {
+                IllegalArgumentException("cabinClass must not be null")
+            }
+
+            val instance = FlightSegmentsInnerSegmentLegsInner(
+                departureAirport = departureAirport,
+                arrivalAirport = arrivalAirport,
+                departureDateTime = departureDateTime,
+                arrivalDateTime = arrivalDateTime,
+                flightNumber = flightNumber,
+                marketingAirlineCode = marketingAirlineCode,
+                bookingCode = bookingCode,
+                cabinClass = cabinClass,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            departureAirport = departureAirport!!,
-            arrivalAirport = arrivalAirport!!,
-            departureDateTime = departureDateTime!!,
-            arrivalDateTime = arrivalDateTime!!,
-            flightNumber = flightNumber!!,
-            marketingAirlineCode = marketingAirlineCode!!,
-            bookingCode = bookingCode!!,
-            cabinClass = cabinClass!!,
-        )
+    fun toBuilder() = Builder(
+        departureAirport = departureAirport,
+        arrivalAirport = arrivalAirport,
+        departureDateTime = departureDateTime,
+        arrivalDateTime = arrivalDateTime,
+        flightNumber = flightNumber,
+        marketingAirlineCode = marketingAirlineCode,
+        bookingCode = bookingCode,
+        cabinClass = cabinClass,
+    )
 
     /**
      *
      * Values: ECONOMY,FIRST,BUSINESS,PREMIUM_ECONOMY
      */
-    enum class CabinClass(
-        val value: kotlin.String,
-    ) {
+    enum class CabinClass(val value: kotlin.String) {
         @JsonProperty("ECONOMY")
         ECONOMY("ECONOMY"),
 

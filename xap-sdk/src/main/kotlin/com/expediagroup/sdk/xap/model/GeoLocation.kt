@@ -23,18 +23,18 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param longitude Longitude of the location.
  * @param obfuscated
  */
-data class GeoLocation(
-    // Latitude of the location.
+@ConsistentCopyVisibility data class GeoLocation private constructor(
+    /* Latitude of the location. */
     @JsonProperty("Latitude")
     val latitude: kotlin.String? = null,
-    // Longitude of the location.
+
+    /* Longitude of the location. */
     @JsonProperty("Longitude")
     val longitude: kotlin.String? = null,
+
     @JsonProperty("Obfuscated")
     val obfuscated: kotlin.Boolean? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -53,21 +53,19 @@ data class GeoLocation(
         fun obfuscated(obfuscated: kotlin.Boolean?) = apply { this.obfuscated = obfuscated }
 
         fun build(): GeoLocation {
-            val instance =
-                GeoLocation(
-                    latitude = latitude,
-                    longitude = longitude,
-                    obfuscated = obfuscated,
-                )
+            val instance = GeoLocation(
+                latitude = latitude,
+                longitude = longitude,
+                obfuscated = obfuscated,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            latitude = latitude,
-            longitude = longitude,
-            obfuscated = obfuscated,
-        )
+    fun toBuilder() = Builder(
+        latitude = latitude,
+        longitude = longitude,
+        obfuscated = obfuscated,
+    )
 }

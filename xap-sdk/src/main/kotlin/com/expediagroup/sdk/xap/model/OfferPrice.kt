@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.AveragePricePerTicket
 import com.expediagroup.sdk.xap.model.Fee
 import com.expediagroup.sdk.xap.model.FlightsV3Money
@@ -34,44 +35,42 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param totalTaxes
  * @param discount
  */
-data class OfferPrice(
+@ConsistentCopyVisibility data class OfferPrice private constructor(
     @JsonProperty("TotalPrice")
     val totalPrice: FlightsV3Money,
+
     @JsonProperty("BasePrice")
     val basePrice: FlightsV3Money,
+
     @JsonProperty("TotalTaxesAndFees")
     val totalTaxesAndFees: FlightsV3Money,
+
     @JsonProperty("AveragePricePerTicket")
     val averagePricePerTicket: AveragePricePerTicket,
-    // Container for pricing information for each passenger category. (note that passengers are grouped into standard categories based on the age ranges standardized by the airlines)
+
+    /* Container for pricing information for each passenger category. (note that passengers are grouped into standard categories based on the age ranges standardized by the airlines) */
     @JsonProperty("PricePerPassengerCategory")
     val pricePerPassengerCategory: kotlin.collections
         .List<
             PricePerPassengerCategory,
-        >,
+            >,
+
     @JsonProperty("TotalRefund")
     val totalRefund: FlightsV3Money? = null,
+
     @JsonProperty("TotalFees")
     val totalFees: FlightsV3Money? = null,
-    // Container for list of fees charged
+
+    /* Container for list of fees charged */
     @JsonProperty("Fees")
     val fees: kotlin.collections.List<Fee>? = null,
+
     @JsonProperty("TotalTaxes")
     val totalTaxes: FlightsV3Money? = null,
+
     @JsonProperty("Discount")
     val discount: FlightsV3Money? = null,
 ) {
-    init {
-        require(totalPrice != null) { "totalPrice must not be null" }
-
-        require(basePrice != null) { "basePrice must not be null" }
-
-        require(totalTaxesAndFees != null) { "totalTaxesAndFees must not be null" }
-
-        require(averagePricePerTicket != null) { "averagePricePerTicket must not be null" }
-
-        require(pricePerPassengerCategory != null) { "pricePerPassengerCategory must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -111,35 +110,53 @@ data class OfferPrice(
         fun discount(discount: FlightsV3Money?) = apply { this.discount = discount }
 
         fun build(): OfferPrice {
-            val instance =
-                OfferPrice(
-                    totalPrice = totalPrice!!,
-                    basePrice = basePrice!!,
-                    totalTaxesAndFees = totalTaxesAndFees!!,
-                    averagePricePerTicket = averagePricePerTicket!!,
-                    pricePerPassengerCategory = pricePerPassengerCategory!!,
-                    totalRefund = totalRefund,
-                    totalFees = totalFees,
-                    fees = fees,
-                    totalTaxes = totalTaxes,
-                    discount = discount,
-                )
+            val totalPrice = this.totalPrice.getOrThrow {
+                IllegalArgumentException("totalPrice must not be null")
+            }
+
+            val basePrice = this.basePrice.getOrThrow {
+                IllegalArgumentException("basePrice must not be null")
+            }
+
+            val totalTaxesAndFees = this.totalTaxesAndFees.getOrThrow {
+                IllegalArgumentException("totalTaxesAndFees must not be null")
+            }
+
+            val averagePricePerTicket = this.averagePricePerTicket.getOrThrow {
+                IllegalArgumentException("averagePricePerTicket must not be null")
+            }
+
+            val pricePerPassengerCategory = this.pricePerPassengerCategory.getOrThrow {
+                IllegalArgumentException("pricePerPassengerCategory must not be null")
+            }
+
+            val instance = OfferPrice(
+                totalPrice = totalPrice,
+                basePrice = basePrice,
+                totalTaxesAndFees = totalTaxesAndFees,
+                averagePricePerTicket = averagePricePerTicket,
+                pricePerPassengerCategory = pricePerPassengerCategory,
+                totalRefund = totalRefund,
+                totalFees = totalFees,
+                fees = fees,
+                totalTaxes = totalTaxes,
+                discount = discount,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            totalPrice = totalPrice!!,
-            basePrice = basePrice!!,
-            totalTaxesAndFees = totalTaxesAndFees!!,
-            averagePricePerTicket = averagePricePerTicket!!,
-            pricePerPassengerCategory = pricePerPassengerCategory!!,
-            totalRefund = totalRefund,
-            totalFees = totalFees,
-            fees = fees,
-            totalTaxes = totalTaxes,
-            discount = discount,
-        )
+    fun toBuilder() = Builder(
+        totalPrice = totalPrice,
+        basePrice = basePrice,
+        totalTaxesAndFees = totalTaxesAndFees,
+        averagePricePerTicket = averagePricePerTicket,
+        pricePerPassengerCategory = pricePerPassengerCategory,
+        totalRefund = totalRefund,
+        totalFees = totalFees,
+        fees = fees,
+        totalTaxes = totalTaxes,
+        discount = discount,
+    )
 }

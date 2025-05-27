@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3LodgingAmenity
 import com.expediagroup.sdk.xap.model.FlightsV3Media
 import com.expediagroup.sdk.xap.model.FlightsV3Promotion
@@ -32,33 +33,36 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param amenities Container for all room amenities.
  * @param media Container for hotel images
  */
-data class FlightsV3RoomType(
-    // Container for rate plan information.
+@ConsistentCopyVisibility data class FlightsV3RoomType private constructor(
+    /* Container for rate plan information. */
     @JsonProperty("RatePlans")
     val ratePlans: kotlin.collections
         .List<
             FlightsV3RatePlan,
-        >,
-    // Text description of the room type.
+            >,
+
+    /* Text description of the room type. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
+
     @JsonProperty("Promotions")
     val promotions: kotlin.collections.List<FlightsV3Promotion>? = null,
-    // The smoking options available for the room type. Options could be: SmokingOrNonSmoking Smoking NonSmoking
+
+    /* The smoking options available for the room type. Options could be: SmokingOrNonSmoking Smoking NonSmoking */
     @JsonProperty("SmokingOption")
     val smokingOption: FlightsV3RoomType.SmokingOption? = null,
+
     @JsonProperty("RoomOccupancyPolicy")
     val roomOccupancyPolicy: FlightsV3RoomOccupancyPolicy? = null,
-    // Container for all room amenities.
+
+    /* Container for all room amenities. */
     @JsonProperty("Amenities")
     val amenities: kotlin.collections.List<FlightsV3LodgingAmenity>? = null,
-    // Container for hotel images
+
+    /* Container for hotel images */
     @JsonProperty("Media")
     val media: kotlin.collections.List<FlightsV3Media>? = null,
 ) {
-    init {
-        require(ratePlans != null) { "ratePlans must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -89,39 +93,39 @@ data class FlightsV3RoomType(
         fun media(media: kotlin.collections.List<FlightsV3Media>?) = apply { this.media = media }
 
         fun build(): FlightsV3RoomType {
-            val instance =
-                FlightsV3RoomType(
-                    ratePlans = ratePlans!!,
-                    description = description,
-                    promotions = promotions,
-                    smokingOption = smokingOption,
-                    roomOccupancyPolicy = roomOccupancyPolicy,
-                    amenities = amenities,
-                    media = media,
-                )
+            val ratePlans = this.ratePlans.getOrThrow {
+                IllegalArgumentException("ratePlans must not be null")
+            }
+
+            val instance = FlightsV3RoomType(
+                ratePlans = ratePlans,
+                description = description,
+                promotions = promotions,
+                smokingOption = smokingOption,
+                roomOccupancyPolicy = roomOccupancyPolicy,
+                amenities = amenities,
+                media = media,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            ratePlans = ratePlans!!,
-            description = description,
-            promotions = promotions,
-            smokingOption = smokingOption,
-            roomOccupancyPolicy = roomOccupancyPolicy,
-            amenities = amenities,
-            media = media,
-        )
+    fun toBuilder() = Builder(
+        ratePlans = ratePlans,
+        description = description,
+        promotions = promotions,
+        smokingOption = smokingOption,
+        roomOccupancyPolicy = roomOccupancyPolicy,
+        amenities = amenities,
+        media = media,
+    )
 
     /**
      * The smoking options available for the room type. Options could be: SmokingOrNonSmoking Smoking NonSmoking
      * Values: SMOKING_OR_NON_SMOKING,SMOKING,NON_SMOKING
      */
-    enum class SmokingOption(
-        val value: kotlin.String,
-    ) {
+    enum class SmokingOption(val value: kotlin.String) {
         @JsonProperty("SmokingOrNonSmoking")
         SMOKING_OR_NON_SMOKING("SmokingOrNonSmoking"),
 

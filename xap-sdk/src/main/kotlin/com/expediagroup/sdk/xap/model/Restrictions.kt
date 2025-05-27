@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -24,27 +25,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param min Minimum value allowed for the restriction type.
  * @param description The text to describe the restriction.
  */
-data class Restrictions(
-    // Type of the Restriction.
+@ConsistentCopyVisibility data class Restrictions private constructor(
+    /* Type of the Restriction. */
     @JsonProperty("Type")
     val type: kotlin.String,
-    // Maximum value allowed for the restriction type.
+
+    /* Maximum value allowed for the restriction type. */
     @JsonProperty("Max")
     val max: kotlin.String,
-    // Minimum value allowed for the restriction type.
+
+    /* Minimum value allowed for the restriction type. */
     @JsonProperty("Min")
     val min: kotlin.String,
-    // The text to describe the restriction.
+
+    /* The text to describe the restriction. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
 ) {
-    init {
-        require(type != null) { "type must not be null" }
-
-        require(max != null) { "max must not be null" }
-
-        require(min != null) { "min must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -66,23 +63,33 @@ data class Restrictions(
         fun description(description: kotlin.String?) = apply { this.description = description }
 
         fun build(): Restrictions {
-            val instance =
-                Restrictions(
-                    type = type!!,
-                    max = max!!,
-                    min = min!!,
-                    description = description,
-                )
+            val type = this.type.getOrThrow {
+                IllegalArgumentException("type must not be null")
+            }
+
+            val max = this.max.getOrThrow {
+                IllegalArgumentException("max must not be null")
+            }
+
+            val min = this.min.getOrThrow {
+                IllegalArgumentException("min must not be null")
+            }
+
+            val instance = Restrictions(
+                type = type,
+                max = max,
+                min = min,
+                description = description,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type!!,
-            max = max!!,
-            min = min!!,
-            description = description,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        max = max,
+        min = min,
+        description = description,
+    )
 }

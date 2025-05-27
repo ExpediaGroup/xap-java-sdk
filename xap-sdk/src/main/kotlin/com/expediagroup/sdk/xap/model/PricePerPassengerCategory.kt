@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Fee
 import com.expediagroup.sdk.xap.model.FlightsV3Money
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -28,30 +29,28 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param totalTaxes
  * @param fees List of fees per passenger category
  */
-data class PricePerPassengerCategory(
-    // Passenger category
+@ConsistentCopyVisibility data class PricePerPassengerCategory private constructor(
+    /* Passenger category */
     @JsonProperty("Category")
     val category: PricePerPassengerCategory.Category,
-    // Total number of travelers of the same passenger category
+
+    /* Total number of travelers of the same passenger category */
     @JsonProperty("Count")
     val count: kotlin.Int,
+
     @JsonProperty("BasePrice")
     val basePrice: FlightsV3Money,
+
     @JsonProperty("TotalPrice")
     val totalPrice: FlightsV3Money? = null,
+
     @JsonProperty("TotalTaxes")
     val totalTaxes: FlightsV3Money? = null,
-    // List of fees per passenger category
+
+    /* List of fees per passenger category */
     @JsonProperty("Fees")
     val fees: kotlin.collections.List<Fee>? = null,
 ) {
-    init {
-        require(category != null) { "category must not be null" }
-
-        require(count != null) { "count must not be null" }
-
-        require(basePrice != null) { "basePrice must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -79,37 +78,45 @@ data class PricePerPassengerCategory(
         fun fees(fees: kotlin.collections.List<Fee>?) = apply { this.fees = fees }
 
         fun build(): PricePerPassengerCategory {
-            val instance =
-                PricePerPassengerCategory(
-                    category = category!!,
-                    count = count!!,
-                    basePrice = basePrice!!,
-                    totalPrice = totalPrice,
-                    totalTaxes = totalTaxes,
-                    fees = fees,
-                )
+            val category = this.category.getOrThrow {
+                IllegalArgumentException("category must not be null")
+            }
+
+            val count = this.count.getOrThrow {
+                IllegalArgumentException("count must not be null")
+            }
+
+            val basePrice = this.basePrice.getOrThrow {
+                IllegalArgumentException("basePrice must not be null")
+            }
+
+            val instance = PricePerPassengerCategory(
+                category = category,
+                count = count,
+                basePrice = basePrice,
+                totalPrice = totalPrice,
+                totalTaxes = totalTaxes,
+                fees = fees,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            category = category!!,
-            count = count!!,
-            basePrice = basePrice!!,
-            totalPrice = totalPrice,
-            totalTaxes = totalTaxes,
-            fees = fees,
-        )
+    fun toBuilder() = Builder(
+        category = category,
+        count = count,
+        basePrice = basePrice,
+        totalPrice = totalPrice,
+        totalTaxes = totalTaxes,
+        fees = fees,
+    )
 
     /**
      * Passenger category
      * Values: ADULT,SENIOR,ADULT_CHILD,CHILD,INFANT_IN_SEAT,INFANT_IN_LAP
      */
-    enum class Category(
-        val value: kotlin.String,
-    ) {
+    enum class Category(val value: kotlin.String) {
         @JsonProperty("ADULT")
         ADULT("ADULT"),
 

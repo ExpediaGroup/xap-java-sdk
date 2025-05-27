@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Airport
 import com.expediagroup.sdk.xap.model.FlightsV1Link
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -28,31 +29,29 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param cabinClass Cabin class name of airline.
  * @param links Links to airline's baggage policies. Where possible this is localized to the LangID supplied in the request. It is possible that special characters will be present in the URL
  */
-data class BaggageFeeFlightSegment(
-    // Specifies the 2 letter IATA airline code of the most significant carrier for the flight. In the case of flights with multiple airlines involves this is the airline who will be charging for the baggage.
+@ConsistentCopyVisibility data class BaggageFeeFlightSegment private constructor(
+    /* Specifies the 2 letter IATA airline code of the most significant carrier for the flight. In the case of flights with multiple airlines involves this is the airline who will be charging for the baggage. */
     @JsonProperty("AirlineCode")
     val airlineCode: kotlin.String,
+
     @JsonProperty("DepartureAirport")
     val departureAirport: Airport,
+
     @JsonProperty("ArrivalAirport")
     val arrivalAirport: Airport,
-    // Specifies the name of the airline. Where possible this is localized to the LangID supplied in the request.
+
+    /* Specifies the name of the airline. Where possible this is localized to the LangID supplied in the request. */
     @JsonProperty("AirlineName")
     val airlineName: kotlin.String? = null,
-    // Cabin class name of airline.
+
+    /* Cabin class name of airline. */
     @JsonProperty("CabinClass")
     val cabinClass: kotlin.String? = null,
-    // Links to airline's baggage policies. Where possible this is localized to the LangID supplied in the request. It is possible that special characters will be present in the URL
+
+    /* Links to airline's baggage policies. Where possible this is localized to the LangID supplied in the request. It is possible that special characters will be present in the URL */
     @JsonProperty("Links")
     val links: kotlin.collections.Map<kotlin.String, FlightsV1Link>? = null,
 ) {
-    init {
-        require(airlineCode != null) { "airlineCode must not be null" }
-
-        require(departureAirport != null) { "departureAirport must not be null" }
-
-        require(arrivalAirport != null) { "arrivalAirport must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -80,27 +79,37 @@ data class BaggageFeeFlightSegment(
         fun links(links: kotlin.collections.Map<kotlin.String, FlightsV1Link>?) = apply { this.links = links }
 
         fun build(): BaggageFeeFlightSegment {
-            val instance =
-                BaggageFeeFlightSegment(
-                    airlineCode = airlineCode!!,
-                    departureAirport = departureAirport!!,
-                    arrivalAirport = arrivalAirport!!,
-                    airlineName = airlineName,
-                    cabinClass = cabinClass,
-                    links = links,
-                )
+            val airlineCode = this.airlineCode.getOrThrow {
+                IllegalArgumentException("airlineCode must not be null")
+            }
+
+            val departureAirport = this.departureAirport.getOrThrow {
+                IllegalArgumentException("departureAirport must not be null")
+            }
+
+            val arrivalAirport = this.arrivalAirport.getOrThrow {
+                IllegalArgumentException("arrivalAirport must not be null")
+            }
+
+            val instance = BaggageFeeFlightSegment(
+                airlineCode = airlineCode,
+                departureAirport = departureAirport,
+                arrivalAirport = arrivalAirport,
+                airlineName = airlineName,
+                cabinClass = cabinClass,
+                links = links,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            airlineCode = airlineCode!!,
-            departureAirport = departureAirport!!,
-            arrivalAirport = arrivalAirport!!,
-            airlineName = airlineName,
-            cabinClass = cabinClass,
-            links = links,
-        )
+    fun toBuilder() = Builder(
+        airlineCode = airlineCode,
+        departureAirport = departureAirport,
+        arrivalAirport = arrivalAirport,
+        airlineName = airlineName,
+        cabinClass = cabinClass,
+        links = links,
+    )
 }

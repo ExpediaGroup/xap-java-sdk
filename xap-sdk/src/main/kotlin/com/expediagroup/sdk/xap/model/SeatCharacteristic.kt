@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code Code of seat
  * @param name Corresponding name for the seat code
  */
-data class SeatCharacteristic(
-    // Code of seat
+@ConsistentCopyVisibility data class SeatCharacteristic private constructor(
+    /* Code of seat */
     @JsonProperty("Code")
     val code: SeatCharacteristic.Code,
-    // Corresponding name for the seat code
+
+    /* Corresponding name for the seat code */
     @JsonProperty("Name")
     val name: SeatCharacteristic.Name,
-) {
-    init {
-        require(code != null) { "code must not be null" }
 
-        require(name != null) { "name must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,29 +48,33 @@ data class SeatCharacteristic(
         fun name(name: SeatCharacteristic.Name) = apply { this.name = name }
 
         fun build(): SeatCharacteristic {
-            val instance =
-                SeatCharacteristic(
-                    code = code!!,
-                    name = name!!,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val name = this.name.getOrThrow {
+                IllegalArgumentException("name must not be null")
+            }
+
+            val instance = SeatCharacteristic(
+                code = code,
+                name = name,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            name = name!!,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        name = name,
+    )
 
     /**
      * Code of seat
      * Values: E,H,W,A,X,M,S,P
      */
-    enum class Code(
-        val value: kotlin.String,
-    ) {
+    enum class Code(val value: kotlin.String) {
         @JsonProperty("E")
         E("E"),
 
@@ -102,9 +104,7 @@ data class SeatCharacteristic(
      * Corresponding name for the seat code
      * Values: EMPTY,ACCESSIBLE,WINDOW,AISLE,EXIT,MAINCABINEXTRA,PREFERRED,PREMIUM
      */
-    enum class Name(
-        val value: kotlin.String,
-    ) {
+    enum class Name(val value: kotlin.String) {
         @JsonProperty("EMPTY")
         EMPTY("EMPTY"),
 

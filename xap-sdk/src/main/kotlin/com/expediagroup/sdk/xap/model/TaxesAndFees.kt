@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarsMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,18 +24,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param description TaxesAndFees description
  * @param amount
  */
-data class TaxesAndFees(
-    // TaxesAndFees description
+@ConsistentCopyVisibility data class TaxesAndFees private constructor(
+    /* TaxesAndFees description */
     @JsonProperty("Description")
     val description: kotlin.String,
+
     @JsonProperty("Amount")
     val amount: CarsMoney,
-) {
-    init {
-        require(description != null) { "description must not be null" }
 
-        require(amount != null) { "amount must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class TaxesAndFees(
         fun amount(amount: CarsMoney) = apply { this.amount = amount }
 
         fun build(): TaxesAndFees {
-            val instance =
-                TaxesAndFees(
-                    description = description!!,
-                    amount = amount!!,
-                )
+            val description = this.description.getOrThrow {
+                IllegalArgumentException("description must not be null")
+            }
+
+            val amount = this.amount.getOrThrow {
+                IllegalArgumentException("amount must not be null")
+            }
+
+            val instance = TaxesAndFees(
+                description = description,
+                amount = amount,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            description = description!!,
-            amount = amount!!,
-        )
+    fun toBuilder() = Builder(
+        description = description,
+        amount = amount,
+    )
 }

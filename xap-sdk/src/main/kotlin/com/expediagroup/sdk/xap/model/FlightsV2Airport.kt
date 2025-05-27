@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -27,32 +28,35 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param latitude Latitude where departure airport resides
  * @param longitude Longitude where departure airport resides
  */
-data class FlightsV2Airport(
-    // Three-letter IATA airport code for departure location
+@ConsistentCopyVisibility data class FlightsV2Airport private constructor(
+    /* Three-letter IATA airport code for departure location */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // Name of departure airport
+
+    /* Name of departure airport */
     @JsonProperty("Name")
     val name: kotlin.String? = null,
-    // City where departure airport resides
+
+    /* City where departure airport resides */
     @JsonProperty("City")
     val city: kotlin.String? = null,
-    // Province or State where departure airport resides
+
+    /* Province or State where departure airport resides */
     @JsonProperty("Province")
     val province: kotlin.String? = null,
-    // Country where departure airport resides
+
+    /* Country where departure airport resides */
     @JsonProperty("Country")
     val country: kotlin.String? = null,
-    // Latitude where departure airport resides
+
+    /* Latitude where departure airport resides */
     @JsonProperty("Latitude")
     val latitude: kotlin.String? = null,
-    // Longitude where departure airport resides
+
+    /* Longitude where departure airport resides */
     @JsonProperty("Longitude")
     val longitude: kotlin.String? = null,
 ) {
-    init {
-        require(code != null) { "code must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -83,29 +87,31 @@ data class FlightsV2Airport(
         fun longitude(longitude: kotlin.String?) = apply { this.longitude = longitude }
 
         fun build(): FlightsV2Airport {
-            val instance =
-                FlightsV2Airport(
-                    code = code!!,
-                    name = name,
-                    city = city,
-                    province = province,
-                    country = country,
-                    latitude = latitude,
-                    longitude = longitude,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val instance = FlightsV2Airport(
+                code = code,
+                name = name,
+                city = city,
+                province = province,
+                country = country,
+                latitude = latitude,
+                longitude = longitude,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            name = name,
-            city = city,
-            province = province,
-            country = country,
-            latitude = latitude,
-            longitude = longitude,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        name = name,
+        city = city,
+        province = province,
+        country = country,
+        latitude = latitude,
+        longitude = longitude,
+    )
 }

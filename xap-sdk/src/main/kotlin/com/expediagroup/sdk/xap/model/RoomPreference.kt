@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param type The type of preference. Options are: SmokingPreference Bed
  * @param `value` The value of the room preference.  For SmokingPreference, options are  SmokingOrNonSmoking Smoking NonSmoking For supported Bed Types, please refer to the Related Links section at the bottom of the page.
  */
-data class RoomPreference(
-    // The type of preference. Options are: SmokingPreference Bed
+@ConsistentCopyVisibility data class RoomPreference private constructor(
+    /* The type of preference. Options are: SmokingPreference Bed */
     @JsonProperty("Type")
     val type: RoomPreference.Type? = null,
-    // The value of the room preference.  For SmokingPreference, options are  SmokingOrNonSmoking Smoking NonSmoking For supported Bed Types, please refer to the Related Links section at the bottom of the page.
+
+    /* The value of the room preference.  For SmokingPreference, options are  SmokingOrNonSmoking Smoking NonSmoking For supported Bed Types, please refer to the Related Links section at the bottom of the page. */
     @JsonProperty("Value")
     val `value`: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,29 +46,25 @@ data class RoomPreference(
         fun `value`(`value`: kotlin.String?) = apply { this.`value` = `value` }
 
         fun build(): RoomPreference {
-            val instance =
-                RoomPreference(
-                    type = type,
-                    `value` = `value`,
-                )
+            val instance = RoomPreference(
+                type = type,
+                `value` = `value`,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type,
-            `value` = `value`,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        `value` = `value`,
+    )
 
     /**
      * The type of preference. Options are: SmokingPreference Bed
      * Values: SMOKING_PREFERENCE,BED
      */
-    enum class Type(
-        val value: kotlin.String,
-    ) {
+    enum class Type(val value: kotlin.String) {
         @JsonProperty("SmokingPreference")
         SMOKING_PREFERENCE("SmokingPreference"),
 

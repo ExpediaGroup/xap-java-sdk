@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -24,23 +25,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param smallLuggageCount The typical number of small pieces of luggage that fit in the cargo space.
  * @param largeLuggageCount The typical number of large pieces of luggage that fit in the cargo space.
  */
-data class Capacity(
-    // The typical number of adults that can fit comfortably in the car.
+@ConsistentCopyVisibility data class Capacity private constructor(
+    /* The typical number of adults that can fit comfortably in the car. */
     @JsonProperty("AdultCount")
     val adultCount: kotlin.Long,
-    // The typical number of children that can fit comfortably in the car.
+
+    /* The typical number of children that can fit comfortably in the car. */
     @JsonProperty("ChildCount")
     val childCount: kotlin.Long? = null,
-    // The typical number of small pieces of luggage that fit in the cargo space.
+
+    /* The typical number of small pieces of luggage that fit in the cargo space. */
     @JsonProperty("SmallLuggageCount")
     val smallLuggageCount: kotlin.Long? = null,
-    // The typical number of large pieces of luggage that fit in the cargo space.
+
+    /* The typical number of large pieces of luggage that fit in the cargo space. */
     @JsonProperty("LargeLuggageCount")
     val largeLuggageCount: kotlin.Long? = null,
 ) {
-    init {
-        require(adultCount != null) { "adultCount must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -62,23 +63,25 @@ data class Capacity(
         fun largeLuggageCount(largeLuggageCount: kotlin.Long?) = apply { this.largeLuggageCount = largeLuggageCount }
 
         fun build(): Capacity {
-            val instance =
-                Capacity(
-                    adultCount = adultCount!!,
-                    childCount = childCount,
-                    smallLuggageCount = smallLuggageCount,
-                    largeLuggageCount = largeLuggageCount,
-                )
+            val adultCount = this.adultCount.getOrThrow {
+                IllegalArgumentException("adultCount must not be null")
+            }
+
+            val instance = Capacity(
+                adultCount = adultCount,
+                childCount = childCount,
+                smallLuggageCount = smallLuggageCount,
+                largeLuggageCount = largeLuggageCount,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            adultCount = adultCount!!,
-            childCount = childCount,
-            smallLuggageCount = smallLuggageCount,
-            largeLuggageCount = largeLuggageCount,
-        )
+    fun toBuilder() = Builder(
+        adultCount = adultCount,
+        childCount = childCount,
+        smallLuggageCount = smallLuggageCount,
+        largeLuggageCount = largeLuggageCount,
+    )
 }

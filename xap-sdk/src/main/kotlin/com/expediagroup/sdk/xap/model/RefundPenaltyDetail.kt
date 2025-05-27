@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3Money
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,16 +24,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param allow Status of penalty information
  * @param penalty
  */
-data class RefundPenaltyDetail(
-    // Status of penalty information
+@ConsistentCopyVisibility data class RefundPenaltyDetail private constructor(
+    /* Status of penalty information */
     @JsonProperty("Allow")
     val allow: RefundPenaltyDetail.Allow,
+
     @JsonProperty("Penalty")
     val penalty: FlightsV3Money? = null,
 ) {
-    init {
-        require(allow != null) { "allow must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -48,29 +47,29 @@ data class RefundPenaltyDetail(
         fun penalty(penalty: FlightsV3Money?) = apply { this.penalty = penalty }
 
         fun build(): RefundPenaltyDetail {
-            val instance =
-                RefundPenaltyDetail(
-                    allow = allow!!,
-                    penalty = penalty,
-                )
+            val allow = this.allow.getOrThrow {
+                IllegalArgumentException("allow must not be null")
+            }
+
+            val instance = RefundPenaltyDetail(
+                allow = allow,
+                penalty = penalty,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            allow = allow!!,
-            penalty = penalty,
-        )
+    fun toBuilder() = Builder(
+        allow = allow,
+        penalty = penalty,
+    )
 
     /**
      * Status of penalty information
      * Values: YES,NO,UNKNOWN
      */
-    enum class Allow(
-        val value: kotlin.String,
-    ) {
+    enum class Allow(val value: kotlin.String) {
         @JsonProperty("YES")
         YES("YES"),
 

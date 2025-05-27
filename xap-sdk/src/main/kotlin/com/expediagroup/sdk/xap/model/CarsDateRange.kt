@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param startDate Start date at pickup location of the period.
  * @param endDate End date at pickup location of the period.
  */
-data class CarsDateRange(
-    // Start date at pickup location of the period.
+@ConsistentCopyVisibility data class CarsDateRange private constructor(
+    /* Start date at pickup location of the period. */
     @JsonProperty("StartDate")
     val startDate: java.time.LocalDate,
-    // End date at pickup location of the period.
+
+    /* End date at pickup location of the period. */
     @JsonProperty("EndDate")
     val endDate: java.time.LocalDate,
-) {
-    init {
-        require(startDate != null) { "startDate must not be null" }
 
-        require(endDate != null) { "endDate must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class CarsDateRange(
         fun endDate(endDate: java.time.LocalDate) = apply { this.endDate = endDate }
 
         fun build(): CarsDateRange {
-            val instance =
-                CarsDateRange(
-                    startDate = startDate!!,
-                    endDate = endDate!!,
-                )
+            val startDate = this.startDate.getOrThrow {
+                IllegalArgumentException("startDate must not be null")
+            }
+
+            val endDate = this.endDate.getOrThrow {
+                IllegalArgumentException("endDate must not be null")
+            }
+
+            val instance = CarsDateRange(
+                startDate = startDate,
+                endDate = endDate,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            startDate = startDate!!,
-            endDate = endDate!!,
-        )
+    fun toBuilder() = Builder(
+        startDate = startDate,
+        endDate = endDate,
+    )
 }

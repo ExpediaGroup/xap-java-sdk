@@ -23,19 +23,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param unit The unit of distance.
  * @param direction The direction to the hotel from the center point of the search.
  */
-data class Distance(
-    // The distance between the center of the search and the hotel.
+@ConsistentCopyVisibility data class Distance private constructor(
+    /* The distance between the center of the search and the hotel. */
     @JsonProperty("Value")
     val `value`: kotlin.String? = null,
-    // The unit of distance.
+
+    /* The unit of distance. */
     @JsonProperty("Unit")
     val unit: Distance.Unit? = null,
-    // The direction to the hotel from the center point of the search.
+
+    /* The direction to the hotel from the center point of the search. */
     @JsonProperty("Direction")
     val direction: Distance.Direction? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -54,31 +54,27 @@ data class Distance(
         fun direction(direction: Distance.Direction?) = apply { this.direction = direction }
 
         fun build(): Distance {
-            val instance =
-                Distance(
-                    `value` = `value`,
-                    unit = unit,
-                    direction = direction,
-                )
+            val instance = Distance(
+                `value` = `value`,
+                unit = unit,
+                direction = direction,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            `value` = `value`,
-            unit = unit,
-            direction = direction,
-        )
+    fun toBuilder() = Builder(
+        `value` = `value`,
+        unit = unit,
+        direction = direction,
+    )
 
     /**
      * The unit of distance.
      * Values: KM,MI
      */
-    enum class Unit(
-        val value: kotlin.String,
-    ) {
+    enum class Unit(val value: kotlin.String) {
         @JsonProperty("km")
         KM("km"),
 
@@ -90,9 +86,7 @@ data class Distance(
      * The direction to the hotel from the center point of the search.
      * Values: N,S,W,E,NW,NE,SW,SE
      */
-    enum class Direction(
-        val value: kotlin.String,
-    ) {
+    enum class Direction(val value: kotlin.String) {
         @JsonProperty("N")
         N("N"),
 

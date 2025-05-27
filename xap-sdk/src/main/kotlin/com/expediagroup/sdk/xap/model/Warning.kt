@@ -27,25 +27,28 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param changedAmount
  * @param changedPercentage The changed percentage. In the sample 2.97 means the changed percentage is 2.97%.
  */
-data class Warning(
-    // The code of a warning.
+@ConsistentCopyVisibility data class Warning private constructor(
+    /* The code of a warning. */
     @JsonProperty("Code")
     val code: kotlin.String? = null,
-    // A detail information of what happened.
+
+    /* A detail information of what happened. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
+
     @JsonProperty("OriginalPrice")
     val originalPrice: Money? = null,
+
     @JsonProperty("NewPrice")
     val newPrice: Money? = null,
+
     @JsonProperty("ChangedAmount")
     val changedAmount: Money? = null,
-    // The changed percentage. In the sample 2.97 means the changed percentage is 2.97%.
+
+    /* The changed percentage. In the sample 2.97 means the changed percentage is 2.97%. */
     @JsonProperty("ChangedPercentage")
     val changedPercentage: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -73,27 +76,25 @@ data class Warning(
         fun changedPercentage(changedPercentage: kotlin.String?) = apply { this.changedPercentage = changedPercentage }
 
         fun build(): Warning {
-            val instance =
-                Warning(
-                    code = code,
-                    description = description,
-                    originalPrice = originalPrice,
-                    newPrice = newPrice,
-                    changedAmount = changedAmount,
-                    changedPercentage = changedPercentage,
-                )
+            val instance = Warning(
+                code = code,
+                description = description,
+                originalPrice = originalPrice,
+                newPrice = newPrice,
+                changedAmount = changedAmount,
+                changedPercentage = changedPercentage,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code,
-            description = description,
-            originalPrice = originalPrice,
-            newPrice = newPrice,
-            changedAmount = changedAmount,
-            changedPercentage = changedPercentage,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        description = description,
+        originalPrice = originalPrice,
+        newPrice = newPrice,
+        changedAmount = changedAmount,
+        changedPercentage = changedPercentage,
+    )
 }

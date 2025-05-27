@@ -27,22 +27,24 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param bestMatchedFile
  * @param otherFileOptions Container for file Pre-signed download URL and informations.
  */
-data class PresignedUrlResponse(
-    // Unique identifier for each API response.
+@ConsistentCopyVisibility data class PresignedUrlResponse private constructor(
+    /* Unique identifier for each API response. */
     @JsonProperty("transactionId")
     val transactionId: kotlin.String? = null,
+
     @JsonProperty("error")
     val error: Fault? = null,
+
     @JsonProperty("warning")
     val warning: Fault? = null,
+
     @JsonProperty("bestMatchedFile")
     val bestMatchedFile: FileInfo? = null,
-    // Container for file Pre-signed download URL and informations.
+
+    /* Container for file Pre-signed download URL and informations. */
     @JsonProperty("otherFileOptions")
     val otherFileOptions: kotlin.collections.List<FileInfo>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -67,25 +69,23 @@ data class PresignedUrlResponse(
         fun otherFileOptions(otherFileOptions: kotlin.collections.List<FileInfo>?) = apply { this.otherFileOptions = otherFileOptions }
 
         fun build(): PresignedUrlResponse {
-            val instance =
-                PresignedUrlResponse(
-                    transactionId = transactionId,
-                    error = error,
-                    warning = warning,
-                    bestMatchedFile = bestMatchedFile,
-                    otherFileOptions = otherFileOptions,
-                )
+            val instance = PresignedUrlResponse(
+                transactionId = transactionId,
+                error = error,
+                warning = warning,
+                bestMatchedFile = bestMatchedFile,
+                otherFileOptions = otherFileOptions,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            transactionId = transactionId,
-            error = error,
-            warning = warning,
-            bestMatchedFile = bestMatchedFile,
-            otherFileOptions = otherFileOptions,
-        )
+    fun toBuilder() = Builder(
+        transactionId = transactionId,
+        error = error,
+        warning = warning,
+        bestMatchedFile = bestMatchedFile,
+        otherFileOptions = otherFileOptions,
+    )
 }

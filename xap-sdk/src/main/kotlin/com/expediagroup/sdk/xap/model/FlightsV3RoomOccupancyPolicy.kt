@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3AgeClassRestriction
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,17 +24,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param maxGuestCount The maximum number of guests allowed to stay in a room.
  * @param ageClassRestrictions Container for room occupancy rules based on the age of the guests.
  */
-data class FlightsV3RoomOccupancyPolicy(
-    // The maximum number of guests allowed to stay in a room.
+@ConsistentCopyVisibility data class FlightsV3RoomOccupancyPolicy private constructor(
+    /* The maximum number of guests allowed to stay in a room. */
     @JsonProperty("MaxGuestCount")
     val maxGuestCount: kotlin.Int,
-    // Container for room occupancy rules based on the age of the guests.
+
+    /* Container for room occupancy rules based on the age of the guests. */
     @JsonProperty("AgeClassRestrictions")
     val ageClassRestrictions: kotlin.collections.List<FlightsV3AgeClassRestriction>? = null,
 ) {
-    init {
-        require(maxGuestCount != null) { "maxGuestCount must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -49,19 +48,21 @@ data class FlightsV3RoomOccupancyPolicy(
         fun ageClassRestrictions(ageClassRestrictions: kotlin.collections.List<FlightsV3AgeClassRestriction>?) = apply { this.ageClassRestrictions = ageClassRestrictions }
 
         fun build(): FlightsV3RoomOccupancyPolicy {
-            val instance =
-                FlightsV3RoomOccupancyPolicy(
-                    maxGuestCount = maxGuestCount!!,
-                    ageClassRestrictions = ageClassRestrictions,
-                )
+            val maxGuestCount = this.maxGuestCount.getOrThrow {
+                IllegalArgumentException("maxGuestCount must not be null")
+            }
+
+            val instance = FlightsV3RoomOccupancyPolicy(
+                maxGuestCount = maxGuestCount,
+                ageClassRestrictions = ageClassRestrictions,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            maxGuestCount = maxGuestCount!!,
-            ageClassRestrictions = ageClassRestrictions,
-        )
+    fun toBuilder() = Builder(
+        maxGuestCount = maxGuestCount,
+        ageClassRestrictions = ageClassRestrictions,
+    )
 }

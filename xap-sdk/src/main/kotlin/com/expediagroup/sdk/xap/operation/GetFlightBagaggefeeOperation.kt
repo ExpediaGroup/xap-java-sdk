@@ -13,19 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.expediagroup.sdk.xap.operations
+package com.expediagroup.sdk.xap.operation
 
 import com.expediagroup.sdk.core.http.Headers
+import com.expediagroup.sdk.rest.exception.service.ExpediaGroupApiException
 import com.expediagroup.sdk.rest.trait.operation.HeadersTrait
 import com.expediagroup.sdk.rest.trait.operation.JacksonModelOperationResponseBodyTrait
 import com.expediagroup.sdk.rest.trait.operation.OperationRequestTrait
 import com.expediagroup.sdk.rest.trait.operation.UrlPathTrait
 import com.expediagroup.sdk.rest.trait.operation.UrlQueryParamsTrait
+import com.expediagroup.sdk.xap.model.APIMError
 import com.expediagroup.sdk.xap.model.FlightBaggageFeesResponse
+import com.expediagroup.sdk.xap.model.FlightsV1Errors
+import com.expediagroup.sdk.xap.model.exception.GetFlightBagaggefee400Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightBagaggefee401Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightBagaggefee403Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightBagaggefee404Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightBagaggefee429Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightBagaggefee500Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightBagaggefee503Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightBagaggefee504Exception
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.util.UUID
 
 /**
+ *
+ *
+ * request for baggage fee information
+ *
+ * Executing the operation returns [com.expediagroup.sdk.rest.model.Response] of type [FlightBaggageFeesResponse]
+ *
+ * The operation may result in the following exceptions:
+ * - [GetFlightBagaggefee400Exception]
+ * - [GetFlightBagaggefee401Exception]
+ * - [GetFlightBagaggefee403Exception]
+ * - [GetFlightBagaggefee404Exception]
+ * - [GetFlightBagaggefee429Exception]
+ * - [GetFlightBagaggefee500Exception]
+ * - [GetFlightBagaggefee503Exception]
+ * - [GetFlightBagaggefee504Exception]
  *
  * @property params [GetFlightBagaggefeeOperationParams]
  */
@@ -36,6 +63,8 @@ class GetFlightBagaggefeeOperation(
     JacksonModelOperationResponseBodyTrait<FlightBaggageFeesResponse>,
     UrlQueryParamsTrait,
     HeadersTrait {
+    override fun getOperationId(): String = "getFlightBagaggefee"
+
     override fun getHttpMethod(): String = "GET"
 
     override fun getRequestInfo(): OperationRequestTrait = this
@@ -43,12 +72,11 @@ class GetFlightBagaggefeeOperation(
     override fun getUrlPath(): String {
         var url = "/flights/baggagefees/{offerToken}"
 
-        url =
-            url.replace(
-                oldValue = "{" + "offerToken" + "}",
-                newValue = this.params.offerToken,
-                ignoreCase = true,
-            )
+        url = url.replace(
+            oldValue = "{" + "offerToken" + "}",
+            newValue = this.params.offerToken,
+            ignoreCase = true,
+        )
 
         return url
     }
@@ -58,4 +86,123 @@ class GetFlightBagaggefeeOperation(
     override fun getHeaders(): Headers = this.params.getHeaders()
 
     override fun getUrlQueryParams() = this.params.getQueryParams()
+
+    override fun getExceptionForCode(
+        code: Int,
+        errorResponseStr: String?,
+        requestId: UUID?,
+        message: String?,
+        cause: Throwable?,
+    ): ExpediaGroupApiException = when (code) {
+        400 -> GetFlightBagaggefee400Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV1Errors::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        401 -> GetFlightBagaggefee401Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, APIMError::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        403 -> GetFlightBagaggefee403Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, APIMError::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        404 -> GetFlightBagaggefee404Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, APIMError::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        429 -> GetFlightBagaggefee429Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, APIMError::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        500 -> GetFlightBagaggefee500Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV1Errors::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        503 -> GetFlightBagaggefee503Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, APIMError::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        504 -> GetFlightBagaggefee504Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, String::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        else -> ExpediaGroupApiException(
+            code = code,
+            requestId = requestId,
+            message = errorResponseStr,
+            cause = cause,
+        )
+    }
 }

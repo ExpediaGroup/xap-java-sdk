@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3LocationOption
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -25,25 +26,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param detailCode Detailed error code describing the issue.
  * @param locationOptions List for possible locations from which the customer must choose the best one to be re-submitted in the request.
  */
-data class FlightsV3Error(
-    // Error code describing the issue
+@ConsistentCopyVisibility data class FlightsV3Error private constructor(
+    /* Error code describing the issue */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // A simple description of what the error is.
+
+    /* A simple description of what the error is. */
     @JsonProperty("Description")
     val description: kotlin.String,
-    // Detailed error code describing the issue.
+
+    /* Detailed error code describing the issue. */
     @JsonProperty("DetailCode")
     val detailCode: kotlin.String? = null,
-    // List for possible locations from which the customer must choose the best one to be re-submitted in the request.
+
+    /* List for possible locations from which the customer must choose the best one to be re-submitted in the request.  */
     @JsonProperty("LocationOptions")
     val locationOptions: kotlin.collections.List<FlightsV3LocationOption>? = null,
 ) {
-    init {
-        require(code != null) { "code must not be null" }
-
-        require(description != null) { "description must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -65,23 +64,29 @@ data class FlightsV3Error(
         fun locationOptions(locationOptions: kotlin.collections.List<FlightsV3LocationOption>?) = apply { this.locationOptions = locationOptions }
 
         fun build(): FlightsV3Error {
-            val instance =
-                FlightsV3Error(
-                    code = code!!,
-                    description = description!!,
-                    detailCode = detailCode,
-                    locationOptions = locationOptions,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val description = this.description.getOrThrow {
+                IllegalArgumentException("description must not be null")
+            }
+
+            val instance = FlightsV3Error(
+                code = code,
+                description = description,
+                detailCode = detailCode,
+                locationOptions = locationOptions,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            description = description!!,
-            detailCode = detailCode,
-            locationOptions = locationOptions,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        description = description,
+        detailCode = detailCode,
+        locationOptions = locationOptions,
+    )
 }

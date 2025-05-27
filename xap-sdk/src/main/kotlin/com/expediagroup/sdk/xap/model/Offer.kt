@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.ActivitiesLink
 import com.expediagroup.sdk.xap.model.ActivitiesPrice
 import com.expediagroup.sdk.xap.model.AvailableTimeSlot
@@ -30,42 +31,37 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param description Description of this offer.
  * @param links Container of HATEOAS URL's
  */
-data class Offer(
-    // The numerical identifier for the offer.
+@ConsistentCopyVisibility data class Offer private constructor(
+    /* The numerical identifier for the offer. */
     @JsonProperty("Id")
     val id: kotlin.Int,
-    // A descriptive title for this offer.
+
+    /* A descriptive title for this offer. */
     @JsonProperty("Title")
     val title: kotlin.String,
-    // The anticipated time duration for the activity, e xpressed using Java JDK duration format.
+
+    /* The anticipated time duration for the activity, e xpressed using Java JDK duration format. */
     @JsonProperty("Duration")
     val duration: kotlin.String,
-    // The list of available Time Slots for the activity.
+
+    /* The list of available Time Slots for the activity. */
     @JsonProperty("AvailableTimeSlots")
     val availableTimeSlots: kotlin.collections
         .List<
             AvailableTimeSlot,
-        >,
+            >,
+
     @JsonProperty("OfferPrice")
     val offerPrice: ActivitiesPrice,
-    // Description of this offer.
+
+    /* Description of this offer. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
-    // Container of HATEOAS URL's
+
+    /* Container of HATEOAS URL's */
     @JsonProperty("Links")
     val links: kotlin.collections.Map<kotlin.String, ActivitiesLink>? = null,
 ) {
-    init {
-        require(id != null) { "id must not be null" }
-
-        require(title != null) { "title must not be null" }
-
-        require(duration != null) { "duration must not be null" }
-
-        require(availableTimeSlots != null) { "availableTimeSlots must not be null" }
-
-        require(offerPrice != null) { "offerPrice must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -96,29 +92,47 @@ data class Offer(
         fun links(links: kotlin.collections.Map<kotlin.String, ActivitiesLink>?) = apply { this.links = links }
 
         fun build(): Offer {
-            val instance =
-                Offer(
-                    id = id!!,
-                    title = title!!,
-                    duration = duration!!,
-                    availableTimeSlots = availableTimeSlots!!,
-                    offerPrice = offerPrice!!,
-                    description = description,
-                    links = links,
-                )
+            val id = this.id.getOrThrow {
+                IllegalArgumentException("id must not be null")
+            }
+
+            val title = this.title.getOrThrow {
+                IllegalArgumentException("title must not be null")
+            }
+
+            val duration = this.duration.getOrThrow {
+                IllegalArgumentException("duration must not be null")
+            }
+
+            val availableTimeSlots = this.availableTimeSlots.getOrThrow {
+                IllegalArgumentException("availableTimeSlots must not be null")
+            }
+
+            val offerPrice = this.offerPrice.getOrThrow {
+                IllegalArgumentException("offerPrice must not be null")
+            }
+
+            val instance = Offer(
+                id = id,
+                title = title,
+                duration = duration,
+                availableTimeSlots = availableTimeSlots,
+                offerPrice = offerPrice,
+                description = description,
+                links = links,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id!!,
-            title = title!!,
-            duration = duration!!,
-            availableTimeSlots = availableTimeSlots!!,
-            offerPrice = offerPrice!!,
-            description = description,
-            links = links,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        title = title,
+        duration = duration,
+        availableTimeSlots = availableTimeSlots,
+        offerPrice = offerPrice,
+        description = description,
+        links = links,
+    )
 }

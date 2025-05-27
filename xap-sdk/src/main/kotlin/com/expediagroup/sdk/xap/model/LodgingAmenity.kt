@@ -22,14 +22,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param id
  * @param name
  */
-data class LodgingAmenity(
+@ConsistentCopyVisibility data class LodgingAmenity private constructor(
     @JsonProperty("Id")
     val id: kotlin.String? = null,
+
     @JsonProperty("Name")
     val name: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -45,19 +44,17 @@ data class LodgingAmenity(
         fun name(name: kotlin.String?) = apply { this.name = name }
 
         fun build(): LodgingAmenity {
-            val instance =
-                LodgingAmenity(
-                    id = id,
-                    name = name,
-                )
+            val instance = LodgingAmenity(
+                id = id,
+                name = name,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id,
-            name = name,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        name = name,
+    )
 }

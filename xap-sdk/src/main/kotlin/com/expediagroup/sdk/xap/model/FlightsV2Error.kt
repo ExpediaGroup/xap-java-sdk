@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,19 +23,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code Error code describing the issue
  * @param description A simple description of what the error is.
  */
-data class FlightsV2Error(
-    // Error code describing the issue
+@ConsistentCopyVisibility data class FlightsV2Error private constructor(
+    /* Error code describing the issue */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // A simple description of what the error is.
+
+    /* A simple description of what the error is. */
     @JsonProperty("Description")
     val description: kotlin.String,
-) {
-    init {
-        require(code != null) { "code must not be null" }
 
-        require(description != null) { "description must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class FlightsV2Error(
         fun description(description: kotlin.String) = apply { this.description = description }
 
         fun build(): FlightsV2Error {
-            val instance =
-                FlightsV2Error(
-                    code = code!!,
-                    description = description!!,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val description = this.description.getOrThrow {
+                IllegalArgumentException("description must not be null")
+            }
+
+            val instance = FlightsV2Error(
+                code = code,
+                description = description,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            description = description!!,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        description = description,
+    )
 }

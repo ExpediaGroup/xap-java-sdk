@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param checkInDate Check-in date for property stay in an ISO 8601 Date format [YYYY-MM-DD].  This parameter should be used in combination with the `checkOut` parameter.  The maximum advanced search window is 330 days in the future.  The maximum length of stay is 28 days.
  * @param checkOutDate Checkout date for property stay in an ISO 8601 Date format [YYYY-MM-DD].  This parameter should be used in combination with the `checkIn` parameter.  The maximum advanced search window is 330 days in the future.  The maximum length of stay is 28 days.
  */
-data class HotelDetailsResponseStayDates(
-    // Check-in date for property stay in an ISO 8601 Date format [YYYY-MM-DD].  This parameter should be used in combination with the `checkOut` parameter.  The maximum advanced search window is 330 days in the future.  The maximum length of stay is 28 days.
+@ConsistentCopyVisibility data class HotelDetailsResponseStayDates private constructor(
+    /* Check-in date for property stay in an ISO 8601 Date format [YYYY-MM-DD].  This parameter should be used in combination with the `checkOut` parameter.  The maximum advanced search window is 330 days in the future.  The maximum length of stay is 28 days.  */
     @JsonProperty("CheckInDate")
     val checkInDate: kotlin.Any? = null,
-    // Checkout date for property stay in an ISO 8601 Date format [YYYY-MM-DD].  This parameter should be used in combination with the `checkIn` parameter.  The maximum advanced search window is 330 days in the future.  The maximum length of stay is 28 days.
+
+    /* Checkout date for property stay in an ISO 8601 Date format [YYYY-MM-DD].  This parameter should be used in combination with the `checkIn` parameter.  The maximum advanced search window is 330 days in the future.  The maximum length of stay is 28 days.  */
     @JsonProperty("CheckOutDate")
     val checkOutDate: kotlin.Any? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class HotelDetailsResponseStayDates(
         fun checkOutDate(checkOutDate: kotlin.Any?) = apply { this.checkOutDate = checkOutDate }
 
         fun build(): HotelDetailsResponseStayDates {
-            val instance =
-                HotelDetailsResponseStayDates(
-                    checkInDate = checkInDate,
-                    checkOutDate = checkOutDate,
-                )
+            val instance = HotelDetailsResponseStayDates(
+                checkInDate = checkInDate,
+                checkOutDate = checkOutDate,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            checkInDate = checkInDate,
-            checkOutDate = checkOutDate,
-        )
+    fun toBuilder() = Builder(
+        checkInDate = checkInDate,
+        checkOutDate = checkOutDate,
+    )
 }

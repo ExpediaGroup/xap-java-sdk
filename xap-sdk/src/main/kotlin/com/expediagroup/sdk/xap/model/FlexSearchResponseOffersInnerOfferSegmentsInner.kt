@@ -22,12 +22,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
  *
  * @param segment
  */
-data class FlexSearchResponseOffersInnerOfferSegmentsInner(
+@ConsistentCopyVisibility data class FlexSearchResponseOffersInnerOfferSegmentsInner private constructor(
     @JsonProperty("Segment")
     val segment: FlexSearchResponseOffersInnerOfferSegmentsInnerSegment? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -40,17 +38,15 @@ data class FlexSearchResponseOffersInnerOfferSegmentsInner(
         fun segment(segment: FlexSearchResponseOffersInnerOfferSegmentsInnerSegment?) = apply { this.segment = segment }
 
         fun build(): FlexSearchResponseOffersInnerOfferSegmentsInner {
-            val instance =
-                FlexSearchResponseOffersInnerOfferSegmentsInner(
-                    segment = segment,
-                )
+            val instance = FlexSearchResponseOffersInnerOfferSegmentsInner(
+                segment = segment,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            segment = segment,
-        )
+    fun toBuilder() = Builder(
+        segment = segment,
+    )
 }

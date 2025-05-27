@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.CarsLink
 import com.expediagroup.sdk.xap.model.CarsMoney
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -29,30 +30,31 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param changedPercentage The changed percentage. In the sample 2.97 means the changed percentage is 2.97%.
  * @param links
  */
-data class CarsWarning(
-    // Standardized warning code.
+@ConsistentCopyVisibility data class CarsWarning private constructor(
+    /* Standardized warning code. */
     @JsonProperty("Code")
     val code: kotlin.String,
-    // Standardized warning description message.
+
+    /* Standardized warning description message. */
     @JsonProperty("Description")
     val description: kotlin.String,
+
     @JsonProperty("OriginalPrice")
     val originalPrice: CarsMoney? = null,
+
     @JsonProperty("NewPrice")
     val newPrice: CarsMoney? = null,
+
     @JsonProperty("ChangedAmount")
     val changedAmount: CarsMoney? = null,
-    // The changed percentage. In the sample 2.97 means the changed percentage is 2.97%.
+
+    /* The changed percentage. In the sample 2.97 means the changed percentage is 2.97%. */
     @JsonProperty("ChangedPercentage")
     val changedPercentage: kotlin.String? = null,
+
     @JsonProperty("Links")
     val links: kotlin.collections.Map<kotlin.String, CarsLink>? = null,
 ) {
-    init {
-        require(code != null) { "code must not be null" }
-
-        require(description != null) { "description must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -83,29 +85,35 @@ data class CarsWarning(
         fun links(links: kotlin.collections.Map<kotlin.String, CarsLink>?) = apply { this.links = links }
 
         fun build(): CarsWarning {
-            val instance =
-                CarsWarning(
-                    code = code!!,
-                    description = description!!,
-                    originalPrice = originalPrice,
-                    newPrice = newPrice,
-                    changedAmount = changedAmount,
-                    changedPercentage = changedPercentage,
-                    links = links,
-                )
+            val code = this.code.getOrThrow {
+                IllegalArgumentException("code must not be null")
+            }
+
+            val description = this.description.getOrThrow {
+                IllegalArgumentException("description must not be null")
+            }
+
+            val instance = CarsWarning(
+                code = code,
+                description = description,
+                originalPrice = originalPrice,
+                newPrice = newPrice,
+                changedAmount = changedAmount,
+                changedPercentage = changedPercentage,
+                links = links,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code!!,
-            description = description!!,
-            originalPrice = originalPrice,
-            newPrice = newPrice,
-            changedAmount = changedAmount,
-            changedPercentage = changedPercentage,
-            links = links,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        description = description,
+        originalPrice = originalPrice,
+        newPrice = newPrice,
+        changedAmount = changedAmount,
+        changedPercentage = changedPercentage,
+        links = links,
+    )
 }

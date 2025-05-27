@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlexSearchResponseOffersInnerOfferOfferPriceTotalPrice
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -22,13 +23,11 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * Container for price information corresponding to a particular segment (Nullable in case of Opaque Flights)
  * @param totalPrice
  */
-data class FlexSearchResponseOffersInnerOfferOfferPrice(
+@ConsistentCopyVisibility data class FlexSearchResponseOffersInnerOfferOfferPrice private constructor(
     @JsonProperty("TotalPrice")
     val totalPrice: FlexSearchResponseOffersInnerOfferOfferPriceTotalPrice,
+
 ) {
-    init {
-        require(totalPrice != null) { "totalPrice must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -41,17 +40,19 @@ data class FlexSearchResponseOffersInnerOfferOfferPrice(
         fun totalPrice(totalPrice: FlexSearchResponseOffersInnerOfferOfferPriceTotalPrice) = apply { this.totalPrice = totalPrice }
 
         fun build(): FlexSearchResponseOffersInnerOfferOfferPrice {
-            val instance =
-                FlexSearchResponseOffersInnerOfferOfferPrice(
-                    totalPrice = totalPrice!!,
-                )
+            val totalPrice = this.totalPrice.getOrThrow {
+                IllegalArgumentException("totalPrice must not be null")
+            }
+
+            val instance = FlexSearchResponseOffersInnerOfferOfferPrice(
+                totalPrice = totalPrice,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            totalPrice = totalPrice!!,
-        )
+    fun toBuilder() = Builder(
+        totalPrice = totalPrice,
+    )
 }

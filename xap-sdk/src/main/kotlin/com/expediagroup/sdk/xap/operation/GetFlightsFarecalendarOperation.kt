@@ -13,19 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.expediagroup.sdk.xap.operations
+package com.expediagroup.sdk.xap.operation
 
 import com.expediagroup.sdk.core.http.Headers
+import com.expediagroup.sdk.rest.exception.service.ExpediaGroupApiException
 import com.expediagroup.sdk.rest.trait.operation.HeadersTrait
 import com.expediagroup.sdk.rest.trait.operation.JacksonModelOperationResponseBodyTrait
 import com.expediagroup.sdk.rest.trait.operation.OperationRequestTrait
 import com.expediagroup.sdk.rest.trait.operation.UrlPathTrait
 import com.expediagroup.sdk.rest.trait.operation.UrlQueryParamsTrait
 import com.expediagroup.sdk.xap.model.FareCalendarResponse
+import com.expediagroup.sdk.xap.model.FlightsV3APIMError
+import com.expediagroup.sdk.xap.model.FlightsV3Errors
+import com.expediagroup.sdk.xap.model.exception.GetFlightsFarecalendar400Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightsFarecalendar401Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightsFarecalendar403Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightsFarecalendar404Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightsFarecalendar429Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightsFarecalendar500Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightsFarecalendar503Exception
+import com.expediagroup.sdk.xap.model.exception.GetFlightsFarecalendar504Exception
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.util.UUID
 
 /**
+ *
+ *
+ * API that will return the lowest fares for multiple days so that the same can be displayed as a booking widget calendar.
+ *
+ * Executing the operation returns [com.expediagroup.sdk.rest.model.Response] of type [FareCalendarResponse]
+ *
+ * The operation may result in the following exceptions:
+ * - [GetFlightsFarecalendar400Exception]
+ * - [GetFlightsFarecalendar401Exception]
+ * - [GetFlightsFarecalendar403Exception]
+ * - [GetFlightsFarecalendar404Exception]
+ * - [GetFlightsFarecalendar429Exception]
+ * - [GetFlightsFarecalendar500Exception]
+ * - [GetFlightsFarecalendar503Exception]
+ * - [GetFlightsFarecalendar504Exception]
  *
  * @property params [GetFlightsFarecalendarOperationParams]
  */
@@ -36,6 +63,8 @@ class GetFlightsFarecalendarOperation(
     JacksonModelOperationResponseBodyTrait<FareCalendarResponse>,
     UrlQueryParamsTrait,
     HeadersTrait {
+    override fun getOperationId(): String = "getFlightsFarecalendar"
+
     override fun getHttpMethod(): String = "GET"
 
     override fun getRequestInfo(): OperationRequestTrait = this
@@ -51,4 +80,123 @@ class GetFlightsFarecalendarOperation(
     override fun getHeaders(): Headers = this.params.getHeaders()
 
     override fun getUrlQueryParams() = this.params.getQueryParams()
+
+    override fun getExceptionForCode(
+        code: Int,
+        errorResponseStr: String?,
+        requestId: UUID?,
+        message: String?,
+        cause: Throwable?,
+    ): ExpediaGroupApiException = when (code) {
+        400 -> GetFlightsFarecalendar400Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3Errors::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        401 -> GetFlightsFarecalendar401Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3APIMError::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        403 -> GetFlightsFarecalendar403Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3APIMError::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        404 -> GetFlightsFarecalendar404Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3APIMError::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        429 -> GetFlightsFarecalendar429Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3APIMError::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        500 -> GetFlightsFarecalendar500Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3Errors::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        503 -> GetFlightsFarecalendar503Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3APIMError::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        504 -> GetFlightsFarecalendar504Exception(
+            code = code,
+            requestId = requestId,
+            errorResponse = errorResponseStr?.let {
+                try {
+                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, String::class.java)
+                } catch (e: Exception) {
+                    null
+                }
+            },
+            message = message,
+            cause = cause,
+        )
+        else -> ExpediaGroupApiException(
+            code = code,
+            requestId = requestId,
+            message = errorResponseStr,
+            cause = cause,
+        )
+    }
 }

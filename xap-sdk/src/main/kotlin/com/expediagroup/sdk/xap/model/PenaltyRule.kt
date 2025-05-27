@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.PenaltyType
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -24,23 +25,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param startDateTime The time when this penalty window starts
  * @param endDateTime The time when this penalty window ends
  */
-data class PenaltyRule(
+@ConsistentCopyVisibility data class PenaltyRule private constructor(
     @JsonProperty("Penalty")
     val penalty: PenaltyType,
-    // The time when this penalty window starts
+
+    /* The time when this penalty window starts */
     @JsonProperty("StartDateTime")
     val startDateTime: java.time.LocalDateTime,
-    // The time when this penalty window ends
+
+    /* The time when this penalty window ends */
     @JsonProperty("EndDateTime")
     val endDateTime: java.time.LocalDateTime,
+
 ) {
-    init {
-        require(penalty != null) { "penalty must not be null" }
-
-        require(startDateTime != null) { "startDateTime must not be null" }
-
-        require(endDateTime != null) { "endDateTime must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -59,21 +56,31 @@ data class PenaltyRule(
         fun endDateTime(endDateTime: java.time.LocalDateTime) = apply { this.endDateTime = endDateTime }
 
         fun build(): PenaltyRule {
-            val instance =
-                PenaltyRule(
-                    penalty = penalty!!,
-                    startDateTime = startDateTime!!,
-                    endDateTime = endDateTime!!,
-                )
+            val penalty = this.penalty.getOrThrow {
+                IllegalArgumentException("penalty must not be null")
+            }
+
+            val startDateTime = this.startDateTime.getOrThrow {
+                IllegalArgumentException("startDateTime must not be null")
+            }
+
+            val endDateTime = this.endDateTime.getOrThrow {
+                IllegalArgumentException("endDateTime must not be null")
+            }
+
+            val instance = PenaltyRule(
+                penalty = penalty,
+                startDateTime = startDateTime,
+                endDateTime = endDateTime,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            penalty = penalty!!,
-            startDateTime = startDateTime!!,
-            endDateTime = endDateTime!!,
-        )
+    fun toBuilder() = Builder(
+        penalty = penalty,
+        startDateTime = startDateTime,
+        endDateTime = endDateTime,
+    )
 }

@@ -23,19 +23,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param method Method of request.
  * @param href The URL of the destination web page or API query.
  */
-data class HotelLinksWebSearchResult(
-    // The Accept request header (for API queries only - not included for page URLs).
+@ConsistentCopyVisibility data class HotelLinksWebSearchResult private constructor(
+    /* The Accept request header (for API queries only - not included for page URLs). */
     @JsonProperty("Accept")
     val accept: kotlin.String? = null,
-    // Method of request.
+
+    /* Method of request. */
     @JsonProperty("Method")
     val method: kotlin.String? = null,
-    // The URL of the destination web page or API query.
+
+    /* The URL of the destination web page or API query. */
     @JsonProperty("Href")
     val href: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -54,21 +54,19 @@ data class HotelLinksWebSearchResult(
         fun href(href: kotlin.String?) = apply { this.href = href }
 
         fun build(): HotelLinksWebSearchResult {
-            val instance =
-                HotelLinksWebSearchResult(
-                    accept = accept,
-                    method = method,
-                    href = href,
-                )
+            val instance = HotelLinksWebSearchResult(
+                accept = accept,
+                method = method,
+                href = href,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            accept = accept,
-            method = method,
-            href = href,
-        )
+    fun toBuilder() = Builder(
+        accept = accept,
+        method = method,
+        href = href,
+    )
 }

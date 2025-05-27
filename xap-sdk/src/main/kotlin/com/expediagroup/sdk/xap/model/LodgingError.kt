@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param code Error code describing the issue
  * @param description A simple description of what the error is.
  */
-data class LodgingError(
-    // Error code describing the issue
+@ConsistentCopyVisibility data class LodgingError private constructor(
+    /* Error code describing the issue */
     @JsonProperty("Code")
     val code: kotlin.String? = null,
-    // A simple description of what the error is.
+
+    /* A simple description of what the error is. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,19 +46,17 @@ data class LodgingError(
         fun description(description: kotlin.String?) = apply { this.description = description }
 
         fun build(): LodgingError {
-            val instance =
-                LodgingError(
-                    code = code,
-                    description = description,
-                )
+            val instance = LodgingError(
+                code = code,
+                description = description,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code,
-            description = description,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        description = description,
+    )
 }

@@ -24,22 +24,23 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param brandId The brand id.
  * @param brandName The name of the brand.
  */
-data class ChainAndBrandInfo(
-    // The chain id.
+@ConsistentCopyVisibility data class ChainAndBrandInfo private constructor(
+    /* The chain id. */
     @JsonProperty("ChainId")
     val chainId: kotlin.Int? = null,
-    // The name of the chain.
+
+    /* The name of the chain. */
     @JsonProperty("ChainName")
     val chainName: kotlin.String? = null,
-    // The brand id.
+
+    /* The brand id. */
     @JsonProperty("BrandId")
     val brandId: kotlin.Int? = null,
-    // The name of the brand.
+
+    /* The name of the brand. */
     @JsonProperty("BrandName")
     val brandName: kotlin.String? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -61,23 +62,21 @@ data class ChainAndBrandInfo(
         fun brandName(brandName: kotlin.String?) = apply { this.brandName = brandName }
 
         fun build(): ChainAndBrandInfo {
-            val instance =
-                ChainAndBrandInfo(
-                    chainId = chainId,
-                    chainName = chainName,
-                    brandId = brandId,
-                    brandName = brandName,
-                )
+            val instance = ChainAndBrandInfo(
+                chainId = chainId,
+                chainName = chainName,
+                brandId = brandId,
+                brandName = brandName,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            chainId = chainId,
-            chainName = chainName,
-            brandId = brandId,
-            brandName = brandName,
-        )
+    fun toBuilder() = Builder(
+        chainId = chainId,
+        chainName = chainName,
+        brandId = brandId,
+        brandName = brandName,
+    )
 }

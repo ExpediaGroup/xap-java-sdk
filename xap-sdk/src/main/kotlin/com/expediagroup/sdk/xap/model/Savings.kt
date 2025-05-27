@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.ActivitiesMoney
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -23,18 +24,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param percentage The percentage of the price that has been discounted off the regular price for the current activity.
  * @param amount
  */
-data class Savings(
-    // The percentage of the price that has been discounted off the regular price for the current activity.
+@ConsistentCopyVisibility data class Savings private constructor(
+    /* The percentage of the price that has been discounted off the regular price for the current activity. */
     @JsonProperty("Percentage")
     val percentage: kotlin.Int,
+
     @JsonProperty("Amount")
     val amount: ActivitiesMoney,
-) {
-    init {
-        require(percentage != null) { "percentage must not be null" }
 
-        require(amount != null) { "amount must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -50,19 +48,25 @@ data class Savings(
         fun amount(amount: ActivitiesMoney) = apply { this.amount = amount }
 
         fun build(): Savings {
-            val instance =
-                Savings(
-                    percentage = percentage!!,
-                    amount = amount!!,
-                )
+            val percentage = this.percentage.getOrThrow {
+                IllegalArgumentException("percentage must not be null")
+            }
+
+            val amount = this.amount.getOrThrow {
+                IllegalArgumentException("amount must not be null")
+            }
+
+            val instance = Savings(
+                percentage = percentage,
+                amount = amount,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            percentage = percentage!!,
-            amount = amount!!,
-        )
+    fun toBuilder() = Builder(
+        percentage = percentage,
+        amount = amount,
+    )
 }

@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Amenity
 import com.fasterxml.jackson.annotation.JsonProperty
 
@@ -27,43 +28,39 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param notAvailable Contains list of options that are unavailable.
  * @param amenities
  */
-data class FareOptions(
-    // Contains the name of the Fare tagged against the specific fare options.
+@ConsistentCopyVisibility data class FareOptions private constructor(
+    /* Contains the name of the Fare tagged against the specific fare options. */
     @JsonProperty("FareName")
     val fareName: kotlin.String,
-    // Contains list of segment Ids to which these FareOptions are provided.
+
+    /* Contains list of segment Ids to which these FareOptions are provided. */
     @JsonProperty("SegmentIds")
     val segmentIds: kotlin.collections
         .List<
             kotlin.String,
-        >,
-    // Contains list of options that are already included.
+            >,
+
+    /* Contains list of options that are already included. */
     @JsonProperty("Included")
     val included: kotlin.collections
         .List<
             kotlin.String,
-        >,
-    // Contains list of options that are fee applied.
+            >,
+
+    /* Contains list of options that are fee applied. */
     @JsonProperty("FeeApplied")
     val feeApplied: kotlin.collections
         .List<
             kotlin.String,
-        >,
-    // Contains list of options that are unavailable.
+            >,
+
+    /* Contains list of options that are unavailable. */
     @JsonProperty("NotAvailable")
     val notAvailable: kotlin.collections.List<kotlin.String>? = null,
+
     @JsonProperty("Amenities")
     val amenities: Amenity? = null,
 ) {
-    init {
-        require(fareName != null) { "fareName must not be null" }
-
-        require(segmentIds != null) { "segmentIds must not be null" }
-
-        require(included != null) { "included must not be null" }
-
-        require(feeApplied != null) { "feeApplied must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -91,27 +88,41 @@ data class FareOptions(
         fun amenities(amenities: Amenity?) = apply { this.amenities = amenities }
 
         fun build(): FareOptions {
-            val instance =
-                FareOptions(
-                    fareName = fareName!!,
-                    segmentIds = segmentIds!!,
-                    included = included!!,
-                    feeApplied = feeApplied!!,
-                    notAvailable = notAvailable,
-                    amenities = amenities,
-                )
+            val fareName = this.fareName.getOrThrow {
+                IllegalArgumentException("fareName must not be null")
+            }
+
+            val segmentIds = this.segmentIds.getOrThrow {
+                IllegalArgumentException("segmentIds must not be null")
+            }
+
+            val included = this.included.getOrThrow {
+                IllegalArgumentException("included must not be null")
+            }
+
+            val feeApplied = this.feeApplied.getOrThrow {
+                IllegalArgumentException("feeApplied must not be null")
+            }
+
+            val instance = FareOptions(
+                fareName = fareName,
+                segmentIds = segmentIds,
+                included = included,
+                feeApplied = feeApplied,
+                notAvailable = notAvailable,
+                amenities = amenities,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            fareName = fareName!!,
-            segmentIds = segmentIds!!,
-            included = included!!,
-            feeApplied = feeApplied!!,
-            notAvailable = notAvailable,
-            amenities = amenities,
-        )
+    fun toBuilder() = Builder(
+        fareName = fareName,
+        segmentIds = segmentIds,
+        included = included,
+        feeApplied = feeApplied,
+        notAvailable = notAvailable,
+        amenities = amenities,
+    )
 }

@@ -26,25 +26,27 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param locationKeyword The requested location that caused the error.
  * @param locationOptions Container for possible matches to your ambiguous `locationKeyword` query.
  */
-data class Error(
-    // Error code describing the issue
+@ConsistentCopyVisibility data class Error private constructor(
+    /* Error code describing the issue */
     @JsonProperty("Code")
     val code: kotlin.String? = null,
-    // Detailed error code describing the issue.
+
+    /* Detailed error code describing the issue. */
     @JsonProperty("DetailCode")
     val detailCode: kotlin.String? = null,
-    // A simple description of what the error is.
+
+    /* A simple description of what the error is. */
     @JsonProperty("Description")
     val description: kotlin.String? = null,
-    // The requested location that caused the error.
+
+    /* The requested location that caused the error. */
     @JsonProperty("LocationKeyword")
     val locationKeyword: kotlin.String? = null,
-    // Container for possible matches to your ambiguous `locationKeyword` query.
+
+    /* Container for possible matches to your ambiguous `locationKeyword` query. */
     @JsonProperty("LocationOptions")
     val locationOptions: kotlin.collections.List<LocationOption>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -69,25 +71,23 @@ data class Error(
         fun locationOptions(locationOptions: kotlin.collections.List<LocationOption>?) = apply { this.locationOptions = locationOptions }
 
         fun build(): Error {
-            val instance =
-                Error(
-                    code = code,
-                    detailCode = detailCode,
-                    description = description,
-                    locationKeyword = locationKeyword,
-                    locationOptions = locationOptions,
-                )
+            val instance = Error(
+                code = code,
+                detailCode = detailCode,
+                description = description,
+                locationKeyword = locationKeyword,
+                locationOptions = locationOptions,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            code = code,
-            detailCode = detailCode,
-            description = description,
-            locationKeyword = locationKeyword,
-            locationOptions = locationOptions,
-        )
+    fun toBuilder() = Builder(
+        code = code,
+        detailCode = detailCode,
+        description = description,
+        locationKeyword = locationKeyword,
+        locationOptions = locationOptions,
+    )
 }

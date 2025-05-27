@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -22,17 +23,14 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param method
  * @param href
  */
-data class FlightLinksResponseLinksInnerWebDetails(
+@ConsistentCopyVisibility data class FlightLinksResponseLinksInnerWebDetails private constructor(
     @JsonProperty("Method")
     val method: kotlin.String,
+
     @JsonProperty("Href")
     val href: kotlin.String,
-) {
-    init {
-        require(method != null) { "method must not be null" }
 
-        require(href != null) { "href must not be null" }
-    }
+) {
 
     companion object {
         @JvmStatic
@@ -48,19 +46,25 @@ data class FlightLinksResponseLinksInnerWebDetails(
         fun href(href: kotlin.String) = apply { this.href = href }
 
         fun build(): FlightLinksResponseLinksInnerWebDetails {
-            val instance =
-                FlightLinksResponseLinksInnerWebDetails(
-                    method = method!!,
-                    href = href!!,
-                )
+            val method = this.method.getOrThrow {
+                IllegalArgumentException("method must not be null")
+            }
+
+            val href = this.href.getOrThrow {
+                IllegalArgumentException("href must not be null")
+            }
+
+            val instance = FlightLinksResponseLinksInnerWebDetails(
+                method = method,
+                href = href,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            method = method!!,
-            href = href!!,
-        )
+    fun toBuilder() = Builder(
+        method = method,
+        href = href,
+    )
 }

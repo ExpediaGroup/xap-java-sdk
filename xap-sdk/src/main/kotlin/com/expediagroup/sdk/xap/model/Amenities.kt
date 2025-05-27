@@ -26,16 +26,16 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param wifi
  * @param power
  */
-data class Amenities(
+@ConsistentCopyVisibility data class Amenities private constructor(
     @JsonProperty("Entertainment")
     val entertainment: Entertainment? = null,
+
     @JsonProperty("Wifi")
     val wifi: Wifi? = null,
+
     @JsonProperty("Power")
     val power: Power? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -54,21 +54,19 @@ data class Amenities(
         fun power(power: Power?) = apply { this.power = power }
 
         fun build(): Amenities {
-            val instance =
-                Amenities(
-                    entertainment = entertainment,
-                    wifi = wifi,
-                    power = power,
-                )
+            val instance = Amenities(
+                entertainment = entertainment,
+                wifi = wifi,
+                power = power,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            entertainment = entertainment,
-            wifi = wifi,
-            power = power,
-        )
+    fun toBuilder() = Builder(
+        entertainment = entertainment,
+        wifi = wifi,
+        power = power,
+    )
 }

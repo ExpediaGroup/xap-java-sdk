@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.ActivitiesCancellationPolicy
 import com.expediagroup.sdk.xap.model.ActivitiesLink
 import com.expediagroup.sdk.xap.model.ActivitiesLocation
@@ -50,95 +51,97 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param knowBeforeYouGo Web formatted statement of things that a purchaser should be aware of BEFORE they go to this activity.
  * @param offers Offers for the activity.
  */
-data class Activity(
-    // The numerical identifier for this particular activity
+@ConsistentCopyVisibility data class Activity private constructor(
+    /* The numerical identifier for this particular activity */
     @JsonProperty("Id")
     val id: kotlin.Int,
-    // The display title for this activity.
+
+    /* The display title for this activity. */
     @JsonProperty("Title")
     val title: kotlin.String,
-    // The description of the Activity.
+
+    /* The description of the Activity. */
     @JsonProperty("Description")
     val description: kotlin.String,
-    // List of activity Media.
+
+    /* List of activity Media. */
     @JsonProperty("Media")
     val media: kotlin.collections
         .List<
             ActivitiesMedia,
-        >,
-    // A list of the Activity categories to which this particular activity belongs. Possible values are: Adventures Air, Balloon & Helicopter Tours Attractions Cruises & Water Tours Day Trips & Excursions Food & Drink Hop-on Hop-off Multi-Day & Extended Tours Nightlife Private Tours Private Transfers Shared Transfers Show & Sport Tickets Sightseeing Passes Theme Parks Tours & Sightseeing Walking & Bike Tours Water Activities Wedding Ceremonies Winter Activities
+            >,
+
+    /* A list of the Activity categories to which this particular activity belongs. Possible values are: Adventures Air, Balloon & Helicopter Tours Attractions Cruises & Water Tours Day Trips & Excursions Food & Drink Hop-on Hop-off Multi-Day & Extended Tours Nightlife Private Tours Private Transfers Shared Transfers Show & Sport Tickets Sightseeing Passes Theme Parks Tours & Sightseeing Walking & Bike Tours Water Activities Wedding Ceremonies Winter Activities */
     @JsonProperty("Categories")
     val categories: kotlin.collections
         .List<
             kotlin.String,
-        >,
-    // The anticipated time duration for the activity. Using java jdk Duration parsing.
+            >,
+
+    /* The anticipated time duration for the activity. Using java jdk Duration parsing. */
     @JsonProperty("Duration")
     val duration: kotlin.String,
-    // A boolean value describing whether or not this activity reservation can be cancelled without incurring a penalty.
+
+    /* A boolean value describing whether or not this activity reservation can be cancelled without incurring a penalty. */
     @JsonProperty("FreeCancellation")
     val freeCancellation: kotlin.Boolean,
+
     @JsonProperty("Price")
     val price: ActivitiesPrice,
+
     @JsonProperty("Supplier")
     val supplier: ActivitiesSupplier,
+
     @JsonProperty("Redemption")
     val redemption: Redemption? = null,
-    // Container of location information where activity happens.
+
+    /* Container of location information where activity happens. */
     @JsonProperty("ActivityLocations")
     val activityLocations: kotlin.collections.List<ActivitiesLocation>? = null,
-    // The overall Expedia score for the activity.
+
+    /* The overall Expedia score for the activity. */
     @JsonProperty("ReviewScore")
     val reviewScore: kotlin.Int? = null,
-    // The number of Expedia reviews that went into the calculation of the ReviewScore.
+
+    /* The number of Expedia reviews that went into the calculation of the ReviewScore. */
     @JsonProperty("ReviewCount")
     val reviewCount: kotlin.Int? = null,
-    // HATEOAS links included in this response.
+
+    /* HATEOAS links included in this response. */
     @JsonProperty("Links")
     val links: kotlin.collections.Map<kotlin.String, ActivitiesLink>? = null,
+
     @JsonProperty("CancellationPolicy")
     val cancellationPolicy: ActivitiesCancellationPolicy? = null,
-    // Web formatted statement of the Highlight(s) for the activity.
+
+    /* Web formatted statement of the Highlight(s) for the activity. */
     @JsonProperty("Highlights")
     val highlights: kotlin.collections.List<kotlin.String>? = null,
-    // Terms and Conditions for the Activity.
+
+    /* Terms and Conditions for the Activity. */
     @JsonProperty("TermsAndConditions")
     val termsAndConditions: kotlin.collections.List<kotlin.String>? = null,
-    // Web formatted statement of what is included in the activity
+
+    /* Web formatted statement of what is included in the activity */
     @JsonProperty("Inclusions")
     val inclusions: kotlin.collections.List<kotlin.String>? = null,
-    // Web formatted statement of what is NOT included in the activity
+
+    /* Web formatted statement of what is NOT included in the activity */
     @JsonProperty("Exclusions")
     val exclusions: kotlin.collections.List<kotlin.String>? = null,
-    // Web formatted statement of things that a purchaser should be aware of BEFORE they book this activity.
+
+    /* Web formatted statement of things that a purchaser should be aware of BEFORE they book this activity. */
     @JsonProperty("KnowBeforeYouBook")
     val knowBeforeYouBook: kotlin.collections.List<kotlin.String>? = null,
-    // Web formatted statement of things that a purchaser should be aware of BEFORE they go to this activity.
+
+    /* Web formatted statement of things that a purchaser should be aware of BEFORE they go to this activity. */
     @JsonProperty("KnowBeforeYouGo")
     val knowBeforeYouGo: kotlin.collections.List<kotlin.String>? = null,
-    // Offers for the activity.
+
+    /* Offers for the activity. */
     @JsonProperty("Offers")
     val offers: kotlin.collections.List<Offer>? = null,
 ) {
-    init {
-        require(id != null) { "id must not be null" }
-
-        require(title != null) { "title must not be null" }
-
-        require(description != null) { "description must not be null" }
-
-        require(media != null) { "media must not be null" }
-
-        require(categories != null) { "categories must not be null" }
-
-        require(duration != null) { "duration must not be null" }
-
-        require(freeCancellation != null) { "freeCancellation must not be null" }
-
-        require(price != null) { "price must not be null" }
-
-        require(supplier != null) { "supplier must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -214,59 +217,93 @@ data class Activity(
         fun offers(offers: kotlin.collections.List<Offer>?) = apply { this.offers = offers }
 
         fun build(): Activity {
-            val instance =
-                Activity(
-                    id = id!!,
-                    title = title!!,
-                    description = description!!,
-                    media = media!!,
-                    categories = categories!!,
-                    duration = duration!!,
-                    freeCancellation = freeCancellation!!,
-                    price = price!!,
-                    supplier = supplier!!,
-                    redemption = redemption,
-                    activityLocations = activityLocations,
-                    reviewScore = reviewScore,
-                    reviewCount = reviewCount,
-                    links = links,
-                    cancellationPolicy = cancellationPolicy,
-                    highlights = highlights,
-                    termsAndConditions = termsAndConditions,
-                    inclusions = inclusions,
-                    exclusions = exclusions,
-                    knowBeforeYouBook = knowBeforeYouBook,
-                    knowBeforeYouGo = knowBeforeYouGo,
-                    offers = offers,
-                )
+            val id = this.id.getOrThrow {
+                IllegalArgumentException("id must not be null")
+            }
+
+            val title = this.title.getOrThrow {
+                IllegalArgumentException("title must not be null")
+            }
+
+            val description = this.description.getOrThrow {
+                IllegalArgumentException("description must not be null")
+            }
+
+            val media = this.media.getOrThrow {
+                IllegalArgumentException("media must not be null")
+            }
+
+            val categories = this.categories.getOrThrow {
+                IllegalArgumentException("categories must not be null")
+            }
+
+            val duration = this.duration.getOrThrow {
+                IllegalArgumentException("duration must not be null")
+            }
+
+            val freeCancellation = this.freeCancellation.getOrThrow {
+                IllegalArgumentException("freeCancellation must not be null")
+            }
+
+            val price = this.price.getOrThrow {
+                IllegalArgumentException("price must not be null")
+            }
+
+            val supplier = this.supplier.getOrThrow {
+                IllegalArgumentException("supplier must not be null")
+            }
+
+            val instance = Activity(
+                id = id,
+                title = title,
+                description = description,
+                media = media,
+                categories = categories,
+                duration = duration,
+                freeCancellation = freeCancellation,
+                price = price,
+                supplier = supplier,
+                redemption = redemption,
+                activityLocations = activityLocations,
+                reviewScore = reviewScore,
+                reviewCount = reviewCount,
+                links = links,
+                cancellationPolicy = cancellationPolicy,
+                highlights = highlights,
+                termsAndConditions = termsAndConditions,
+                inclusions = inclusions,
+                exclusions = exclusions,
+                knowBeforeYouBook = knowBeforeYouBook,
+                knowBeforeYouGo = knowBeforeYouGo,
+                offers = offers,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            id = id!!,
-            title = title!!,
-            description = description!!,
-            media = media!!,
-            categories = categories!!,
-            duration = duration!!,
-            freeCancellation = freeCancellation!!,
-            price = price!!,
-            supplier = supplier!!,
-            redemption = redemption,
-            activityLocations = activityLocations,
-            reviewScore = reviewScore,
-            reviewCount = reviewCount,
-            links = links,
-            cancellationPolicy = cancellationPolicy,
-            highlights = highlights,
-            termsAndConditions = termsAndConditions,
-            inclusions = inclusions,
-            exclusions = exclusions,
-            knowBeforeYouBook = knowBeforeYouBook,
-            knowBeforeYouGo = knowBeforeYouGo,
-            offers = offers,
-        )
+    fun toBuilder() = Builder(
+        id = id,
+        title = title,
+        description = description,
+        media = media,
+        categories = categories,
+        duration = duration,
+        freeCancellation = freeCancellation,
+        price = price,
+        supplier = supplier,
+        redemption = redemption,
+        activityLocations = activityLocations,
+        reviewScore = reviewScore,
+        reviewCount = reviewCount,
+        links = links,
+        cancellationPolicy = cancellationPolicy,
+        highlights = highlights,
+        termsAndConditions = termsAndConditions,
+        inclusions = inclusions,
+        exclusions = exclusions,
+        knowBeforeYouBook = knowBeforeYouBook,
+        knowBeforeYouGo = knowBeforeYouGo,
+        offers = offers,
+    )
 }

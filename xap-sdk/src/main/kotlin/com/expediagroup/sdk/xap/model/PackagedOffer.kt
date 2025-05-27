@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.FlightsV3StayDates
 import com.expediagroup.sdk.xap.model.HotelReference
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -26,27 +27,25 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param stayDates
  * @param numberOfNights Number of nights guest staying in the hotel
  */
-data class PackagedOffer(
-    // Container for Hotel Reference information
+@ConsistentCopyVisibility data class PackagedOffer private constructor(
+    /* Container for Hotel Reference information */
     @JsonProperty("HotelReference")
     val hotelReference: kotlin.collections
         .List<
             HotelReference,
-        >,
-    // Flight offer id
+            >,
+
+    /* Flight offer id */
     @JsonProperty("FlightReferenceId")
     val flightReferenceId: kotlin.String,
+
     @JsonProperty("StayDates")
     val stayDates: FlightsV3StayDates? = null,
-    // Number of nights guest staying in the hotel
+
+    /* Number of nights guest staying in the hotel */
     @JsonProperty("NumberOfNights")
     val numberOfNights: kotlin.Int? = null,
 ) {
-    init {
-        require(hotelReference != null) { "hotelReference must not be null" }
-
-        require(flightReferenceId != null) { "flightReferenceId must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -68,23 +67,29 @@ data class PackagedOffer(
         fun numberOfNights(numberOfNights: kotlin.Int?) = apply { this.numberOfNights = numberOfNights }
 
         fun build(): PackagedOffer {
-            val instance =
-                PackagedOffer(
-                    hotelReference = hotelReference!!,
-                    flightReferenceId = flightReferenceId!!,
-                    stayDates = stayDates,
-                    numberOfNights = numberOfNights,
-                )
+            val hotelReference = this.hotelReference.getOrThrow {
+                IllegalArgumentException("hotelReference must not be null")
+            }
+
+            val flightReferenceId = this.flightReferenceId.getOrThrow {
+                IllegalArgumentException("flightReferenceId must not be null")
+            }
+
+            val instance = PackagedOffer(
+                hotelReference = hotelReference,
+                flightReferenceId = flightReferenceId,
+                stayDates = stayDates,
+                numberOfNights = numberOfNights,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            hotelReference = hotelReference!!,
-            flightReferenceId = flightReferenceId!!,
-            stayDates = stayDates,
-            numberOfNights = numberOfNights,
-        )
+    fun toBuilder() = Builder(
+        hotelReference = hotelReference,
+        flightReferenceId = flightReferenceId,
+        stayDates = stayDates,
+        numberOfNights = numberOfNights,
+    )
 }

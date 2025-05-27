@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.fasterxml.jackson.annotation.JsonProperty
 
 /**
@@ -23,24 +24,20 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param propertySize Size of imageSupported values :s - (165 pixels wide)t - (70 pixels wide)
  * @param href URL for the image.
  */
-data class Image(
-    // Resource typeSupported values :Thumbnail - (70 pixels wide)Image - (165 pixels wide)
+@ConsistentCopyVisibility data class Image private constructor(
+    /* Resource typeSupported values :Thumbnail - (70 pixels wide)Image - (165 pixels wide) */
     @JsonProperty("Type")
     val type: kotlin.String,
-    // Size of imageSupported values :s - (165 pixels wide)t - (70 pixels wide)
+
+    /* Size of imageSupported values :s - (165 pixels wide)t - (70 pixels wide) */
     @JsonProperty("Size")
     val propertySize: kotlin.String,
-    // URL for the image.
+
+    /* URL for the image. */
     @JsonProperty("Href")
     val href: kotlin.String,
+
 ) {
-    init {
-        require(type != null) { "type must not be null" }
-
-        require(propertySize != null) { "propertySize must not be null" }
-
-        require(href != null) { "href must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -59,21 +56,31 @@ data class Image(
         fun href(href: kotlin.String) = apply { this.href = href }
 
         fun build(): Image {
-            val instance =
-                Image(
-                    type = type!!,
-                    propertySize = propertySize!!,
-                    href = href!!,
-                )
+            val type = this.type.getOrThrow {
+                IllegalArgumentException("type must not be null")
+            }
+
+            val propertySize = this.propertySize.getOrThrow {
+                IllegalArgumentException("propertySize must not be null")
+            }
+
+            val href = this.href.getOrThrow {
+                IllegalArgumentException("href must not be null")
+            }
+
+            val instance = Image(
+                type = type,
+                propertySize = propertySize,
+                href = href,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            type = type!!,
-            propertySize = propertySize!!,
-            href = href!!,
-        )
+    fun toBuilder() = Builder(
+        type = type,
+        propertySize = propertySize,
+        href = href,
+    )
 }

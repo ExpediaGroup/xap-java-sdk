@@ -15,6 +15,7 @@
  */
 package com.expediagroup.sdk.xap.model
 
+import com.expediagroup.sdk.core.common.getOrThrow
 import com.expediagroup.sdk.xap.model.Amenities
 import com.expediagroup.sdk.xap.model.FlightsV3Airport
 import com.expediagroup.sdk.xap.model.FlightsV3Distance
@@ -50,103 +51,107 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param mealOptions Different meal options available in this particular Leg.
  * @param amenities
  */
-data class Leg(
+@ConsistentCopyVisibility data class Leg private constructor(
     @JsonProperty("DepartureAirport")
     val departureAirport: FlightsV3Airport,
+
     @JsonProperty("ArrivalAirport")
     val arrivalAirport: FlightsV3Airport,
-    // Flight departure date and time in ISO 8601 format
+
+    /* Flight departure date and time in ISO 8601 format */
     @JsonProperty("DepartureDateTime")
     val departureDateTime: java.time.OffsetDateTime,
-    // Flight landing date and time in ISO 8601 format
+
+    /* Flight landing date and time in ISO 8601 format */
     @JsonProperty("ArrivalDateTime")
     val arrivalDateTime: java.time.OffsetDateTime,
-    // Flight Number assigned by Carrier.
+
+    /* Flight Number assigned by Carrier. */
     @JsonProperty("FlightNumber")
     val flightNumber: kotlin.String,
-    // The two-letter code of the Airline that is marketing the flight.
+
+    /* The two-letter code of the Airline that is marketing the flight. */
     @JsonProperty("MarketingAirlineCode")
     val marketingAirlineCode: kotlin.String,
-    // The total travel duration for this leg, expressed in ISO 8601 standard.
+
+    /* The total travel duration for this leg, expressed in ISO 8601 standard. */
     @JsonProperty("FlightDuration")
     val flightDuration: kotlin.String,
-    // If True seat map is available
+
+    /* If True seat map is available */
     @JsonProperty("SeatMapAvailable")
     val seatMapAvailable: kotlin.Boolean,
-    // Carrier-specific code used for booking (class of service).
+
+    /* Carrier-specific code used for booking (class of service). */
     @JsonProperty("BookingCode")
     val bookingCode: kotlin.String,
-    // Class of service for the air leg.
+
+    /* Class of service for the air leg. */
     @JsonProperty("CabinClass")
     val cabinClass: Leg.CabinClass,
-    // Air segment status.
+
+    /* Air segment status. */
     @JsonProperty("StatusCode")
     val statusCode: kotlin.String? = null,
-    // Container for deeplink URL information.
+
+    /* Container for deeplink URL information. */
     @JsonProperty("Links")
     val links: kotlin.collections.Map<kotlin.String, FlightsV3Link>? = null,
-    // The display name of the Airline that is marketing the flight.
+
+    /* The display name of the Airline that is marketing the flight. */
     @JsonProperty("MarketingAirlineName")
     val marketingAirlineName: kotlin.String? = null,
-    // The two-letter code of the Airline actually operating the plane.
+
+    /* The two-letter code of the Airline actually operating the plane. */
     @JsonProperty("OperatingAirlineCode")
     val operatingAirlineCode: kotlin.String? = null,
-    // The display name of the airline actually operating the plane.
+
+    /* The display name of the airline actually operating the plane. */
     @JsonProperty("OperatingAirlineName")
     val operatingAirlineName: kotlin.String? = null,
-    // IATA Equipment type codes.
+
+    /* IATA Equipment type codes. */
     @JsonProperty("EquipmentCode")
     val equipmentCode: kotlin.String? = null,
-    // Percentage of time that this flight on time.
+
+    /* Percentage of time that this flight on time. */
     @JsonProperty("FlightOnTimePercentage")
     val flightOnTimePercentage: kotlin.String? = null,
-    // The name of equipment that is scheduled for the flight.
+
+    /* The name of equipment that is scheduled for the flight. */
     @JsonProperty("EquipmentName")
     val equipmentName: kotlin.String? = null,
-    // Connection time between current leg flight landed time to next flight departure time, expressed in ISO 8601 standard.
+
+    /* Connection time between current leg flight landed time to next flight departure time, expressed in ISO 8601 standard. */
     @JsonProperty("ConnectionTime")
     val connectionTime: kotlin.String? = null,
-    // OperationalDisclosure.
+
+    /* OperationalDisclosure. */
     @JsonProperty("OperationalDisclosure")
     val operationalDisclosure: kotlin.String? = null,
+
     @JsonProperty("FlightDistance")
     val flightDistance: FlightsV3Distance? = null,
-    // True if the upcoming travel Leg will have different equipment (airplane) compared to the previous Leg.
+
+    /* True if the upcoming travel Leg will have different equipment (airplane) compared to the previous Leg. */
     @JsonProperty("EquipmentChange")
     val equipmentChange: kotlin.Boolean? = null,
-    // List of keys referring to lounge details for the particular leg.
+
+    /* List of keys referring to lounge details for the particular leg. */
     @JsonProperty("LoungeKeys")
     val loungeKeys: kotlin.collections.List<kotlin.String>? = null,
-    // Fare Basis Code for the corresponding Leg of Flight Offer.
+
+    /* Fare Basis Code for the corresponding Leg of Flight Offer. */
     @JsonProperty("FareBasisCode")
     val fareBasisCode: kotlin.String? = null,
-    // Different meal options available in this particular Leg.
+
+    /* Different meal options available in this particular Leg. */
     @JsonProperty("MealOptions")
     val mealOptions: kotlin.collections.List<kotlin.String>? = null,
+
     @JsonProperty("Amenities")
     val amenities: Amenities? = null,
 ) {
-    init {
-        require(departureAirport != null) { "departureAirport must not be null" }
-
-        require(arrivalAirport != null) { "arrivalAirport must not be null" }
-
-        require(departureDateTime != null) { "departureDateTime must not be null" }
-
-        require(arrivalDateTime != null) { "arrivalDateTime must not be null" }
-
-        require(flightNumber != null) { "flightNumber must not be null" }
-
-        require(marketingAirlineCode != null) { "marketingAirlineCode must not be null" }
-
-        require(flightDuration != null) { "flightDuration must not be null" }
-
-        require(seatMapAvailable != null) { "seatMapAvailable must not be null" }
-
-        require(bookingCode != null) { "bookingCode must not be null" }
-
-        require(cabinClass != null) { "cabinClass must not be null" }
-    }
 
     companion object {
         @JvmStatic
@@ -234,77 +239,113 @@ data class Leg(
         fun amenities(amenities: Amenities?) = apply { this.amenities = amenities }
 
         fun build(): Leg {
-            val instance =
-                Leg(
-                    departureAirport = departureAirport!!,
-                    arrivalAirport = arrivalAirport!!,
-                    departureDateTime = departureDateTime!!,
-                    arrivalDateTime = arrivalDateTime!!,
-                    flightNumber = flightNumber!!,
-                    marketingAirlineCode = marketingAirlineCode!!,
-                    flightDuration = flightDuration!!,
-                    seatMapAvailable = seatMapAvailable!!,
-                    bookingCode = bookingCode!!,
-                    cabinClass = cabinClass!!,
-                    statusCode = statusCode,
-                    links = links,
-                    marketingAirlineName = marketingAirlineName,
-                    operatingAirlineCode = operatingAirlineCode,
-                    operatingAirlineName = operatingAirlineName,
-                    equipmentCode = equipmentCode,
-                    flightOnTimePercentage = flightOnTimePercentage,
-                    equipmentName = equipmentName,
-                    connectionTime = connectionTime,
-                    operationalDisclosure = operationalDisclosure,
-                    flightDistance = flightDistance,
-                    equipmentChange = equipmentChange,
-                    loungeKeys = loungeKeys,
-                    fareBasisCode = fareBasisCode,
-                    mealOptions = mealOptions,
-                    amenities = amenities,
-                )
+            val departureAirport = this.departureAirport.getOrThrow {
+                IllegalArgumentException("departureAirport must not be null")
+            }
+
+            val arrivalAirport = this.arrivalAirport.getOrThrow {
+                IllegalArgumentException("arrivalAirport must not be null")
+            }
+
+            val departureDateTime = this.departureDateTime.getOrThrow {
+                IllegalArgumentException("departureDateTime must not be null")
+            }
+
+            val arrivalDateTime = this.arrivalDateTime.getOrThrow {
+                IllegalArgumentException("arrivalDateTime must not be null")
+            }
+
+            val flightNumber = this.flightNumber.getOrThrow {
+                IllegalArgumentException("flightNumber must not be null")
+            }
+
+            val marketingAirlineCode = this.marketingAirlineCode.getOrThrow {
+                IllegalArgumentException("marketingAirlineCode must not be null")
+            }
+
+            val flightDuration = this.flightDuration.getOrThrow {
+                IllegalArgumentException("flightDuration must not be null")
+            }
+
+            val seatMapAvailable = this.seatMapAvailable.getOrThrow {
+                IllegalArgumentException("seatMapAvailable must not be null")
+            }
+
+            val bookingCode = this.bookingCode.getOrThrow {
+                IllegalArgumentException("bookingCode must not be null")
+            }
+
+            val cabinClass = this.cabinClass.getOrThrow {
+                IllegalArgumentException("cabinClass must not be null")
+            }
+
+            val instance = Leg(
+                departureAirport = departureAirport,
+                arrivalAirport = arrivalAirport,
+                departureDateTime = departureDateTime,
+                arrivalDateTime = arrivalDateTime,
+                flightNumber = flightNumber,
+                marketingAirlineCode = marketingAirlineCode,
+                flightDuration = flightDuration,
+                seatMapAvailable = seatMapAvailable,
+                bookingCode = bookingCode,
+                cabinClass = cabinClass,
+                statusCode = statusCode,
+                links = links,
+                marketingAirlineName = marketingAirlineName,
+                operatingAirlineCode = operatingAirlineCode,
+                operatingAirlineName = operatingAirlineName,
+                equipmentCode = equipmentCode,
+                flightOnTimePercentage = flightOnTimePercentage,
+                equipmentName = equipmentName,
+                connectionTime = connectionTime,
+                operationalDisclosure = operationalDisclosure,
+                flightDistance = flightDistance,
+                equipmentChange = equipmentChange,
+                loungeKeys = loungeKeys,
+                fareBasisCode = fareBasisCode,
+                mealOptions = mealOptions,
+                amenities = amenities,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            departureAirport = departureAirport!!,
-            arrivalAirport = arrivalAirport!!,
-            departureDateTime = departureDateTime!!,
-            arrivalDateTime = arrivalDateTime!!,
-            flightNumber = flightNumber!!,
-            marketingAirlineCode = marketingAirlineCode!!,
-            flightDuration = flightDuration!!,
-            seatMapAvailable = seatMapAvailable!!,
-            bookingCode = bookingCode!!,
-            cabinClass = cabinClass!!,
-            statusCode = statusCode,
-            links = links,
-            marketingAirlineName = marketingAirlineName,
-            operatingAirlineCode = operatingAirlineCode,
-            operatingAirlineName = operatingAirlineName,
-            equipmentCode = equipmentCode,
-            flightOnTimePercentage = flightOnTimePercentage,
-            equipmentName = equipmentName,
-            connectionTime = connectionTime,
-            operationalDisclosure = operationalDisclosure,
-            flightDistance = flightDistance,
-            equipmentChange = equipmentChange,
-            loungeKeys = loungeKeys,
-            fareBasisCode = fareBasisCode,
-            mealOptions = mealOptions,
-            amenities = amenities,
-        )
+    fun toBuilder() = Builder(
+        departureAirport = departureAirport,
+        arrivalAirport = arrivalAirport,
+        departureDateTime = departureDateTime,
+        arrivalDateTime = arrivalDateTime,
+        flightNumber = flightNumber,
+        marketingAirlineCode = marketingAirlineCode,
+        flightDuration = flightDuration,
+        seatMapAvailable = seatMapAvailable,
+        bookingCode = bookingCode,
+        cabinClass = cabinClass,
+        statusCode = statusCode,
+        links = links,
+        marketingAirlineName = marketingAirlineName,
+        operatingAirlineCode = operatingAirlineCode,
+        operatingAirlineName = operatingAirlineName,
+        equipmentCode = equipmentCode,
+        flightOnTimePercentage = flightOnTimePercentage,
+        equipmentName = equipmentName,
+        connectionTime = connectionTime,
+        operationalDisclosure = operationalDisclosure,
+        flightDistance = flightDistance,
+        equipmentChange = equipmentChange,
+        loungeKeys = loungeKeys,
+        fareBasisCode = fareBasisCode,
+        mealOptions = mealOptions,
+        amenities = amenities,
+    )
 
     /**
      * Class of service for the air leg.
      * Values: ECONOMY,FIRST,BUSINESS,PREMIUM_ECONOMY
      */
-    enum class CabinClass(
-        val value: kotlin.String,
-    ) {
+    enum class CabinClass(val value: kotlin.String) {
         @JsonProperty("ECONOMY")
         ECONOMY("ECONOMY"),
 

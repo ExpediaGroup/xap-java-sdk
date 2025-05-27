@@ -22,16 +22,15 @@ import com.fasterxml.jackson.annotation.JsonProperty
  * @param available Indication of whether this amenity is available.
  * @param types Type of entertainment
  */
-data class Entertainment(
-    // Indication of whether this amenity is available.
+@ConsistentCopyVisibility data class Entertainment private constructor(
+    /* Indication of whether this amenity is available. */
     @JsonProperty("Available")
     val available: Entertainment.Available? = null,
-    // Type of entertainment
+
+    /* Type of entertainment */
     @JsonProperty("Types")
     val types: kotlin.collections.List<Entertainment.Types>? = null,
 ) {
-    init {
-    }
 
     companion object {
         @JvmStatic
@@ -47,29 +46,25 @@ data class Entertainment(
         fun types(types: kotlin.collections.List<Entertainment.Types>?) = apply { this.types = types }
 
         fun build(): Entertainment {
-            val instance =
-                Entertainment(
-                    available = available,
-                    types = types,
-                )
+            val instance = Entertainment(
+                available = available,
+                types = types,
+            )
 
             return instance
         }
     }
 
-    fun toBuilder() =
-        Builder(
-            available = available,
-            types = types,
-        )
+    fun toBuilder() = Builder(
+        available = available,
+        types = types,
+    )
 
     /**
      * Indication of whether this amenity is available.
      * Values: YES,NO,UNKNOWN
      */
-    enum class Available(
-        val value: kotlin.String,
-    ) {
+    enum class Available(val value: kotlin.String) {
         @JsonProperty("YES")
         YES("YES"),
 
@@ -84,9 +79,7 @@ data class Entertainment(
      * Type of entertainment
      * Values: LIVE_TV,ON_DEMAND,STREAMING
      */
-    enum class Types(
-        val value: kotlin.String,
-    ) {
+    enum class Types(val value: kotlin.String) {
         @JsonProperty("LIVE_TV")
         LIVE_TV("LIVE_TV"),
 
