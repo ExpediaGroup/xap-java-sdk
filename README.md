@@ -1,4 +1,6 @@
 # Expedia Group XAP SDK for Java
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Java Version](https://img.shields.io/badge/java-8%2B-orange)](https://www.oracle.com/java/technologies/javase-downloads.html)
 
 Build a branded travel experience with the Expedia Web Services XAP APIs. Choose from an extensive selection of hotels,
 vacation rentals, flights, cars, activities, and packages to elevate your traveler’s journey.
