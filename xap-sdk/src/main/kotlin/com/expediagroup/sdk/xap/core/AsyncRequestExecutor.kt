@@ -45,49 +45,48 @@ class AsyncRequestExecutor(
 ) : AbstractAsyncRequestExecutor(configuration.asyncTransport) {
     private val headersMask = MaskHeaders(listOf("authorization"))
 
-    override val executionPipeline =
-        ExecutionPipeline(
-            requestPipeline = getRequestPipeline(),
-            responsePipeline = getResponsePipeline(),
+    override val executionPipeline = ExecutionPipeline(
+        requestPipeline = getRequestPipeline(),
+        responsePipeline = getResponsePipeline(),
+    )
+
+    private fun getRequestPipeline(): List<RequestPipelineStep> = when (configuration.credentials) {
+        is BasicAuthCredentials ->
+            listOf(
+                RequestHeadersStep(),
+                ApiKeyHeaderStep(configuration.credentials.username),
+                BasicAuthStep(BasicAuthManager(configuration.credentials)),
+                RequestLoggingStep(
+                    logger = logger,
+                    maskHeaders = headersMask,
+                ),
+            )
+
+        is OAuthCredentials ->
+            listOf(
+                RequestHeadersStep(),
+                ApiKeyHeaderStep(configuration.credentials.key),
+                OAuthStep(
+                    OAuthAsyncManager(
+                        credentials = configuration.credentials,
+                        asyncTransport = asyncTransport,
+                        authUrl = AUTH_ENDPOINT,
+                    ),
+                ),
+                RequestLoggingStep(
+                    logger = logger,
+                    maskHeaders = headersMask,
+                ),
+            )
+
+        else -> throw ExpediaGroupConfigurationException(
+            "Unsupported credentials type: ${configuration.credentials.javaClass.name}",
         )
+    }
 
-    private fun getRequestPipeline(): List<RequestPipelineStep> =
-        when (configuration.credentials) {
-            is BasicAuthCredentials ->
-                listOf(
-                    RequestHeadersStep(),
-                    ApiKeyHeaderStep(configuration.credentials.username),
-                    BasicAuthStep(BasicAuthManager(configuration.credentials)),
-                    RequestLoggingStep(
-                        logger = logger,
-                        maskHeaders = headersMask,
-                    ),
-                )
-
-            is OAuthCredentials ->
-                listOf(
-                    RequestHeadersStep(),
-                    ApiKeyHeaderStep(configuration.credentials.key),
-                    OAuthStep(
-                        OAuthAsyncManager(
-                            credentials = configuration.credentials,
-                            asyncTransport = asyncTransport,
-                            authUrl = AUTH_ENDPOINT,
-                        ),
-                    ),
-                    RequestLoggingStep(
-                        logger = logger,
-                        maskHeaders = headersMask,
-                    ),
-                )
-
-            else -> throw ExpediaGroupConfigurationException("Unsupported credentials type: ${configuration.credentials.javaClass.name}")
-        }
-
-    private fun getResponsePipeline(): List<ResponsePipelineStep> =
-        listOf(
-            ResponseLoggingStep(logger),
-        )
+    private fun getResponsePipeline(): List<ResponsePipelineStep> = listOf(
+        ResponseLoggingStep(logger),
+    )
 
     companion object {
         private val logger = LoggerDecorator(LoggerFactory.getLogger(this::class.java.enclosingClass))

@@ -28,7 +28,6 @@ subprojects {
     apply(plugin = "java")
     apply(plugin = "org.jetbrains.kotlin.jvm")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
-//    apply(plugin = "com.github.hierynomus.license-base")
 
     plugins.withId("org.jetbrains.kotlin.jvm") {
         kotlin {
@@ -68,7 +67,6 @@ subprojects {
 
         additionalEditorconfig.set(
             mapOf(
-                "max_line_length" to "200",
                 "indent_style" to "space",
                 "indent_size" to "4",
                 "insert_final_newline" to "true",

@@ -23,14 +23,14 @@ class Builder(
 {{/nonBodyParams}}
 
     fun build(): {{classname}}Params {
+        {{>partials/operation_params_validations}}
         val params = {{classname}}Params(
         {{#nonBodyParams}}
             {{#params}}
-                {{{paramName}}} = {{{paramName}}}{{#required}}!!{{/required}}{{^-last}},{{/-last}}
+                {{{paramName}}} = {{{paramName}}}{{^-last}},{{/-last}}
             {{/params}}
         {{/nonBodyParams}}
         )
-
         return params
     }
 

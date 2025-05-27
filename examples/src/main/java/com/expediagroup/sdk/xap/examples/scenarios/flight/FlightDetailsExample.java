@@ -18,8 +18,8 @@ package com.expediagroup.sdk.xap.examples.scenarios.flight;
 import com.expediagroup.sdk.xap.client.XapClient;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.model.FlightDetailsResponse;
-import com.expediagroup.sdk.xap.operations.GetFlightDetailsOperation;
-import com.expediagroup.sdk.xap.operations.GetFlightDetailsOperationParams;
+import com.expediagroup.sdk.xap.operation.GetFlightDetailsOperation;
+import com.expediagroup.sdk.xap.operation.GetFlightDetailsOperationParams;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

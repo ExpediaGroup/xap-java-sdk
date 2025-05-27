@@ -60,10 +60,8 @@ class RoomsOperationParamsProcessor(
     private fun roomsHelperTextImpl() = """
         fun rooms(rooms: List<${modelPackage}.Room>) =
             apply {
-                if (rooms.size > 8) {
-                    throw com.expediagroup.sdk.rest.exception.client.PropertyConstraintViolationException(
-                        constraintViolations = listOf("rooms: size must be between 0 and 8")
-                    )
+                require(rooms.size <= 8) {
+                    "A maximum of 8 rooms can be specified"
                 }
 
                 rooms.elementAtOrNull(0)?.let {

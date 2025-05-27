@@ -30,15 +30,12 @@ import java.util.concurrent.CompletableFuture
  *
  * @property restExecutor The executor for handling REST operations.
  */
-class AsyncXapClient private constructor(
-    config: AsyncXapClientConfiguration,
-) : AsyncRestClient() {
-    override val restExecutor: AsyncRestExecutor =
-        AsyncRestExecutor(
-            mapper = OBJECT_MAPPER,
-            serverUrl = ENDPOINT,
-            requestExecutor = AsyncRequestExecutor(configuration = config),
-        )
+class AsyncXapClient private constructor(config: AsyncXapClientConfiguration) : AsyncRestClient() {
+    override val restExecutor: AsyncRestExecutor = AsyncRestExecutor(
+        mapper = OBJECT_MAPPER,
+        serverUrl = ENDPOINT,
+        requestExecutor = AsyncRequestExecutor(configuration = config),
+    )
 
     /**
      * Executes an operation that does not expect a response body.

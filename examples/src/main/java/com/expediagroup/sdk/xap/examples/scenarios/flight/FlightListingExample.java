@@ -19,8 +19,8 @@ import com.expediagroup.sdk.xap.client.XapClient;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.model.FlightSearchResponse;
 import com.expediagroup.sdk.xap.model.GetFlightListingsOperationSegmentParam;
-import com.expediagroup.sdk.xap.operations.GetFlightListingsOperation;
-import com.expediagroup.sdk.xap.operations.GetFlightListingsOperationParams;
+import com.expediagroup.sdk.xap.operation.GetFlightListingsOperation;
+import com.expediagroup.sdk.xap.operation.GetFlightListingsOperationParams;
 
 import java.time.LocalDate;
 import java.util.Arrays;

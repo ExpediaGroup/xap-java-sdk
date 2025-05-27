@@ -1,9 +1,14 @@
 {{#hasHeaderParams}}fun getHeaders(): Headers {
 return Headers.builder().apply {
 {{#headerParams}}
-    {{paramName}}?.let {
-    add("{{baseName}}", it{{#isEnum}}.value{{/isEnum}})
-    }
+    {{#required}}
+        add("{{baseName}}", {{paramName}}{{#isEnum}}.value{{/isEnum}})
+    {{/required}}
+    {{^required}}
+        {{paramName}}?.let {
+            add("{{baseName}}", it{{#isEnum}}.value{{/isEnum}})
+        }
+    {{/required}}
 {{/headerParams}}
 {{#responses}}
     {{#allowedMediaTypes}}
