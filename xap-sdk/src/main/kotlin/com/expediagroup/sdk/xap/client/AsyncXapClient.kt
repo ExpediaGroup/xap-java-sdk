@@ -18,6 +18,7 @@ package com.expediagroup.sdk.xap.client
 import com.expediagroup.sdk.rest.AsyncRestClient
 import com.expediagroup.sdk.rest.AsyncRestExecutor
 import com.expediagroup.sdk.rest.model.Response
+import com.expediagroup.sdk.rest.trait.operation.JacksonModelOperationResponseBodyTrait
 import com.expediagroup.sdk.rest.trait.operation.OperationNoResponseBodyTrait
 import com.expediagroup.sdk.xap.configuration.AsyncXapClientConfiguration
 import com.expediagroup.sdk.xap.configuration.Constant.ENDPOINT
@@ -44,4 +45,13 @@ class AsyncXapClient private constructor(config: AsyncXapClientConfiguration) : 
      * @return A CompletableFuture containing the response.
      */
     fun execute(operation: OperationNoResponseBodyTrait): CompletableFuture<Response<Nothing?>> = restExecutor.execute(operation)
+
+    /**
+     * Executes an operation that expects a response body.
+     *
+     * @param T The type of the response body.
+     * @param operation The operation to execute.
+     * @return A CompletableFuture containing the response.
+     */
+    fun <T : Any> execute(operation: JacksonModelOperationResponseBodyTrait<T>): CompletableFuture<Response<T>> = restExecutor.execute(operation)
 }
