@@ -17,5 +17,5 @@ package com.expediagroup.sdk.xap.configuration
 
 internal object Constant {
     const val ENDPOINT = "https://apim.expedia.com"
-    const val AUTH_ENDPOINT = "https://apim.expediagroup.com/api/v3/token"
+    const val AUTH_ENDPOINT = "https://apim.expedia.com/identity/oauth2/v3/token"
 }
