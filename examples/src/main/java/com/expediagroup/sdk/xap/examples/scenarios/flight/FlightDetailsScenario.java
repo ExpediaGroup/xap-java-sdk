@@ -15,7 +15,9 @@
  */
 package com.expediagroup.sdk.xap.examples.scenarios.flight;
 
+import com.expediagroup.sdk.core.auth.common.Credentials;
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.examples.ScenariosHelper;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.model.FlightDetailsResponse;
 import com.expediagroup.sdk.xap.operation.GetFlightDetailsOperation;
@@ -35,6 +37,12 @@ public class FlightDetailsScenario extends ExampleScenario {
 
     public FlightDetailsScenario(XapClient client) {
         super(client);
+    }
+
+    public static void main(String[] args) {
+        Credentials credentials = ScenariosHelper.getXapCredentials();
+        XapClient client = ScenariosHelper.createClient(credentials);
+        new FlightDetailsScenario(client).run();
     }
 
     @Override

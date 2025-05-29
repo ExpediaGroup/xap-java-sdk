@@ -16,8 +16,10 @@
 package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
 
+import com.expediagroup.sdk.core.auth.common.Credentials;
 import com.expediagroup.sdk.rest.model.Response;
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.examples.ScenariosHelper;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.model.Hotel;
 import com.expediagroup.sdk.xap.model.HotelListingsResponse;
@@ -67,6 +69,12 @@ public class HotelIdsSearchEndToEndScenario extends ExampleScenario {
 
     public HotelIdsSearchEndToEndScenario(XapClient client) {
         super(client);
+    }
+
+    public static void main(String[] args) {
+        Credentials credentials = ScenariosHelper.getXapCredentials();
+        XapClient client = ScenariosHelper.createClient(credentials);
+        new HotelIdsSearchEndToEndScenario(client).run();
     }
 
     /**

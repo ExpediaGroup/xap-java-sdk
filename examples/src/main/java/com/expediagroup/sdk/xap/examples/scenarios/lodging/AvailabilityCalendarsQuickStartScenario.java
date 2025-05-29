@@ -16,7 +16,9 @@
 package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
 
+import com.expediagroup.sdk.core.auth.common.Credentials;
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.examples.ScenariosHelper;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.model.AvailabilityCalendarResponse;
 import com.expediagroup.sdk.xap.operation.GetLodgingAvailabilityCalendarsOperation;
@@ -36,11 +38,17 @@ import org.slf4j.LoggerFactory;
  */
 public class AvailabilityCalendarsQuickStartScenario extends ExampleScenario {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(AvailabilityCalendarsQuickStartScenario.class);
+
     public AvailabilityCalendarsQuickStartScenario(XapClient client) {
         super(client);
     }
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AvailabilityCalendarsQuickStartScenario.class);
+    public static void main(String[] args) {
+        Credentials credentials = ScenariosHelper.getVrboCredentials();
+        XapClient client = ScenariosHelper.createClient(credentials);
+        new AvailabilityCalendarsQuickStartScenario(client).run();
+    }
 
     @Override
     public void run() {

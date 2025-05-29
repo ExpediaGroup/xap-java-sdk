@@ -7,7 +7,16 @@ plugins {
 }
 
 application {
-    mainClass.set("com.expediagroup.sdk.xap.examples.XapSdkDemoTestRun")
+    mainClass.set(project.findProperty("scenario") as String?)
+    applicationDefaultJvmArgs +=
+        listOf(
+            "-Dxapkey=${findProperty("xapkey")}",
+            "-Dxapsecret=${findProperty("xapsecret")}",
+            "-Dvrbokey=${findProperty("vrbokey")}",
+            "-Dvrbosecret=${findProperty("vrbosecret")}",
+            "-Dpartnerkey=${findProperty("partnerkey")}",
+            "-Dauthtype=${findProperty("authtype")}",
+        )
 }
 
 license {

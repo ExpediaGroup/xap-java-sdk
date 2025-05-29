@@ -64,7 +64,7 @@ class AsyncRequestExecutor(
         is XapOAuthCredentials ->
             listOf(
                 RequestHeadersStep(),
-                ApiKeyHeaderStep(configuration.credentials.xapApiKey),
+                ApiKeyHeaderStep(configuration.credentials.partnerKey),
                 OAuthStep(
                     OAuthAsyncManager(
                         credentials = configuration.credentials.oAuthCredentials,

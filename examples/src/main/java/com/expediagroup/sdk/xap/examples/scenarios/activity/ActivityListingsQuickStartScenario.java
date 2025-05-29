@@ -15,7 +15,9 @@
  */
 package com.expediagroup.sdk.xap.examples.scenarios.activity;
 
+import com.expediagroup.sdk.core.auth.common.Credentials;
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.examples.ScenariosHelper;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.model.ActivityListingsResponse;
 import com.expediagroup.sdk.xap.operation.GetActivityListingsOperation;
@@ -38,6 +40,12 @@ public class ActivityListingsQuickStartScenario extends ExampleScenario {
 
     public ActivityListingsQuickStartScenario(XapClient client) {
         super(client);
+    }
+
+    public static void main(String[] args) {
+        Credentials credentials = ScenariosHelper.getXapCredentials();
+        XapClient client = ScenariosHelper.createClient(credentials);
+        new ActivityListingsQuickStartScenario(client).run();
     }
 
     @Override

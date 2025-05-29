@@ -15,8 +15,10 @@
  */
 package com.expediagroup.sdk.xap.examples.scenarios.car;
 
+import com.expediagroup.sdk.core.auth.common.Credentials;
 import com.expediagroup.sdk.rest.model.Response;
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.examples.ScenariosHelper;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.model.CarDetails;
 import com.expediagroup.sdk.xap.model.CarDetailsResponse;
@@ -43,6 +45,12 @@ public class CarDetailsQuickStartScenario extends ExampleScenario {
 
     public CarDetailsQuickStartScenario(XapClient client) {
         super(client);
+    }
+
+    public static void main(String[] args) {
+        Credentials credentials = ScenariosHelper.getXapCredentials();
+        XapClient client = ScenariosHelper.createClient(credentials);
+        new CarDetailsQuickStartScenario(client).run();
     }
 
     /**

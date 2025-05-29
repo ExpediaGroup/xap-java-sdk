@@ -15,7 +15,9 @@
  */
 package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
+import com.expediagroup.sdk.core.auth.common.Credentials;
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.examples.ScenariosHelper;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.model.LodgingQuotesResponse;
 import com.expediagroup.sdk.xap.model.LodgingRoomType;
@@ -42,6 +44,12 @@ public class QuotesQuickStartScenario extends ExampleScenario {
 
     public QuotesQuickStartScenario(XapClient client) {
         super(client);
+    }
+
+    public static void main(String[] args) {
+        Credentials credentials = ScenariosHelper.getVrboCredentials();
+        XapClient client = ScenariosHelper.createClient(credentials);
+        new QuotesQuickStartScenario(client).run();
     }
 
     @Override

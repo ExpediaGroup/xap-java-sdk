@@ -15,8 +15,10 @@
  */
 package com.expediagroup.sdk.xap.examples.scenarios.lodging;
 
+import com.expediagroup.sdk.core.auth.common.Credentials;
 import com.expediagroup.sdk.rest.model.Response;
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.examples.ScenariosHelper;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.model.LodgingQuotesResponse;
 import com.expediagroup.sdk.xap.model.LodgingRoomType;
@@ -59,8 +61,8 @@ import org.slf4j.LoggerFactory;
  */
 public class VrboPropertySearchEndToEndScenario extends ExampleScenario {
 
-    private static final Logger LOGGER =
-        LoggerFactory.getLogger(VrboPropertySearchEndToEndScenario.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(VrboPropertySearchEndToEndScenario.class);
+
     /**
      * This field limits the number of line to read from the SDP DownloadURL API Listings file to
      * reduce time to run the example.
@@ -69,6 +71,7 @@ public class VrboPropertySearchEndToEndScenario extends ExampleScenario {
      * you can adjust the property count to get more properties.
      */
     private static final int SAMPLE_ITEMS_RESTRICTION = 20;
+
     /**
      * A property id to location map. This mocks a cache in this example to store the static content
      * of the properties.
@@ -79,12 +82,32 @@ public class VrboPropertySearchEndToEndScenario extends ExampleScenario {
         super(client);
     }
 
+    public static void main(String[] args) {
+        Credentials credentials = ScenariosHelper.getVrboCredentials();
+        XapClient client = ScenariosHelper.createClient(credentials);
+        new VrboPropertySearchEndToEndScenario(client).run();
+    }
+
+    @Override
+    public void run() {
+        LOGGER.info(
+            "====================== Running VrboPropertySearchEndToEndScenario ======================");
+
+        List<String> propertyIds = getPropertyIdsFromDownloadUrl();
+        cachePropertyLocationFromDownloadUrl(propertyIds);
+        LodgingQuotesResponse lodgingQuotesResponse = getPropertyPriceFromLodgingQuotes(propertyIds);
+        displayResult(lodgingQuotesResponse);
+
+        LOGGER.info(
+            "======================= End VrboPropertySearchEndToEndScenario =========================");
+    }
+
     /**
      * Display the result of the operations.
      *
      * @param lodgingQuotesResponse The response of the Lodging Quotes API.
      */
-    private static void displayResult(LodgingQuotesResponse lodgingQuotesResponse) {
+    private void displayResult(LodgingQuotesResponse lodgingQuotesResponse) {
         LOGGER.info("======================= Executing Step IV: DisplayResult =======================");
         if (lodgingQuotesResponse == null || lodgingQuotesResponse.getProperties() == null
             || lodgingQuotesResponse.getProperties().isEmpty()) {
@@ -150,20 +173,6 @@ public class VrboPropertySearchEndToEndScenario extends ExampleScenario {
                 "==================================== Property End ====================================");
         });
         LOGGER.info("======================= Step IV: DisplayResult Executed ========================");
-    }
-
-    @Override
-    public void run() {
-        LOGGER.info(
-            "====================== Running VrboPropertySearchEndToEndScenario ======================");
-
-        List<String> propertyIds = getPropertyIdsFromDownloadUrl();
-        cachePropertyLocationFromDownloadUrl(propertyIds);
-        LodgingQuotesResponse lodgingQuotesResponse = getPropertyPriceFromLodgingQuotes(propertyIds);
-        displayResult(lodgingQuotesResponse);
-
-        LOGGER.info(
-            "======================= End VrboPropertySearchEndToEndScenario =========================");
     }
 
     private List<String> getPropertyIdsFromDownloadUrl() {

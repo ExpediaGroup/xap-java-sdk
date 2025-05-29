@@ -15,21 +15,25 @@
  */
 package com.expediagroup.sdk.xap.examples;
 
-import com.expediagroup.sdk.core.auth.basic.BasicAuthCredentials;
 import com.expediagroup.sdk.core.auth.common.Credentials;
-import com.expediagroup.sdk.okhttp.OkHttpClientConfiguration;
-import com.expediagroup.sdk.okhttp.OkHttpTransport;
 import com.expediagroup.sdk.xap.client.XapClient;
-import com.expediagroup.sdk.xap.configuration.XapClientConfiguration;
 import com.expediagroup.sdk.xap.examples.scenarios.activity.ActivityDetailsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.activity.ActivityListingsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.car.CarDetailsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.car.CarListingsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.flight.FlightDetailsScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.flight.FlightListingScenario;
-import com.expediagroup.sdk.xap.examples.scenarios.lodging.*;
+import com.expediagroup.sdk.xap.examples.scenarios.lodging.AvailabilityCalendarsQuickStartScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.lodging.HotelIdsSearchEndToEndScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.lodging.ListingsQuickStartScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.lodging.QuotesQuickStartScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.lodging.VrboPropertySearchEndToEndScenario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static com.expediagroup.sdk.xap.examples.ScenariosHelper.createClient;
+import static com.expediagroup.sdk.xap.examples.ScenariosHelper.getVrboCredentials;
+import static com.expediagroup.sdk.xap.examples.ScenariosHelper.getXapCredentials;
 
 /**
  * This is an aggregation runner for all the scenarios for test purposes.
@@ -38,12 +42,8 @@ import org.slf4j.LoggerFactory;
 public class XapSdkDemoTestRun {
     private static final Logger logger = LoggerFactory.getLogger(XapSdkDemoTestRun.class);
 
-    // Or enable OAuth by passing XapOAuthCredentials instead:
-    // Credentials credentials = new XapOAuthCredentials("xap-api-key", new OAuthCredentials("api-key", "api-secret"));
-    // XapOAuthCredentials with builder style:
-    // Credentials credentials = XapOAuthCredentials.builder().xapApiKey("xapKey").key("key).secret("secret").build();
-    private static final Credentials xapCredentials = new BasicAuthCredentials(System.getProperty("XAP_KEY"), System.getProperty("XAP_SECRET"));
-    private static final Credentials vrboCredentials = new BasicAuthCredentials(System.getProperty("VRBO_KEY"), System.getProperty("VRBO_SECRET"));
+    private static final Credentials xapCredentials = getXapCredentials();
+    private static final Credentials vrboCredentials = getVrboCredentials();
 
     private final static XapClient xapScenarioClient = createClient(xapCredentials);
     private final static XapClient vrboScenarioClient = createClient(vrboCredentials);
@@ -79,19 +79,5 @@ public class XapSdkDemoTestRun {
         logger.info("=============================== Cleaning up resources ==============================");
         xapScenarioClient.dispose();
         vrboScenarioClient.dispose();
-    }
-
-    private static XapClient createClient(Credentials credentials) {
-        OkHttpTransport transport = new OkHttpTransport(
-            OkHttpClientConfiguration.builder()
-                .callTimeout(100000)
-                .connectTimeout(100000)
-                .readTimeout(100000)
-                .build()
-        );
-
-        XapClientConfiguration config = new XapClientConfiguration(credentials, transport);
-
-        return new XapClient(config);
     }
 }

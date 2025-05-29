@@ -15,8 +15,10 @@
  */
 package com.expediagroup.sdk.xap.examples.scenarios.activity;
 
+import com.expediagroup.sdk.core.auth.common.Credentials;
 import com.expediagroup.sdk.rest.model.Response;
 import com.expediagroup.sdk.xap.client.XapClient;
+import com.expediagroup.sdk.xap.examples.ScenariosHelper;
 import com.expediagroup.sdk.xap.examples.scenarios.ExampleScenario;
 import com.expediagroup.sdk.xap.model.ActivitiesAddress;
 import com.expediagroup.sdk.xap.model.ActivitiesCancellationPolicy;
@@ -40,11 +42,16 @@ import org.slf4j.LoggerFactory;
  */
 public class ActivityDetailsQuickStartScenario extends ExampleScenario {
 
-    private static final Logger LOGGER =
-        LoggerFactory.getLogger(ActivityDetailsQuickStartScenario.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActivityDetailsQuickStartScenario.class);
 
     public ActivityDetailsQuickStartScenario(XapClient client) {
         super(client);
+    }
+
+    public static void main(String[] args) {
+        Credentials credentials = ScenariosHelper.getXapCredentials();
+        XapClient client = ScenariosHelper.createClient(credentials);
+        new ActivityDetailsQuickStartScenario(client).run();
     }
 
     @Override

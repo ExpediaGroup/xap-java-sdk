@@ -22,23 +22,23 @@ import com.expediagroup.sdk.core.common.getOrThrow
 /**
  * Data class representing XAP OAuth credentials.
  *
- * @property xapApiKey The XAP key used as key header in the SDK requests.
+ * @property partnerKey The XAP key used as key header in the SDK requests.
  * @property oAuthCredentials The OAuth credentials containing key and secret.
  */
 data class XapOAuthCredentials(
-    val xapApiKey: String,
-    val oAuthCredentials: OAuthCredentials
+    val partnerKey: String,
+    val oAuthCredentials: OAuthCredentials,
 ) : Credentials {
     class Builder {
         private var key: String? = null
         private var secret: String? = null
-        private var xapApiKey: String? = null
+        private var partnerKey: String? = null
 
         fun key(key: String) = apply { this.key = key }
 
         fun secret(secret: String) = apply { this.secret = secret }
 
-        fun xapKey(xapKey: String) = apply { this.xapApiKey = xapKey }
+        fun partnerKey(partnerKey: String) = apply { this.partnerKey = partnerKey }
 
         fun build(): XapOAuthCredentials {
             val key = this.key.getOrThrow {
@@ -49,13 +49,13 @@ data class XapOAuthCredentials(
                 IllegalArgumentException("secret must not be null")
             }
 
-            val xapApiKey = this.xapApiKey.getOrThrow {
-                IllegalArgumentException("xapApiKey must not be null")
+            val partnerKey = this.partnerKey.getOrThrow {
+                IllegalArgumentException("partnerKey must not be null")
             }
 
             return XapOAuthCredentials(
-                xapApiKey = xapApiKey,
-                oAuthCredentials = OAuthCredentials(key, secret)
+                partnerKey = partnerKey,
+                oAuthCredentials = OAuthCredentials(key, secret),
             )
         }
     }
