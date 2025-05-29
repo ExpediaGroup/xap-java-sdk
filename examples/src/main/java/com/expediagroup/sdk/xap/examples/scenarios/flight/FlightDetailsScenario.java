@@ -29,12 +29,11 @@ import org.slf4j.LoggerFactory;
  * fare, charges, fees, other terms associated with booking an airline ticket.
  */
 
-public class FlightDetailsExample extends ExampleScenario {
+public class FlightDetailsScenario extends ExampleScenario {
 
-    private static final Logger LOGGER =
-            LoggerFactory.getLogger(FlightDetailsExample.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlightDetailsScenario.class);
 
-    public FlightDetailsExample(XapClient client) {
+    public FlightDetailsScenario(XapClient client) {
         super(client);
     }
 

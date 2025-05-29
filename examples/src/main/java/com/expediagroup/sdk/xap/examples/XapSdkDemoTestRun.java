@@ -25,8 +25,8 @@ import com.expediagroup.sdk.xap.examples.scenarios.activity.ActivityDetailsQuick
 import com.expediagroup.sdk.xap.examples.scenarios.activity.ActivityListingsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.car.CarDetailsQuickStartScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.car.CarListingsQuickStartScenario;
-import com.expediagroup.sdk.xap.examples.scenarios.flight.FlightDetailsExample;
-import com.expediagroup.sdk.xap.examples.scenarios.flight.FlightListingExample;
+import com.expediagroup.sdk.xap.examples.scenarios.flight.FlightDetailsScenario;
+import com.expediagroup.sdk.xap.examples.scenarios.flight.FlightListingScenario;
 import com.expediagroup.sdk.xap.examples.scenarios.lodging.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,8 +42,8 @@ public class XapSdkDemoTestRun {
     // Credentials credentials = new XapOAuthCredentials("xap-api-key", new OAuthCredentials("api-key", "api-secret"));
     // XapOAuthCredentials with builder style:
     // Credentials credentials = XapOAuthCredentials.builder().xapApiKey("xapKey").key("key).secret("secret").build();
-    private static final Credentials xapCredentials = new BasicAuthCredentials(System.getenv("XAP_KEY"), System.getenv("XAP_SECRET"));
-    private static final Credentials vrboCredentials = new BasicAuthCredentials(System.getenv("VRBO_KEY"), System.getenv("VRBO_SECRET"));
+    private static final Credentials xapCredentials = new BasicAuthCredentials(System.getProperty("XAP_KEY"), System.getProperty("XAP_SECRET"));
+    private static final Credentials vrboCredentials = new BasicAuthCredentials(System.getProperty("VRBO_KEY"), System.getProperty("VRBO_SECRET"));
 
     private final static XapClient xapScenarioClient = createClient(xapCredentials);
     private final static XapClient vrboScenarioClient = createClient(vrboCredentials);
@@ -71,8 +71,8 @@ public class XapSdkDemoTestRun {
 
 
         logger.info("============================== Running Flight Scenarios =============================");
-        new FlightListingExample(xapScenarioClient).run();
-        new FlightDetailsExample(xapScenarioClient).run();
+        new FlightListingScenario(xapScenarioClient).run();
+        new FlightDetailsScenario(xapScenarioClient).run();
         logger.info("=============================== End of Flight Scenarios ==============================");
 
 

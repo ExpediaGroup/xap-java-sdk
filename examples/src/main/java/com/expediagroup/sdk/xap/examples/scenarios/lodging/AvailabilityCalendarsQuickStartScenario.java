@@ -47,11 +47,9 @@ public class AvailabilityCalendarsQuickStartScenario extends ExampleScenario {
         // This example returns the availability of each day for a range of dates for given Expedia
         // lodging properties.
 
-        LOGGER.info(
-            "=================== Running AvailabilityCalendarsQuickStartScenario ===================");
+        LOGGER.info("=================== Running AvailabilityCalendarsQuickStartScenario ===================");
 
-        LOGGER.info(
-            "================= Executing GetLodgingAvailabilityCalendars Operation ================");
+        LOGGER.info("================= Executing GetLodgingAvailabilityCalendars Operation ================");
 
 
         // Build the query parameters with GetLodgingAvailabilityCalendarsOperationParams
@@ -66,16 +64,6 @@ public class AvailabilityCalendarsQuickStartScenario extends ExampleScenario {
         AvailabilityCalendarResponse availabilityCalendarResponse =
             client.execute(new GetLodgingAvailabilityCalendarsOperation(
                 availabilityCalendarsOperationParams)).getData();
-
-        // If you want to use the async method, you can use the following code:
-        // ---------------------------------------------------------------
-        // CompletableFuture<Response<AvailabilityCalendarResponse>> completableFuture =
-        //   xapClient.executeAsync(
-        //     new GetLodgingAvailabilityCalendarsOperation(availabilityCalendarsOperationParams));
-        // completableFuture.thenAccept(availCalendarResponse -> {
-        //   // Your code here
-        // });
-        // ---------------------------------------------------------------
 
         LOGGER.info(
             "================== GetLodgingAvailabilityCalendarsOperation Executed =================");

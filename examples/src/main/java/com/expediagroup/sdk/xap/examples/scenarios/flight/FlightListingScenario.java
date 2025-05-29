@@ -34,10 +34,10 @@ import org.slf4j.LoggerFactory;
  * round-trip and multi-stop with adults, seniors, and children.
  */
 
-public class FlightListingExample extends ExampleScenario {
-    private static final Logger LOGGER = LoggerFactory.getLogger(FlightListingExample.class);
+public class FlightListingScenario extends ExampleScenario {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlightListingScenario.class);
 
-    public FlightListingExample(XapClient client) {
+    public FlightListingScenario(XapClient client) {
         super(client);
     }
 
