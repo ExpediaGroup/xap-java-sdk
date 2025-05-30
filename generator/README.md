@@ -68,7 +68,7 @@ A typical workflow to generate new models and operations involves the following 
 
 This task merges all OpenAPI spec files into a single `specs.yaml` file.
 
-#### Transform the merged spec
+#### Step 3 - Transform the merged spec
 
 ```bash
 ./gradlew :generator:transformSpecs
@@ -76,7 +76,7 @@ This task merges all OpenAPI spec files into a single `specs.yaml` file.
 
 This task transforms the merged spec file into a single file `transformed-spec.yaml` suitable for the SDK generator.
    
-#### Generate and format the SDK code
+#### Step 4 - Generate and format the SDK code
 ```bash
 ./gradlew :generator:generateAndFormat
 
