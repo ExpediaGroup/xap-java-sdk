@@ -2,7 +2,7 @@
 The Generator module is a core component of the XAP Java SDK. It automatically produces SDK code from OpenAPI specifications.
 It leverages the [Expedia Group SDK Generator](https://github.com/ExpediaGroup/expediagroup-java-sdk/tree/feature/new-sdk-core/expediagroup-sdk-openapi-plugin) to transform API specifications into type-safe, consistent, and well-documented client code.
 
-The generator is customized to produce models and operations from the provided specification; requests execution logic is handled by other **manually-implemented** classes that delegates the request execution to an internal [Expedia Group SDK](https://github.com/ExpediaGroup/expediagroup-java-sdk/tree/feature/new-sdk-core) core modules.
+The generator is customized to produce models and operations from the provided specification; requests execution logic is handled by other **manually-implemented** classes that delegate the request execution to an internal [Expedia Group SDK](https://github.com/ExpediaGroup/expediagroup-java-sdk/tree/feature/new-sdk-core) core modules.
 
 ---
 
