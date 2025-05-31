@@ -14,24 +14,19 @@ You can read more about the XAP API on [Developer Hub for XAP](https://developer
 The XAP SDK makes integrating simple, saving development time so you can focus more on getting your product to market
 and less on the technical details of the API.
 
-## Installation
+### Installation
 Make sure you have **Java 8** or higher.
 
 **Gradle**
 ```groovy
-// gradle.build
 dependencies {
-    // Add SDK transport dependency
-    implementation 'com.expediagroup:expediagroup-sdk-transport-okhttp:0.0.4-alpha'
-    implementation 'com.expediagroup:xap-sdk:1.0.0-SNAPSHOT'
+    implementation 'com.expediagroup:expediagroup-sdk-transport-okhttp:0.0.5-alpha'
+    implementation 'com.expediagroup:xap-sdk:2.0.0-alpha'
 }
 ```
 
 **Maven**
 ```xml
-<!-- pom.xml -->
-
-<!-- Add SDK transport dependency -->
 <dependency>
     <groupId>com.expediagroup</groupId>
     <artifactId>expediagroup-sdk-transport</artifactId>
@@ -44,8 +39,13 @@ dependencies {
 </dependency>
 ```
 
-## Code Examples
+## SDK Usage and Configuration
+See the [xap-sdk](xap-sdk) module for a Quick Start guide, OAuth2 configuration, asynchronous usage, and details on customizing the transport layer.
 
+## Code Generation
+To learn how SDK code is generated from OpenAPI specifications, refer to the [generator](generator) module.
+
+## Code Examples
 You can find code examples for multiple use cases in the [examples](examples) directory.
 
 ## Integration Tests
@@ -60,3 +60,6 @@ If you have any questions or need help with XAP, please refer to the
 
 If you experience any issues with the SDK, please raise an issue on the
 [GitHub repository](https://github.com/ExpediaGroup/xap-java-sdk/issues).
+
+## License
+This project is licensed under the [Apache License 2.0](LICENSE).
