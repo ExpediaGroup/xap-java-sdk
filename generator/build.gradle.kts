@@ -19,7 +19,7 @@ egSdkGenerator {
     basePackage = basePackageStr
     specFilePath = File("$specsDir/transformed-spec.yaml")
 
-    objectMapper = "com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER"
+    objectMapper = "com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE"
 
     outputDir = File("$rootDir/xap-sdk/src/main/kotlin")
     customTemplatesDir = File("$projectDir/src/main/resources/templates")

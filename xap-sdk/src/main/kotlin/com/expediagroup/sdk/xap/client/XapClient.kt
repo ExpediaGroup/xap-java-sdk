@@ -21,9 +21,9 @@ import com.expediagroup.sdk.rest.model.Response
 import com.expediagroup.sdk.rest.trait.operation.JacksonModelOperationResponseBodyTrait
 import com.expediagroup.sdk.rest.trait.operation.OperationNoResponseBodyTrait
 import com.expediagroup.sdk.xap.configuration.Constant.ENDPOINT
-import com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER
 import com.expediagroup.sdk.xap.configuration.XapClientConfiguration
-import com.expediagroup.sdk.xap.core.RequestExecutor
+import com.expediagroup.sdk.xap.core.executor.RequestExecutor
+import com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper
 
 /**
  * Synchronous client for XAP API.
@@ -32,7 +32,7 @@ import com.expediagroup.sdk.xap.core.RequestExecutor
  */
 class XapClient(config: XapClientConfiguration) : RestClient() {
     override val restExecutor: RestExecutor = RestExecutor(
-        mapper = OBJECT_MAPPER,
+        mapper = XapJacksonObjectMapper.INSTANCE,
         serverUrl = ENDPOINT,
         requestExecutor = RequestExecutor(config),
     )

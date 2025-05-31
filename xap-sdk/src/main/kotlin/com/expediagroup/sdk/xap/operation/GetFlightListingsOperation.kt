@@ -95,7 +95,7 @@ class GetFlightListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3Errors::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, FlightsV3Errors::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -108,7 +108,7 @@ class GetFlightListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3APIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, FlightsV3APIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -121,7 +121,7 @@ class GetFlightListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3APIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, FlightsV3APIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -134,7 +134,7 @@ class GetFlightListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3APIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, FlightsV3APIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -147,7 +147,7 @@ class GetFlightListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3Errors::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, FlightsV3Errors::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -160,7 +160,7 @@ class GetFlightListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3APIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, FlightsV3APIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -173,7 +173,7 @@ class GetFlightListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3Errors::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, FlightsV3Errors::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -186,7 +186,7 @@ class GetFlightListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, FlightsV3APIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, FlightsV3APIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -199,7 +199,7 @@ class GetFlightListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, String::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, String::class.java)
                 } catch (e: Exception) {
                     null
                 }

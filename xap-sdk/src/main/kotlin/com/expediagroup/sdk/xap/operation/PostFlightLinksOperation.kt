@@ -108,7 +108,7 @@ class PostFlightLinksOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, ErrorResponse::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, ErrorResponse::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -121,7 +121,7 @@ class PostFlightLinksOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, PostFlightLinks401Response::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, PostFlightLinks401Response::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -134,7 +134,7 @@ class PostFlightLinksOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, PostFlightLinks403Response::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, PostFlightLinks403Response::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -147,7 +147,7 @@ class PostFlightLinksOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, PostFlightLinks404Response::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, PostFlightLinks404Response::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -160,7 +160,7 @@ class PostFlightLinksOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, PostFlightLinks405Response::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, PostFlightLinks405Response::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -173,7 +173,7 @@ class PostFlightLinksOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, PostFlightLinks429Response::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, PostFlightLinks429Response::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -186,7 +186,7 @@ class PostFlightLinksOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, ErrorResponse::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, ErrorResponse::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -199,7 +199,7 @@ class PostFlightLinksOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, PostFlightLinks503Response::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, PostFlightLinks503Response::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -212,7 +212,7 @@ class PostFlightLinksOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, PostFlightLinks504Response::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, PostFlightLinks504Response::class.java)
                 } catch (e: Exception) {
                     null
                 }

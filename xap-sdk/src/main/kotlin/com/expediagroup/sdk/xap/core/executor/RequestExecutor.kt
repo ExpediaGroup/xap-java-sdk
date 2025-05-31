@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.expediagroup.sdk.xap.core
+package com.expediagroup.sdk.xap.core.executor
 
 import com.expediagroup.sdk.core.auth.basic.BasicAuthCredentials
 import com.expediagroup.sdk.core.auth.basic.BasicAuthManager
-import com.expediagroup.sdk.core.auth.oauth.OAuthAsyncManager
+import com.expediagroup.sdk.core.auth.oauth.OAuthManager
 import com.expediagroup.sdk.core.exception.client.ExpediaGroupConfigurationException
 import com.expediagroup.sdk.core.logging.LoggerDecorator
 import com.expediagroup.sdk.core.logging.masking.MaskHeaders
@@ -29,19 +29,21 @@ import com.expediagroup.sdk.core.pipeline.step.OAuthStep
 import com.expediagroup.sdk.core.pipeline.step.RequestHeadersStep
 import com.expediagroup.sdk.core.pipeline.step.RequestLoggingStep
 import com.expediagroup.sdk.core.pipeline.step.ResponseLoggingStep
-import com.expediagroup.sdk.core.transport.AbstractAsyncRequestExecutor
-import com.expediagroup.sdk.xap.configuration.AsyncXapClientConfiguration
+import com.expediagroup.sdk.core.transport.AbstractRequestExecutor
 import com.expediagroup.sdk.xap.configuration.Constant.AUTH_ENDPOINT
+import com.expediagroup.sdk.xap.configuration.XapClientConfiguration
+import com.expediagroup.sdk.xap.core.model.XapOAuthCredentials
+import com.expediagroup.sdk.xap.core.pipeline.ApiKeyHeaderStep
 import org.slf4j.LoggerFactory
 
 /**
- * Executor for handling asynchronous requests with XAP client configuration.
+ * Executor for handling synchronous requests with XAP client configuration.
  *
- * @param configuration The configuration for the asynchronous XAP client.
+ * @param configuration The configuration for the XAP client.
  */
-class AsyncRequestExecutor(
-    private val configuration: AsyncXapClientConfiguration,
-) : AbstractAsyncRequestExecutor(configuration.asyncTransport) {
+class RequestExecutor(
+    private val configuration: XapClientConfiguration,
+) : AbstractRequestExecutor(configuration.transport) {
     private val headersMask = MaskHeaders(listOf("authorization"))
 
     override val executionPipeline = ExecutionPipeline(
@@ -66,9 +68,9 @@ class AsyncRequestExecutor(
                 RequestHeadersStep(),
                 ApiKeyHeaderStep(configuration.credentials.partnerKey),
                 OAuthStep(
-                    OAuthAsyncManager(
+                    OAuthManager(
                         credentials = configuration.credentials.oAuthCredentials,
-                        asyncTransport = asyncTransport,
+                        transport = transport,
                         authUrl = AUTH_ENDPOINT,
                     ),
                 ),

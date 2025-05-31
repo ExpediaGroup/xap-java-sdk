@@ -22,8 +22,8 @@ import com.expediagroup.sdk.rest.trait.operation.JacksonModelOperationResponseBo
 import com.expediagroup.sdk.rest.trait.operation.OperationNoResponseBodyTrait
 import com.expediagroup.sdk.xap.configuration.AsyncXapClientConfiguration
 import com.expediagroup.sdk.xap.configuration.Constant.ENDPOINT
-import com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER
-import com.expediagroup.sdk.xap.core.AsyncRequestExecutor
+import com.expediagroup.sdk.xap.core.executor.AsyncRequestExecutor
+import com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper
 import java.util.concurrent.CompletableFuture
 
 /**
@@ -33,7 +33,7 @@ import java.util.concurrent.CompletableFuture
  */
 class AsyncXapClient private constructor(config: AsyncXapClientConfiguration) : AsyncRestClient() {
     override val restExecutor: AsyncRestExecutor = AsyncRestExecutor(
-        mapper = OBJECT_MAPPER,
+        mapper = XapJacksonObjectMapper.INSTANCE,
         serverUrl = ENDPOINT,
         requestExecutor = AsyncRequestExecutor(configuration = config),
     )

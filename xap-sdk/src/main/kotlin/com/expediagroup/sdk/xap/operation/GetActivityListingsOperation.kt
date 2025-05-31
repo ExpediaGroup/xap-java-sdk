@@ -93,7 +93,7 @@ class GetActivityListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, ActivitiesErrors::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, ActivitiesErrors::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -106,7 +106,7 @@ class GetActivityListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, APIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, APIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -119,7 +119,7 @@ class GetActivityListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, APIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, APIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -132,7 +132,7 @@ class GetActivityListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, APIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, APIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -145,7 +145,7 @@ class GetActivityListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, APIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, APIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -158,7 +158,7 @@ class GetActivityListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, ActivitiesErrors::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, ActivitiesErrors::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -171,7 +171,7 @@ class GetActivityListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, APIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, APIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -184,7 +184,7 @@ class GetActivityListingsOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, String::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, String::class.java)
                 } catch (e: Exception) {
                     null
                 }

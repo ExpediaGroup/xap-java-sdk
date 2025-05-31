@@ -85,7 +85,7 @@ class GetFeedDownloadUrlOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, PresignedUrlResponse::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, PresignedUrlResponse::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -98,7 +98,7 @@ class GetFeedDownloadUrlOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, SdpAPIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, SdpAPIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -111,7 +111,7 @@ class GetFeedDownloadUrlOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, SdpAPIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, SdpAPIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -124,7 +124,7 @@ class GetFeedDownloadUrlOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, SdpAPIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, SdpAPIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -137,7 +137,7 @@ class GetFeedDownloadUrlOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, SdpAPIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, SdpAPIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -150,7 +150,7 @@ class GetFeedDownloadUrlOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, PresignedUrlResponse::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, PresignedUrlResponse::class.java)
                 } catch (e: Exception) {
                     null
                 }
@@ -163,7 +163,7 @@ class GetFeedDownloadUrlOperation(
             requestId = requestId,
             errorResponse = errorResponseStr?.let {
                 try {
-                    com.expediagroup.sdk.xap.configuration.OBJECT_MAPPER.readValue(errorResponseStr, SdpAPIMError::class.java)
+                    com.expediagroup.sdk.xap.core.mapper.XapJacksonObjectMapper.INSTANCE.readValue(errorResponseStr, SdpAPIMError::class.java)
                 } catch (e: Exception) {
                     null
                 }

@@ -21,7 +21,7 @@ import com.expediagroup.sdk.okhttp.OkHttpClientConfiguration;
 import com.expediagroup.sdk.okhttp.OkHttpTransport;
 import com.expediagroup.sdk.xap.client.XapClient;
 import com.expediagroup.sdk.xap.configuration.XapClientConfiguration;
-import com.expediagroup.sdk.xap.core.XapOAuthCredentials;
+import com.expediagroup.sdk.xap.core.model.XapOAuthCredentials;
 
 public class ScenariosHelper {
     public static final String XAP_KEY_PROPERTY = "xapkey";

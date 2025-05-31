@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.expediagroup.sdk.xap.core
+package com.expediagroup.sdk.xap.core.model
 
 import com.expediagroup.sdk.core.auth.common.Credentials
 import com.expediagroup.sdk.core.auth.oauth.OAuthCredentials
