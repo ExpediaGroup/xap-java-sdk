@@ -1,6 +1,6 @@
 # xap-sdk
 
-This is the primary XAP SDK module published to Maven Central. It includes generated operations and models, as well as manually implemented classes that bridge the SDK with internal EG SDK modules for request execution.
+This is the primary XAP SDK module published to Maven Central. It includes generated operations and models, along with manually implemented classes that integrate the SDK with internal [Expedia Group SDK](https://github.com/ExpediaGroup/expediagroup-java-sdk/tree/feature/new-sdk-core) modules for request execution.
 
 ## Table of Contents
 
@@ -10,9 +10,9 @@ This is the primary XAP SDK module published to Maven Central. It includes gener
 4. [Authenticate with OAuth2](#authenticate-with-oauth2)  
 5. [Customize the SDK Transport](#customize-the-sdk-transport)
 6. [Implement Your Own SDK Transport](#implement-your-own-sdk-transport)
-5. [Logging](#logging)
+7. [Logging](#logging)
    * [Use SL4J Implementation](#use-sl4j-implementation)
-7. [License](#license)
+8. [License](#license)
 
 
 ## Installation
@@ -94,10 +94,10 @@ asyncXapClient.execute(operation).thenAccept(response -> {
 ```
 
 ## Authenticate with OAuth2
-The examples above use `BasicAuthCredentials` to authenticate with the XAP APIs; however, the SDK also supports the OAuth2 authentication model. To enable it, simply change the Credentials type to `XapOAuthCredentials`
+The examples above use `BasicAuthCredentials` to authenticate with the XAP APIs; however, the SDK also supports the OAuth2 authentication model. To enable it, simply use `XapOAuthCredentials` instead of `BasicAuthCredentials` when building your configuration.
 
 ```java
-Credenetials credenetials = XapOAuthCredentials.builder()
+Credenetials credentials = XapOAuthCredentials.builder()
     .key("your_api_key")
     .secret("your_api_secret")
     .partnerKey("your_partner_key")
@@ -109,7 +109,7 @@ Credenetials credenetials = XapOAuthCredentials.builder()
 ## Customize the SDK Transport
 The XAP SDK uses a pluggable `Transport` abstraction to handle HTTP communication. A `Transport` defines how requests are sent and responses are received, acting as a wrapper around the underlying HTTP client (e.g., OkHttp). This design allows you to swap or customize the HTTP layer without modifying the core SDK logic.
 
-You can customise the default behavior by providing your own `Transport` configurations when constructing the SDK client.
+You can customize the default behavior by providing your own `Transport` configurations when constructing the SDK client.
 `
 For example, the `expediagroup-sdk-transport-okhttp` module provides a `Transport` implementation based on `OkHttp`
 
@@ -186,7 +186,7 @@ class MyTransport implements Transport {
         MyHttpResponse myHttpResponse = myHttpClient.execute(myHttpRequest);
 
         /* 3. Map it back to SDK [Response] */
-        // you would typically need to set the headers, response body, Status, etc...
+        // You would typically need to set headers, the response body, status code, etc.
         Response sdkResponse = Response.builder().build();
 
         /* Return the Response */
@@ -212,7 +212,7 @@ Without a logging framework plugged in, the SDK (SLF4J) defaults to a no-operati
 ### Use SL4J Implementation
 Plug in a particular logging framework by declaring it as a project dependency. By design, SLF4J can use only one framework at a time, and it will emit a warning message if it finds multiple frameworks.
 
-Taking Simpler Logger as an example:
+For example, to use the Simple Logger:
 
 **Gradle**
 ```groovy
