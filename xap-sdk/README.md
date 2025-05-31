@@ -11,7 +11,7 @@ This is the primary XAP SDK module published to Maven Central. It includes gener
 5. [Customize the SDK Transport](#customize-the-sdk-transport)
 6. [Implement Your Own SDK Transport](#implement-your-own-sdk-transport)
 7. [Logging](#logging)
-   * [Use SL4J Implementation](#use-sl4j-implementation)
+   * [Use SLF4J Implementation](#use-sl4j-implementation)
 8. [License](#license)
 
 
@@ -97,7 +97,7 @@ asyncXapClient.execute(operation).thenAccept(response -> {
 The examples above use `BasicAuthCredentials` to authenticate with the XAP APIs; however, the SDK also supports the OAuth2 authentication model. To enable it, simply use `XapOAuthCredentials` instead of `BasicAuthCredentials` when building your configuration.
 
 ```java
-Credenetials credentials = XapOAuthCredentials.builder()
+Credentials credentials = XapOAuthCredentials.builder()
     .key("your_api_key")
     .secret("your_api_secret")
     .partnerKey("your_partner_key")
@@ -209,7 +209,7 @@ The Expedia Group XAP SDK for Java does not impose a logging framework on client
 
 Without a logging framework plugged in, the SDK (SLF4J) defaults to a no-operation, discarding all log requests with a single warning message.
 
-### Use SL4J Implementation
+### Use SLF4J Implementation
 Plug in a particular logging framework by declaring it as a project dependency. By design, SLF4J can use only one framework at a time, and it will emit a warning message if it finds multiple frameworks.
 
 For example, to use the Simple Logger:
