@@ -9,19 +9,5 @@ gradle.taskGraph.whenReady { taskGraph ->
 }
 
 tasks.register("publishSnapshot") {
-    def snapshotModules = rootProject.subprojects.findAll { project ->
-        project.version.toString().contains("-SNAPSHOT") && project.tasks.named("publish") != null
-    }
-
-    if (!snapshotModules.isEmpty()) {
-        dependsOn snapshotModules.collect { ":${it.name}:publish" }
-    }
-
-    doLast {
-        if (snapshotModules.isEmpty()) {
-            println "❌ No snapshot modules to publish."
-        } else {
-            println "📦 Successfully published snapshots for: ${snapshotModules*.name}"
-        }
-    }
+    dependsOn(":xap-sdk:publish")
 }
