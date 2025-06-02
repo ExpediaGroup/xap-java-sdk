@@ -2,13 +2,13 @@
 // We're setting the root project to a dummy version (1.0.0-SNAPSHOT) to instruct the plugin to use the snapshot repo.
 // This version won't be published. The publishSnapshots task will publish submodules with the defined version in their gradle.properties
 gradle.taskGraph.whenReady { taskGraph ->
-    if (taskGraph.hasTask(":publishSnapshots")) {
+    if (taskGraph.hasTask(":publishSnapshot")) {
         rootProject.version = "1.0.0-SNAPSHOT"
         println "📌 Setting root project version to 1.0.0-SNAPSHOT for publishSnapshots task"
     }
 }
 
-tasks.register("publishSnapshots") {
+tasks.register("publishSnapshot") {
     def snapshotModules = rootProject.subprojects.findAll { project ->
         project.version.toString().contains("-SNAPSHOT") && project.tasks.named("publish") != null
     }
