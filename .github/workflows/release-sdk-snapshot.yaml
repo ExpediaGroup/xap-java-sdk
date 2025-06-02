@@ -1,12 +1,9 @@
 name: Snapshot Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch to build SDK and release the SDK from'
-        required: true
-        type: string
+  push:
+    branches:
+      - "v2-dev"
 
 jobs:
   run-integration-tests:
