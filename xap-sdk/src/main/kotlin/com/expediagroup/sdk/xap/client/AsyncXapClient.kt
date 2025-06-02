@@ -31,7 +31,7 @@ import java.util.concurrent.CompletableFuture
  *
  * @property restExecutor The executor for handling REST operations.
  */
-class AsyncXapClient private constructor(config: AsyncXapClientConfiguration) : AsyncRestClient() {
+class AsyncXapClient(config: AsyncXapClientConfiguration) : AsyncRestClient() {
     override val restExecutor: AsyncRestExecutor = AsyncRestExecutor(
         mapper = XapJacksonObjectMapper.INSTANCE,
         serverUrl = ENDPOINT,
