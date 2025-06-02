@@ -32,6 +32,7 @@ import com.expediagroup.sdk.core.pipeline.step.ResponseLoggingStep
 import com.expediagroup.sdk.core.transport.AbstractAsyncRequestExecutor
 import com.expediagroup.sdk.xap.configuration.AsyncXapClientConfiguration
 import com.expediagroup.sdk.xap.configuration.Constant.AUTH_ENDPOINT
+import com.expediagroup.sdk.xap.configuration.loggableMediaTypes
 import com.expediagroup.sdk.xap.core.model.XapOAuthCredentials
 import com.expediagroup.sdk.xap.core.pipeline.ApiKeyHeaderStep
 import org.slf4j.LoggerFactory
@@ -60,6 +61,7 @@ class AsyncRequestExecutor(
                 RequestLoggingStep(
                     logger = logger,
                     maskHeaders = headersMask,
+                    loggableContentTypes = loggableMediaTypes,
                 ),
             )
 
@@ -77,6 +79,7 @@ class AsyncRequestExecutor(
                 RequestLoggingStep(
                     logger = logger,
                     maskHeaders = headersMask,
+                    loggableContentTypes = loggableMediaTypes,
                 ),
             )
 
@@ -86,7 +89,10 @@ class AsyncRequestExecutor(
     }
 
     private fun getResponsePipeline(): List<ResponsePipelineStep> = listOf(
-        ResponseLoggingStep(logger),
+        ResponseLoggingStep(
+            logger = logger,
+            loggableContentTypes = loggableMediaTypes,
+        ),
     )
 
     companion object {
