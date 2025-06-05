@@ -1,9 +1,7 @@
 name: Snapshot Release
 
 on:
-  push:
-    branches:
-      - "v2-dev"
+  workflow_dispatch:
 
 jobs:
   release:
