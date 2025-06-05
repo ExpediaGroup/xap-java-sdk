@@ -2,6 +2,9 @@ name: Stable Release
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - 'v2-dev'
 
 jobs:
   run-e2e-examples:
