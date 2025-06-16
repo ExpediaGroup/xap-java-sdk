@@ -288,13 +288,13 @@ public class HotelIdsSearchEndToEndScenario extends ExampleScenario {
                 while ((entry = zipStream.getNextEntry()) != null) {
                     if (entry.getName().endsWith(".jsonl")) {
                         LOGGER.info("Reading property ids from file: {}", entry.getName());
-                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(zipStream))) {
-                            String line;
-                            ObjectMapper objectMapper = new ObjectMapper();
-                            while ((line = reader.readLine()) != null
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(zipStream));
+                        String line;
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        while ((line = reader.readLine()) != null
                                 && propertyIds.size() < SAMPLE_ITEMS_RESTRICTION) {
-                                // Parse the property id from the json object
-                                // An example json line from the jsonl file:
+                            // Parse the property id from the json object
+                            // An example json line from the jsonl file:
                 /*
                 {
                   "propertyId": {
@@ -323,21 +323,23 @@ public class HotelIdsSearchEndToEndScenario extends ExampleScenario {
                   }
                 }
                 */
-                                JsonNode jsonNode = objectMapper.readTree(line);
-                                // Check if the property is accessible from Lodging Listings API
-                                // (Vrbo properties that are not instantBookable are not accessible for now)
-                                if (!jsonNode.get("propertyId").get("vrbo").asText().isEmpty()
+                            JsonNode jsonNode = objectMapper.readTree(line);
+                            // Check if the property is accessible from Lodging Listings API
+                            // (Vrbo properties that are not instantBookable are not accessible for now)
+                            if (!jsonNode.get("propertyId").get("vrbo").asText().isEmpty()
                                     && jsonNode.has("vrboPropertyType")
                                     && !jsonNode.get("vrboPropertyType").get("instantBook").asBoolean()
-                                ) {
-                                    // Skip the property if it is not an instant bookable Vrbo property
-                                    continue;
-                                } else {
-                                    // Get the Expedia property id for the Lodging Listings API
-                                    propertyIds.add(jsonNode.get("propertyId").get("expedia").asText());
-                                }
+                            ) {
+                                // Skip the property if it is not an instant bookable Vrbo property
+                                continue;
+                            } else {
+                                // Get the Expedia property id for the Lodging Listings API
+                                propertyIds.add(jsonNode.get("propertyId").get("expedia").asText());
                             }
                         }
+                        zipStream.closeEntry();
+                        reader.close();
+                        break;
                     }
                 }
             }

@@ -315,13 +315,13 @@ public class VrboPropertySearchEndToEndScenario extends ExampleScenario {
                 while ((entry = zipStream.getNextEntry()) != null) {
                     if (entry.getName().endsWith(".jsonl")) {
                         LOGGER.info("Reading property ids from file: {}", entry.getName());
-                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(zipStream))) {
-                            String line;
-                            ObjectMapper objectMapper = new ObjectMapper();
-                            while ((line = reader.readLine()) != null
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(zipStream));
+                        String line;
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        while ((line = reader.readLine()) != null
                                 && propertyIds.size() < SAMPLE_ITEMS_RESTRICTION) {
-                                // Parse the property id from the json object
-                                // An example json line from the jsonl file:
+                            // Parse the property id from the json object
+                            // An example json line from the jsonl file:
                 /*
                 {
                   "propertyId": {
@@ -367,10 +367,12 @@ public class VrboPropertySearchEndToEndScenario extends ExampleScenario {
                   "propertyLiveDate": "2022-05-31"
                 }
                 */
-                                JsonNode jsonNode = objectMapper.readTree(line);
-                                propertyIds.add(jsonNode.get("propertyId").get("expedia").asText());
-                            }
+                            JsonNode jsonNode = objectMapper.readTree(line);
+                            propertyIds.add(jsonNode.get("propertyId").get("expedia").asText());
                         }
+                        zipStream.closeEntry();
+                        reader.close();
+                        break;
                     }
                 }
             }
@@ -406,13 +408,13 @@ public class VrboPropertySearchEndToEndScenario extends ExampleScenario {
                 while ((entry = zipStream.getNextEntry()) != null) {
                     if (entry.getName().endsWith(".jsonl")) {
                         LOGGER.info("Reading property locations from file: {}", entry.getName());
-                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(zipStream))) {
-                            String line;
-                            ObjectMapper objectMapper = new ObjectMapper();
-                            while ((line = reader.readLine()) != null
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(zipStream));
+                        String line;
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        while ((line = reader.readLine()) != null
                                 && PROPERTY_ID_AND_LOCATION_CACHE.size() < propertyIds.size()) {
-                                // Parse the property location from the json object
-                                // An example json line from the jsonl file:
+                            // Parse the property location from the json object
+                            // An example json line from the jsonl file:
                 /*
                 {
                   "propertyId": {
@@ -463,23 +465,25 @@ public class VrboPropertySearchEndToEndScenario extends ExampleScenario {
                   }
                 }
                 */
-                                JsonNode jsonNode = objectMapper.readTree(line);
-                                // Check if the property id is in the list
-                                if (propertyIds.contains(jsonNode.get("propertyId").get("expedia").asText())) {
-                                    // Get the location content of the property
-                                    String location = jsonNode.get("propertyName").asText() + ", "
+                            JsonNode jsonNode = objectMapper.readTree(line);
+                            // Check if the property id is in the list
+                            if (propertyIds.contains(jsonNode.get("propertyId").get("expedia").asText())) {
+                                // Get the location content of the property
+                                String location = jsonNode.get("propertyName").asText() + ", "
                                         + jsonNode.get("city").asText() + ", "
                                         + jsonNode.get("province").asText() + ", "
                                         + jsonNode.get("country").asText();
-                                    // Store the location content in the cache
-                                    PROPERTY_ID_AND_LOCATION_CACHE.put(
+                                // Store the location content in the cache
+                                PROPERTY_ID_AND_LOCATION_CACHE.put(
                                         jsonNode.get("propertyId")
-                                            .get("expedia")
-                                            .asText(),
+                                                .get("expedia")
+                                                .asText(),
                                         location);
-                                }
                             }
                         }
+                        zipStream.closeEntry();
+                        reader.close();
+                        break;
                     }
                 }
             }
