@@ -20,7 +20,7 @@ group = property("GROUP_ID") as String
 version = property("VERSION") as String
 
 dependencies {
-    api("com.expediagroup:expediagroup-sdk-rest:0.0.13-alpha")
+    api("com.expediagroup:expediagroup-sdk-rest:1.0.0")
 
     implementation(platform("com.fasterxml.jackson:jackson-bom:2.18.2"))
     implementation("com.fasterxml.jackson.core:jackson-databind")

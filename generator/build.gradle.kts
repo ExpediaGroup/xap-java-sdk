@@ -6,7 +6,7 @@ import com.expediagroup.sdk.xap.generator.mustache.processor.operation.RoomsOper
 import com.expediagroup.sdk.xap.generator.mustache.processor.operation.SegmentsOperationParamsProcessor
 
 plugins {
-    id("com.expediagroup.sdk.openapigenerator") version "0.0.15-alpha"
+    id("com.expediagroup.sdk.openapigenerator") version "1.0.0"
 }
 
 group = project.property("GROUP_ID") as String
@@ -15,7 +15,6 @@ val specsDir = "$rootDir/specs"
 val basePackageStr = "com.expediagroup.sdk.xap"
 
 egSdkGenerator {
-    namespace = "xap"
     basePackage = basePackageStr
     specFilePath = File("$specsDir/transformed-spec.yaml")
 
