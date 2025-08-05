@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   deploy-reference-docs:
-    uses: "ExpediaGroup/expediagroup-java-sdk/.github/workflows/generate-ref-docs.yaml@feature/new-sdk-core"
+    uses: "ExpediaGroup/expediagroup-java-sdk/.github/workflows/generate-ref-docs.yaml@main"
     with:
       ref: ${{ inputs.ref != '' && inputs.ref || github.ref }}
       sources_dir: 'xap-sdk'

@@ -79,13 +79,15 @@ subprojects {
 nexusPublishing {
     repositories {
         sonatype {
-            username.set(System.getenv("SONATYPE_USERNAME"))
-            password.set(System.getenv("SONATYPE_PASSWORD"))
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
+            username = System.getenv("SONATYPE_USERNAME")
+            password = System.getenv("SONATYPE_PASSWORD")
         }
     }
 
     transitionCheckOptions {
-        maxRetries.set(60)
-        delayBetween.set(Duration.ofMillis(5000))
+        maxRetries = 60
+        delayBetween = Duration.ofMillis(5000)
     }
 }
