@@ -18,14 +18,11 @@ jobs:
 #          distribution: corretto
 
   run-integration-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run Integration Tests
-        uses: ./.github/workflows/run-integration-tests.yaml
-        with:
-          branch: main
-          jdk: 11
-          distribution: corretto
+    uses: ./.github/workflows/run-integration-tests.yaml
+    with:
+      branch: main
+      jdk: 11
+      distribution: corretto
 
   publish-to-maven-central:
     runs-on: ubuntu-latest
