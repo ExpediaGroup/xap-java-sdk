@@ -8,7 +8,7 @@ dependencies {
     testImplementation("com.expediagroup:expediagroup-sdk-transport-okhttp:0.0.5-alpha")
 
     testImplementation("io.hosuaby:inject-resources-junit-jupiter:1.0.0")
-    testImplementation(platform("org.junit:junit-bom:5.11.4"))
+    testImplementation(platform("org.junit:junit-bom:5.13.4"))
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
