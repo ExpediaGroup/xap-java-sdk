@@ -19,7 +19,7 @@ jobs:
           java-version: '11'
 
       - name: Build and Test
-        run: ./gradlew clan build
+        run: ./gradlew clean build
 
   run-integration-tests:
     runs-on: ubuntu-latest
