@@ -47,5 +47,5 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-api:2.24.3")
     implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.24.3")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.19.2")
-    implementation("org.apache.commons:commons-lang3:3.17.0")
+    implementation("org.apache.commons:commons-lang3:3.18.0")
 }
