@@ -7,6 +7,6 @@ repositories {
 }
 
 dependencies {
-    api("org.openapitools:openapi-generator:7.11.0")
-    implementation("com.samskivert:jmustache:1.15")
+    api("org.openapitools:openapi-generator:7.14.0")
+    implementation("com.samskivert:jmustache:1.16")
 }
