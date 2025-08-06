@@ -24,7 +24,7 @@ jobs:
   run-integration-tests:
     uses: ./.github/workflows/run-integration-tests.yaml
     with:
-      branch: ${{ github.ref_name }}
+      branch: ${{ github.ref }}
       jdk: 11
       distribution: corretto
 
