@@ -22,15 +22,9 @@ jobs:
         run: ./gradlew clean build
 
   run-integration-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Run Integration Tests
-        uses: ExpediaGroup/xap-java-sdk/.github/workflows/run-integration-tests.yaml@main
-        with:
-          branch: main
-          jdk: 11
-          distribution: corretto
+    uses: ./.github/workflows/run-integration-tests.yaml
+    with:
+      branch: main
+      jdk: 11
+      distribution: corretto
 
