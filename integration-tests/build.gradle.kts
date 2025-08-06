@@ -5,7 +5,7 @@ dependencies {
     testImplementation(project(":xap-sdk"))
 
     // Testing
-    testImplementation("com.expediagroup:expediagroup-sdk-transport-okhttp:0.0.5-alpha")
+    testImplementation("com.expediagroup:expediagroup-sdk-transport-okhttp:1.0.0")
 
     testImplementation("io.hosuaby:inject-resources-junit-jupiter:1.0.0")
     testImplementation(platform("org.junit:junit-bom:5.11.4"))
