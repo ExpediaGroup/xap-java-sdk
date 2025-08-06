@@ -42,7 +42,7 @@ checkstyle {
 dependencies {
     api(project(":xap-sdk"))
 
-    implementation("com.expediagroup:expediagroup-sdk-transport-okhttp:0.0.4-alpha")
+    implementation("com.expediagroup:expediagroup-sdk-transport-okhttp:1.0.0")
 
     implementation("org.apache.logging.log4j:log4j-api:2.25.1")
     implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.25.1")
