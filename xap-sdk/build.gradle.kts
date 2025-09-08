@@ -22,7 +22,7 @@ version = property("VERSION") as String
 dependencies {
     api("com.expediagroup:expediagroup-sdk-rest:1.0.0")
 
-    implementation(platform("com.fasterxml.jackson:jackson-bom:2.19.2"))
+    implementation(platform("com.fasterxml.jackson:jackson-bom:2.20.0"))
     implementation("com.fasterxml.jackson.core:jackson-databind")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
