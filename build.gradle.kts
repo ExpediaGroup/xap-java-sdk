@@ -5,7 +5,7 @@ import java.time.Duration
 
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "2.2.10"
+    id("org.jetbrains.kotlin.jvm") version "2.2.20"
     id("org.jlleitschuh.gradle.ktlint") version "13.1.0"
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
